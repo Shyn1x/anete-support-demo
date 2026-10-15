@@ -1,33 +1,29 @@
-npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
 
 > anete-support-demo@0.1.0 test:worker
 > wrangler deploy --dry-run --outdir worker-build && node --test test-runtime/*.test.mjs
-
-[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
-
 
 
  ⛅️ wrangler 4.151.0
 ────────────────────
 ✨ Read 4 files from the assets directory /workspace/scratch/145c1e9f4a12/anete-support/public
-Total Upload: 53.58 KiB / gzip: 15.80 KiB
+Total Upload: 55.12 KiB / gzip: 16.48 KiB
 Your Worker has access to the following bindings:
 Binding                                       Resource                  
 env.GUARD (BudgetGuard)                       Durable Object            
 env.ASSETS                                    Assets                    
-env.AI_ENABLED ("false")                      Environment Variable      
 env.DAILY_BUDGET_MICRO_USD ("500000")         Environment Variable      
 env.TOTAL_BUDGET_MICRO_USD ("5000000")        Environment Variable      
 
 --dry-run: exiting now.
-✔ workerd resolves warranty typos in RU, LV and EN (279.275431ms)
-✔ all 108 synthetic scenarios execute inside workerd with a real SQLite Durable Object (549.542801ms)
-✔ real SQLite Durable Object serializes concurrent reservations and persists across restart (659.270605ms)
-ℹ tests 3
+✔ workerd resolves warranty typos in RU, LV and EN (312.578147ms)
+✔ all 108 synthetic scenarios execute inside workerd with a real SQLite Durable Object (663.15823ms)
+✔ real SQLite Durable Object serializes concurrent reservations and persists across restart (727.975296ms)
+✔ language changes per message without resetting conversation (188.623466ms)
+ℹ tests 4
 ℹ suites 0
-ℹ pass 3
+ℹ pass 4
 ℹ fail 0
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 1983.608162
+ℹ duration_ms 2393.790783

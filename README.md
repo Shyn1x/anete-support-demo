@@ -2,7 +2,7 @@
 
 A reusable Cloudflare Worker, own responsive RU/LV/EN chat, a reviewed policy catalog and an optional OpenAI intent router. This is not an official Anete.lv product. No shop installation or contact has been made.
 
-**Delivery state:** source is maintained in https://github.com/Shyn1x/anete-support-demo. Local checks pass: 187 Node tests and 3 workerd checks, including 108 customer scenarios. Production Cloudflare deployment and live OpenAI evaluation are pending. AI is disabled by default. A ChatGPT subscription is not an API key or API balance.
+**Delivery state:** source is maintained in https://github.com/Shyn1x/anete-support-demo. Local checks pass: 225 Node tests and 4 workerd checks, including 108 customer scenarios. The user deployed the demo to https://anete-support-demo.fshyn1x.workers.dev and reports successful mobile checks. Systematic live OpenAI evaluation is pending. AI is disabled when AI_ENABLED is absent. A ChatGPT subscription is not an API key or API balance.
 
 ## Try without accounts or costs
 
@@ -52,7 +52,7 @@ To enable AI later, only after separate approval for billable API usage and veri
 npx wrangler secret put OPENAI_API_KEY
 ```
 
-Use a dedicated restricted OpenAI project key. Change only `AI_ENABLED` to `"true"` in `wrangler.jsonc`, then redeploy. Do not paste keys here. `SESSION_SECRET`, `DEMO_PASSWORD` and `OPENAI_API_KEY` must be Worker secrets, never ordinary Git-tracked variables. Review current API pricing and limits first. With missing secrets or a missing Durable Object, AI calls fail closed. Do not run load tests against live AI before reviewing their cost.
+Use a dedicated restricted OpenAI project key. Set runtime variable `AI_ENABLED` to `"true"` in the Cloudflare dashboard and deploy the setting. The configuration uses `keep_vars=true` and leaves AI_ENABLED out of tracked vars to preserve this dashboard setting across code deployments. Do not paste keys here. `SESSION_SECRET`, `DEMO_PASSWORD` and `OPENAI_API_KEY` must be Worker secrets, never ordinary Git-tracked variables. Review current API pricing and limits first. With missing secrets or a missing Durable Object, AI calls fail closed. Do not run load tests against live AI before reviewing their cost.
 
 The default application reservation limits are $0.50/day and $5 lifetime, with $0.02 reserved for every API attempt. They conservatively cap this demo's attempted usage; they do not control other apps or provider account billing. Do not delete the guard or reset its namespace. See `docs/ARCHITECTURE.md` and `docs/COSTS.md`.
 
@@ -92,7 +92,7 @@ The GitHub Actions workflow tests this repository without OpenAI or Cloudflare s
 - Live OpenAI intent accuracy, latency, balance and billing have not been verified without a key. No financial transaction was performed.
 - UI has responsive CSS and safe DOM rendering, but a browser/device visual review is still needed. Local previews were not opened in an automated browser in this environment.
 - Handoff is a transparent contact-and-copy demonstration, not an operator inbox or ticket integration. There is no order lookup, refund, cancellation, real-time stock or automatic policy refresh.
-- Language is chosen by the visible RU/LV/EN control. Changing language starts a fresh session in the UI. No chat content is saved between reloads.
+- Each message is checked for Russian, Latvian or English vocabulary/script; recognizable language changes update replies and controls without clearing the conversation. Ambiguous short messages keep the selected language. This conservative detector does not guarantee arbitrary transliteration or heavy misspellings. Manually choosing RU/LV/EN starts a fresh session in the UI. No chat content is saved between reloads.
 - Reviewed source wording contains conflicts; these are explicitly escalated. Have a native Latvian reviewer verify the copy before a commercial pilot.
 - Tenant separation is implemented in the AI catalog/rendering. The reference fallback currently needs additional configuration for another company. This is a reusable foundation, not a finished SaaS platform.
 

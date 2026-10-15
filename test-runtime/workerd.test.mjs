@@ -26,3 +26,11 @@ test('real SQLite Durable Object serializes concurrent reservations and persists
  const second=new Miniflare({...convertV4MiniflareOptions({...options,bindings:{...options.bindings,TOTAL_BUDGET_MICRO_USD:'60000'}}),resourcePersistencePath:'.wrangler/test-budget'});
  try{const namespace=await second.getDurableObjectNamespace('GUARD');const response=await namespace.get(namespace.idFromName(first)).fetch('https://guard/check',{method:'POST',body:JSON.stringify({ip:'f'.repeat(64),kind:'chat',reserve:true})});assert.equal(response.status,429);}finally{await second.dispose();}
 });
+
+test('language changes per message without resetting conversation',async()=>{
+ const mf=new Miniflare(convertV4MiniflareOptions(options));
+ try{for(const [message,expected]of [['Какая гарантия?','ru'],['What is the warranty?','en'],['Kāda ir garantija?','lv'],['Какая гарантия?','ru']]){
+ const response=await mf.dispatchFetch('https://demo.example/api/chat',{method:'POST',headers:{Origin:'https://demo.example','Content-Type':'application/json'},body:JSON.stringify({tenant:'anete',locale:'ru',message,previousTopic:'warranty'})});
+ assert.equal(response.status,200);const body=await response.json();assert.equal(body.locale,expected);assert.deepEqual(body.cardIds,['warranty']);assert.equal(body.handoff,false);
+ }}finally{await mf.dispose();}
+});

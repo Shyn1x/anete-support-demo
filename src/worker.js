@@ -1,3 +1,4 @@
+import {detectLocale} from './locale.js';
 import {getTenant} from './kb.js';
 import {preflight,referenceRoute,render,aiRoute} from './core.js';
 export {BudgetGuard} from './guard.js';
@@ -73,6 +74,7 @@ export function createWorker(fetcher=fetch){return {
     const data=await readLimited(request);
     if(!data||typeof data!=='object'||Array.isArray(data)||typeof data.message!=='string'||!data.message.trim()||data.message.length>1000||!['ru','lv','en'].includes(data.locale)||typeof data.tenant!=='string')return reply({error:'invalid_input'},400);
     const tenant=getTenant(data.tenant);if(!tenant)return reply({error:'unknown_tenant'},404);
+    data.locale=detectLocale(data.message,data.locale);
     const previous=tenant.cards.some(c=>c.id===data.previousTopic)?data.previousTopic:null;
     const blocked=preflight(data.message);
     const ref=referenceRoute(data.message,previous);
