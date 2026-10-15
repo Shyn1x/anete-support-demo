@@ -1,8 +1,9 @@
+import {shopLinks} from './shop-links.js';
 import {validateMedia,visionRoute,mediaCopy,MEDIA_BODY_LIMIT} from './media.js';
 import {dailyReservationLimit} from './guard.js';
 import {detectLocale} from './locale.js';
 import {getTenant} from './kb.js';
-import {preflight,referenceRoute,render,aiRoute,RESERVE_MICRO_USD} from './core.js';
+import {preflight,referenceRoute,render,aiRoute,RESERVE_MICRO_USD,clarificationTopics} from './core.js';
 export {BudgetGuard} from './guard.js';
 const encoder=new TextEncoder();
 export const security={
@@ -98,7 +99,7 @@ export function createWorker(fetcher=fetch){return {
      const tenant=getTenant(data.tenant);if(!tenant)return reply({error:'unknown_tenant'},404);
      if(!['ru','lv','en'].includes(data.locale)||typeof data.message!=='string'||data.message.length>1000)return reply({error:'invalid_input'},400);
      const media=validateMedia(data.media),locale=detectLocale(data.message,data.locale),copy=mediaCopy[locale];
-     const blocked=preflight(data.message),enabled=env.AI_ENABLED==='true'&&!blocked;
+     const blocked=preflight(data.message,tenant.id),enabled=env.AI_ENABLED==='true'&&!blocked;
      const denied=await gate(request,env,'chat',enabled);
      if(denied){const reason=await denied.clone().json();if(enabled&&reason.error==='budget_exhausted'){const rateDenied=await gate(request,env,'chat',false);if(rateDenied)return rateDenied;return reply({...render(tenant.id,locale,{ids:[],kind:'product-clarify',handoff:false},'reference'),text:copy.budget,providerUsed:false,mediaAnalysed:false});}return denied;}
      if(blocked)return reply({...render(tenant.id,locale,{ids:[],kind:blocked,handoff:false},'safety'),mediaAnalysed:false});
@@ -115,12 +116,13 @@ export function createWorker(fetcher=fetch){return {
     if(!data||typeof data!=='object'||Array.isArray(data)||typeof data.message!=='string'||!data.message.trim()||data.message.length>1000||!['ru','lv','en'].includes(data.locale)||typeof data.tenant!=='string')return reply({error:'invalid_input'},400);
     if(locked&&data.tenant!==locked)return reply({error:'unknown_tenant'},404);
     const tenant=getTenant(data.tenant);if(!tenant)return reply({error:'unknown_tenant'},404);
-    data.locale=detectLocale(data.message,data.locale);
-    const previous=tenant.cards.some(c=>c.id===data.previousTopic)?data.previousTopic:null;
-    const blocked=preflight(data.message);
+    const linked=shopLinks(data.message,tenant);
+    data.locale=detectLocale(linked.clean,data.locale);
+    const previous=tenant.cards.some(c=>c.id===data.previousTopic)||clarificationTopics.includes(data.previousTopic)?data.previousTopic:null;
+    const blocked=preflight(data.message,tenant.id);
     const ref=referenceRoute(data.message,previous,tenant.id);
-    const useAI=env.AI_ENABLED==='true'&&!blocked&&!ref.social&&!ref.ids.includes('contact')&&!ref.ids.some(id=>tenant.cards.find(c=>c.id===id)?.source==='niche-product')&&!['product-live','product-clarify','product-sizing','product-help','product-safety','product-unverified'].includes(ref.kind)&&ref.kind!=='greeting';
-    const route=useAI?await aiRoute(tenant,data.message,previous):null;
+    const useAI=env.AI_ENABLED==='true'&&!blocked&&!ref.social&&!ref.ids.includes('contact')&&!ref.ids.some(id=>tenant.cards.find(c=>c.id===id)?.source==='niche-product')&&!['product-live','product-clarify','product-sizing','product-help','product-safety','product-unverified','product-linked','product-linked-size','product-linked-size-chart','shop-link','link-unsupported'].includes(ref.kind)&&ref.kind!=='greeting';
+    const route=useAI?await aiRoute(tenant,linked.query,previous):null;
     const denied=await gate(request,env,'chat',useAI);
     if(denied){
      const details=await denied.clone().json();
