@@ -1,6 +1,6 @@
 # Production live evaluation
 
-Status: prepared, not executed by the agent. The user must authenticate in their browser at `/qa.html`. No password or API key should be shared in chat. The harness uses the existing signed HttpOnly same-origin session and existing `/api/chat` endpoint. No bypass endpoint, stored credential or raised guard limit is introduced.
+Status: prepared, not executed by the agent. The user must authenticate in their browser at `/qa`. No password or API key should be shared in chat. The harness uses the existing signed HttpOnly same-origin session and existing `/api/chat` endpoint. No bypass endpoint, stored credential or raised guard limit is introduced.
 
 ## Scope
 
@@ -10,7 +10,7 @@ Cases are independent (no prior topic is supplied). This is not a full multi-tur
 
 ## Run
 
-1. Open the production `/qa.html` page in the same browser as the demo. Sign in with the demo password if requested.
+1. Open the production `/qa` page in the same browser as the demo. Sign in with the demo password if requested.
 2. Press Start/Resume and keep the tab in the foreground.
 3. Requests run sequentially with seven seconds between completed cases (below the ten/minute chat allowance, except possible competing traffic).
 4. At a daily budget stop, keep local storage and resume after the next UTC day. Existing use counts toward the $0.50 reserve ceiling; at most 25 attempted provider calls/day. Do not raise/reset limits to finish sooner.

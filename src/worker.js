@@ -90,7 +90,7 @@ export function createWorker(fetcher=fetch){return {
     return reply({...render(data.tenant,data.locale,result,result.social?'social':'ai'),providerUsed:true});
    }
    if(!['GET','HEAD'].includes(request.method))return reply({error:'method_not_allowed'},405);
-   if(!['/','/index.html','/app.js','/contact.js','/qa.html','/qa.js','/qa-cases.js','/qa-core.js','/qa.css','/style.css','/favicon.svg'].includes(url.pathname))return reply({error:'not_found'},404);
+   if(!['/','/index.html','/app.js','/contact.js','/qa','/qa/','/qa.html','/qa.js','/qa-cases.js','/qa-core.js','/qa.css','/style.css','/favicon.svg'].includes(url.pathname))return reply({error:'not_found'},404);
    const res=await env.ASSETS.fetch(request),headers=new Headers(res.headers);
    for(const [k,v] of Object.entries(security))headers.set(k,v);
    return new Response(res.body,{status:res.status,headers});
