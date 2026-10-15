@@ -24,3 +24,7 @@ Each case is checkpointed BEFORE the request, without credentials. Successful an
 The report records `providerUsed`, output mode, text, card IDs, source URLs, handoff, locale, timing and preliminary assessment. It does not expose a key, password, cookie, exact provider token usage or invoice. Ordinary canned/social/safety/contact cases may use no provider; “50 end-to-end cases” does not mean “50 AI calls”. Provider-generated dialogue templates still count as provider use. Lifetime and daily reservations are intentionally conservative and do not equal actual billing.
 
 Preliminary automated checks are NOT a semantic quality score. Human review must check whether the selected policy actually addresses the question, whether added cards are irrelevant, whether tone is appropriate and whether the referral is needed. All attempted failures and unresolved records remain in the export.
+
+## Explicit dated approval
+
+On 15 October 2026 the user approved proceeding with the remaining 45 cases immediately. An expiring $0.90 reserve supplement was configured for that UTC day only; all earlier counters, rate limits and the $5 lifetime ceiling remain intact. The default rule above applies again after expiry. This is not a silent cap increase or a storage reset.

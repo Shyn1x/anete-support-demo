@@ -2,7 +2,7 @@
 
 ## Passed checks
 
-- **370/370 Node.js automated tests**, including **108 distinct synthetic customer scenarios** (36 Russian, 36 Latvian, 36 English). An additional 48 typo and safety checks cover missing letters, swapped letters, unrelated words, ambiguous corrections and sourced API responses. Full individual results: `test-results.txt`; prompts/expectations: `docs/scenarios.json`.
+- **375/375 Node.js automated tests**, including **108 distinct synthetic customer scenarios** (36 Russian, 36 Latvian, 36 English). An additional 48 typo and safety checks cover missing letters, swapped letters, unrelated words, ambiguous corrections and sourced API responses. Full individual results: `test-results.txt`; prompts/expectations: `docs/scenarios.json`.
 - **4/4 workerd runtime tests**: the 108 scenarios execute against the actual compiled Worker with a real SQLite-backed Durable Object; concurrent reservations cannot exceed the configured cap; a new runtime instance reads the previously exhausted budget. Language switching RU → EN → LV → RU is checked through the actual Worker. Full results: `runtime-results.txt`.
 - Wrangler **deployment dry-run passed**: Worker bundle and static assets validated. This is not a production deployment and consumes no OpenAI API calls.
 - `npm run build`: 22 trilingual answer cards, 8 source references validated; static assets prepared.
@@ -51,3 +51,7 @@ Contact previews now use a native dialog outside the clipped chat container. RU/
 11 additional tests verify 50 unique synthetic cases across RU/LV/EN, preliminary topic/language/handoff/source grading, checkpoint-before-request, resume without duplicate attempts, authentication/budget/rate stops, ambiguous network failures and abort preservation, provider failures without retries, and accurate counting of provider-routed social responses. 369 Node tests and 4 workerd tests pass. These harness tests use injected responses, not live model calls. Live evaluation has NOT been executed by this agent; user authentication in `/qa.html` is required.
 
 A clean-URL asset regression was added for `/qa`, because Cloudflare redirects `.html` pages to extension-free URLs. 370 Node tests and 4 workerd checks pass.
+
+## Explicitly authorised one-day evaluation allowance
+
+5 additional tests verify exactly 45 additional $0.02 reservations on 15 October 2026, preservation of prior daily/lifetime accounting, unchanged lifetime cap, rejection of future-date/oversized grants and automatic return to the normal next-day allowance. 375 Node tests and 4 workerd checks pass. No provider calls were executed by these tests.

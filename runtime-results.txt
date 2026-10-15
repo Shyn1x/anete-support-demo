@@ -6,19 +6,20 @@
  ⛅️ wrangler 4.151.0
 ────────────────────
 ✨ Read 10 files from the assets directory /workspace/scratch/145c1e9f4a12/anete-support/public
-Total Upload: 65.45 KiB / gzip: 18.98 KiB
+Total Upload: 65.82 KiB / gzip: 19.34 KiB
 Your Worker has access to the following bindings:
-Binding                                       Resource                  
-env.GUARD (BudgetGuard)                       Durable Object            
-env.ASSETS                                    Assets                    
-env.DAILY_BUDGET_MICRO_USD ("500000")         Environment Variable      
-env.TOTAL_BUDGET_MICRO_USD ("5000000")        Environment Variable      
+Binding                                        Resource                  
+env.GUARD (BudgetGuard)                        Durable Object            
+env.ASSETS                                     Assets                    
+env.DAILY_BUDGET_MICRO_USD ("500000")          Environment Variable      
+env.LIVE_EVAL_EXTRA_DAY ("2026-10-15")         Environment Variable      
+env.TOTAL_BUDGET_MICRO_USD ("5000000")         Environment Variable      
 
 --dry-run: exiting now.
-✔ workerd resolves warranty typos in RU, LV and EN (313.825212ms)
-✔ all 108 synthetic scenarios execute inside workerd with a real SQLite Durable Object (870.89824ms)
-✔ real SQLite Durable Object serializes concurrent reservations and persists across restart (833.884865ms)
-✔ language changes per message without resetting conversation (194.035114ms)
+✔ workerd resolves warranty typos in RU, LV and EN (298.497139ms)
+✔ all 108 synthetic scenarios execute inside workerd with a real SQLite Durable Object (651.528614ms)
+✔ real SQLite Durable Object serializes concurrent reservations and persists across restart (810.722508ms)
+✔ language changes per message without resetting conversation (184.172869ms)
 ℹ tests 4
 ℹ suites 0
 ℹ pass 4
@@ -26,4 +27,4 @@ env.TOTAL_BUDGET_MICRO_USD ("5000000")        Environment Variable
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 3034.945756
+ℹ duration_ms 2473.310598

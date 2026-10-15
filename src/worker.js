@@ -1,3 +1,4 @@
+import {dailyReservationLimit} from './guard.js';
 import {detectLocale} from './locale.js';
 import {getTenant} from './kb.js';
 import {preflight,referenceRoute,render,aiRoute} from './core.js';
@@ -52,7 +53,7 @@ export function createWorker(fetcher=fetch){return {
   try{
    if(url.pathname==='/api/config'&&request.method==='GET'){
     const error=configError(env);
-    return reply({tenant:'anete',contact:getTenant('anete').contact,checked:getTenant('anete').checked,mode:env.AI_ENABLED==='true'?'ai':'reference',authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
+    return reply({dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:'anete',contact:getTenant('anete').contact,checked:getTenant('anete').checked,mode:env.AI_ENABLED==='true'?'ai':'reference',authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
    }
    if(isApi){
     if(request.method!=='POST')return reply({error:'method_not_allowed'},405,{'Allow':'POST'});

@@ -1,6 +1,13 @@
 import {RESERVE_MICRO_USD} from './core.js';
 const json=(x,status=200)=>Response.json(x,{status});
 const cap=(value,fallback,max)=>{const n=Number(value);return Number.isSafeInteger(n)&&n>0?Math.min(n,max):fallback;};
+// User-authorized on 15 Oct 2026: 45 additional $0.02 reservations for today's evaluation.
+// Fixed date and fixed amount: the exception cannot roll forward or reset counters.
+export function dailyReservationLimit(env,day){
+ const base=cap(env.DAILY_BUDGET_MICRO_USD,500000,500000);
+ const extra=day==='2026-10-15'&&env.LIVE_EVAL_EXTRA_DAY==='2026-10-15'?900000:0;
+ return base+extra;
+}
 export class BudgetGuard {
  constructor(ctx,env){this.ctx=ctx;this.env=env;}
  now(){return Date.now();}
@@ -9,7 +16,7 @@ export class BudgetGuard {
   const {ip,kind,reserve}=await request.json();
   if(!/^[a-f0-9]{64}$/.test(ip)||!['auth','chat'].includes(kind)||typeof reserve!=='boolean')return json({error:'invalid'},400);
   const now=this.now(),day=new Date(now).toISOString().slice(0,10),minute=Math.floor(now/60000);
-  const daily=cap(this.env.DAILY_BUDGET_MICRO_USD,500000,500000),total=cap(this.env.TOTAL_BUDGET_MICRO_USD,5000000,5000000);
+  const daily=dailyReservationLimit(this.env,day),total=cap(this.env.TOTAL_BUDGET_MICRO_USD,5000000,5000000);
   return this.ctx.storage.transaction(async tx=>{
    const state=await tx.get('state')||{total:0,day,daily:0,ips:{}};
    if(state.day!==day){state.day=day;state.daily=0;state.ips={};}
