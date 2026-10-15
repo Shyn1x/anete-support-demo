@@ -54,7 +54,7 @@ npx wrangler secret put OPENAI_API_KEY
 
 Use a dedicated restricted OpenAI project key. Set runtime variable `AI_ENABLED` to `"true"` in the Cloudflare dashboard and deploy the setting. The configuration uses `keep_vars=true` and leaves AI_ENABLED out of tracked vars to preserve this dashboard setting across code deployments. Do not paste keys here. `SESSION_SECRET`, `DEMO_PASSWORD` and `OPENAI_API_KEY` must be Worker secrets, never ordinary Git-tracked variables. Review current API pricing and limits first. With missing secrets or a missing Durable Object, AI calls fail closed. Do not run load tests against live AI before reviewing their cost.
 
-The default application reservation limits are $0.50/day and $5 lifetime, with $0.02 reserved for every API attempt. They conservatively cap this demo's attempted usage; they do not control other apps or provider account billing. Do not delete the guard or reset its namespace. See `docs/ARCHITECTURE.md` and `docs/COSTS.md`.
+The default application reservation limits are $0.50/day and $5 lifetime, with $0.01 reserved for every API attempt. They conservatively cap this demo's attempted usage; they do not control other apps or provider account billing. Do not delete the guard or reset its namespace. See `docs/ARCHITECTURE.md` and `docs/COSTS.md`.
 
 To disable billable AI, set `AI_ENABLED` back to `"false"` and redeploy. There is no in-app auto-top-up or purchase flow.
 

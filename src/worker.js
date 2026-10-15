@@ -1,7 +1,7 @@
 import {dailyReservationLimit} from './guard.js';
 import {detectLocale} from './locale.js';
 import {getTenant} from './kb.js';
-import {preflight,referenceRoute,render,aiRoute} from './core.js';
+import {preflight,referenceRoute,render,aiRoute,RESERVE_MICRO_USD} from './core.js';
 export {BudgetGuard} from './guard.js';
 const encoder=new TextEncoder();
 export const security={
@@ -54,7 +54,7 @@ export function createWorker(fetcher=fetch){return {
    if(url.pathname==='/api/config'&&request.method==='GET'){
     const tenant=getTenant(url.searchParams.get('tenant')||'anete');if(!tenant)return reply({error:'unknown_tenant'},404);
     const error=configError(env);
-    return reply({dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:tenant.id,name:tenant.name,sources:Object.values(tenant.sources),contact:tenant.contact,checked:tenant.checked,mode:env.AI_ENABLED==='true'?'ai':'reference',authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
+    return reply({perCallMicroUSD:RESERVE_MICRO_USD,dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:tenant.id,name:tenant.name,sources:Object.values(tenant.sources),contact:tenant.contact,checked:tenant.checked,mode:env.AI_ENABLED==='true'?'ai':'reference',authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
    }
    if(url.pathname==='/api/usage'&&request.method==='GET'){
     const error=configError(env);if(error||!env.DEMO_PASSWORD)return reply({error:'server_not_configured'},503);
@@ -90,10 +90,10 @@ export function createWorker(fetcher=fetch){return {
     const blocked=preflight(data.message);
     const ref=referenceRoute(data.message,previous,tenant.id);
     const useAI=env.AI_ENABLED==='true'&&!blocked&&!ref.social&&!ref.ids.includes('contact')&&ref.kind!=='greeting';
+    const route=useAI?await aiRoute(tenant,data.message,previous):null;
     const denied=await gate(request,env,'chat',useAI);if(denied)return denied;
     if(blocked)return reply(render(data.tenant,data.locale,{ids:[],kind:blocked,handoff:false},'safety'));
     if(!useAI)return reply(render(data.tenant,data.locale,ref,ref.social?'social':'reference'));
-    const route=await aiRoute(tenant,data.message,previous);
     // No provider retries: ambiguous failures retain budget reservation.
     const response=await fetcher('https://api.openai.com/v1/responses',{method:'POST',headers:{'Authorization':`Bearer ${env.OPENAI_API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify(route.body),signal:AbortSignal.timeout(15000)});
     if(!response.ok)return reply({error:'ai_unavailable'},502);

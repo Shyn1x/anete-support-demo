@@ -21,7 +21,7 @@ test('real SQLite Durable Object serializes concurrent reservations and persists
  try{
   const namespace=await mf.getDurableObjectNamespace('GUARD'),stub=namespace.get(namespace.idFromName(unique));
   const responses=await Promise.all(Array.from({length:20},(_,i)=>stub.fetch('https://guard/check',{method:'POST',body:JSON.stringify({ip:i.toString(16).padStart(64,'0'),kind:'chat',reserve:true})})));
-  assert.equal(responses.filter(r=>r.status===200).length,3);first=unique;
+  assert.equal(responses.filter(r=>r.status===200).length,6);first=unique;
  }finally{await mf.dispose();}
  const second=new Miniflare({...convertV4MiniflareOptions({...options,bindings:{...options.bindings,TOTAL_BUDGET_MICRO_USD:'60000'}}),resourcePersistencePath:'.wrangler/test-budget'});
  try{const namespace=await second.getDurableObjectNamespace('GUARD');const response=await namespace.get(namespace.idFromName(first)).fetch('https://guard/check',{method:'POST',body:JSON.stringify({ip:'f'.repeat(64),kind:'chat',reserve:true})});assert.equal(response.status,429);}finally{await second.dispose();}
@@ -53,6 +53,6 @@ test('usage endpoint reads persisted SQLite counters only after login and consum
  try{
   assert.equal((await mf.dispatchFetch('https://demo.example/api/usage')).status,401);
   const login=await mf.dispatchFetch('https://demo.example/api/login',{method:'POST',headers:{Origin:'https://demo.example','Content-Type':'application/json'},body:JSON.stringify({password:'synthetic-usage-password'})});assert.equal(login.status,200);
-  const cookie=login.headers.get('Set-Cookie').split(';')[0];for(let i=0;i<2;i++){const response=await mf.dispatchFetch('https://demo.example/api/usage',{headers:{cookie}});assert.equal(response.status,200);const data=await response.json();assert.equal(data.total.reservedMicroUSD,0);assert.equal(data.budgetCallsRemaining,25);assert.equal(data.callsAvailableNow,10);}
+  const cookie=login.headers.get('Set-Cookie').split(';')[0];for(let i=0;i<2;i++){const response=await mf.dispatchFetch('https://demo.example/api/usage',{headers:{cookie}});assert.equal(response.status,200);const data=await response.json();assert.equal(data.total.reservedMicroUSD,0);assert.equal(data.budgetCallsRemaining,50);assert.equal(data.callsAvailableNow,10);}
  }finally{await mf.dispose();}
 });

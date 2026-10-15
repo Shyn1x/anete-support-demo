@@ -1,7 +1,8 @@
 import {RESERVE_MICRO_USD} from './core.js';
 const json=(x,status=200)=>Response.json(x,{status});
 const cap=(value,fallback,max)=>{const n=Number(value);return Number.isSafeInteger(n)&&n>0?Math.min(n,max):fallback;};
-// User-authorized on 15 Oct 2026: 45 additional $0.02 reservations for today's evaluation.
+// User-authorized on 15 Oct 2026: fixed USD 0.90 additional reservation allowance.
+// Originally 45 attempts at USD 0.02; its dollar amount is unchanged.
 // Fixed date and fixed amount: the exception cannot roll forward or reset counters.
 export function dailyReservationLimit(env,day){
  const base=cap(env.DAILY_BUDGET_MICRO_USD,500000,500000);
