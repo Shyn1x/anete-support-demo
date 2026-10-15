@@ -1,0 +1,64 @@
+{
+  "checkedAt": "2026-10-15T20:51:56.609Z",
+  "scope": "five live public pages, not authenticated deployed demo sessions",
+  "paidOpenAICalls": 0,
+  "results": [
+    {
+      "tenant": "apavi40plus",
+      "url": "https://apavi40plus.com/ru/products/klasiskas-viriesu-kurpes-lloyd-dargun-10-054-59",
+      "ok": true,
+      "title": "Классические мужские туфли Lloyd Dargun 10-054-59",
+      "descriptionLines": 14,
+      "variantLabels": [
+        "48.5"
+      ],
+      "sizeChartRows": 0,
+      "checkedAt": "2026-10-15T20:51:55.331Z",
+      "noInventedConversion": true
+    },
+    {
+      "tenant": "celotajs",
+      "url": "https://veikalscelotajs.lv/products/mammut-sleepingbag-relax-down-bag",
+      "ok": true,
+      "title": "Dūnu guļammaiss Mammut Relax Down Bag 0C",
+      "descriptionLines": 5,
+      "variantLabels": [],
+      "sizeChartRows": 0,
+      "checkedAt": "2026-10-15T20:51:56.225Z",
+      "noInventedConversion": null
+    },
+    {
+      "tenant": "rotallieta",
+      "url": "https://rotallieta.lv/prece/aktivitates-delis-busy-board-rotalu-virtuve-huanger/",
+      "ok": true,
+      "title": "Aktivitātes dēlis Busy Board rotaļu virtuve Huanger Kitchen training board",
+      "descriptionLines": 5,
+      "variantLabels": [],
+      "sizeChartRows": 0,
+      "checkedAt": "2026-10-15T20:51:55.872Z",
+      "noInventedConversion": null
+    },
+    {
+      "tenant": "bariba",
+      "url": "https://www.bariba.lv/sausa-bariba-pieaugusiem-suniem-cooking-grain-free-lamb-recipe-daily-menu-ar-jeru-12-kg.html",
+      "ok": true,
+      "title": "CooKing Grain Free Lamb Recipe Daily Menu dog adult - sausā barība pieaugušiem suņiem ar jēru 12 kg",
+      "descriptionLines": 60,
+      "variantLabels": [],
+      "sizeChartRows": 0,
+      "checkedAt": "2026-10-15T20:51:56.609Z",
+      "noInventedConversion": null
+    },
+    {
+      "tenant": "hobbyset",
+      "url": "https://hobbyset.lv/products/lv/2842/181784/sort/0/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-%E2%80%9CPOP-ART%E2%80%9D-12-%C3%97-10-ml.html",
+      "ok": true,
+      "title": "Akvareļkrāsu komplekts “POP ART”, 12 × 10 ml",
+      "descriptionLines": 4,
+      "variantLabels": [],
+      "sizeChartRows": 0,
+      "checkedAt": "2026-10-15T20:51:56.513Z",
+      "noInventedConversion": null
+    }
+  ]
+}

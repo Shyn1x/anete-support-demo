@@ -83,3 +83,10 @@ test('exhausted AI reserve still answers verified policies inside workerd withou
   const status=await(await stub.fetch('https://guard/status',{headers:{'X-Demo-Client':'a'.repeat(64)}})).json();assert.equal(status.total.reservedMicroUSD,10000);
  }finally{await mf.dispose();}
 });
+
+test('product page read works in workerd, uses cache and does not reserve OpenAI budget',async()=>{
+ const productURL='https://apavi40plus.com/ru/products/runtime-shoe';let outbound=0;
+ const page='<script type="application/ld+json">'+JSON.stringify({'@type':'ProductGroup',url:productURL,name:'Runtime Shoe',description:'Material: leather',hasVariant:[{name:'Runtime Shoe - 48.5',offers:{availability:'https://schema.org/InStock',price:'50',priceCurrency:'EUR'}}]})+'</script>';
+ const mf=new Miniflare(convertV4MiniflareOptions({...options,bindings:{...options.bindings,CATALOG_ENABLED:'true'},outboundService:req=>{outbound++;assert.equal(req.url,productURL);return new Response(page,{headers:{'Content-Type':'text/html'}});}}));
+ try{for(let i=0;i<2;i++){const response=await mf.dispatchFetch('https://demo.example/api/chat',{method:'POST',headers:{Origin:'https://demo.example','Content-Type':'application/json'},body:JSON.stringify({tenant:'apavi40plus',locale:'ru',message:'Размер 48.5, что по сетке? '+productURL})});assert.equal(response.status,200);const data=await response.json();assert.equal(data.productRead,true);assert.equal(data.mode,'catalog');assert.equal(data.providerUsed,false);assert.equal(data.sources[0].url,productURL);assert.equal(data.cached,i===1);assert.match(data.text,/нет соответствия/);}assert.equal(outbound,1);const namespace=await mf.getDurableObjectNamespace('GUARD');const data=await(await namespace.get(namespace.idFromName('experiment-v1')).fetch('https://guard/status',{headers:{'X-Demo-Client':'a'.repeat(64)}})).json();assert.equal(data.total.reservedMicroUSD,0);}finally{await mf.dispose();}
+});

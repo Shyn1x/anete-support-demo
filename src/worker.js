@@ -1,3 +1,4 @@
+import {productURL,fetchProduct,catalogAnswer,catalogError,canContinueProduct,isSizingQuestion} from './catalog.js';
 import {shopLinks} from './shop-links.js';
 import {validateMedia,visionRoute,mediaCopy,MEDIA_BODY_LIMIT} from './media.js';
 import {dailyReservationLimit} from './guard.js';
@@ -65,7 +66,7 @@ export function createWorker(fetcher=fetch){return {
     const tenant=getTenant(url.searchParams.get('tenant')||locked||'anete');if(!tenant)return reply({error:'unknown_tenant'},404);
     const error=configError(env);
     if(!locked&&env.DEMO_PASSWORD&&tenant.id!=='anete'&&!await authenticated(request,env))return reply({tenant:tenant.id,name:'Private demo',sources:[],contact:null,mode:'reference',locked:true,authenticated:false,ready:!error,error});
-    return reply({perCallMicroUSD:RESERVE_MICRO_USD,dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:tenant.id,name:tenant.name,sources:Object.values(tenant.sources),contact:tenant.contact,checked:tenant.checked,mode:env.AI_ENABLED==='true'?'ai':'reference',authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
+    return reply({perCallMicroUSD:RESERVE_MICRO_USD,dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:tenant.id,name:tenant.name,sources:Object.values(tenant.sources),contact:tenant.contact,checked:tenant.checked,mode:env.AI_ENABLED==='true'?'ai':'reference',catalogEnabled:env.CATALOG_ENABLED==='true',authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
    }
    if(url.pathname==='/api/usage'&&request.method==='GET'){
     const error=configError(env);if(error||!env.DEMO_PASSWORD)return reply({error:'server_not_configured'},503);
@@ -121,6 +122,14 @@ export function createWorker(fetcher=fetch){return {
     const previous=tenant.cards.some(c=>c.id===data.previousTopic)||clarificationTopics.includes(data.previousTopic)?data.previousTopic:null;
     const blocked=preflight(data.message,tenant.id);
     const ref=referenceRoute(data.message,previous,tenant.id);
+    const contextURL=typeof data.productURL==='string'&&canContinueProduct(linked.clean)?productURL(data.productURL,tenant):null;
+    const productLink=linked.links.length===1?productURL(linked.links[0].url,tenant):!linked.links.length?contextURL:null;
+    const productQuery=!!linked.links.length||!!contextURL&&canContinueProduct(linked.clean)||/размер|сетк|стельк|состав|материал|вес|батар|налич|цен|сколько|size|chart|insole|ingredient|material|weight|batter|availab|stock|price|izmēr|sastāv|materiāl|svars|bater|pieejam/iu.test(linked.clean);
+    if(env.CATALOG_ENABLED==='true'&&!blocked&&productLink&&productQuery&&!ref.handoff&&!ref.social&&!/достав|оплат|возврат|гарант|delivery|shipping|payment|return|warranty|piegād|apmaks|atgrie|garant/iu.test(linked.clean)){
+     const denied=await gate(request,env,'chat',false);if(denied)return denied;
+     const base=render(tenant.id,data.locale,{ids:[],kind:'product-clarify',handoff:false},'reference');
+     try{const product=await fetchProduct(productLink,tenant,fetcher,typeof caches!=='undefined'?caches.default:null);return reply({...base,text:catalogAnswer(product,linked.clean,data.locale,previous),sources:[{title:product.title,url:product.url,kind:'product'}],checked:product.checkedAt,topic:isSizingQuestion(linked.clean,previous)?'product-sizing':null,productURL:product.url,productRead:true,cached:product.cached,providerUsed:false,mode:'catalog'});}catch{return reply({...base,text:catalogError(data.locale),productURL:productLink,productRead:false,providerUsed:false,mode:'catalog'});}
+    }
     const useAI=env.AI_ENABLED==='true'&&!blocked&&!ref.social&&!ref.ids.includes('contact')&&!ref.ids.some(id=>tenant.cards.find(c=>c.id===id)?.source==='niche-product')&&!['product-live','product-clarify','product-sizing','product-help','product-safety','product-unverified','product-linked','product-linked-size','product-linked-size-chart','shop-link','link-unsupported'].includes(ref.kind)&&ref.kind!=='greeting';
     const route=useAI?await aiRoute(tenant,linked.query,previous):null;
     const denied=await gate(request,env,'chat',useAI);

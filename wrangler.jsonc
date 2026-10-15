@@ -6,6 +6,6 @@
   "durable_objects": {"bindings": [{"name": "GUARD", "class_name": "BudgetGuard"}]},
   "migrations": [{"tag": "v1", "new_sqlite_classes": ["BudgetGuard"]}],
   "keep_vars": true,
-  "vars": {"DAILY_BUDGET_MICRO_USD": "500000", "LIVE_EVAL_EXTRA_DAY": "2026-10-15", "TOTAL_BUDGET_MICRO_USD": "5000000"},
+  "vars": {"CATALOG_ENABLED": "true", "DAILY_BUDGET_MICRO_USD": "500000", "LIVE_EVAL_EXTRA_DAY": "2026-10-15", "TOTAL_BUDGET_MICRO_USD": "5000000"},
   "observability": {"enabled": false}
 }
