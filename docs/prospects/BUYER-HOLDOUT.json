@@ -1,0 +1,1109 @@
+{
+  "checked": "2026-10-15",
+  "scope": "deterministic routing and response review; no live OpenAI calls",
+  "total": 60,
+  "passed": 60,
+  "failed": 0,
+  "cases": [
+    {
+      "id": "holdout-rotallieta-1",
+      "tenant": "rotallieta",
+      "locale": "ru",
+      "message": "Не нужен оператор, как оплатить?",
+      "expected": [
+        "payment"
+      ],
+      "match": "all",
+      "actual": [
+        "payment"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Указаны банковский перевод и оплата картой или наличными при получении на складе/в магазине."
+    },
+    {
+      "id": "holdout-rotallieta-2",
+      "tenant": "rotallieta",
+      "locale": "en",
+      "message": "The packaging arrived damaged",
+      "expected": [
+        "defect"
+      ],
+      "match": "all",
+      "actual": [
+        "defect"
+      ],
+      "actualLocale": "en",
+      "actualHandoff": true,
+      "pass": true,
+      "notes": [],
+      "text": "Contact the shop about a defect or damage. The demo cannot decide warranty coverage.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself."
+    },
+    {
+      "id": "holdout-rotallieta-3",
+      "tenant": "rotallieta",
+      "locale": "lv",
+      "message": "Piegāde un apmaksas veidi?",
+      "expected": [
+        "delivery",
+        "payment"
+      ],
+      "match": "all",
+      "actual": [
+        "delivery",
+        "payment"
+      ],
+      "actualLocale": "lv",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Latvijā norādīta bezmaksas piegāde DPD, Latvijas Pasts un Venipak punktos; DPD kurjers — 3,99 €.\n\nNorādīts bankas pārskaitījums un karte vai skaidra nauda, saņemot noliktavā/veikalā."
+    },
+    {
+      "id": "holdout-rotallieta-4",
+      "tenant": "rotallieta",
+      "locale": "ru",
+      "message": "Спасибо! Товар не работает",
+      "expected": [
+        "defect"
+      ],
+      "match": "all",
+      "actual": [
+        "defect"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": true,
+      "pass": true,
+      "notes": [],
+      "text": "Неисправность или повреждение нужно обсудить с магазином. Демо не решает, покрывается ли случай гарантией.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин."
+    },
+    {
+      "id": "holdout-rotallieta-5",
+      "tenant": "rotallieta",
+      "locale": "ru",
+      "message": "И какая цена сейчас?",
+      "expected": [
+        "product-live"
+      ],
+      "match": "all",
+      "actual": [
+        "product-live"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "У демо нет доступа к текущим остаткам, ценам и партиям товара. Проверьте карточку на сайте магазина или уточните у магазина."
+    },
+    {
+      "id": "holdout-rotallieta-6",
+      "tenant": "rotallieta",
+      "locale": "en",
+      "message": "Do you have stock?",
+      "expected": [
+        "product-live"
+      ],
+      "match": "all",
+      "actual": [
+        "product-live"
+      ],
+      "actualLocale": "en",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "The demo cannot access current stock, prices or batches. Check the product page or ask the shop."
+    },
+    {
+      "id": "holdout-rotallieta-7",
+      "tenant": "rotallieta",
+      "locale": "ru",
+      "message": "Сначала у меня был вопрос о доставке. Но теперь хочу отменить заказ",
+      "expected": [
+        "status"
+      ],
+      "match": "all",
+      "actual": [
+        "status"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": true,
+      "pass": true,
+      "notes": [],
+      "text": "Демо не подключено к заказам. Статус, отмену, изменение заказа или компенсацию нужно обсудить с магазином.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин."
+    },
+    {
+      "id": "holdout-rotallieta-8",
+      "tenant": "rotallieta",
+      "locale": "ru",
+      "message": "Ничего не понял",
+      "expected": [
+        "notHelpful"
+      ],
+      "match": "all",
+      "actual": [
+        "notHelpful"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Давайте уточним: какой момент остался непонятным? Можно описать ситуацию другими словами, без персональных данных."
+    },
+    {
+      "id": "holdout-rotallieta-9",
+      "tenant": "rotallieta",
+      "locale": "en",
+      "message": "Отвечай на английском",
+      "expected": [
+        "language"
+      ],
+      "match": "all",
+      "actual": [
+        "language"
+      ],
+      "actualLocale": "en",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Of course. How can I help?"
+    },
+    {
+      "id": "holdout-rotallieta-10",
+      "tenant": "rotallieta",
+      "locale": "lv",
+      "message": "Please reply in Latvian",
+      "expected": [
+        "language"
+      ],
+      "match": "all",
+      "actual": [
+        "language"
+      ],
+      "actualLocale": "lv",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Protams. Kā varu palīdzēt?"
+    },
+    {
+      "id": "holdout-rotallieta-11",
+      "tenant": "rotallieta",
+      "locale": "ru",
+      "message": "HE0545: какие батарейки и доставка?",
+      "expected": [
+        "toy-batteries",
+        "delivery"
+      ],
+      "match": "all",
+      "actual": [
+        "toy-batteries",
+        "delivery"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "В Латвии указана бесплатная доставка в пункты DPD, Latvijas Pasts и Venipak; курьер DPD — 3,99 €.\n\nBusy Board Huanger HE0545 нужны 3 батарейки AA. Они не входят в комплект."
+    },
+    {
+      "id": "holdout-rotallieta-12",
+      "tenant": "rotallieta",
+      "locale": "ru",
+      "message": "В наборе есть мелкие детальки?",
+      "expected": [
+        "product-help"
+      ],
+      "match": "all",
+      "actual": [
+        "product-help"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Какую игрушку рассматриваете? Напишите название или артикул и возраст ребёнка. Проверю только сведения, которые есть в базе; полный каталог пока не подключён."
+    },
+    {
+      "id": "holdout-bariba-1",
+      "tenant": "bariba",
+      "locale": "ru",
+      "message": "Не нужен оператор, как оплатить?",
+      "expected": [
+        "payment"
+      ],
+      "match": "all",
+      "actual": [
+        "payment"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Для онлайн-оплаты указаны Visa и Mastercard. Сборка заказа начинается после подтверждения оплаты."
+    },
+    {
+      "id": "holdout-bariba-2",
+      "tenant": "bariba",
+      "locale": "en",
+      "message": "The packaging arrived damaged",
+      "expected": [
+        "defect"
+      ],
+      "match": "all",
+      "actual": [
+        "defect"
+      ],
+      "actualLocale": "en",
+      "actualHandoff": true,
+      "pass": true,
+      "notes": [],
+      "text": "Contact the shop about a defect or damage. The demo cannot decide warranty coverage.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself."
+    },
+    {
+      "id": "holdout-bariba-3",
+      "tenant": "bariba",
+      "locale": "lv",
+      "message": "Piegāde un apmaksas veidi?",
+      "expected": [
+        "delivery",
+        "payment"
+      ],
+      "match": "all",
+      "actual": [
+        "delivery",
+        "payment"
+      ],
+      "actualLocale": "lv",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Bezmaksas piegāde virs 30 € norādīta veikala maršruta pilsētām. Citās pilsētās — pēc vienošanās; ne visā Latvijā bez maksas.\n\nTiešsaistes apmaksai norādītas Visa un Mastercard. Komplektēšana sākas pēc maksājuma apstiprinājuma."
+    },
+    {
+      "id": "holdout-bariba-4",
+      "tenant": "bariba",
+      "locale": "ru",
+      "message": "Спасибо! Товар не работает",
+      "expected": [
+        "defect"
+      ],
+      "match": "all",
+      "actual": [
+        "defect"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": true,
+      "pass": true,
+      "notes": [],
+      "text": "Неисправность или повреждение нужно обсудить с магазином. Демо не решает, покрывается ли случай гарантией.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин."
+    },
+    {
+      "id": "holdout-bariba-5",
+      "tenant": "bariba",
+      "locale": "ru",
+      "message": "И какая цена сейчас?",
+      "expected": [
+        "product-live"
+      ],
+      "match": "all",
+      "actual": [
+        "product-live"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "У демо нет доступа к текущим остаткам, ценам и партиям товара. Проверьте карточку на сайте магазина или уточните у магазина."
+    },
+    {
+      "id": "holdout-bariba-6",
+      "tenant": "bariba",
+      "locale": "en",
+      "message": "Do you have stock?",
+      "expected": [
+        "product-live"
+      ],
+      "match": "all",
+      "actual": [
+        "product-live"
+      ],
+      "actualLocale": "en",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "The demo cannot access current stock, prices or batches. Check the product page or ask the shop."
+    },
+    {
+      "id": "holdout-bariba-7",
+      "tenant": "bariba",
+      "locale": "ru",
+      "message": "Сначала у меня был вопрос о доставке. Но теперь хочу отменить заказ",
+      "expected": [
+        "status"
+      ],
+      "match": "all",
+      "actual": [
+        "status"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": true,
+      "pass": true,
+      "notes": [],
+      "text": "Демо не подключено к заказам. Статус, отмену, изменение заказа или компенсацию нужно обсудить с магазином.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин."
+    },
+    {
+      "id": "holdout-bariba-8",
+      "tenant": "bariba",
+      "locale": "ru",
+      "message": "Ничего не понял",
+      "expected": [
+        "notHelpful"
+      ],
+      "match": "all",
+      "actual": [
+        "notHelpful"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Давайте уточним: какой момент остался непонятным? Можно описать ситуацию другими словами, без персональных данных."
+    },
+    {
+      "id": "holdout-bariba-9",
+      "tenant": "bariba",
+      "locale": "en",
+      "message": "Отвечай на английском",
+      "expected": [
+        "language"
+      ],
+      "match": "all",
+      "actual": [
+        "language"
+      ],
+      "actualLocale": "en",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Of course. How can I help?"
+    },
+    {
+      "id": "holdout-bariba-10",
+      "tenant": "bariba",
+      "locale": "lv",
+      "message": "Please reply in Latvian",
+      "expected": [
+        "language"
+      ],
+      "match": "all",
+      "actual": [
+        "language"
+      ],
+      "actualLocale": "lv",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Protams. Kā varu palīdzēt?"
+    },
+    {
+      "id": "holdout-bariba-11",
+      "tenant": "bariba",
+      "locale": "ru",
+      "message": "CooKing Lamb: курица и доставка?",
+      "expected": [
+        "food-composition",
+        "delivery"
+      ],
+      "match": "all",
+      "actual": [
+        "food-composition",
+        "delivery"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Бесплатная доставка заказов свыше 30 € указана для городов маршрута магазина. Другие города — по согласованию; это не бесплатная доставка по всей Латвии.\n\nВ составе CooKing Lamb Recipe Daily Menu 12 кг перечислены курица, куриный жир и гидролизат куриной печени. Это не корм без курицы."
+    },
+    {
+      "id": "holdout-bariba-12",
+      "tenant": "bariba",
+      "locale": "en",
+      "message": "Which food is suitable for a kitten?",
+      "expected": [
+        "product-help"
+      ],
+      "match": "all",
+      "actual": [
+        "product-help"
+      ],
+      "actualLocale": "en",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Please clarify which food you mean and what you want to check: ingredients, pet age, pack size or storage. A verified product description is needed; the full catalogue is not connected yet."
+    },
+    {
+      "id": "holdout-hobbyset-1",
+      "tenant": "hobbyset",
+      "locale": "ru",
+      "message": "Не нужен оператор, как оплатить?",
+      "expected": [
+        "payment"
+      ],
+      "match": "all",
+      "actual": [
+        "payment"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Указаны онлайн-банк, карта и банковский перевод по электронному счёту. Счёт оплачивается в течение 3 рабочих дней."
+    },
+    {
+      "id": "holdout-hobbyset-2",
+      "tenant": "hobbyset",
+      "locale": "en",
+      "message": "The packaging arrived damaged",
+      "expected": [
+        "defect"
+      ],
+      "match": "all",
+      "actual": [
+        "defect"
+      ],
+      "actualLocale": "en",
+      "actualHandoff": true,
+      "pass": true,
+      "notes": [],
+      "text": "Contact the shop about a defect or damage. The demo cannot decide warranty coverage.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself."
+    },
+    {
+      "id": "holdout-hobbyset-3",
+      "tenant": "hobbyset",
+      "locale": "lv",
+      "message": "Piegāde un apmaksas veidi?",
+      "expected": [
+        "delivery",
+        "payment"
+      ],
+      "match": "all",
+      "actual": [
+        "delivery",
+        "payment"
+      ],
+      "actualLocale": "lv",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Pakomāti Latvijā: Latvijas Pasts 2,49 €, Venipak 1,99 €, Omniva 3,29 €. Pasūtījumiem virs 50 € pakomāts Latvijā bez maksas.\n\nNorādīta internetbanka, karte un bankas pārskaitījums pēc e-rēķina. Rēķinu apmaksā 3 darba dienās."
+    },
+    {
+      "id": "holdout-hobbyset-4",
+      "tenant": "hobbyset",
+      "locale": "ru",
+      "message": "Спасибо! Товар не работает",
+      "expected": [
+        "defect"
+      ],
+      "match": "all",
+      "actual": [
+        "defect"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": true,
+      "pass": true,
+      "notes": [],
+      "text": "Неисправность или повреждение нужно обсудить с магазином. Демо не решает, покрывается ли случай гарантией.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин."
+    },
+    {
+      "id": "holdout-hobbyset-5",
+      "tenant": "hobbyset",
+      "locale": "ru",
+      "message": "И какая цена сейчас?",
+      "expected": [
+        "product-live"
+      ],
+      "match": "all",
+      "actual": [
+        "product-live"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "У демо нет доступа к текущим остаткам, ценам и партиям товара. Проверьте карточку на сайте магазина или уточните у магазина."
+    },
+    {
+      "id": "holdout-hobbyset-6",
+      "tenant": "hobbyset",
+      "locale": "en",
+      "message": "Do you have stock?",
+      "expected": [
+        "product-live"
+      ],
+      "match": "all",
+      "actual": [
+        "product-live"
+      ],
+      "actualLocale": "en",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "The demo cannot access current stock, prices or batches. Check the product page or ask the shop."
+    },
+    {
+      "id": "holdout-hobbyset-7",
+      "tenant": "hobbyset",
+      "locale": "ru",
+      "message": "Сначала у меня был вопрос о доставке. Но теперь хочу отменить заказ",
+      "expected": [
+        "status"
+      ],
+      "match": "all",
+      "actual": [
+        "status"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": true,
+      "pass": true,
+      "notes": [],
+      "text": "Демо не подключено к заказам. Статус, отмену, изменение заказа или компенсацию нужно обсудить с магазином.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин."
+    },
+    {
+      "id": "holdout-hobbyset-8",
+      "tenant": "hobbyset",
+      "locale": "ru",
+      "message": "Ничего не понял",
+      "expected": [
+        "notHelpful"
+      ],
+      "match": "all",
+      "actual": [
+        "notHelpful"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Давайте уточним: какой момент остался непонятным? Можно описать ситуацию другими словами, без персональных данных."
+    },
+    {
+      "id": "holdout-hobbyset-9",
+      "tenant": "hobbyset",
+      "locale": "en",
+      "message": "Отвечай на английском",
+      "expected": [
+        "language"
+      ],
+      "match": "all",
+      "actual": [
+        "language"
+      ],
+      "actualLocale": "en",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Of course. How can I help?"
+    },
+    {
+      "id": "holdout-hobbyset-10",
+      "tenant": "hobbyset",
+      "locale": "lv",
+      "message": "Please reply in Latvian",
+      "expected": [
+        "language"
+      ],
+      "match": "all",
+      "actual": [
+        "language"
+      ],
+      "actualLocale": "lv",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Protams. Kā varu palīdzēt?"
+    },
+    {
+      "id": "holdout-hobbyset-11",
+      "tenant": "hobbyset",
+      "locale": "ru",
+      "message": "POP ART для новичка и как оплатить?",
+      "expected": [
+        "art-beginner",
+        "payment"
+      ],
+      "match": "all",
+      "actual": [
+        "art-beginner",
+        "payment"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Указаны онлайн-банк, карта и банковский перевод по электронному счёту. Счёт оплачивается в течение 3 рабочих дней.\n\nPOP ART 12 × 10 мл магазин описывает как стартовый набор акварели для начинающих, любителей и студентов."
+    },
+    {
+      "id": "holdout-hobbyset-12",
+      "tenant": "hobbyset",
+      "locale": "en",
+      "message": "Can I use this on fabric?",
+      "expected": [
+        "product-help"
+      ],
+      "match": "all",
+      "actual": [
+        "product-help"
+      ],
+      "actualLocale": "en",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "What task and material is the product for? Please give its name or code if known. I cannot confirm compatibility or use without that product’s verified description."
+    },
+    {
+      "id": "holdout-apavi40plus-1",
+      "tenant": "apavi40plus",
+      "locale": "ru",
+      "message": "Не нужен оператор, как оплатить?",
+      "expected": [
+        "payment"
+      ],
+      "match": "all",
+      "actual": [
+        "payment"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Указаны Visa/Mastercard через Paysera и банковский перевод по счёту."
+    },
+    {
+      "id": "holdout-apavi40plus-2",
+      "tenant": "apavi40plus",
+      "locale": "en",
+      "message": "The packaging arrived damaged",
+      "expected": [
+        "defect"
+      ],
+      "match": "all",
+      "actual": [
+        "defect"
+      ],
+      "actualLocale": "en",
+      "actualHandoff": true,
+      "pass": true,
+      "notes": [],
+      "text": "Contact the shop about a defect or damage. The demo cannot decide warranty coverage.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself."
+    },
+    {
+      "id": "holdout-apavi40plus-3",
+      "tenant": "apavi40plus",
+      "locale": "lv",
+      "message": "Piegāde un apmaksas veidi?",
+      "expected": [
+        "delivery",
+        "payment"
+      ],
+      "match": "all",
+      "actual": [
+        "delivery",
+        "payment"
+      ],
+      "actualLocale": "lv",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Latvijā: Unisend 2,20 €, Omniva 2,65–4 €, Latvijas Pasts 3,50–7,50 €. Pieejama bezmaksas saņemšana.\n\nNorādītas Visa/Mastercard ar Paysera un bankas pārskaitījums pēc rēķina."
+    },
+    {
+      "id": "holdout-apavi40plus-4",
+      "tenant": "apavi40plus",
+      "locale": "ru",
+      "message": "Спасибо! Товар не работает",
+      "expected": [
+        "defect"
+      ],
+      "match": "all",
+      "actual": [
+        "defect"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": true,
+      "pass": true,
+      "notes": [],
+      "text": "Неисправность или повреждение нужно обсудить с магазином. Демо не решает, покрывается ли случай гарантией.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин."
+    },
+    {
+      "id": "holdout-apavi40plus-5",
+      "tenant": "apavi40plus",
+      "locale": "ru",
+      "message": "И какая цена сейчас?",
+      "expected": [
+        "product-live"
+      ],
+      "match": "all",
+      "actual": [
+        "product-live"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "У демо нет доступа к текущим остаткам, ценам и партиям товара. Проверьте карточку на сайте магазина или уточните у магазина."
+    },
+    {
+      "id": "holdout-apavi40plus-6",
+      "tenant": "apavi40plus",
+      "locale": "en",
+      "message": "Do you have stock?",
+      "expected": [
+        "product-live"
+      ],
+      "match": "all",
+      "actual": [
+        "product-live"
+      ],
+      "actualLocale": "en",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "The demo cannot access current stock, prices or batches. Check the product page or ask the shop."
+    },
+    {
+      "id": "holdout-apavi40plus-7",
+      "tenant": "apavi40plus",
+      "locale": "ru",
+      "message": "Сначала у меня был вопрос о доставке. Но теперь хочу отменить заказ",
+      "expected": [
+        "status"
+      ],
+      "match": "all",
+      "actual": [
+        "status"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": true,
+      "pass": true,
+      "notes": [],
+      "text": "Демо не подключено к заказам. Статус, отмену, изменение заказа или компенсацию нужно обсудить с магазином.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин."
+    },
+    {
+      "id": "holdout-apavi40plus-8",
+      "tenant": "apavi40plus",
+      "locale": "ru",
+      "message": "Ничего не понял",
+      "expected": [
+        "notHelpful"
+      ],
+      "match": "all",
+      "actual": [
+        "notHelpful"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Давайте уточним: какой момент остался непонятным? Можно описать ситуацию другими словами, без персональных данных."
+    },
+    {
+      "id": "holdout-apavi40plus-9",
+      "tenant": "apavi40plus",
+      "locale": "en",
+      "message": "Отвечай на английском",
+      "expected": [
+        "language"
+      ],
+      "match": "all",
+      "actual": [
+        "language"
+      ],
+      "actualLocale": "en",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Of course. How can I help?"
+    },
+    {
+      "id": "holdout-apavi40plus-10",
+      "tenant": "apavi40plus",
+      "locale": "lv",
+      "message": "Please reply in Latvian",
+      "expected": [
+        "language"
+      ],
+      "match": "all",
+      "actual": [
+        "language"
+      ],
+      "actualLocale": "lv",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Protams. Kā varu palīdzēt?"
+    },
+    {
+      "id": "holdout-apavi40plus-11",
+      "tenant": "apavi40plus",
+      "locale": "ru",
+      "message": "42801: материал и доставка?",
+      "expected": [
+        "shoe-material",
+        "delivery"
+      ],
+      "match": "all",
+      "actual": [
+        "shoe-material",
+        "delivery"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "В Латвии: Unisend 2,20 €, Omniva 2,65–4 €, Latvijas Pasts 3,50–7,50 €. Доступен бесплатный самовывоз.\n\nУ Josef Seibel 42801 860 100 в техническом описании указана натуральная гладкая кожа; подкладка — кожа / текстиль."
+    },
+    {
+      "id": "holdout-apavi40plus-12",
+      "tenant": "apavi40plus",
+      "locale": "en",
+      "message": "My foot is 27 cm, which size?",
+      "expected": [
+        "product-sizing"
+      ],
+      "match": "all",
+      "actual": [
+        "product-sizing"
+      ],
+      "actualLocale": "en",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Which shoe model do you need a size chart for? Please type its name or product code. Without that model’s chart, I will not guess a size from foot length."
+    },
+    {
+      "id": "holdout-celotajs-1",
+      "tenant": "celotajs",
+      "locale": "ru",
+      "message": "Не нужен оператор, как оплатить?",
+      "expected": [
+        "payment"
+      ],
+      "match": "all",
+      "actual": [
+        "payment"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Способ оплаты выбирается при оформлении заказа. Полный актуальный список в проверенных условиях не подтверждён; демо платежи не принимает."
+    },
+    {
+      "id": "holdout-celotajs-2",
+      "tenant": "celotajs",
+      "locale": "en",
+      "message": "The packaging arrived damaged",
+      "expected": [
+        "defect"
+      ],
+      "match": "all",
+      "actual": [
+        "defect"
+      ],
+      "actualLocale": "en",
+      "actualHandoff": true,
+      "pass": true,
+      "notes": [],
+      "text": "Contact the shop about a defect or damage. The demo cannot decide warranty coverage.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself."
+    },
+    {
+      "id": "holdout-celotajs-3",
+      "tenant": "celotajs",
+      "locale": "lv",
+      "message": "Piegāde un apmaksas veidi?",
+      "expected": [
+        "delivery",
+        "payment"
+      ],
+      "match": "all",
+      "actual": [
+        "delivery",
+        "payment"
+      ],
+      "actualLocale": "lv",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Latvijā, Lietuvā un Igaunijā norādīti Itella/Omniva un kurjers. Pakomāti bez maksas no 30 €, citādi 1,82–2,99 €; lielas preces — ar kurjeru.\n\nApmaksas veidu izvēlas pasūtījuma noformēšanā. Pilns aktuālais saraksts pārbaudītajos noteikumos nav apstiprināts; demonstrācija maksājumus nepieņem."
+    },
+    {
+      "id": "holdout-celotajs-4",
+      "tenant": "celotajs",
+      "locale": "ru",
+      "message": "Спасибо! Товар не работает",
+      "expected": [
+        "defect"
+      ],
+      "match": "all",
+      "actual": [
+        "defect"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": true,
+      "pass": true,
+      "notes": [],
+      "text": "Неисправность или повреждение нужно обсудить с магазином. Демо не решает, покрывается ли случай гарантией.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин."
+    },
+    {
+      "id": "holdout-celotajs-5",
+      "tenant": "celotajs",
+      "locale": "ru",
+      "message": "И какая цена сейчас?",
+      "expected": [
+        "product-live"
+      ],
+      "match": "all",
+      "actual": [
+        "product-live"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "У демо нет доступа к текущим остаткам, ценам и партиям товара. Проверьте карточку на сайте магазина или уточните у магазина."
+    },
+    {
+      "id": "holdout-celotajs-6",
+      "tenant": "celotajs",
+      "locale": "en",
+      "message": "Do you have stock?",
+      "expected": [
+        "product-live"
+      ],
+      "match": "all",
+      "actual": [
+        "product-live"
+      ],
+      "actualLocale": "en",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "The demo cannot access current stock, prices or batches. Check the product page or ask the shop."
+    },
+    {
+      "id": "holdout-celotajs-7",
+      "tenant": "celotajs",
+      "locale": "ru",
+      "message": "Сначала у меня был вопрос о доставке. Но теперь хочу отменить заказ",
+      "expected": [
+        "status"
+      ],
+      "match": "all",
+      "actual": [
+        "status"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": true,
+      "pass": true,
+      "notes": [],
+      "text": "Демо не подключено к заказам. Статус, отмену, изменение заказа или компенсацию нужно обсудить с магазином.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин."
+    },
+    {
+      "id": "holdout-celotajs-8",
+      "tenant": "celotajs",
+      "locale": "ru",
+      "message": "Ничего не понял",
+      "expected": [
+        "notHelpful"
+      ],
+      "match": "all",
+      "actual": [
+        "notHelpful"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Давайте уточним: какой момент остался непонятным? Можно описать ситуацию другими словами, без персональных данных."
+    },
+    {
+      "id": "holdout-celotajs-9",
+      "tenant": "celotajs",
+      "locale": "en",
+      "message": "Отвечай на английском",
+      "expected": [
+        "language"
+      ],
+      "match": "all",
+      "actual": [
+        "language"
+      ],
+      "actualLocale": "en",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Of course. How can I help?"
+    },
+    {
+      "id": "holdout-celotajs-10",
+      "tenant": "celotajs",
+      "locale": "lv",
+      "message": "Please reply in Latvian",
+      "expected": [
+        "language"
+      ],
+      "match": "all",
+      "actual": [
+        "language"
+      ],
+      "actualLocale": "lv",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Protams. Kā varu palīdzēt?"
+    },
+    {
+      "id": "holdout-celotajs-11",
+      "tenant": "celotajs",
+      "locale": "ru",
+      "message": "Что значит comfort и как оплатить?",
+      "expected": [
+        "sleep-ratings",
+        "payment"
+      ],
+      "match": "all",
+      "actual": [
+        "sleep-ratings",
+        "payment"
+      ],
+      "actualLocale": "ru",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Способ оплаты выбирается при оформлении заказа. Полный актуальный список в проверенных условиях не подтверждён; демо платежи не принимает.\n\nВ руководстве Ceļotājs comfort означает комфортные условия испытания, limit — более холодный предел, extreme — аварийный диапазон с риском для здоровья, не комфортный ночлег."
+    },
+    {
+      "id": "holdout-celotajs-12",
+      "tenant": "celotajs",
+      "locale": "en",
+      "message": "Which backpack for a weekend hike?",
+      "expected": [
+        "product-help"
+      ],
+      "match": "all",
+      "actual": [
+        "product-help"
+      ],
+      "actualLocale": "en",
+      "actualHandoff": false,
+      "pass": true,
+      "notes": [],
+      "text": "Which equipment and conditions are you considering? Please give the model and the detail you need. I cannot confirm weight, compatibility or suitable conditions without a verified description."
+    }
+  ]
+}

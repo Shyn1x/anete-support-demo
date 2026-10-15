@@ -1,3 +1,4 @@
+import {buyerControl,buyerProduct,buyerCopy} from './buyer-intents.js';
 import {nicheRoute} from './niche-route.js';
 import {socialRoute,socialText,dialogueIntents} from './social.js';
 import {getTenant} from './kb.js';
@@ -16,6 +17,9 @@ Object.assign(strings.en,{'product-clarify':'Please specify the product name or 
 Object.assign(strings.ru,{'product-sizing':'Для какой модели обуви нужна размерная сетка? Напишите название или артикул. Без таблицы конкретной модели я не буду угадывать размер по длине стопы.'});
 Object.assign(strings.lv,{'product-sizing':'Kura apavu modeļa izmēru tabula vajadzīga? Uzrakstiet nosaukumu vai artikulu. Bez konkrētā modeļa tabulas izmēru pēc pēdas garuma neminēšu.'});
 Object.assign(strings.en,{'product-sizing':'Which shoe model do you need a size chart for? Please type its name or product code. Without that model’s chart, I will not guess a size from foot length.'});
+Object.assign(strings.ru,{'product-sizing-known':'Для указанной модели размерная таблица пока не подключена к ответам демо. Проверьте её в карточке товара по ссылке ниже; я не буду угадывать соответствие длины стопы размеру.','product-unverified':'Модель узнаю, но этой характеристики в проверенной базе пока нет. Посмотрите карточку товара по ссылке ниже или уточните у магазина; данные другой модели подставлять не буду.'});
+Object.assign(strings.lv,{'product-sizing-known':'Norādītā modeļa izmēru tabula vēl nav pieslēgta demonstrācijas atbildēm. Pārbaudiet preces lapu zemāk; pēdas garuma atbilstību izmēram neminēšu.','product-unverified':'Modeli atpazīstu, bet šī parametra pārbaudītajā datubāzē nav. Pārbaudiet preces lapu zemāk vai jautājiet veikalam; cita modeļa datus nepiemērošu.'});
+Object.assign(strings.en,{'product-sizing-known':'The size chart for that model is not yet connected to demo answers. Check its product page below; I will not guess a shoe size from foot length.','product-unverified':'I recognise the model, but that specification is not in the verified knowledge base yet. Check its product page below or ask the shop; I will not substitute another model’s data.'});
 export function preflight(text){
  if(/https?:\/\/|www\.|ignore.{0,35}(instruction|previous)|system prompt|api.?key|sk-[a-z0-9]|игнориру|системн.{0,10}(промпт|инструкц)|забудь.{0,20}правил|игнорь|ignorē.{0,20}(instrukc|noteikum)|api.?atslēg/iu.test(text))return 'blocked';
  if(/[\w.+-]+@[\w.-]+\.[a-z]{2,}|(?:\d[\s-]*){7,}|(?:мой|моя|mans|mana)\s+(?:адрес|телефон|паспорт|personas kods|adrese)|(?:cvv|cvc|iban)\s*[:=]?\s*\S+/iu.test(text))return 'pii';
@@ -23,8 +27,17 @@ export function preflight(text){
 }
 export function referenceRoute(text, previous=null, tenantId='anete'){
  const social=socialRoute(text);if(social)return social;
- const s=correctTypos(normalize(text));
- const niche=nicheRoute(s,tenantId);if(niche)return niche;
+ const s=correctTypos(normalize(text)).replace(/^(?:не нужен (?:оператор|сотрудник|человек)|(?:оператор|сотрудник|человек) не нужен)[,. ]*/iu,'');
+ const control=buyerControl(s,tenantId);if(control)return control;
+ const segments=s.split(/\s+(?:и|а также|and|un)\s+|[?;]+/iu).map(x=>x.trim()).filter(Boolean);
+ if(segments.length>1&&segments.length<=4){
+  const pieces=segments.map(part=>referenceRoute(part,previous,tenantId));
+  const useful=pieces.filter(r=>r.ids.length||r.kind.startsWith('product-'));
+  if(useful.length>1){const ids=[...new Set(useful.flatMap(r=>r.ids))].slice(0,3);return {ids,kind:ids.length?'answer':useful[0].kind,clarificationKind:useful.find(r=>!r.ids.length)?.kind,handoff:useful.some(r=>r.handoff)};}
+ }
+ const niche=nicheRoute(s,tenantId);if(niche&&niche.kind!=='product-clarify')return niche;
+ const product=buyerProduct(s,tenantId,previous);if(product)return product;
+ if(niche)return niche;
  const englishRoutes=[
  ['contact',/human|\bagent\b|\bstaff\b|speak to|contact|phone number|email address/],
  ['status',/where.{0,15}order|order status|cancel|change.{0,15}(address|order)|compensation|scam|police|complain/],
@@ -71,7 +84,8 @@ export function referenceRoute(text, previous=null, tenantId='anete'){
  ['payment',/оплат|оплат[ауы]|карт|рассроч|maksā|apmaks|karti|nomaks/],['delivery',/достав|пакомат|курьер|piegād|pakomāt|kurjer/],
  ['order',/оформ|заказат|pasūtīt|noform/],['greeting',/^(привет|здравствуй(?:те)?|labdien|sveiki|sveika|sveiks|hi|hello)[!. ]*$/]
  ];
- let id=englishRoutes.find(([,re])=>re.test(s))?.[0]||routes.find(([key,re])=>!(key==='timing'&&/(atmaks|naudu)/.test(s))&&re.test(s))?.[0];
+ const available=getTenant(tenantId)?.cards||[];const canUse=key=>key==='greeting'||available.some(c=>c.id===key);
+ let id=englishRoutes.find(([key,re])=>canUse(key)&&re.test(s))?.[0]||routes.find(([key,re])=>canUse(key)&&!(key==='timing'&&/(atmaks|naudu)/.test(s))&&re.test(s))?.[0];
  if(!id&&/^(а сколько|а как|а для него|а если|un cik|un kā|bet ja|and how|and what|what about)/.test(s)&&previous)id=previous;
  const tenant=getTenant(tenantId);if(id!=='greeting'&&!tenant?.cards.some(c=>c.id===id))id=null;
  return {ids:id&&id!=='greeting'?[id]:[],kind:id==='greeting'?'greeting':id?'answer':'unknown',handoff:['contact','status','business-warranty','payment-problem','unclaimed','defect','opened','shipping-cost'].includes(id)||!!tenant?.cards.find(c=>c.id===id)?.requiresReview};
@@ -81,10 +95,13 @@ export function render(tenantId,locale,result,mode){
  const selected=tenant.cards.filter(c=>result.ids.includes(c.id));
  result={...result,handoff:!!result.handoff||selected.some(c=>c.requiresReview)};
  const parts=selected.map(c=>c[locale]);
- if(!parts.length)parts.push((result.social?socialText[locale][result.kind]:null)||t[result.kind]||t.unknown);
+ if(result.clarificationKind==='product-help')parts.push(buyerCopy[locale].help[tenantId]);
+ else if(result.clarificationKind&&t[result.clarificationKind])parts.push(t[result.clarificationKind]);
+ if(!parts.length)parts.push(result.kind==='product-sizing'&&result.knownModel?t['product-sizing-known']:['unknown','clarify'].includes(result.kind)&&tenantId!=='anete'?buyerCopy[locale].help[tenantId]:result.kind==='product-help'?buyerCopy[locale].help[tenantId]:result.kind==='product-safety'?buyerCopy[locale].productSafety:result.kind==='language'?buyerCopy[locale].language:(result.social?socialText[locale][result.kind]:null)||t[result.kind]||t.unknown);
  if(result.handoff)parts.push(t.handoff);
  for(let i=0;i<parts.length;i++)parts[i]=parts[i].replaceAll('Anete.lv',tenant.name);
  const keys=[...new Set(selected.map(c=>c.source))];
+ if((result.kind==='product-unverified'||result.kind==='product-sizing'&&result.knownModel)&&tenant.sources['niche-product'])keys.push('niche-product');
  if(tenant.id==='anete'&&selected.some(c=>c.id==='business-warranty')&&!keys.includes('faq'))keys.push('faq');
  if(tenant.id==='anete'&&selected.some(c=>c.id==='hours')&&!keys.includes('delivery'))keys.push('delivery');
  return {providerUsed:mode==='ai',contact:tenant.contact,locale,text:parts.join('\n\n'),cardIds:selected.map(c=>c.id),sources:keys.map(k=>tenant.sources[k]),handoff:!!result.handoff,mode,checked:tenant.checked,topic:selected.at(-1)?.id||null};
@@ -105,7 +122,7 @@ export async function aiRoute(tenant,text,previous,fetcher=fetch){
   const out=JSON.parse(raw);
   if(!Array.isArray(out.ids)||out.ids.length>3||new Set(out.ids).size!==out.ids.length||out.ids.some(id=>!ids.includes(id))||typeof out.handoff!=='boolean')throw new Error('schema');
   const nicheIds=tenant.cards.filter(c=>c.source==='niche-product').map(c=>c.id);
-  const allowed=nicheRoute(correctTypos(normalize(text)),tenant.id);
+  const allowed=referenceRoute(text,previous,tenant.id);
   if(out.ids.some(id=>nicheIds.includes(id)&&!allowed?.ids.includes(id)))return {ids:[],kind:'product-clarify',handoff:false};
   const dialogue=out.ids.filter(id=>id.startsWith('dialogue:'));
   if(dialogue.length){
