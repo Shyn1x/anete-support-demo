@@ -1,0 +1,26 @@
+/* Demo interpretations of storefront palettes; self-hosted, no tracking assets. */
+:root[data-shop],.demo-card{--accent:#182b38;--on-accent:#fff;--soft:#f2f3ed;--paper:#f6f5ef;--heading:Arial,Helvetica,sans-serif;--round:20px;--green:var(--accent)}
+:root[data-shop=rotallieta],.demo-card[data-shop=rotallieta]{--accent:#ffdb22;--on-accent:#0c1734;--green:#1949c9;--ink:#0c1734;--paper:#fffdf2;--soft:#fff6c7;--border:#e7dfba;--round:24px}
+:root[data-shop=bariba],.demo-card[data-shop=bariba]{--accent:#f7882f;--on-accent:#24201d;--green:#984000;--ink:#29251f;--paper:#fffaf5;--soft:#fff0df;--border:#eadccd;--round:22px}
+:root[data-shop=hobbyset],.demo-card[data-shop=hobbyset]{--accent:#0e1e79;--on-accent:#fff;--green:#0e1e79;--ink:#202447;--paper:#f8f8fc;--soft:#edf0fc;--border:#daddf0;--heading:Georgia,'Times New Roman',serif;--round:12px}
+:root[data-shop=apavi40plus],.demo-card[data-shop=apavi40plus]{--accent:#121212;--on-accent:#fff;--green:#121212;--ink:#121212;--paper:#f3f3f3;--soft:#f0f0f0;--border:#d8d8d8;--round:4px}
+:root[data-shop=celotajs],.demo-card[data-shop=celotajs]{--accent:#108474;--on-accent:#fff;--green:#0b7163;--ink:#173b36;--paper:#f3f8f6;--soft:#e7f3ef;--border:#cfe1da;--round:14px}
+:root[data-shop] h1{font-family:var(--heading);font-weight:600;letter-spacing:-2px}
+:root[data-shop] .chat-shell{border-radius:var(--round);border-top:5px solid var(--accent)}
+:root[data-shop] .avatar{background:var(--accent);color:var(--on-accent);font-family:var(--heading);font-size:24px;font-weight:700;min-width:44px;letter-spacing:-1.5px}
+:root[data-shop] .bubble.user,:root[data-shop] #send,:root[data-shop] .handoff button,:root[data-shop] dialog button{background:var(--accent);color:var(--on-accent)}
+:root[data-shop] .bubble.bot,:root[data-shop] #contact-step pre{background:var(--soft)}
+:root[data-shop] .demo-banner{background:var(--soft);border-color:var(--border);color:var(--ink)}
+:root[data-shop] .pills span{border-color:var(--border);background:var(--soft)}
+:root[data-shop] .language.active{background:var(--accent);color:var(--on-accent)}
+:root[data-shop] .suggestions button:hover{background:var(--soft)}
+:root[data-shop] button:focus-visible,:root[data-shop] a:focus-visible,:root[data-shop] input:focus-visible,:root[data-shop] textarea:focus-visible{outline-color:var(--green)}
+:root[data-shop=apavi40plus] h1{font-weight:400;letter-spacing:-2.5px}
+:root[data-shop=apavi40plus] .avatar,:root[data-shop=apavi40plus] .suggestions button,:root[data-shop=apavi40plus] #chat-form,:root[data-shop=apavi40plus] #send{border-radius:3px}
+:root[data-shop=hobbyset] h1{letter-spacing:-1.2px}
+:root[data-shop=celotajs] .eyebrow{letter-spacing:1.8px}
+.demo-card{background:#fff;border:1px solid var(--border);border-top:5px solid var(--accent);border-radius:var(--round);padding:24px;margin-bottom:20px;color:var(--ink)}
+.demo-card h2{font-family:var(--heading);font-size:25px;margin:12px 0}
+.demo-card>p:not(.mini-title){color:var(--muted);line-height:1.65}
+.demo-card .contact-open{display:inline-block;background:var(--accent);color:var(--on-accent);padding:13px 18px;border-radius:8px;text-decoration:none;font-weight:600;font-size:13px;min-height:44px}
+@media(max-width:720px){:root[data-shop] h1{font-size:37px;letter-spacing:-1.4px}:root[data-shop=hobbyset] h1{letter-spacing:-.6px}.demo-card{padding:20px}}

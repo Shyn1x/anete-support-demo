@@ -124,3 +124,5 @@ Latest acceptance status: `docs/evaluations/2026-10-15-regression-1-review.md`. 
 [Open the five-demo gallery](https://anete-support-demo.fshyn1x.workers.dev/demos): Rotallieta.lv, Bariba.lv, HobbySet, Apavi 40 plus and Veikals Ceļotājs. These are independent proposals, not clients or official shop services. Existing demo password applies. Select a shop with `?shop=rotallieta`, `bariba`, `hobbyset`, `apavi40plus` or `celotajs`; omitting the parameter preserves Anete.
 
 Configuration is in `src/prospects.js`; approved cards and sources are isolated by shop. Shared safety, language, contact UI and global expense controls are reused. Unknown shops fail closed. `requiresReview` forces review independently of model output. See [research](docs/prospects/RESEARCH.md) and [validation/limits](docs/prospects/TEST-REPORT.md). No outreach has been sent.
+
+Each prospect now has its own colour palette, headline, monogram and RU/LV/EN greeting. See [styling and validation](docs/prospects/BRANDING.md). Shared API budget limits are unchanged.
