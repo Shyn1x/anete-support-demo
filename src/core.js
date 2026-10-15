@@ -1,3 +1,4 @@
+import {socialRoute,socialText} from './social.js';
 import {getTenant} from './kb.js';
 import {correctTypos} from './typos.js';
 export const MODEL='gpt-4.1-mini';
@@ -14,6 +15,7 @@ export function preflight(text){
  return null;
 }
 export function referenceRoute(text, previous=null){
+ const social=socialRoute(text);if(social)return social;
  const s=correctTypos(normalize(text));
  const englishRoutes=[
  ['contact',/human|live agent|speak to|contact|phone number|email address/],
@@ -69,7 +71,7 @@ export function render(tenantId,locale,result,mode){
  const tenant=getTenant(tenantId), t=strings[locale];
  const selected=tenant.cards.filter(c=>result.ids.includes(c.id));
  const parts=selected.map(c=>c[locale]);
- if(!parts.length)parts.push(t[result.kind]||t.unknown);
+ if(!parts.length)parts.push((result.social?socialText[locale][result.kind]:null)||t[result.kind]||t.unknown);
  if(result.handoff)parts.push(t.handoff);
  const keys=[...new Set(selected.map(c=>c.source))];
  if(selected.some(c=>c.id==='business-warranty')&&!keys.includes('faq'))keys.push('faq');

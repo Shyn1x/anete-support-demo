@@ -2,7 +2,7 @@
 
 ## Passed checks
 
-- **225/225 Node.js automated tests**, including **108 distinct synthetic customer scenarios** (36 Russian, 36 Latvian, 36 English). An additional 48 typo and safety checks cover missing letters, swapped letters, unrelated words, ambiguous corrections and sourced API responses. Full individual results: `test-results.txt`; prompts/expectations: `docs/scenarios.json`.
+- **255/255 Node.js automated tests**, including **108 distinct synthetic customer scenarios** (36 Russian, 36 Latvian, 36 English). An additional 48 typo and safety checks cover missing letters, swapped letters, unrelated words, ambiguous corrections and sourced API responses. Full individual results: `test-results.txt`; prompts/expectations: `docs/scenarios.json`.
 - **4/4 workerd runtime tests**: the 108 scenarios execute against the actual compiled Worker with a real SQLite-backed Durable Object; concurrent reservations cannot exceed the configured cap; a new runtime instance reads the previously exhausted budget. Language switching RU → EN → LV → RU is checked through the actual Worker. Full results: `runtime-results.txt`.
 - Wrangler **deployment dry-run passed**: Worker bundle and static assets validated. This is not a production deployment and consumes no OpenAI API calls.
 - `npm run build`: 22 trilingual answer cards, 8 source references validated; static assets prepared.
@@ -25,3 +25,7 @@ Scenario coverage includes standard policies, language pairs, uncertain delivery
 - **Human inbox delivery**: intentionally absent. The demo shows contact details and a copyable category summary, and explicitly says no request was sent.
 
 Before a client-facing AI demo, authorise deployment, configure a restricted key without exposing it, visually review RU/LV/EN on mobile and desktop, and run at least 50 live-model cases against the same knowledge version. Keep the $0.50 daily reservation limit: 50 live calls require at least two UTC days. Record actual outputs, expected card IDs, handoff decisions and any regressions. Do not present this prerequisite as already completed.
+
+## Courtesy response regression
+
+30 added checks cover RU/LV/EN courtesy phrases including “Good thank u”, friendly emojis without invented facts/sources, mixed courtesy plus support issues, safety precedence, and an AI-enabled Worker test proving zero provider calls and zero spending reservations for courtesy-only turns. Live browser evaluation remains user-led.

@@ -6,7 +6,7 @@
  ⛅️ wrangler 4.151.0
 ────────────────────
 ✨ Read 4 files from the assets directory /workspace/scratch/145c1e9f4a12/anete-support/public
-Total Upload: 55.12 KiB / gzip: 16.48 KiB
+Total Upload: 60.43 KiB / gzip: 17.65 KiB
 Your Worker has access to the following bindings:
 Binding                                       Resource                  
 env.GUARD (BudgetGuard)                       Durable Object            
@@ -15,10 +15,10 @@ env.DAILY_BUDGET_MICRO_USD ("500000")         Environment Variable
 env.TOTAL_BUDGET_MICRO_USD ("5000000")        Environment Variable      
 
 --dry-run: exiting now.
-✔ workerd resolves warranty typos in RU, LV and EN (312.578147ms)
-✔ all 108 synthetic scenarios execute inside workerd with a real SQLite Durable Object (663.15823ms)
-✔ real SQLite Durable Object serializes concurrent reservations and persists across restart (727.975296ms)
-✔ language changes per message without resetting conversation (188.623466ms)
+✔ workerd resolves warranty typos in RU, LV and EN (289.862357ms)
+✔ all 108 synthetic scenarios execute inside workerd with a real SQLite Durable Object (732.57721ms)
+✔ real SQLite Durable Object serializes concurrent reservations and persists across restart (812.365506ms)
+✔ language changes per message without resetting conversation (173.411403ms)
 ℹ tests 4
 ℹ suites 0
 ℹ pass 4
@@ -26,4 +26,4 @@ env.TOTAL_BUDGET_MICRO_USD ("5000000")        Environment Variable
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 2393.790783
+ℹ duration_ms 2550.851811
