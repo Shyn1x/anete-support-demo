@@ -12,7 +12,7 @@ export function assess(item,data){
  return {pass:notes.length===0,notes};
 }
 export function report(version,items,rows){
- return {suite:version,exportedAt:new Date().toISOString(),totalCases:items.length,attempted:rows.length,completed:rows.filter(r=>r.state!=='pending').length,unresolved:rows.filter(r=>r.state==='pending').length,providerResponses:rows.filter(r=>r.answer?.providerUsed===true).length,preliminaryPass:rows.filter(r=>r.assessment?.pass).length,requiresHumanReview:true,costNote:'No measured provider bill or token usage is available. Each attempted AI call reserves USD 0.01; non-AI cases do not. Existing daily/lifetime guards remain unchanged.',rows};
+ return {suite:version,exportedAt:new Date().toISOString(),totalCases:items.length,attempted:rows.length,completed:rows.filter(r=>r.state!=='pending').length,unresolved:rows.filter(r=>r.state==='pending').length,providerResponses:rows.filter(r=>r.answer?.providerUsed===true).length,preliminaryPass:rows.filter(r=>r.assessment?.pass).length,requiresHumanReview:true,costNote:'No measured provider bill or token usage is available. New attempted AI calls reserve USD 0.01; historical attempts may retain USD 0.02. Non-AI cases do not reserve API budget. Existing daily/lifetime guards remain unchanged.',rows};
 }
 export async function runCases({items,rows,request,onResult,signal,pause=ms=>new Promise(r=>setTimeout(r,ms)),interval=7000}){
  const done=new Set(rows.map(row=>row.id));
