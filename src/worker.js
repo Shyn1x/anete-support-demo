@@ -52,7 +52,7 @@ export function createWorker(fetcher=fetch){return {
   try{
    if(url.pathname==='/api/config'&&request.method==='GET'){
     const error=configError(env);
-    return reply({tenant:'anete',checked:getTenant('anete').checked,mode:env.AI_ENABLED==='true'?'ai':'reference',authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
+    return reply({tenant:'anete',contact:getTenant('anete').contact,checked:getTenant('anete').checked,mode:env.AI_ENABLED==='true'?'ai':'reference',authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
    }
    if(isApi){
     if(request.method!=='POST')return reply({error:'method_not_allowed'},405,{'Allow':'POST'});
@@ -90,7 +90,7 @@ export function createWorker(fetcher=fetch){return {
     return reply(render(data.tenant,data.locale,result,result.social?'social':'ai'));
    }
    if(!['GET','HEAD'].includes(request.method))return reply({error:'method_not_allowed'},405);
-   if(!['/','/index.html','/app.js','/style.css','/favicon.svg'].includes(url.pathname))return reply({error:'not_found'},404);
+   if(!['/','/index.html','/app.js','/contact.js','/style.css','/favicon.svg'].includes(url.pathname))return reply({error:'not_found'},404);
    const res=await env.ASSETS.fetch(request),headers=new Headers(res.headers);
    for(const [k,v] of Object.entries(security))headers.set(k,v);
    return new Response(res.body,{status:res.status,headers});

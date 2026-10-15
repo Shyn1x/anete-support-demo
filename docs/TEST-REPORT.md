@@ -2,7 +2,7 @@
 
 ## Passed checks
 
-- **328/328 Node.js automated tests**, including **108 distinct synthetic customer scenarios** (36 Russian, 36 Latvian, 36 English). An additional 48 typo and safety checks cover missing letters, swapped letters, unrelated words, ambiguous corrections and sourced API responses. Full individual results: `test-results.txt`; prompts/expectations: `docs/scenarios.json`.
+- **349/349 Node.js automated tests**, including **108 distinct synthetic customer scenarios** (36 Russian, 36 Latvian, 36 English). An additional 48 typo and safety checks cover missing letters, swapped letters, unrelated words, ambiguous corrections and sourced API responses. Full individual results: `test-results.txt`; prompts/expectations: `docs/scenarios.json`.
 - **4/4 workerd runtime tests**: the 108 scenarios execute against the actual compiled Worker with a real SQLite-backed Durable Object; concurrent reservations cannot exceed the configured cap; a new runtime instance reads the previously exhausted budget. Language switching RU → EN → LV → RU is checked through the actual Worker. Full results: `runtime-results.txt`.
 - Wrangler **deployment dry-run passed**: Worker bundle and static assets validated. This is not a production deployment and consumes no OpenAI API calls.
 - `npm run build`: 22 trilingual answer cards, 8 source references validated; static assets prepared.
@@ -33,3 +33,7 @@ Before a client-facing AI demo, authorise deployment, configure a restricted key
 ## Conversation control regression
 
 73 additional tests cover 48 RU/LV/EN gratitude-plus-farewell combinations, 5 reordered/conjoined variants, 9 inputs that must not hide substantive or unsafe requests, all 7 semantic dialogue contracts in three output languages, invalid mixed model selections, clarification without automatic escalation, and two AI-enabled Worker paths (local closure and mocked semantic closure). 328 Node tests and 4 workerd tests pass. Semantic tests use injected outputs: they validate the contract, not live model classification accuracy. No additional paid calls were made during this change.
+
+## Contact options regression
+
+21 added tests validate international tel links, encoded mail subjects/bodies, contact schema publication without secrets, malicious contact-value rejection, and actual channel-selection/back handlers through a minimal DOM adapter in RU/LV/EN. 349 Node tests and 4 workerd tests pass. Standalone bundle syntax checked. Tests do not invoke a mail client, telephone app, dial a number or send messages. Real mobile app handoff requires manual user review.

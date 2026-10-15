@@ -12,3 +12,5 @@ Use `Anete-demo-offline.html` for a free portable reference demonstration, or th
 8. Explain the difference between tested reference behavior and live AI understanding. Do not claim a percentage of support tickets resolved or financial savings without real measurements.
 
 Before pitching to Anete.lv, obtain the user's explicit permission to contact them. Before a commercial pilot, confirm policies and escalation ownership with the shop, check Latvian wording, configure the real support inbox, and run the live evaluation suite. This demo must not be installed on their site without their permission.
+
+Contact options: ask to contact a human, choose email/phone, inspect the preview and press Back. Do not activate the native-app link during a sales demonstration unless the viewer intentionally wants real contact. Phone/email are real shop contacts; no real staff chat is connected.
