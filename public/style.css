@@ -3,3 +3,6 @@
 @media(max-width:400px){.top{padding-inline:16px;gap:10px}.brand{font-size:18px}.mark{width:30px;height:30px;margin-right:8px}.language{padding:8px 9px}}
 
 .contact-options{display:grid;grid-template-columns:1fr 1fr;gap:8px}.contact-options button{margin:0;min-height:44px}.handoff{max-height:360px}#contact-warning{font-size:11px;color:#77532b}#contact-step{border-top:1px solid #efd9bc;margin-top:12px;padding-top:6px}#contact-preview{max-height:150px;overflow:auto;overflow-wrap:anywhere}.handoff .contact-open{display:inline-block;background:var(--green);color:white;padding:12px;border-radius:8px;text-decoration:none;margin-bottom:10px;min-height:44px}#contact-back{display:block;margin-bottom:12px}@media(max-width:360px){.contact-options{grid-template-columns:1fr}}
+
+/* Keep contact choices visible instead of allowing flexbox to squash the panel. */
+.chat-shell.has-handoff .suggestions{display:none}.chat-shell.has-handoff .messages{min-height:100px}.chat-shell.has-handoff .handoff{flex-shrink:0;max-height:min(360px,36dvh);min-height:170px}.chat-shell.has-handoff .handoff>p{margin:8px 0}.contact-options{margin:12px 0}.chat-shell.has-handoff .handoff>b{display:block}

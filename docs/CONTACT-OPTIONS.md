@@ -17,4 +17,6 @@ For testing, stop at the preview or close the native draft without sending; do n
 
 Replace tenant public contacts only with approved company channels and review the explanatory text. To offer real chat, implement and agree a staffed inbox integration first. Do not reuse the fictional demo email draft as a production ticket workflow.
 
-349 Node tests and 4 workerd tests pass; native phone/mail apps were not opened during automated verification.
+357 Node tests and 4 workerd tests pass; native phone/mail apps were not opened during automated verification.
+
+Direct contact requests take precedence over the previous topic and skip paid model routing. The open contact panel hides suggestion chips and has a bounded scroll area with flex shrinking disabled, so the choices remain reachable on mobile. Manual visual review is still required.

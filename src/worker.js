@@ -78,7 +78,7 @@ export function createWorker(fetcher=fetch){return {
     const previous=tenant.cards.some(c=>c.id===data.previousTopic)?data.previousTopic:null;
     const blocked=preflight(data.message);
     const ref=referenceRoute(data.message,previous);
-    const useAI=env.AI_ENABLED==='true'&&!blocked&&!ref.social&&ref.kind!=='greeting';
+    const useAI=env.AI_ENABLED==='true'&&!blocked&&!ref.social&&!ref.ids.includes('contact')&&ref.kind!=='greeting';
     const denied=await gate(request,env,'chat',useAI);if(denied)return denied;
     if(blocked)return reply(render(data.tenant,data.locale,{ids:[],kind:blocked,handoff:false},'safety'));
     if(!useAI)return reply(render(data.tenant,data.locale,ref,ref.social?'social':'reference'));

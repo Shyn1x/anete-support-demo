@@ -18,7 +18,7 @@ export function referenceRoute(text, previous=null){
  const social=socialRoute(text);if(social)return social;
  const s=correctTypos(normalize(text));
  const englishRoutes=[
- ['contact',/human|live agent|speak to|contact|phone number|email address/],
+ ['contact',/human|\bagent\b|\bstaff\b|speak to|contact|phone number|email address/],
  ['status',/where.{0,15}order|order status|cancel|change.{0,15}(address|order)|compensation|scam|police|complain/],
  ['business-warranty',/business|company|legal entity|b2b/],
  ['payment-problem',/charged twice|double charge|payment failed|charged.{0,10}(twice|again)/],

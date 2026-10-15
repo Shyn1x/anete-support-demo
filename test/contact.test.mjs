@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {contactAction,mountContactChoices,contactUI} from '../public/contact.js';import {getTenant} from '../src/kb.js';import {createWorker} from '../src/worker.js';import {environment} from './helpers.mjs';
+import {contactAction,mountContactChoices,contactUI} from '../public/contact.js';import {getTenant} from '../src/kb.js';import {createWorker} from '../src/worker.js';import {environment,request} from './helpers.mjs';
 const contact=getTenant('anete').contact;
 for(const locale of ['ru','lv','en']){
  test(`email draft encodes subject and category summary ${locale}`,()=>{
@@ -22,3 +22,11 @@ for(const phone of ['javascript:alert(1)','+37120013727;123','+37120013727\n123'
 for(const email of ['x@y.lv?bcc=other@example.invalid','x@y.lv\r\nBcc:test@example.invalid','javascript:alert(1)','a b@example.lv','<a>@example.lv'])test(`reject invalid email ${JSON.stringify(email)}`,()=>assert.equal(contactAction({...contact,email},'email','en'),null));
 test('unsupported channel, missing contacts and invalid locale fail closed',()=>{assert.equal(contactAction(contact,'chat','en'),null);assert.equal(contactAction(null,'call','en'),null);assert.equal(contactAction(contact,'call','de'),null);});
 test('public contact configuration is available without secrets',async()=>{const {env}=environment();const response=await createWorker().fetch(new Request('https://demo.example/api/config'),env);const data=await response.json();assert.deepEqual(data.contact,contact);assert.ok(!JSON.stringify(data).includes(env.SESSION_SECRET));});
+
+for(const [locale,message]of [['ru','Дай сотрудника'],['ru','Хочу связаться с сотрудником'],['ru','Позови оператора'],['en','Give me an agent'],['en','I want a human'],['en','Contact staff'],['lv','Gribu runāt ar darbinieku'],['lv','Vēlos sazināties ar operatoru']])test(`direct human request ignores prior defect and skips provider: ${message}`,async()=>{
+ const {env,storage}=environment({AI_ENABLED:'true',DEMO_PASSWORD:'synthetic-demo-password',OPENAI_API_KEY:'fake-test-key'});let calls=0;
+ const worker=createWorker(async()=>{calls++;throw Error('Provider should not be called');});
+ const login=await worker.fetch(request('/api/login',{password:env.DEMO_PASSWORD}),env);const cookie=login.headers.get('Set-Cookie').split(';')[0];
+ const response=await worker.fetch(request('/api/chat',{tenant:'anete',locale,message,previousTopic:'defect'},{headers:{cookie}}),env);
+ assert.equal(response.status,200);const data=await response.json();assert.deepEqual(data.cardIds,['contact']);assert.equal(data.handoff,true);assert.equal(data.locale,locale);assert.equal(calls,0);assert.equal(storage.records.get('state').total,0);
+});
