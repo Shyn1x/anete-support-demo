@@ -5,6 +5,7 @@ export function assess(item,data){
  if(!Array.isArray(data.cardIds))notes.push('invalid_cards');
  else if(item.anyCards.length&&!item.anyCards.some(id=>data.cardIds.includes(id)))notes.push('topic');
  else if(!item.anyCards.length&&data.cardIds.length)notes.push('unexpected_topic');
+ if(Array.isArray(data.cardIds)&&data.cardIds.some(id=>!(item.allowedCards||item.anyCards).includes(id)))notes.push('extra_topic');
  if(data.handoff!==item.handoff)notes.push('handoff');
  if(item.mode&&data.mode!==item.mode)notes.push('mode');
  if(data.cardIds?.length&&!data.sources?.length)notes.push('missing_sources');

@@ -1,5 +1,8 @@
-import {cases,suiteVersion} from './qa-cases.js';import {runCases,report} from './qa-core.js';
+import {cases as allCases,suiteVersion as baseVersion} from './qa-cases.js';import {runCases,report} from './qa-core.js';
+const regression=new URLSearchParams(location.search).get('subset')==='regression-1';
+const cases=regression?allCases.filter(c=>['case-07','case-08','case-45'].includes(c.id)):allCases,suiteVersion=baseVersion+(regression?'-regression-1':'');
 const $=id=>document.getElementById(id),key='qa:'+suiteVersion;
+if(regression){$('qa-title').textContent='Повторная проверка трёх исправлений';$('qa-scope').textContent='RU / LV / EN · два обычных возврата и вопрос о поломке. Это новый прогон; предыдущие 50 ответов сохраняются отдельно.';}
 let rows=[],controller=null,running=false,ready=false;
 try{const saved=JSON.parse(localStorage.getItem(key)||'[]');if(Array.isArray(saved))rows=saved.filter(r=>cases.some(c=>c.id===r.id)&&r.suite===suiteVersion);}catch{}
 function show(row){const li=document.createElement('li'),title=document.createElement('strong'),body=document.createElement('pre');title.className=row.assessment?.pass?'pass':'fail';title.textContent=`${row.id} · ${row.locale.toUpperCase()} · ${row.assessment?.pass?'Автопроверка пройдена':'Нужен разбор'} · ${row.answer?.mode||row.error}`;body.textContent=row.message+'\n\n'+(row.answer?.text||row.error)+'\n\n'+(row.assessment?.notes.join(', ')||'');li.append(title,body);li.id=row.id;const existing=$(row.id);if(existing)existing.replaceWith(li);else $('results').append(li);}

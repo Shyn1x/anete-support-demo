@@ -28,3 +28,7 @@ Preliminary automated checks are NOT a semantic quality score. Human review must
 ## Explicit dated approval
 
 On 15 October 2026 the user approved proceeding with the remaining 45 cases immediately. An expiring $0.90 reserve supplement was configured for that UTC day only; all earlier counters, rate limits and the $5 lifetime ceiling remain intact. The default rule above applies again after expiry. This is not a silent cap increase or a storage reset.
+
+## Completed baseline and targeted rerun
+
+The 50-case baseline was completed by the user on 15 October 2026: 48 original automatic passes, 47 manual acceptances, three identified defects. The original dataset/version and results are preserved. After routing corrections, open `/qa?subset=regression-1` to run only cases 07, 08 and 45 under a distinct storage key. The grader now also checks irrelevant added cards; this does not retroactively change the uploaded original grades. The three-case rerun is pending.

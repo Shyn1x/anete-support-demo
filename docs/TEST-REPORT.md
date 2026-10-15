@@ -2,7 +2,7 @@
 
 ## Passed checks
 
-- **375/375 Node.js automated tests**, including **108 distinct synthetic customer scenarios** (36 Russian, 36 Latvian, 36 English). An additional 48 typo and safety checks cover missing letters, swapped letters, unrelated words, ambiguous corrections and sourced API responses. Full individual results: `test-results.txt`; prompts/expectations: `docs/scenarios.json`.
+- **395/395 Node.js automated tests**, including **108 distinct synthetic customer scenarios** (36 Russian, 36 Latvian, 36 English). An additional 48 typo and safety checks cover missing letters, swapped letters, unrelated words, ambiguous corrections and sourced API responses. Full individual results: `test-results.txt`; prompts/expectations: `docs/scenarios.json`.
 - **4/4 workerd runtime tests**: the 108 scenarios execute against the actual compiled Worker with a real SQLite-backed Durable Object; concurrent reservations cannot exceed the configured cap; a new runtime instance reads the previously exhausted budget. Language switching RU → EN → LV → RU is checked through the actual Worker. Full results: `runtime-results.txt`.
 - Wrangler **deployment dry-run passed**: Worker bundle and static assets validated. This is not a production deployment and consumes no OpenAI API calls.
 - `npm run build`: 22 trilingual answer cards, 8 source references validated; static assets prepared.
@@ -55,3 +55,7 @@ A clean-URL asset regression was added for `/qa`, because Cloudflare redirects `
 ## Explicitly authorised one-day evaluation allowance
 
 5 additional tests verify exactly 45 additional $0.02 reservations on 15 October 2026, preservation of prior daily/lifetime accounting, unchanged lifetime cap, rejection of future-date/oversized grants and automatic return to the normal next-day allowance. 375 Node tests and 4 workerd checks pass. No provider calls were executed by these tests.
+
+## Live baseline review and regression corrections
+
+The user completed/exported all 50 cases. 41 provider routes, 9 non-provider paths, 48 original auto-passes; manual review accepts 47 cases, identifying unnecessary routine-return handoff in cases 07/08 and extra withdrawal-refund guidance in case 45. All 50 texts/source arrays match approved templates/cards. Original outputs are saved unchanged under `docs/evaluations/2026-10-15-full-50.json`. Twenty added tests replay the observed parser failures, preserve sensitive/complicated return handoff, retain explicit money-back requests and ensure the grader catches irrelevant extra cards. 395 Node tests and 4 workerd checks pass. Post-fix live rerun of the three failures is pending.

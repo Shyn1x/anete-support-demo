@@ -2,7 +2,7 @@
 
 A reusable Cloudflare Worker, own responsive RU/LV/EN chat, a reviewed policy catalog and an optional OpenAI intent router. This is not an official Anete.lv product. No shop installation or contact has been made.
 
-**Delivery state:** source is maintained in https://github.com/Shyn1x/anete-support-demo. Local checks pass: 375 Node tests and 4 workerd checks, including 108 customer scenarios. The user deployed the demo to https://anete-support-demo.fshyn1x.workers.dev and reports successful mobile checks. Systematic live OpenAI evaluation is pending. AI is disabled when AI_ENABLED is absent. A ChatGPT subscription is not an API key or API balance.
+**Delivery state:** source is maintained in https://github.com/Shyn1x/anete-support-demo. Local checks pass: 395 Node tests and 4 workerd checks, including 108 customer scenarios. The user deployed the demo to https://anete-support-demo.fshyn1x.workers.dev and reports successful mobile checks. Systematic live OpenAI evaluation is pending. AI is disabled when AI_ENABLED is absent. A ChatGPT subscription is not an API key or API balance.
 
 ## Try without accounts or costs
 
@@ -113,3 +113,5 @@ Contact previews open as native dialogs above the chat, so a tap cannot be hidde
 Open `/qa`, sign in using the demo password and press Start/Resume. The browser runs 50 synthetic production scenarios with the same session and server guards. It checkpoints each attempt locally, stops at budget/rate/auth errors and exports JSON. There is no shared evaluation-password endpoint, automatic model retry or budget increase. 50 cases do not imply 50 provider calls: safety, social and direct-contact paths can bypass the model; the `providerUsed` response flag records actual completed provider routes. Live output grading remains pending until the user runs and exports the report. See `docs/LIVE-EVAL.md`.
 
 On 15 October 2026 the user explicitly authorised immediate completion of the remaining 45 evaluation cases. A fixed-date `LIVE_EVAL_EXTRA_DAY=2026-10-15` grants exactly $0.90 additional daily reservation for that UTC day, without clearing any counter or increasing the $5 lifetime limit. It expires automatically; normal daily allowance returns next UTC day. See `docs/EVAL-ALLOWANCE-2026-10-15.md`.
+
+Live baseline completed: 50/50 production cases, 41 provider routes, 48 original automatic passes and 47 manual acceptances on this set. Three fixes are implemented; the separate post-fix regression is pending. Full immutable baseline and manual review: `docs/evaluations/2026-10-15-full-50-review.md`.
