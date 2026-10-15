@@ -47,3 +47,12 @@ test('five prospect tenants run all 250 scenarios inside workerd without cross-s
   const own=new Set(Object.values(tenant.sources).map(s=>s.url));assert.ok(out.sources.every(s=>own.has(s.url)));
  }}}finally{await mf.dispose();}
 });
+
+test('usage endpoint reads persisted SQLite counters only after login and consumes no provider reserve',async()=>{
+ const mf=new Miniflare(convertV4MiniflareOptions({...options,bindings:{...options.bindings,DEMO_PASSWORD:'synthetic-usage-password'}}));
+ try{
+  assert.equal((await mf.dispatchFetch('https://demo.example/api/usage')).status,401);
+  const login=await mf.dispatchFetch('https://demo.example/api/login',{method:'POST',headers:{Origin:'https://demo.example','Content-Type':'application/json'},body:JSON.stringify({password:'synthetic-usage-password'})});assert.equal(login.status,200);
+  const cookie=login.headers.get('Set-Cookie').split(';')[0];for(let i=0;i<2;i++){const response=await mf.dispatchFetch('https://demo.example/api/usage',{headers:{cookie}});assert.equal(response.status,200);const data=await response.json();assert.equal(data.total.reservedMicroUSD,0);assert.equal(data.budgetCallsRemaining,25);assert.equal(data.callsAvailableNow,10);}
+ }finally{await mf.dispose();}
+});

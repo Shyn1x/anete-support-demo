@@ -12,5 +12,5 @@ for(const page of ['index.html','demos.html']){
  for(const css of ['style.css','brand.css']){const hash=createHash('sha256').update(await readFile('public/'+css)).digest('hex').slice(0,12);html=html.replace(new RegExp('href="/'+css.replace('.','\\.')+'(?:\\?v=[a-f0-9]+)?"','g'),'href="/'+css+'?v='+hash+'"');}
  await writeFile('public/'+page,html);
 }
-for(const name of ['index.html','demos.html',bundle.filename,'app.js','branding.js','brand.css','contact.js','qa.html','qa.js','qa-cases.js','qa-core.js','qa.css','style.css','favicon.svg']){await mkdir('dist',{recursive:true});await copyFile('public/'+name,'dist/'+name);}
+for(const name of ['index.html','demos.html','usage.html','usage.js',bundle.filename,'app.js','branding.js','brand.css','contact.js','qa.html','qa.js','qa-cases.js','qa-core.js','qa.css','style.css','favicon.svg']){await mkdir('dist',{recursive:true});await copyFile('public/'+name,'dist/'+name);}
 console.log(`Validated ${count} trilingual cards across ${Object.keys(tenants).length} isolated shops. Browser bundle: ${bundle.filename}`);

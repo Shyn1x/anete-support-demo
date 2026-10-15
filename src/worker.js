@@ -56,6 +56,15 @@ export function createWorker(fetcher=fetch){return {
     const error=configError(env);
     return reply({dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:tenant.id,name:tenant.name,sources:Object.values(tenant.sources),contact:tenant.contact,checked:tenant.checked,mode:env.AI_ENABLED==='true'?'ai':'reference',authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
    }
+   if(url.pathname==='/api/usage'&&request.method==='GET'){
+    const error=configError(env);if(error||!env.DEMO_PASSWORD)return reply({error:'server_not_configured'},503);
+    if(!await authenticated(request,env))return reply({error:'authentication_required'},401);
+    if(!env.GUARD)return reply({error:'guard_unavailable'},503);
+    const day=new Date().toISOString().slice(0,10),address=request.headers.get('CF-Connecting-IP')||'unknown';
+    const client=await mac(env.SESSION_SECRET,`${day}:${address}`);
+    const response=await env.GUARD.get(env.GUARD.idFromName('experiment-v1')).fetch('https://guard.internal/status',{headers:{'X-Demo-Client':client}});
+    return reply(await response.json(),response.status);
+   }
    if(isApi){
     if(request.method!=='POST')return reply({error:'method_not_allowed'},405,{'Allow':'POST'});
     if(!['/api/chat','/api/login','/api/logout'].includes(url.pathname))return reply({error:'not_found'},404);
@@ -92,7 +101,7 @@ export function createWorker(fetcher=fetch){return {
     return reply({...render(data.tenant,data.locale,result,result.social?'social':'ai'),providerUsed:true});
    }
    if(!['GET','HEAD'].includes(request.method))return reply({error:'method_not_allowed'},405);
-   if(!/^\/chat-ui\.[a-f0-9]{12}\.js$/.test(url.pathname)&&!['/','/index.html','/app.js','/branding.js','/brand.css','/contact.js','/qa','/qa/','/qa.html','/qa.js','/qa-cases.js','/qa-core.js','/qa.css','/style.css','/favicon.svg','/demos','/demos/','/demos.html'].includes(url.pathname))return reply({error:'not_found'},404);
+   if(!/^\/chat-ui\.[a-f0-9]{12}\.js$/.test(url.pathname)&&!['/','/index.html','/app.js','/branding.js','/brand.css','/contact.js','/qa','/qa/','/qa.html','/qa.js','/qa-cases.js','/qa-core.js','/qa.css','/style.css','/favicon.svg','/usage','/usage/','/usage.html','/usage.js','/demos','/demos/','/demos.html'].includes(url.pathname))return reply({error:'not_found'},404);
    const res=await env.ASSETS.fetch(request),headers=new Headers(res.headers);
    for(const [k,v] of Object.entries(security))headers.set(k,v);
    return new Response(res.body,{status:res.status,headers});

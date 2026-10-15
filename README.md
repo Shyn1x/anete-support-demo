@@ -126,3 +126,5 @@ Latest acceptance status: `docs/evaluations/2026-10-15-regression-1-review.md`. 
 Configuration is in `src/prospects.js`; approved cards and sources are isolated by shop. Shared safety, language, contact UI and global expense controls are reused. Unknown shops fail closed. `requiresReview` forces review independently of model output. See [research](docs/prospects/RESEARCH.md) and [validation/limits](docs/prospects/TEST-REPORT.md). No outreach has been sent.
 
 Each prospect now has its own colour palette, headline, monogram and RU/LV/EN greeting. See [styling and validation](docs/prospects/BRANDING.md). Shared API budget limits are unchanged.
+
+[Read-only demo quota](https://anete-support-demo.fshyn1x.workers.dev/usage) shows the shared reservation and current connection message limits after demo login. It makes no provider call and is not an OpenAI billing balance. See [usage documentation](docs/USAGE.md).
