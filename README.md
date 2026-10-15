@@ -2,7 +2,7 @@
 
 A reusable Cloudflare Worker, own responsive RU/LV/EN chat, a reviewed policy catalog and an optional OpenAI intent router. This is not an official Anete.lv product. No shop installation or contact has been made.
 
-**Delivery state:** source is maintained in https://github.com/Shyn1x/anete-support-demo. Local checks pass: 358 Node tests and 4 workerd checks, including 108 customer scenarios. The user deployed the demo to https://anete-support-demo.fshyn1x.workers.dev and reports successful mobile checks. Systematic live OpenAI evaluation is pending. AI is disabled when AI_ENABLED is absent. A ChatGPT subscription is not an API key or API balance.
+**Delivery state:** source is maintained in https://github.com/Shyn1x/anete-support-demo. Local checks pass: 369 Node tests and 4 workerd checks, including 108 customer scenarios. The user deployed the demo to https://anete-support-demo.fshyn1x.workers.dev and reports successful mobile checks. Systematic live OpenAI evaluation is pending. AI is disabled when AI_ENABLED is absent. A ChatGPT subscription is not an API key or API balance.
 
 ## Try without accounts or costs
 
@@ -107,3 +107,7 @@ Human contact options: email/phone selection first opens a modal preview with a 
 Direct contact requests bypass model classification and previous policy context. When contact choices are visible, suggested questions are hidden and the contact panel cannot be collapsed by flexbox.
 
 Contact previews open as native dialogs above the chat, so a tap cannot be hidden below an internal scroll area. Chat responses include the same public per-tenant contacts as config. Missing data opens an explanation and source link instead of silently disabling the choices.
+
+## Live evaluation page
+
+Open `/qa.html`, sign in using the demo password and press Start/Resume. The browser runs 50 synthetic production scenarios with the same session and server guards. It checkpoints each attempt locally, stops at budget/rate/auth errors and exports JSON. There is no shared evaluation-password endpoint, automatic model retry or budget increase. 50 cases do not imply 50 provider calls: safety, social and direct-contact paths can bypass the model; the `providerUsed` response flag records actual completed provider routes. Live output grading remains pending until the user runs and exports the report. See `docs/LIVE-EVAL.md`.

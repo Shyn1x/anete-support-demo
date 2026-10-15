@@ -1,6 +1,6 @@
 # Experiment costs
 
-Checked 15.10.2026. No subscriptions, credit purchases or top-ups were made. Billable OpenAI requests executed by this task: **0**.
+Checked 15.10.2026. The user reports a $5 OpenAI API top-up and manual live checks. This agent has made no purchases or paid evaluation calls; actual account charges have not been retrieved.
 
 | Component | Free use relevant to the prototype | Limit / next step |
 |---|---|---|
@@ -21,4 +21,4 @@ Example estimate, not measured usage: at 4,000–8,000 input tokens and 80 outpu
 
 The code reserves $0.02 before each attempted classification, with a default ceiling of $0.50/day and $5 lifetime. This allows at most 25 attempts/day and 250 lifetime attempts. The reservation is intentionally higher than expected cost and includes failed attempts; it is not the provider invoice. No retry, auto-top-up or automatic cap reset is implemented. To complete 50 **live** AI scenarios under the default daily limit, use at least two UTC days; do not secretly raise the limit to run them in one day.
 
-Amounts above are USD before any applicable taxes or currency conversion. The user's €20 experiment budget remains unspent by this task; no exact EUR bill is promised. An API account may require a separate prepaid purchase before requests work, which needs explicit approval. Use a dedicated project/key and provider-side spending controls. Application caps do not cover calls made elsewhere with the same key, changed vendor prices or hosting upgraded by an account owner.
+Amounts above are USD before any applicable taxes or currency conversion. The user's €20 experiment budget includes the reported $5 top-up; exact taxes, EUR conversion and consumed credit are not independently verified; no exact EUR bill is promised. An API account may require a separate prepaid purchase before requests work, which needs explicit approval. Use a dedicated project/key and provider-side spending controls. Application caps do not cover calls made elsewhere with the same key, changed vendor prices or hosting upgraded by an account owner.
