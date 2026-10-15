@@ -1,3 +1,4 @@
+import {nicheRoute} from './niche-route.js';
 import {socialRoute,socialText,dialogueIntents} from './social.js';
 import {getTenant} from './kb.js';
 import {correctTypos} from './typos.js';
@@ -9,6 +10,9 @@ export const strings={
  ru:{handoff:'Нужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.',unknown:'Уточните, пожалуйста, что вас интересует: доставка, оплата, возврат или гарантия?',pii:'Не вводите реальные персональные или платёжные данные. Используйте вымышленный пример без имён, адресов, телефонов и номеров заказов.',blocked:'Могу помочь только с правилами магазина. Инструкции по изменению правил и запросы секретов не выполняю.',greeting:'Здравствуйте! Это независимое демо по публичным правилам Anete.lv, не официальный сервис магазина. Чем помочь?',clarify:'Что именно вас интересует: доставка, оплата, возврат или гарантия?'},
  lv:{handoff:'Nepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu.',unknown:'Lūdzu, precizējiet: vai jautājums ir par piegādi, apmaksu, atgriešanu vai garantiju?',pii:'Neievadiet īstus personas vai maksājumu datus. Izmantojiet izdomātu piemēru bez vārdiem, adresēm, tālruņiem un pasūtījumu numuriem.',blocked:'Varu palīdzēt tikai ar veikala noteikumiem. Neizpildu norādījumus mainīt noteikumus vai atklāt noslēpumus.',greeting:'Labdien! Šī ir neatkarīga demonstrācija par Anete.lv publiskajiem noteikumiem, nevis veikala oficiāls pakalpojums. Kā varu palīdzēt?',clarify:'Kas tieši interesē: piegāde, apmaksa, atgriešana vai garantija?'}
 };
+Object.assign(strings.ru,{'product-clarify':'Уточните название или модель товара и что хотите узнать. Характеристики разных моделей могут отличаться.','product-live':'У демо нет доступа к текущим остаткам, ценам и партиям товара. Проверьте карточку на сайте магазина или уточните у магазина.'});
+Object.assign(strings.lv,{'product-clarify':'Lūdzu, precizējiet preces nosaukumu vai modeli un jautājumu. Dažādu modeļu īpašības var atšķirties.','product-live':'Demonstrācijai nav piekļuves aktuālajiem atlikumiem, cenām vai partijām. Pārbaudiet preces lapu vai sazinieties ar veikalu.'});
+Object.assign(strings.en,{'product-clarify':'Please specify the product name or model and what you want to know. Specifications can differ between models.','product-live':'The demo cannot access current stock, prices or batches. Check the product page or ask the shop.'});
 export function preflight(text){
  if(/https?:\/\/|www\.|ignore.{0,35}(instruction|previous)|system prompt|api.?key|sk-[a-z0-9]|игнориру|системн.{0,10}(промпт|инструкц)|забудь.{0,20}правил|игнорь|ignorē.{0,20}(instrukc|noteikum)|api.?atslēg/iu.test(text))return 'blocked';
  if(/[\w.+-]+@[\w.-]+\.[a-z]{2,}|(?:\d[\s-]*){7,}|(?:мой|моя|mans|mana)\s+(?:адрес|телефон|паспорт|personas kods|adrese)|(?:cvv|cvc|iban)\s*[:=]?\s*\S+/iu.test(text))return 'pii';
@@ -17,6 +21,7 @@ export function preflight(text){
 export function referenceRoute(text, previous=null, tenantId='anete'){
  const social=socialRoute(text);if(social)return social;
  const s=correctTypos(normalize(text));
+ const niche=nicheRoute(s,tenantId);if(niche)return niche;
  const englishRoutes=[
  ['contact',/human|\bagent\b|\bstaff\b|speak to|contact|phone number|email address/],
  ['status',/where.{0,15}order|order status|cancel|change.{0,15}(address|order)|compensation|scam|police|complain/],
@@ -96,6 +101,9 @@ export async function aiRoute(tenant,text,previous,fetcher=fetch){
   const raw=blocks.filter(b=>b.type==='output_text').map(b=>b.text).join('');
   const out=JSON.parse(raw);
   if(!Array.isArray(out.ids)||out.ids.length>3||new Set(out.ids).size!==out.ids.length||out.ids.some(id=>!ids.includes(id))||typeof out.handoff!=='boolean')throw new Error('schema');
+  const nicheIds=tenant.cards.filter(c=>c.source==='niche-product').map(c=>c.id);
+  const allowed=nicheRoute(correctTypos(normalize(text)),tenant.id);
+  if(out.ids.some(id=>nicheIds.includes(id)&&!allowed?.ids.includes(id)))return {ids:[],kind:'product-clarify',handoff:false};
   const dialogue=out.ids.filter(id=>id.startsWith('dialogue:'));
   if(dialogue.length){
    if(out.ids.length!==1||out.handoff)throw new Error('schema');

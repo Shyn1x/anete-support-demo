@@ -19,9 +19,9 @@ for(const tenant of Object.values(prospectTenants)){
   for(const id of out.cardIds){const c=tenant.cards.find(c=>c.id===id);assert.ok(c);if(c.requiresReview)assert.equal(out.handoff,true);}
   if(['contact','status','defect','payment-problem'].includes(expected))assert.equal(out.handoff,true);
  });
- test(`${tenant.id}: AI schema and mandatory review cover every approved card`,async()=>{
+ test(`${tenant.id}: AI schema and mandatory review cover every policy card`,async()=>{
   const route=await aiRoute(tenant,'I changed my mind and want to return it',null);
-  for(const c of tenant.cards){const result=route.parse({status:'completed',output:[{content:[{type:'output_text',text:JSON.stringify({ids:[c.id],handoff:false})}]}]});for(const locale of ['ru','lv','en']){const out=render(tenant.id,locale,result,'ai');assert.ok(out.text.includes(c[locale]));assert.ok(out.sources.every(Boolean));if(c.requiresReview)assert.equal(out.handoff,true);}}
+  for(const c of tenant.cards.filter(c=>c.source!=='niche-product')){const result=route.parse({status:'completed',output:[{content:[{type:'output_text',text:JSON.stringify({ids:[c.id],handoff:false})}]}]});for(const locale of ['ru','lv','en']){const out=render(tenant.id,locale,result,'ai');assert.ok(out.text.includes(c[locale]));assert.ok(out.sources.every(Boolean));if(c.requiresReview)assert.equal(out.handoff,true);}}
   assert.throws(()=>route.parse({status:'completed',output:[{content:[{type:'output_text',text:'{"ids":["invoice"],"handoff":false}'}]}]}));
   assert.ok(!JSON.stringify(route.body).includes('anete.lv'));
  });

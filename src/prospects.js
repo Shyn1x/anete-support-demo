@@ -1,3 +1,4 @@
+import {nicheKnowledge} from './niche-data.js';
 // Independently checked public store pages, 2026-10-15. Unofficial demonstrations.
 export const prospectTenants = {
   "rotallieta": {
@@ -775,3 +776,8 @@ export const prospectTenants = {
     ]
   }
 };
+
+for (const [id, knowledge] of Object.entries(nicheKnowledge)) {
+  prospectTenants[id].sources['niche-product'] = knowledge.source;
+  prospectTenants[id].cards.push(...knowledge.cards);
+}
