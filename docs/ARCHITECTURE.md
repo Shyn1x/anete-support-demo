@@ -4,7 +4,7 @@ Browser → same-origin Worker → atomic BudgetGuard Durable Object → OpenAI 
 
 The AI is an intent router. It never writes customer-facing policy text. It may choose the wrong approved card; that remaining risk needs live model evaluations. JSON-schema enforcement alone does not establish semantic correctness. Replies are assembled from `src/kb.js`; provider-authored strings and URLs are discarded.
 
-The independent demonstration is visibly labelled in both languages. It has no shop account, order, payment, CRM or email integration. Human handoff is simulated: contact details and a copyable category summary are displayed, with an explicit statement that no ticket was created. No automatic external communication occurs.
+The independent demonstration is visibly labelled in all three languages. It has no shop account, order, payment, CRM or email integration. Human handoff is simulated: contact details and a copyable category summary are displayed, with an explicit statement that no ticket was created. No automatic external communication occurs.
 
 ## Abuse and cost controls
 
@@ -29,3 +29,7 @@ Add a new tenant with its own approved answer cards, languages, sources and revi
 The reference router corrects unambiguous single-character typos in a small policy-word dictionary, including adjacent transpositions. It also recognises Latvian words without diacritics. Short tokens and ambiguous matches are left unchanged. This is not a general spellchecker; meaning and arbitrary misspellings still require live AI evaluation. Raw-input safety checks run before routing.
 
 Unit/API tests use an injected mocked provider and cannot establish live OpenAI intent accuracy, account access, latency or actual billing. Runtime tests use Cloudflare workerd and SQLite Durable Objects locally. Neither establishes a production deployment. Browser layout and mobile-device behavior require a visual review. Live model evaluation is opt-in and must never run by default in CI.
+
+## Conversation layer
+
+Before provider classification, a bounded whole-message grammar composes approved social phrases. All tokens must be consumed, so gratitude cannot mask a subsequent issue. Unmatched input goes through the existing bounded API classifier, whose enum now includes seven `dialogue:` intents in addition to policy IDs. The model still cannot author customer-visible text. The parser rejects mixing dialogue and policy IDs or setting handoff on a social selection. Policy-specific forced human review remains intact. Unknown input may ask clarification without automatic handoff. The UI retains the previous topic across social/clarification turns. There is no full conversation transcript or open-ended chat memory.
