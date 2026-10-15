@@ -14,3 +14,5 @@ Use `Anete-demo-offline.html` for a free portable reference demonstration, or th
 Before pitching to Anete.lv, obtain the user's explicit permission to contact them. Before a commercial pilot, confirm policies and escalation ownership with the shop, check Latvian wording, configure the real support inbox, and run the live evaluation suite. This demo must not be installed on their site without their permission.
 
 Contact options: ask to contact a human, choose email/phone, inspect the preview and press Back. Do not activate the native-app link during a sales demonstration unless the viewer intentionally wants real contact. Phone/email are real shop contacts; no real staff chat is connected.
+
+Acceptance checkpoint (15 October 2026): 50 baseline production cases reviewed; three identified defects fixed and confirmed by a targeted 3/3 live rerun. Demonstration readiness is limited to approved policy guidance, RU/LV/EN, courtesy handling and transparent contact options. Do not claim order access, a staffed live chat, a full 50-case final-build rerun or universal accuracy.

@@ -2,7 +2,7 @@
 
 A reusable Cloudflare Worker, own responsive RU/LV/EN chat, a reviewed policy catalog and an optional OpenAI intent router. This is not an official Anete.lv product. No shop installation or contact has been made.
 
-**Delivery state:** source is maintained in https://github.com/Shyn1x/anete-support-demo. Local checks pass: 395 Node tests and 4 workerd checks, including 108 customer scenarios. The user deployed the demo to https://anete-support-demo.fshyn1x.workers.dev and reports successful mobile checks. Systematic live OpenAI evaluation is pending. AI is disabled when AI_ENABLED is absent. A ChatGPT subscription is not an API key or API balance.
+**Delivery state:** source is maintained in https://github.com/Shyn1x/anete-support-demo. Local checks pass: 395 Node tests and 4 workerd checks, including 108 customer scenarios. The user deployed the demo to https://anete-support-demo.fshyn1x.workers.dev and reports successful mobile checks. The user completed 50 live production scenarios; three observed issues were fixed and all three passed a targeted live rerun. This is 53 executions across 50 distinct inputs, not a fresh full run after the final changes. AI is disabled when AI_ENABLED is absent. A ChatGPT subscription is not an API key or API balance.
 
 ## Try without accounts or costs
 
@@ -89,14 +89,14 @@ The GitHub Actions workflow tests this repository without OpenAI or Cloudflare s
 
 ## Known scope limits
 
-- Live OpenAI intent accuracy, latency, balance and billing have not been verified without a key. No financial transaction was performed.
-- UI has responsive CSS and safe DOM rendering, but a browser/device visual review is still needed. Local previews were not opened in an automated browser in this environment.
+- Production response evidence and client latency were reviewed for 50 baseline cases plus 3 correction repeats. Generalisation beyond this acceptance set, exact API token usage and actual billing are not established. The user reports a $5 top-up; the agent made no purchase.
+- The user confirmed mobile chat, language switching and email/phone selection. Automated visual browser QA and desktop device review remain pending.
 - Handoff is a transparent contact-and-copy demonstration, not an operator inbox or ticket integration. There is no order lookup, refund, cancellation, real-time stock or automatic policy refresh.
 - Each message is checked for Russian, Latvian or English vocabulary/script; recognizable language changes update replies and controls without clearing the conversation. Ambiguous short messages keep the selected language. This conservative detector does not guarantee arbitrary transliteration or heavy misspellings. Manually choosing RU/LV/EN starts a fresh session in the UI. No chat content is saved between reloads.
 - Reviewed source wording contains conflicts; these are explicitly escalated. Have a native Latvian reviewer verify the copy before a commercial pilot.
 - Tenant separation is implemented in the AI catalog/rendering. The reference fallback currently needs additional configuration for another company. This is a reusable foundation, not a finished SaaS platform.
 
-Show `docs/DEMO.md` to the presenter. Do not claim this reference prototype is already connected to OpenAI or officially approved by Anete.lv.
+Show `docs/DEMO.md` to the presenter. The portable reference file never calls OpenAI; the deployed demo uses OpenAI. Neither version is officially approved by Anete.lv.
 
 Courtesy-only messages (thanks, acknowledgements, greetings and goodbyes) use approved friendly templates in RU/LV/EN, with one emoji and no handoff, source links or OpenAI call. Whole-message matching avoids masking a substantive question after “thanks”. The UI retains the previous topic across these replies. Unsupported social phrasing may still fall back to the model/unknown route.
 
@@ -110,8 +110,10 @@ Contact previews open as native dialogs above the chat, so a tap cannot be hidde
 
 ## Live evaluation page
 
-Open `/qa`, sign in using the demo password and press Start/Resume. The browser runs 50 synthetic production scenarios with the same session and server guards. It checkpoints each attempt locally, stops at budget/rate/auth errors and exports JSON. There is no shared evaluation-password endpoint, automatic model retry or budget increase. 50 cases do not imply 50 provider calls: safety, social and direct-contact paths can bypass the model; the `providerUsed` response flag records actual completed provider routes. Live output grading remains pending until the user runs and exports the report. See `docs/LIVE-EVAL.md`.
+Open `/qa`, sign in using the demo password and press Start/Resume. The browser runs 50 synthetic production scenarios with the same session and server guards. It checkpoints each attempt locally, stops at budget/rate/auth errors and exports JSON. There is no shared evaluation-password endpoint, automatic model retry or budget increase. 50 cases do not imply 50 provider calls: safety, social and direct-contact paths can bypass the model; the `providerUsed` response flag records actual completed provider routes. The first baseline and targeted rerun have been exported and manually reviewed; see `docs/evaluations/`. See `docs/LIVE-EVAL.md`.
 
 On 15 October 2026 the user explicitly authorised immediate completion of the remaining 45 evaluation cases. A fixed-date `LIVE_EVAL_EXTRA_DAY=2026-10-15` grants exactly $0.90 additional daily reservation for that UTC day, without clearing any counter or increasing the $5 lifetime limit. It expires automatically; normal daily allowance returns next UTC day. See `docs/EVAL-ALLOWANCE-2026-10-15.md`.
 
-Live baseline completed: 50/50 production cases, 41 provider routes, 48 original automatic passes and 47 manual acceptances on this set. Three fixes are implemented; the separate post-fix regression is pending. Full immutable baseline and manual review: `docs/evaluations/2026-10-15-full-50-review.md`.
+Live baseline completed: 50/50 production cases, 41 provider routes, 48 original automatic passes and 47 manual acceptances on this set. Three fixes are implemented and confirmed by a separate live 3/3 correction rerun. Full immutable baseline and manual review: `docs/evaluations/2026-10-15-full-50-review.md`.
+
+Latest acceptance status: `docs/evaluations/2026-10-15-regression-1-review.md`. Ready for a controlled, explicitly unofficial demo; real inbox/order integration remains outside scope.

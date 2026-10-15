@@ -1,6 +1,6 @@
 # Production live evaluation
 
-Status: prepared, not executed by the agent. The user must authenticate in their browser at `/qa`. No password or API key should be shared in chat. The harness uses the existing signed HttpOnly same-origin session and existing `/api/chat` endpoint. No bypass endpoint, stored credential or raised guard limit is introduced.
+Status: user completed the 50-case baseline and the separate three-case correction rerun; both exports were manually reviewed. To run future checks the user must authenticate in their browser at `/qa`. No password or API key should be shared in chat. The harness uses the existing signed HttpOnly same-origin session and existing `/api/chat` endpoint. No bypass endpoint, stored credential or raised guard limit is introduced.
 
 ## Scope
 
@@ -31,4 +31,4 @@ On 15 October 2026 the user approved proceeding with the remaining 45 cases imme
 
 ## Completed baseline and targeted rerun
 
-The 50-case baseline was completed by the user on 15 October 2026: 48 original automatic passes, 47 manual acceptances, three identified defects. The original dataset/version and results are preserved. After routing corrections, open `/qa?subset=regression-1` to run only cases 07, 08 and 45 under a distinct storage key. The grader now also checks irrelevant added cards; this does not retroactively change the uploaded original grades. The three-case rerun is pending.
+The 50-case baseline was completed by the user on 15 October 2026: 48 original automatic passes, 47 manual acceptances, three identified defects. The original dataset/version and results are preserved. After routing corrections, open `/qa?subset=regression-1` to run only cases 07, 08 and 45 under a distinct storage key. The grader now also checks irrelevant added cards; this does not retroactively change the uploaded original grades. The three-case rerun was exported and manually accepted 3/3; see `docs/evaluations/2026-10-15-regression-1-review.md`.

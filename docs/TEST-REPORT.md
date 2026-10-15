@@ -16,15 +16,15 @@ Origin/Content-Type/method validation, oversized streamed body, malformed JSON, 
 
 Scenario coverage includes standard policies, language pairs, uncertain delivery dates, opened packaging, unclaimed parcels, business warranty conflicts, duplicate payments, complaints, cancellation requests, human requests, off-topic questions, injection attempts and synthetic sensitive data.
 
-## Not yet verified
+## Live evidence and remaining limits
 
-- **Live model routing accuracy**: integration tests inject mocked provider responses; keyword routing is tested separately. These results are not an AI answer-quality score.
-- **Independently measured live OpenAI connectivity, token usage, latency or billing**: local automated tests use no key or paid request.
-- **Production deployment and mobile checks**: reported successful by the user at https://anete-support-demo.fshyn1x.workers.dev. The user reports enabling AI after funding; this is not independent verification of provider calls or a systematic live routing evaluation.
-- **Visual browser/device QA**: not performed in this environment. Responsive CSS and semantics are implemented, but appearance and interactive behavior need a real mobile/desktop browser review.
-- **Human inbox delivery**: intentionally absent. The demo shows contact details and a copyable category summary, and explicitly says no request was sent.
+- The user executed 50 production cases and exported all responses. 41 provider routes, 9 non-provider paths; manual acceptance 47/50, with three defects documented.
+- After fixes, the same three failures were rerun against production: 3/3 automatically and manually accepted. This is 53 executions across 50 inputs, not a new full 50-case run after the last changes.
+- The user confirmed mobile chat and contact-option behavior. Automated visual and desktop device QA remain pending.
+- Generalisation beyond this acceptance set, full multi-turn workflows, exact provider tokens and actual billing remain unverified.
+- Human inbox delivery is intentionally absent. Email/phone URI actions open native apps only after explicit selection; no support ticket is sent by the demo.
 
-Before a client-facing AI demo, authorise deployment, configure a restricted key without exposing it, visually review RU/LV/EN on mobile and desktop, and run at least 50 live-model cases against the same knowledge version. Keep the $0.50 daily reservation limit: 50 live calls require at least two UTC days. Record actual outputs, expected card IDs, handoff decisions and any regressions. Do not present this prerequisite as already completed.
+The project is suitable for a controlled unofficial client demonstration within this scope. Do not turn these observations into a general accuracy claim. The dated allowance exception was explicitly authorised and expires automatically; counters/lifetime ceiling remain intact.
 
 ## Courtesy response regression
 
@@ -58,4 +58,8 @@ A clean-URL asset regression was added for `/qa`, because Cloudflare redirects `
 
 ## Live baseline review and regression corrections
 
-The user completed/exported all 50 cases. 41 provider routes, 9 non-provider paths, 48 original auto-passes; manual review accepts 47 cases, identifying unnecessary routine-return handoff in cases 07/08 and extra withdrawal-refund guidance in case 45. All 50 texts/source arrays match approved templates/cards. Original outputs are saved unchanged under `docs/evaluations/2026-10-15-full-50.json`. Twenty added tests replay the observed parser failures, preserve sensitive/complicated return handoff, retain explicit money-back requests and ensure the grader catches irrelevant extra cards. 395 Node tests and 4 workerd checks pass. Post-fix live rerun of the three failures is pending.
+The user completed/exported all 50 cases. 41 provider routes, 9 non-provider paths, 48 original auto-passes; manual review accepts 47 cases, identifying unnecessary routine-return handoff in cases 07/08 and extra withdrawal-refund guidance in case 45. All 50 texts/source arrays match approved templates/cards. Original outputs are saved unchanged under `docs/evaluations/2026-10-15-full-50.json`. Twenty added tests replay the observed parser failures, preserve sensitive/complicated return handoff, retain explicit money-back requests and ensure the grader catches irrelevant extra cards. 395 Node tests and 4 workerd checks pass. The subsequent three-case live rerun was manually accepted 3/3; see `docs/evaluations/2026-10-15-regression-1-review.md`.
+
+## Final targeted live acceptance
+
+User-exported `anete-live-results-3.json`, suite `anete-live-2026-10-15-v1-regression-1`, completed 3/3 at 13:58 UTC on 15 October. All three previous failures are corrected: routine return handoff false in RU/LV and no unsolicited refund card on the EN defect question. The regression outputs and manual review are saved under `docs/evaluations/`. No additional code change or paid call was performed by this review.

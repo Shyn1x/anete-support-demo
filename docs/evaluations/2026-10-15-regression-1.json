@@ -1,0 +1,170 @@
+{
+  "suite": "anete-live-2026-10-15-v1-regression-1",
+  "exportedAt": "2026-10-15T13:58:04.104Z",
+  "totalCases": 3,
+  "attempted": 3,
+  "completed": 3,
+  "unresolved": 0,
+  "providerResponses": 3,
+  "preliminaryPass": 3,
+  "requiresHumanReview": true,
+  "costNote": "No measured provider bill or token usage is available. Each attempted AI call reserves USD 0.02; non-AI cases do not. Existing daily/lifetime guards remain unchanged.",
+  "rows": [
+    {
+      "id": "case-07",
+      "locale": "ru",
+      "message": "Могу передумать и вернуть покупку?",
+      "anyCards": [
+        "return",
+        "return-process"
+      ],
+      "allowedCards": [
+        "return",
+        "return-process"
+      ],
+      "handoff": false,
+      "state": "done",
+      "at": "2026-10-15T13:57:38.774Z",
+      "error": null,
+      "assessment": {
+        "pass": true,
+        "notes": []
+      },
+      "suite": "anete-live-2026-10-15-v1-regression-1",
+      "elapsedMs": 1584,
+      "status": 200,
+      "answer": {
+        "providerUsed": true,
+        "contact": {
+          "email": "info@anete.lv",
+          "phone": "+37120013727",
+          "hours": {
+            "ru": "Пн–пт 09:00–17:00 (Латвия)",
+            "lv": "P.–Pk. 09:00–17:00 (Latvija)",
+            "en": "Mon–Fri 09:00–17:00 (Latvia)"
+          },
+          "source": "https://anete.lv/kontakti"
+        },
+        "locale": "ru",
+        "text": "Для потребительской дистанционной покупки указано право отказа в течение 14 дней с доставки. Для отдельных категорий есть исключения; спорный случай должен проверить сотрудник.",
+        "cardIds": [
+          "return"
+        ],
+        "sources": [
+          {
+            "title": "Pirkuma noteikumi",
+            "url": "https://anete.lv/noteikumi-un-nosacijumi/3/1/i"
+          }
+        ],
+        "handoff": false,
+        "mode": "ai",
+        "checked": "2026-10-15",
+        "topic": "return"
+      }
+    },
+    {
+      "id": "case-08",
+      "locale": "lv",
+      "message": "Gribu atgriezt preci, jo pārdomāju.",
+      "anyCards": [
+        "return",
+        "return-process"
+      ],
+      "allowedCards": [
+        "return",
+        "return-process"
+      ],
+      "handoff": false,
+      "state": "done",
+      "at": "2026-10-15T13:57:47.361Z",
+      "error": null,
+      "assessment": {
+        "pass": true,
+        "notes": []
+      },
+      "suite": "anete-live-2026-10-15-v1-regression-1",
+      "elapsedMs": 1476,
+      "status": 200,
+      "answer": {
+        "providerUsed": true,
+        "contact": {
+          "email": "info@anete.lv",
+          "phone": "+37120013727",
+          "hours": {
+            "ru": "Пн–пт 09:00–17:00 (Латвия)",
+            "lv": "P.–Pk. 09:00–17:00 (Latvija)",
+            "en": "Mon–Fri 09:00–17:00 (Latvia)"
+          },
+          "source": "https://anete.lv/kontakti"
+        },
+        "locale": "lv",
+        "text": "Patērētāja distances pirkumam norādītas atteikuma tiesības 14 dienās no piegādes. Dažām kategorijām ir izņēmumi; strīdīgu gadījumu pārbauda darbinieks.",
+        "cardIds": [
+          "return"
+        ],
+        "sources": [
+          {
+            "title": "Pirkuma noteikumi",
+            "url": "https://anete.lv/noteikumi-un-nosacijumi/3/1/i"
+          }
+        ],
+        "handoff": false,
+        "mode": "ai",
+        "checked": "2026-10-15",
+        "topic": "return"
+      }
+    },
+    {
+      "id": "case-45",
+      "locale": "en",
+      "message": "Thanks, but the item is broken. What next?",
+      "anyCards": [
+        "defect"
+      ],
+      "allowedCards": [
+        "defect",
+        "warranty",
+        "contact"
+      ],
+      "handoff": true,
+      "state": "done",
+      "at": "2026-10-15T13:57:55.841Z",
+      "error": null,
+      "assessment": {
+        "pass": true,
+        "notes": []
+      },
+      "suite": "anete-live-2026-10-15-v1-regression-1",
+      "elapsedMs": 1380,
+      "status": 200,
+      "answer": {
+        "providerUsed": true,
+        "contact": {
+          "email": "info@anete.lv",
+          "phone": "+37120013727",
+          "hours": {
+            "ru": "Пн–пт 09:00–17:00 (Латвия)",
+            "lv": "P.–Pk. 09:00–17:00 (Latvija)",
+            "en": "Mon–Fri 09:00–17:00 (Latvia)"
+          },
+          "source": "https://anete.lv/kontakti"
+        },
+        "locale": "en",
+        "text": "For a faulty item, contact the shop or the service centre specified by the manufacturer. Prepare proof of purchase and the warranty card, if one was supplied. An employee must assess coverage.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself.",
+        "cardIds": [
+          "defect"
+        ],
+        "sources": [
+          {
+            "title": "Garantija",
+            "url": "https://anete.lv/garantija/7/1/i"
+          }
+        ],
+        "handoff": true,
+        "mode": "ai",
+        "checked": "2026-10-15",
+        "topic": "defect"
+      }
+    }
+  ]
+}
