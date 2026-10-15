@@ -1,3 +1,4 @@
+import {validateMedia,visionRoute,mediaCopy,MEDIA_BODY_LIMIT} from './media.js';
 import {dailyReservationLimit} from './guard.js';
 import {detectLocale} from './locale.js';
 import {getTenant} from './kb.js';
@@ -5,7 +6,7 @@ import {preflight,referenceRoute,render,aiRoute,RESERVE_MICRO_USD} from './core.
 export {BudgetGuard} from './guard.js';
 const encoder=new TextEncoder();
 export const security={
- 'Content-Security-Policy':"default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; object-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'",
+ 'Content-Security-Policy':"default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; object-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'",
  'X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer','Permissions-Policy':'camera=(), microphone=(), geolocation=()','Cache-Control':'no-store','X-Robots-Tag':'noindex, nofollow',
  'Strict-Transport-Security':'max-age=31536000'
 };
@@ -55,7 +56,7 @@ export function createWorker(fetcher=fetch){return {
    const locked=env.TENANT_ID||null;
    if(locked&&configError(env))return reply({error:'server_not_configured'},503);
    if(locked){
-    const allowed=['/','/index.html','/api/config','/api/login','/api/logout','/api/chat','/style.css','/brand.css','/favicon.svg'];
+    const allowed=['/','/index.html','/api/config','/api/login','/api/logout','/api/chat','/api/media','/style.css','/brand.css','/favicon.svg'];
     if(!allowed.includes(url.pathname)&&!/^\/chat-ui\.[a-f0-9]{12}\.js$/.test(url.pathname))return reply({error:'not_found'},404);
     if(url.searchParams.getAll('shop').some(id=>id!==locked)||url.searchParams.getAll('tenant').some(id=>id!==locked))return reply({error:'not_found'},404);
    }
@@ -76,7 +77,7 @@ export function createWorker(fetcher=fetch){return {
    }
    if(isApi){
     if(request.method!=='POST')return reply({error:'method_not_allowed'},405,{'Allow':'POST'});
-    if(!['/api/chat','/api/login','/api/logout'].includes(url.pathname))return reply({error:'not_found'},404);
+    if(!['/api/chat','/api/media','/api/login','/api/logout'].includes(url.pathname))return reply({error:'not_found'},404);
     if(request.headers.get('Origin')!==url.origin)return reply({error:'origin_denied'},403);
     if(!(request.headers.get('Content-Type')||'').toLowerCase().startsWith('application/json'))return reply({error:'content_type'},415);
     const configuration=configError(env);if(configuration)return reply({error:configuration},503);
@@ -91,6 +92,25 @@ export function createWorker(fetcher=fetch){return {
      return reply({ok:true},200,{'Set-Cookie':`demo_session=${value}.${sig}; HttpOnly; SameSite=Strict; Path=/; Max-Age=7199${secure}`});
     }
     if(!await authenticated(request,env))return reply({error:'authentication_required'},401);
+    if(url.pathname==='/api/media'){
+     const data=await readLimited(request,MEDIA_BODY_LIMIT);
+     if(!data||typeof data!=='object'||typeof data.tenant!=='string'||locked&&data.tenant!==locked)return reply({error:'unknown_tenant'},404);
+     const tenant=getTenant(data.tenant);if(!tenant)return reply({error:'unknown_tenant'},404);
+     if(!['ru','lv','en'].includes(data.locale)||typeof data.message!=='string'||data.message.length>1000)return reply({error:'invalid_input'},400);
+     const media=validateMedia(data.media),locale=detectLocale(data.message,data.locale),copy=mediaCopy[locale];
+     const blocked=preflight(data.message),enabled=env.AI_ENABLED==='true'&&!blocked;
+     const denied=await gate(request,env,'chat',enabled);
+     if(denied){const reason=await denied.clone().json();if(enabled&&reason.error==='budget_exhausted'){const rateDenied=await gate(request,env,'chat',false);if(rateDenied)return rateDenied;return reply({...render(tenant.id,locale,{ids:[],kind:'product-clarify',handoff:false},'reference'),text:copy.budget,providerUsed:false,mediaAnalysed:false});}return denied;}
+     if(blocked)return reply({...render(tenant.id,locale,{ids:[],kind:blocked,handoff:false},'safety'),mediaAnalysed:false});
+     if(!enabled)return reply({...render(tenant.id,locale,{ids:[],kind:'product-clarify',handoff:false},'reference'),text:copy.disabled,providerUsed:false,mediaAnalysed:false});
+     const route=visionRoute(tenant,data.message,media);
+     const response=await fetcher('https://api.openai.com/v1/responses',{method:'POST',headers:{'Authorization':`Bearer ${env.OPENAI_API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify(route.body),signal:AbortSignal.timeout(15000)});
+     if(!response.ok)return reply({error:'ai_unavailable'},502);
+     const result=route.parse(await response.json()),out=render(tenant.id,locale,{ids:result.intent==='damage'?['defect']:[],kind:'product-clarify',handoff:result.intent==='damage'},'ai');
+     const prefix=media.kind==='video'?copy.video:'';
+     out.text=prefix+(result.intent==='private_data'?copy.private:result.intent==='damage'?copy.damage+out.text:result.model!=='unknown'?copy.confirm+result.model+copy.confirmEnd:copy.unknown);
+     return reply({...out,providerUsed:true,mediaAnalysed:true});
+    }
     const data=await readLimited(request);
     if(!data||typeof data!=='object'||Array.isArray(data)||typeof data.message!=='string'||!data.message.trim()||data.message.length>1000||!['ru','lv','en'].includes(data.locale)||typeof data.tenant!=='string')return reply({error:'invalid_input'},400);
     if(locked&&data.tenant!==locked)return reply({error:'unknown_tenant'},404);
@@ -128,7 +148,7 @@ export function createWorker(fetcher=fetch){return {
    for(const [k,v] of Object.entries(security))headers.set(k,v);
    return new Response(res.body,{status:res.status,headers});
   }catch(error){
-   const invalid=['body','too_large'].includes(error.message)||error instanceof SyntaxError||error instanceof TypeError;
+   const invalid=['body','too_large','media_invalid'].includes(error.message)||error instanceof SyntaxError||error instanceof TypeError;
    return reply({error:invalid?'invalid_input':'service_unavailable'},invalid?400:503);
   }
  }

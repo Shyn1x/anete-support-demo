@@ -13,3 +13,5 @@
 
 /* Compact shop introduction, without advertising headlines. */
 h1{font-size:clamp(30px,3vw,44px);line-height:1.15;letter-spacing:-1.2px;margin:18px 0;max-width:560px}.eyebrow{letter-spacing:.7px;text-transform:none}.lead{max-width:440px;font-size:16px;line-height:1.6}.intro{padding-top:24px}@media(min-width:1600px){.intro{padding-top:32px}}@media(max-width:720px){h1{font-size:30px;letter-spacing:-.8px;margin:12px 0}.intro{padding-top:8px}.lead{font-size:14px}}
+
+.attachment-toolbar{display:flex;gap:8px;padding:10px 20px 0}.attachment-toolbar button{border:1px solid #d7d9d3;background:white;border-radius:12px;padding:9px 12px;color:#192d39;cursor:pointer}.attachment-toolbar button:disabled{opacity:.5;cursor:default}.attachment-hint,#attachment-status{font-size:12px;line-height:1.5;padding:0 20px;color:#66716c;margin:6px 0}.attachment-preview{padding:4px 20px}.attachment-preview img,.message-attachment{display:block;max-width:180px;max-height:140px;border-radius:10px;margin-top:7px} [hidden]{display:none!important}
