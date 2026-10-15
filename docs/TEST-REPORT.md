@@ -2,7 +2,7 @@
 
 ## Passed checks
 
-- **357/357 Node.js automated tests**, including **108 distinct synthetic customer scenarios** (36 Russian, 36 Latvian, 36 English). An additional 48 typo and safety checks cover missing letters, swapped letters, unrelated words, ambiguous corrections and sourced API responses. Full individual results: `test-results.txt`; prompts/expectations: `docs/scenarios.json`.
+- **358/358 Node.js automated tests**, including **108 distinct synthetic customer scenarios** (36 Russian, 36 Latvian, 36 English). An additional 48 typo and safety checks cover missing letters, swapped letters, unrelated words, ambiguous corrections and sourced API responses. Full individual results: `test-results.txt`; prompts/expectations: `docs/scenarios.json`.
 - **4/4 workerd runtime tests**: the 108 scenarios execute against the actual compiled Worker with a real SQLite-backed Durable Object; concurrent reservations cannot exceed the configured cap; a new runtime instance reads the previously exhausted budget. Language switching RU → EN → LV → RU is checked through the actual Worker. Full results: `runtime-results.txt`.
 - Wrangler **deployment dry-run passed**: Worker bundle and static assets validated. This is not a production deployment and consumes no OpenAI API calls.
 - `npm run build`: 22 trilingual answer cards, 8 source references validated; static assets prepared.
@@ -41,3 +41,7 @@ Before a client-facing AI demo, authorise deployment, configure a restricted key
 ## Direct contact / mobile layout correction
 
 8 additional AI-enabled Worker regressions cover explicit staff requests in RU/LV/EN with an existing defect topic. All return only the contact card, require handoff and call no provider. Mobile CSS prevents flex-shrinking of the contact panel and removes suggested-question competition while it is open. 357 Node tests and 4 workerd tests pass. CSS changes still require manual mobile visual review; automated API checks do not prove visual layout.
+
+## Contact tap feedback correction
+
+Contact previews now use a native dialog outside the clipped chat container. RU/LV/EN handler checks assert dialog opening/closing. One additional test validates that missing data leaves channel buttons enabled and opens a visible explanation without an unsafe URI. 358 Node tests and 4 workerd tests pass. Native app navigation is still not invoked by automated checks.

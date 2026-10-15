@@ -76,7 +76,7 @@ export function render(tenantId,locale,result,mode){
  const keys=[...new Set(selected.map(c=>c.source))];
  if(selected.some(c=>c.id==='business-warranty')&&!keys.includes('faq'))keys.push('faq');
  if(selected.some(c=>c.id==='hours')&&!keys.includes('delivery'))keys.push('delivery');
- return {locale,text:parts.join('\n\n'),cardIds:selected.map(c=>c.id),sources:keys.map(k=>tenant.sources[k]),handoff:!!result.handoff,mode,checked:tenant.checked,topic:selected.at(-1)?.id||null};
+ return {contact:tenant.contact,locale,text:parts.join('\n\n'),cardIds:selected.map(c=>c.id),sources:keys.map(k=>tenant.sources[k]),handoff:!!result.handoff,mode,checked:tenant.checked,topic:selected.at(-1)?.id||null};
 }
 export async function aiRoute(tenant,text,previous,fetcher=fetch){
  const policyIds=tenant.cards.map(c=>c.id);

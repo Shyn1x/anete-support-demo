@@ -9,10 +9,10 @@ for(const locale of ['ru','lv','en']){
  test(`phone uses international number and published support hours ${locale}`,()=>{const action=contactAction(contact,'call',locale);assert.equal(action.href,'tel:+37120013727');assert.ok(action.preview.includes('09:00–17:00'));});
  test(`channel choice only reveals link and Back removes it ${locale}`,()=>{
   // Tiny DOM adapter exercises the actual event handlers without navigation or external apps.
-  const elements=new Map();for(const id of ['contact-step','contact-open','contact-warning','choose-email','choose-call','contact-note','contact-preview','contact-back'])elements.set(id,{hidden:false,attrs:{},setAttribute(k,v){this.attrs[k]=v;},removeAttribute(k){delete this.attrs[k];}});
+  const elements=new Map();for(const id of ['contact-dialog-title','contact-step','contact-open','contact-warning','choose-email','choose-call','contact-note','contact-preview','contact-back'])elements.set(id,{hidden:false,open:false,attrs:{},showModal(){this.open=true;},close(){this.open=false;},setAttribute(k,v){this.attrs[k]=v;},removeAttribute(k){delete this.attrs[k];}});
   const root={querySelector:id=>elements.get(id.slice(1))},q=id=>elements.get(id);
   mountContactChoices(root,contact,locale,'DEMO — warranty');assert.equal(q('contact-step').hidden,true);assert.equal(q('contact-open').attrs.href,undefined);
-  q('choose-call').onclick();assert.equal(q('contact-step').hidden,false);assert.equal(q('contact-open').attrs.href,'tel:+37120013727');assert.equal(q('contact-open').textContent,contactUI[locale].openCall);
+  q('choose-call').onclick();assert.equal(q('contact-step').hidden,false);assert.equal(q('contact-step').open,true);assert.equal(q('contact-open').attrs.href,'tel:+37120013727');assert.equal(q('contact-open').textContent,contactUI[locale].openCall);
   q('contact-back').onclick();assert.equal(q('contact-step').hidden,true);assert.equal(q('contact-open').attrs.href,undefined);
   q('choose-email').onclick();assert.ok(q('contact-open').attrs.href.startsWith('mailto:info@anete.lv?'));assert.ok(q('contact-preview').textContent.includes('DEMO — warranty'));
   mountContactChoices(root,contact,'ru','DEMO — status');assert.equal(q('contact-step').hidden,true);assert.equal(q('contact-open').attrs.href,undefined);
@@ -29,4 +29,11 @@ for(const [locale,message]of [['ru','Дай сотрудника'],['ru','Хоч
  const login=await worker.fetch(request('/api/login',{password:env.DEMO_PASSWORD}),env);const cookie=login.headers.get('Set-Cookie').split(';')[0];
  const response=await worker.fetch(request('/api/chat',{tenant:'anete',locale,message,previousTopic:'defect'},{headers:{cookie}}),env);
  assert.equal(response.status,200);const data=await response.json();assert.deepEqual(data.cardIds,['contact']);assert.equal(data.handoff,true);assert.equal(data.locale,locale);assert.equal(calls,0);assert.equal(storage.records.get('state').total,0);
+});
+
+test('missing contact data opens a visible explanation instead of inert disabled buttons',()=>{
+ const elements=new Map();for(const id of ['contact-dialog-title','contact-step','contact-open','contact-warning','choose-email','choose-call','contact-note','contact-preview','contact-back'])elements.set(id,{hidden:false,open:false,attrs:{},showModal(){this.open=true;},close(){this.open=false;},setAttribute(k,v){this.attrs[k]=v;},removeAttribute(k){delete this.attrs[k];}});
+ const q=id=>elements.get(id);mountContactChoices({querySelector:id=>q(id.slice(1))},null,'ru','DEMO');
+ assert.equal(q('choose-call').disabled,false);q('choose-call').onclick();assert.equal(q('contact-step').open,true);assert.equal(q('contact-step').hidden,false);assert.equal(q('contact-open').hidden,true);assert.equal(q('contact-open').attrs.href,undefined);assert.equal(q('contact-note').textContent,contactUI.ru.unavailable);
+ q('contact-back').onclick();assert.equal(q('contact-step').open,false);
 });

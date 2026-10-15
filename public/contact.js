@@ -1,8 +1,8 @@
 // Public per-tenant contact data; no user messages or personal details enter these links.
 export const contactUI={
- ru:{email:'Написать на email',call:'Позвонить',warning:'Это настоящие контакты магазина. Для проверки демо не отправляйте письмо и не подтверждайте звонок.',callNote:'Откроется приложение звонков с номером магазина. Дальнейшие действия зависят от устройства; звонок может быть платным по вашему тарифу.',emailNote:'Откроется почтовое приложение с черновиком. Письмо не отправляется автоматически. Для тестирования закройте черновик без отправки.',openCall:'Открыть номер в телефоне',openEmail:'Открыть черновик письма',hours:'Поддержка',subject:'ДЕМО — вымышленное обращение',draft:'Это вымышленный пример из независимого демо. Для тестирования не отправляйте это письмо. Персональные данные и переписка не включены.',cancel:'Назад к выбору'},
- lv:{email:'Rakstīt e-pastu',call:'Zvanīt',warning:'Tie ir īstie veikala kontakti. Pārbaudot demonstrāciju, nesūtiet e-pastu un neapstipriniet zvanu.',callNote:'Tiks atvērta zvanu lietotne ar veikala numuru. Turpmākā darbība atkarīga no ierīces; zvanam var piemērot jūsu operatora maksu.',emailNote:'Tiks atvērta e-pasta lietotne ar melnrakstu. E-pasts netiek nosūtīts automātiski. Testējot aizveriet melnrakstu bez nosūtīšanas.',openCall:'Atvērt numuru tālrunī',openEmail:'Atvērt e-pasta melnrakstu',hours:'Klientu atbalsts',subject:'DEMONSTRĀCIJA — izdomāts pieteikums',draft:'Šis ir izdomāts piemērs no neatkarīgas demonstrācijas. Testējot nesūtiet šo e-pastu. Personas dati un sarakste nav iekļauti.',cancel:'Atpakaļ pie izvēles'},
- en:{email:'Write an email',call:'Call the shop',warning:'These are the shop’s real contacts. When testing the demo, do not send the email or confirm a call.',callNote:'Opens your phone app with the shop’s number. The next step depends on your device; your usual call charges may apply.',emailNote:'Opens your email app with a draft. It is not sent automatically. When testing, close the draft without sending it.',openCall:'Open number in phone app',openEmail:'Open email draft',hours:'Customer support',subject:'DEMO — fictional enquiry',draft:'This is a fictional example from an independent demo. Do not send this email when testing. No personal details or conversation transcript are included.',cancel:'Back to options'}
+ ru:{unavailable:'Контакты не загрузились. Откройте страницу контактов магазина по ссылке ниже или обновите демо.',email:'Написать на email',call:'Позвонить',warning:'Это настоящие контакты магазина. Для проверки демо не отправляйте письмо и не подтверждайте звонок.',callNote:'Откроется приложение звонков с номером магазина. Дальнейшие действия зависят от устройства; звонок может быть платным по вашему тарифу.',emailNote:'Откроется почтовое приложение с черновиком. Письмо не отправляется автоматически. Для тестирования закройте черновик без отправки.',openCall:'Открыть номер в телефоне',openEmail:'Открыть черновик письма',hours:'Поддержка',subject:'ДЕМО — вымышленное обращение',draft:'Это вымышленный пример из независимого демо. Для тестирования не отправляйте это письмо. Персональные данные и переписка не включены.',cancel:'Назад к выбору'},
+ lv:{unavailable:'Kontaktus neizdevās ielādēt. Atveriet veikala kontaktu lapu zemāk vai atjaunojiet demonstrāciju.',email:'Rakstīt e-pastu',call:'Zvanīt',warning:'Tie ir īstie veikala kontakti. Pārbaudot demonstrāciju, nesūtiet e-pastu un neapstipriniet zvanu.',callNote:'Tiks atvērta zvanu lietotne ar veikala numuru. Turpmākā darbība atkarīga no ierīces; zvanam var piemērot jūsu operatora maksu.',emailNote:'Tiks atvērta e-pasta lietotne ar melnrakstu. E-pasts netiek nosūtīts automātiski. Testējot aizveriet melnrakstu bez nosūtīšanas.',openCall:'Atvērt numuru tālrunī',openEmail:'Atvērt e-pasta melnrakstu',hours:'Klientu atbalsts',subject:'DEMONSTRĀCIJA — izdomāts pieteikums',draft:'Šis ir izdomāts piemērs no neatkarīgas demonstrācijas. Testējot nesūtiet šo e-pastu. Personas dati un sarakste nav iekļauti.',cancel:'Atpakaļ pie izvēles'},
+ en:{unavailable:'Contact details could not be loaded. Open the shop’s contact page below or refresh the demo.',email:'Write an email',call:'Call the shop',warning:'These are the shop’s real contacts. When testing the demo, do not send the email or confirm a call.',callNote:'Opens your phone app with the shop’s number. The next step depends on your device; your usual call charges may apply.',emailNote:'Opens your email app with a draft. It is not sent automatically. When testing, close the draft without sending it.',openCall:'Open number in phone app',openEmail:'Open email draft',hours:'Customer support',subject:'DEMO — fictional enquiry',draft:'This is a fictional example from an independent demo. Do not send this email when testing. No personal details or conversation transcript are included.',cancel:'Back to options'}
 };
 export function contactAction(contact,channel,locale,summary=''){
  const t=contactUI[locale];if(!contact||!t)return null;
@@ -16,17 +16,20 @@ export function contactAction(contact,channel,locale,summary=''){
 }
 export function mountContactChoices(root,contact,locale,summary){
  const t=contactUI[locale],q=id=>root.querySelector('#'+id);
- q('contact-step').hidden=true;q('contact-open').removeAttribute('href');
+ q('contact-step').close?.();q('contact-step').hidden=true;q('contact-open').removeAttribute('href');
  q('contact-warning').textContent=t.warning;
  for(const channel of ['email','call']){
-  const button=q('choose-'+channel);button.textContent=t[channel];button.disabled=!contactAction(contact,channel,locale,summary);
+  const button=q('choose-'+channel);button.textContent=t[channel];button.disabled=false;
   button.onclick=()=>{
-   const action=contactAction(contact,channel,locale,summary);if(!action)return;
+   const action=contactAction(contact,channel,locale,summary);
+   q('contact-dialog-title').textContent=t[channel];
+   q('contact-open').hidden=!action;
+   if(!action){q('contact-note').textContent=t.unavailable;q('contact-preview').textContent='';q('contact-open').removeAttribute('href');q('contact-step').hidden=false;q('contact-step').showModal();return;}
    q('contact-note').textContent=action.note;q('contact-preview').textContent=action.preview;
    q('contact-open').textContent=action.label;q('contact-open').setAttribute('href',action.href);
-   q('contact-step').hidden=false;
+   q('contact-step').hidden=false;q('contact-step').showModal();
   };
  }
  q('contact-back').textContent=t.cancel;
- q('contact-back').onclick=()=>{q('contact-step').hidden=true;q('contact-open').removeAttribute('href');};
+ q('contact-back').onclick=()=>{q('contact-step').close();q('contact-step').hidden=true;q('contact-open').removeAttribute('href');};
 }

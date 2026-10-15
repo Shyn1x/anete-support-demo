@@ -6,3 +6,5 @@
 
 /* Keep contact choices visible instead of allowing flexbox to squash the panel. */
 .chat-shell.has-handoff .suggestions{display:none}.chat-shell.has-handoff .messages{min-height:100px}.chat-shell.has-handoff .handoff{flex-shrink:0;max-height:min(360px,36dvh);min-height:170px}.chat-shell.has-handoff .handoff>p{margin:8px 0}.contact-options{margin:12px 0}.chat-shell.has-handoff .handoff>b{display:block}
+
+#contact-step{width:min(92vw,460px);max-height:85dvh;overflow:auto;margin:auto;padding:24px}#contact-step pre{font:inherit;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5;background:#f2f3ed;padding:12px;border-radius:8px}#contact-step .contact-open{display:block;padding:14px;background:var(--green);color:white;text-align:center;text-decoration:none;border-radius:8px;margin:16px 0;min-height:44px}#contact-step>a:not(.contact-open){display:block;margin:12px 0;color:var(--green);font-size:12px}#contact-step #contact-back{margin:16px 0 0}#contact-step #contact-warning{font-size:12px;background:#fff5e9;padding:12px;border-radius:8px}
