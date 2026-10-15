@@ -1,0 +1,10 @@
+{
+  "name": "anete-support-demo",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-10-01",
+  "assets": {"directory": "./public", "binding": "ASSETS", "run_worker_first": true},
+  "durable_objects": {"bindings": [{"name": "GUARD", "class_name": "BudgetGuard"}]},
+  "migrations": [{"tag": "v1", "new_sqlite_classes": ["BudgetGuard"]}],
+  "vars": {"AI_ENABLED": "false", "DAILY_BUDGET_MICRO_USD": "500000", "TOTAL_BUDGET_MICRO_USD": "5000000"},
+  "observability": {"enabled": false}
+}

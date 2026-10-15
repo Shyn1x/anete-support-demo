@@ -1,0 +1,23 @@
+{
+  "name": "anete-support-demo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/dev.mjs",
+    "test": "node --test test/*.test.mjs",
+    "build": "node scripts/build.mjs",
+    "dev:worker": "wrangler dev",
+    "deploy": "npm run build && wrangler deploy",
+    "build:standalone": "node scripts/standalone.mjs",
+    "test:worker": "wrangler deploy --dry-run --outdir worker-build && node --test test-runtime/*.test.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "miniflare": "5.20261012.0-beta",
+    "wrangler": "4.151.0"
+  }
+}

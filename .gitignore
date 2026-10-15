@@ -1,0 +1,9 @@
+node_modules/
+.wrangler/
+.dev.vars*
+.env*
+!.env.example
+dist/
+*.log
+worker-build/
+Anete-demo-offline.html
