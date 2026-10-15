@@ -1,0 +1,109 @@
+{
+  "checkedDateUTC": "2026-10-15",
+  "method": "Public HTTP checks of all five independently deployed client sites; real browser clean-root boot check of Bariba",
+  "paidProviderCalls": 0,
+  "authenticatedAnswersTested": false,
+  "browserBariba": {
+    "boot": "ready",
+    "heading": "Bariba.lv",
+    "loginOpen": true,
+    "noticeHidden": true
+  },
+  "sites": [
+    {
+      "shop": "rotallieta",
+      "page": "200",
+      "heading": [
+        "Rotallieta.lv"
+      ],
+      "bundle": [
+        "/chat-ui.3fce1b6d1fa3.js"
+      ],
+      "bundleStatus": "200",
+      "fixedSelector": true,
+      "config": "200",
+      "tenant": "rotallieta",
+      "ready": true,
+      "mode": "ai",
+      "passwordProtected": true,
+      "otherTenant": "404",
+      "gallery": "404"
+    },
+    {
+      "shop": "bariba",
+      "page": "200",
+      "heading": [
+        "Bariba.lv"
+      ],
+      "bundle": [
+        "/chat-ui.3fce1b6d1fa3.js"
+      ],
+      "bundleStatus": "200",
+      "fixedSelector": true,
+      "config": "200",
+      "tenant": "bariba",
+      "ready": true,
+      "mode": "ai",
+      "passwordProtected": true,
+      "otherTenant": "404",
+      "gallery": "404"
+    },
+    {
+      "shop": "hobbyset",
+      "page": "200",
+      "heading": [
+        "HobbySet"
+      ],
+      "bundle": [
+        "/chat-ui.3fce1b6d1fa3.js"
+      ],
+      "bundleStatus": "200",
+      "fixedSelector": true,
+      "config": "200",
+      "tenant": "hobbyset",
+      "ready": true,
+      "mode": "ai",
+      "passwordProtected": true,
+      "otherTenant": "404",
+      "gallery": "404"
+    },
+    {
+      "shop": "apavi40plus",
+      "page": "200",
+      "heading": [
+        "Apavi 40 plus"
+      ],
+      "bundle": [
+        "/chat-ui.3fce1b6d1fa3.js"
+      ],
+      "bundleStatus": "200",
+      "fixedSelector": true,
+      "config": "200",
+      "tenant": "apavi40plus",
+      "ready": true,
+      "mode": "ai",
+      "passwordProtected": true,
+      "otherTenant": "404",
+      "gallery": "404"
+    },
+    {
+      "shop": "celotajs",
+      "page": "200",
+      "heading": [
+        "Veikals Ceļotājs"
+      ],
+      "bundle": [
+        "/chat-ui.3fce1b6d1fa3.js"
+      ],
+      "bundleStatus": "200",
+      "fixedSelector": true,
+      "config": "200",
+      "tenant": "celotajs",
+      "ready": true,
+      "mode": "ai",
+      "passwordProtected": true,
+      "otherTenant": "404",
+      "gallery": "404"
+    }
+  ]
+}

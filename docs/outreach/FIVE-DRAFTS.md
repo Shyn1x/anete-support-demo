@@ -1,6 +1,6 @@
 # Пять писем: черновики, не отправлены
 
-Подготовлено 15.10.2026. СТАТУС: не отправлять до публикации пяти отдельных сайтов. См. `../CLIENT-DEPLOYMENTS.md`. Сначала заменить имя отправителя и приватный пароль. Не публиковать пароль в этом файле: вставлять только в личное письмо. Адреса — общие контакты магазинов, не подтверждённые адреса владельцев. Если пишет не ответственный за сайт сотрудник, он может переслать письмо. Согласования с магазинами не было. Демо работает на нашем отдельном домене, ничего не установлено на их сайтах.
+Подготовлено 15.10.2026. СТАТУС: пять отдельных сайтов опубликованы, публичная загрузка и ограничения доступа проверены 15.10.2026. Перед отправкой владелец должен проверить вход своим паролем и ответы после входа; добавить подпись и приватный пароль. Письма не отправлены. См. `../CLIENT-DEPLOYMENTS.md`. Сначала заменить имя отправителя и приватный пароль. Не публиковать пароль в этом файле: вставлять только в личное письмо. Адреса — общие контакты магазинов, не подтверждённые адреса владельцев. Если пишет не ответственный за сайт сотрудник, он может переслать письмо. Согласования с магазинами не было. Демо работает на нашем отдельном домене, ничего не установлено на их сайтах.
 
 ## 1. Rotallieta.lv
 
@@ -12,7 +12,7 @@ Labdien, Rotallieta.lv komandai!
 
 Esmu sagatavojis nelielu, neatkarīgu klientu atbalsta asistenta demonstrāciju jūsu veikalam, izmantojot publiski pieejamo informāciju. Tajā var izmēģināt jautājumus par piegādes veidiem, apmaksu un preču atgriešanu latviešu, krievu un angļu valodā.
 
-Demo: [APSTIPRINĀTĀ ATSEVIŠĶĀ DEMO SAITE: rotallieta]
+Demo: https://support-demo-rotallieta.fshyn1x.workers.dev/
 Piekļuves parole: [IEVIETOT TIKAI PRIVĀTAJĀ VĒSTULĒ]
 
 Tas ir prototips mūsu atsevišķā vietnē; jūsu vietnē nekas nav uzstādīts. Ja vēlaties, varam rakstiski pārrunāt, kuri atkārtotie klientu jautājumi būtu noderīgākie jūsu veikalam. Vai šāds risinājums jums varētu būt aktuāls?
@@ -32,7 +32,7 @@ Labdien, Bariba.lv komandai!
 
 Sagatavoju neatkarīgu asistenta demo, kas palīdz atrast jūsu publicēto informāciju par piegādes kārtību dažādās pilsētās, pasūtījuma apmaksu un saņemšanu. Asistents atbild latviešu, krievu un angļu valodā; individuālu pasūtījumu jautājumos tas norāda veikala saziņas iespējas.
 
-Demo: [APSTIPRINĀTĀ ATSEVIŠĶĀ DEMO SAITE: bariba]
+Demo: https://support-demo-bariba.fshyn1x.workers.dev/
 Piekļuves parole: [IEVIETOT TIKAI PRIVĀTAJĀ VĒSTULĒ]
 
 Demo atrodas mūsu vietnē un nav savienots ar jūsu pasūtījumu sistēmu. Vai būtu interese rakstiski apspriest, vai šāds palīgs varētu būt noderīgs jūsu klientiem?
@@ -53,7 +53,7 @@ Labdien, HobbySet komandai!
 
 Izveidoju nelielu, neatkarīgu demo asistentam, kas atbild uz jautājumiem par jūsu internetveikala piegādi, apmaksu un preču atgriešanu. Atbildes balstās uz publicētajiem noteikumiem un ir pieejamas latviešu, krievu un angļu valodā. Ja informācija nav pietiekama, asistents iesaka precizēt jautājumu vai sazināties ar veikalu.
 
-Demo: [APSTIPRINĀTĀ ATSEVIŠĶĀ DEMO SAITE: hobbyset]
+Demo: https://support-demo-hobbyset.fshyn1x.workers.dev/
 Piekļuves parole: [IEVIETOT TIKAI PRIVĀTAJĀ VĒSTULĒ]
 
 Jūsu vietnē nekas nav mainīts. Vai varat pārsūtīt šo vēstuli kolēģim, kurš atbild par internetveikalu, ja šāds risinājums varētu būt aktuāls? Sākotnēji visu varam pārrunāt e-pastā.
@@ -74,7 +74,7 @@ Labdien, Apavi 40 plus komandai!
 
 Sagatavoju neatkarīgu demo klientu asistentam ar uzsvaru uz piegādi, preču atgriešanu un izmēra maiņas kārtību. Klients var uzdot jautājumu latviešu, krievu vai angļu valodā un saņemt atbildi no jūsu publiski pieejamajiem noteikumiem.
 
-Demo: [APSTIPRINĀTĀ ATSEVIŠĶĀ DEMO SAITE: apavi40plus]
+Demo: https://support-demo-apavi40plus.fshyn1x.workers.dev/
 Piekļuves parole: [IEVIETOT TIKAI PRIVĀTAJĀ VĒSTULĒ]
 
 Prototips nav pieslēgts jūsu veikalam un nepārbauda atlikumus vai individuālus pasūtījumus. Ja ideja šķiet noderīga, vai varam e-pastā pārrunāt jūsu biežākos klientu jautājumus?
@@ -94,7 +94,7 @@ Labdien, Ceļotājs komandai!
 
 Esmu izveidojis neatkarīgu demo asistentam, kas palīdz orientēties jūsu publicētajos piegādes, saņemšanas veikalos, atgriešanas un garantijas noteikumos. To var izmēģināt latviešu, krievu un angļu valodā, piemēram, pajautājot par pasūtījuma saņemšanas iespējām.
 
-Demo: [APSTIPRINĀTĀ ATSEVIŠĶĀ DEMO SAITE: celotajs]
+Demo: https://support-demo-celotajs.fshyn1x.workers.dev/
 Piekļuves parole: [IEVIETOT TIKAI PRIVĀTAJĀ VĒSTULĒ]
 
 Tas ir prototips mūsu atsevišķā vietnē, bez piekļuves jūsu klientu datiem vai pasūtījumiem. Vai šādu palīgu būtu vērts pārrunāt e-pastā? Ja jā, labprāt pielāgotu turpmāko priekšlikumu jūsu vajadzībām.
