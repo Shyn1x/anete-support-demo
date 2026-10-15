@@ -10,7 +10,8 @@
     "dev:worker": "wrangler dev",
     "deploy": "npm run build && wrangler deploy",
     "build:standalone": "node scripts/standalone.mjs",
-    "test:worker": "wrangler deploy --dry-run --outdir worker-build && node --test test-runtime/*.test.mjs"
+    "test:worker": "wrangler deploy --dry-run --outdir worker-build && node --test test-runtime/*.test.mjs",
+    "prestart": "npm run build"
   },
   "engines": {
     "node": ">=22"

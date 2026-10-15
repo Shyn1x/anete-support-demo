@@ -7,3 +7,5 @@ dist/
 *.log
 worker-build/
 Anete-demo-offline.html
+
+public/chat-ui.*.js
