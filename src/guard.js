@@ -38,8 +38,10 @@ export class BudgetGuard {
    if(!state.ips[ip]&&Object.keys(state.ips).length>=2000)return json({error:'rate_limit'},429);
    const entry=state.ips[ip]||{minute,chat:0,auth:0,dayChat:0};
    if(entry.minute!==minute){entry.minute=minute;entry.chat=0;entry.auth=0;}
-   if((kind==='auth'&&entry.auth>=5)||(kind==='chat'&&(entry.chat>=10||entry.dayChat>=100)))return json({error:'rate_limit'},429);
-   if(reserve&&(state.daily+RESERVE_MICRO_USD>daily||state.total+RESERVE_MICRO_USD>total))return json({error:'budget_exhausted'},429);
+   if((kind==='auth'&&entry.auth>=5)||(kind==='chat'&&entry.chat>=10))return json({error:'rate_limit',reason:'minute_rate',retryAt:new Date((minute+1)*60000).toISOString()},429);
+   if(kind==='chat'&&entry.dayChat>=100)return json({error:'rate_limit',reason:'day_rate',retryAt:new Date(Date.parse(day+'T00:00:00Z')+86400000).toISOString()},429);
+   if(reserve&&state.total+RESERVE_MICRO_USD>total)return json({error:'budget_exhausted',reason:'total_budget',retryAt:null},429);
+   if(reserve&&state.daily+RESERVE_MICRO_USD>daily)return json({error:'budget_exhausted',reason:'daily_budget',retryAt:new Date(Date.parse(day+'T00:00:00Z')+86400000).toISOString()},429);
    entry[kind]++;if(kind==='chat')entry.dayChat++;
    state.ips[ip]=entry;
    if(reserve){state.daily+=RESERVE_MICRO_USD;state.total+=RESERVE_MICRO_USD;}

@@ -72,3 +72,14 @@ test('isolated client Workers bind to the existing shared SQLite budget instead 
   const after=await(await stub.fetch('https://guard/status',{headers:{'X-Demo-Client':'a'.repeat(64)}})).json();assert.equal(after.total.reservedMicroUSD,20000);
  }finally{await mf.dispose();}
 });
+
+test('exhausted AI reserve still answers verified policies inside workerd without outbound requests',async()=>{
+ let outbound=0;const mf=new Miniflare(convertV4MiniflareOptions({...options,bindings:{...options.bindings,TENANT_ID:'bariba',DEMO_PASSWORD:'runtime-fallback-pass-123',OPENAI_API_KEY:'fake-not-a-real-key',AI_ENABLED:'true',DAILY_BUDGET_MICRO_USD:'10000'},outboundService:()=>{outbound++;return new Response('Unexpected outbound call',{status:503});}}));
+ try{
+  const namespace=await mf.getDurableObjectNamespace('GUARD'),stub=namespace.get(namespace.idFromName('experiment-v1'));
+  assert.equal((await stub.fetch('https://guard/check',{method:'POST',body:JSON.stringify({ip:'a'.repeat(64),kind:'chat',reserve:true})})).status,200);
+  const login=await mf.dispatchFetch('https://demo.example/api/login',{method:'POST',headers:{Origin:'https://demo.example','Content-Type':'application/json'},body:JSON.stringify({password:'runtime-fallback-pass-123'})});assert.equal(login.status,200);const cookie=login.headers.get('Set-Cookie').split(';')[0];
+  const r=await mf.dispatchFetch('https://demo.example/api/chat',{method:'POST',headers:{Origin:'https://demo.example','Content-Type':'application/json',cookie},body:JSON.stringify({tenant:'bariba',locale:'ru',message:'Как вернуть товар?'})});assert.equal(r.status,200);const data=await r.json();assert.equal(data.mode,'reference');assert.equal(data.providerUsed,false);assert.equal(data.fallbackReason,'daily_budget');assert.ok(data.cardIds.includes('return-process'));assert.equal(outbound,0);
+  const status=await(await stub.fetch('https://guard/status',{headers:{'X-Demo-Client':'a'.repeat(64)}})).json();assert.equal(status.total.reservedMicroUSD,10000);
+ }finally{await mf.dispose();}
+});

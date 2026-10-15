@@ -38,7 +38,7 @@ async function gate(req,env,kind,reserve){
  const ip=await mac(env.SESSION_SECRET,`${day}:${address}`);
  const id=env.GUARD.idFromName('experiment-v1'); // shared hard cap across all tenants
  const response=await env.GUARD.get(id).fetch('https://guard.internal/check',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ip,kind,reserve})});
- if(!response.ok){const result=await response.json();return reply({error:result.error||'guard_unavailable'},response.status);}
+ if(!response.ok){const result=await response.json();const retry=Date.parse(result.retryAt),headers=Number.isFinite(retry)?{'Retry-After':String(Math.max(1,Math.ceil((retry-Date.now())/1000)))}:{};return reply({error:result.error||'guard_unavailable',reason:result.reason||null,retryAt:result.retryAt||null},response.status,headers);}
  return null;
 }
 function configError(env){
@@ -101,7 +101,16 @@ export function createWorker(fetcher=fetch){return {
     const ref=referenceRoute(data.message,previous,tenant.id);
     const useAI=env.AI_ENABLED==='true'&&!blocked&&!ref.social&&!ref.ids.includes('contact')&&ref.kind!=='greeting';
     const route=useAI?await aiRoute(tenant,data.message,previous):null;
-    const denied=await gate(request,env,'chat',useAI);if(denied)return denied;
+    const denied=await gate(request,env,'chat',useAI);
+    if(denied){
+     const details=await denied.clone().json();
+     if(useAI&&details.error==='budget_exhausted'){
+      // Do not bypass message caps: the declined paid reservation counted no message.
+      const rateDenied=await gate(request,env,'chat',false);if(rateDenied)return rateDenied;
+      return reply({...render(data.tenant,data.locale,ref,'reference'),providerUsed:false,fallbackReason:details.reason||'budget_exhausted'});
+     }
+     return denied;
+    }
     if(blocked)return reply(render(data.tenant,data.locale,{ids:[],kind:blocked,handoff:false},'safety'));
     if(!useAI)return reply(render(data.tenant,data.locale,ref,ref.social?'social':'reference'));
     // No provider retries: ambiguous failures retain budget reservation.
