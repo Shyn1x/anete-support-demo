@@ -119,7 +119,7 @@ export function createWorker(fetcher=fetch){return {
     const previous=tenant.cards.some(c=>c.id===data.previousTopic)?data.previousTopic:null;
     const blocked=preflight(data.message);
     const ref=referenceRoute(data.message,previous,tenant.id);
-    const useAI=env.AI_ENABLED==='true'&&!blocked&&!ref.social&&!ref.ids.includes('contact')&&!ref.ids.some(id=>tenant.cards.find(c=>c.id===id)?.source==='niche-product')&&!['product-live','product-clarify'].includes(ref.kind)&&ref.kind!=='greeting';
+    const useAI=env.AI_ENABLED==='true'&&!blocked&&!ref.social&&!ref.ids.includes('contact')&&!ref.ids.some(id=>tenant.cards.find(c=>c.id===id)?.source==='niche-product')&&!['product-live','product-clarify','product-sizing'].includes(ref.kind)&&ref.kind!=='greeting';
     const route=useAI?await aiRoute(tenant,data.message,previous):null;
     const denied=await gate(request,env,'chat',useAI);
     if(denied){

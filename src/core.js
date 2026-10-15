@@ -13,6 +13,9 @@ export const strings={
 Object.assign(strings.ru,{'product-clarify':'Уточните название или модель товара и что хотите узнать. Характеристики разных моделей могут отличаться.','product-live':'У демо нет доступа к текущим остаткам, ценам и партиям товара. Проверьте карточку на сайте магазина или уточните у магазина.'});
 Object.assign(strings.lv,{'product-clarify':'Lūdzu, precizējiet preces nosaukumu vai modeli un jautājumu. Dažādu modeļu īpašības var atšķirties.','product-live':'Demonstrācijai nav piekļuves aktuālajiem atlikumiem, cenām vai partijām. Pārbaudiet preces lapu vai sazinieties ar veikalu.'});
 Object.assign(strings.en,{'product-clarify':'Please specify the product name or model and what you want to know. Specifications can differ between models.','product-live':'The demo cannot access current stock, prices or batches. Check the product page or ask the shop.'});
+Object.assign(strings.ru,{'product-sizing':'Для какой модели обуви нужна размерная сетка? Напишите название или артикул. Без таблицы конкретной модели я не буду угадывать размер по длине стопы.'});
+Object.assign(strings.lv,{'product-sizing':'Kura apavu modeļa izmēru tabula vajadzīga? Uzrakstiet nosaukumu vai artikulu. Bez konkrētā modeļa tabulas izmēru pēc pēdas garuma neminēšu.'});
+Object.assign(strings.en,{'product-sizing':'Which shoe model do you need a size chart for? Please type its name or product code. Without that model’s chart, I will not guess a size from foot length.'});
 export function preflight(text){
  if(/https?:\/\/|www\.|ignore.{0,35}(instruction|previous)|system prompt|api.?key|sk-[a-z0-9]|игнориру|системн.{0,10}(промпт|инструкц)|забудь.{0,20}правил|игнорь|ignorē.{0,20}(instrukc|noteikum)|api.?atslēg/iu.test(text))return 'blocked';
  if(/[\w.+-]+@[\w.-]+\.[a-z]{2,}|(?:\d[\s-]*){7,}|(?:мой|моя|mans|mana)\s+(?:адрес|телефон|паспорт|personas kods|adrese)|(?:cvv|cvc|iban)\s*[:=]?\s*\S+/iu.test(text))return 'pii';

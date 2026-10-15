@@ -11,6 +11,7 @@ const policy=/достав|возврат|оплат|гарант|pieg[aā]d|atg
 const live=/налич|сейчас|сегодня|цена|цене|стоим|срок.{0,8}годност|in stock|availab|price|today|expiry|expir|pieejam|noliktav|šodien|cena|derīg/iu;
 export function nicheRoute(s,tenantId){
  const rule=rules[tenantId];if(!rule||policy.test(s))return null;
+ if(tenantId==='apavi40plus'&&/размерн.{0,8}(сетк|таблиц)|таблиц.{0,10}размер|size.{0,4}chart|sizing.{0,4}(chart|table)|izm[eē]ru.{0,4}tabul/iu.test(s))return {ids:[],kind:'product-sizing',handoff:false};
  if(rule.model.test(s)&&priority.test(s))return {ids:['contact'],kind:'answer',handoff:true};
  if(live.test(s)&&rule.model.test(s))return {ids:[],kind:'product-live',handoff:false};
  if(!rule.model.test(s)){
