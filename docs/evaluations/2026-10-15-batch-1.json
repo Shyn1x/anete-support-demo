@@ -1,0 +1,249 @@
+{
+  "suite": "anete-live-2026-10-15-v1",
+  "exportedAt": "2026-10-15T11:58:02.673Z",
+  "totalCases": 50,
+  "attempted": 5,
+  "completed": 5,
+  "unresolved": 0,
+  "providerResponses": 5,
+  "preliminaryPass": 5,
+  "requiresHumanReview": true,
+  "costNote": "No measured provider bill or token usage is available. Each attempted AI call reserves USD 0.02; non-AI cases do not. Existing daily/lifetime guards remain unchanged.",
+  "rows": [
+    {
+      "id": "case-01",
+      "locale": "ru",
+      "message": "Какими способами можно получить заказ?",
+      "anyCards": [
+        "delivery"
+      ],
+      "handoff": false,
+      "state": "done",
+      "at": "2026-10-15T11:55:56.375Z",
+      "error": null,
+      "assessment": {
+        "pass": true,
+        "notes": []
+      },
+      "suite": "anete-live-2026-10-15-v1",
+      "elapsedMs": 1916,
+      "status": 200,
+      "answer": {
+        "providerUsed": true,
+        "contact": {
+          "email": "info@anete.lv",
+          "phone": "+37120013727",
+          "hours": {
+            "ru": "Пн–пт 09:00–17:00 (Латвия)",
+            "lv": "P.–Pk. 09:00–17:00 (Latvija)",
+            "en": "Mon–Fri 09:00–17:00 (Latvia)"
+          },
+          "source": "https://anete.lv/kontakti"
+        },
+        "locale": "ru",
+        "text": "Доступны курьер, самовывоз в Риге и пакоматы Omniva/DPD. Пакоматы требуют предоплаты; способ зависит от размера товара.",
+        "cardIds": [
+          "delivery"
+        ],
+        "sources": [
+          {
+            "title": "Piegāde",
+            "url": "https://anete.lv/piegades-informacija/6/1/i"
+          }
+        ],
+        "handoff": false,
+        "mode": "ai",
+        "checked": "2026-10-15",
+        "topic": "delivery"
+      }
+    },
+    {
+      "id": "case-02",
+      "locale": "lv",
+      "message": "Kādi piegādes veidi ir pieejami?",
+      "anyCards": [
+        "delivery"
+      ],
+      "handoff": false,
+      "state": "done",
+      "at": "2026-10-15T11:56:05.295Z",
+      "error": null,
+      "assessment": {
+        "pass": true,
+        "notes": []
+      },
+      "suite": "anete-live-2026-10-15-v1",
+      "elapsedMs": 1307,
+      "status": 200,
+      "answer": {
+        "providerUsed": true,
+        "contact": {
+          "email": "info@anete.lv",
+          "phone": "+37120013727",
+          "hours": {
+            "ru": "Пн–пт 09:00–17:00 (Латвия)",
+            "lv": "P.–Pk. 09:00–17:00 (Latvija)",
+            "en": "Mon–Fri 09:00–17:00 (Latvia)"
+          },
+          "source": "https://anete.lv/kontakti"
+        },
+        "locale": "lv",
+        "text": "Pieejams kurjers, saņemšana Rīgā un Omniva/DPD pakomāti. Pakomātiem vajadzīga priekšapmaksa; veids atkarīgs no preces izmēra.",
+        "cardIds": [
+          "delivery"
+        ],
+        "sources": [
+          {
+            "title": "Piegāde",
+            "url": "https://anete.lv/piegades-informacija/6/1/i"
+          }
+        ],
+        "handoff": false,
+        "mode": "ai",
+        "checked": "2026-10-15",
+        "topic": "delivery"
+      }
+    },
+    {
+      "id": "case-03",
+      "locale": "en",
+      "message": "What delivery options do you offer?",
+      "anyCards": [
+        "delivery"
+      ],
+      "handoff": false,
+      "state": "done",
+      "at": "2026-10-15T11:56:13.604Z",
+      "error": null,
+      "assessment": {
+        "pass": true,
+        "notes": []
+      },
+      "suite": "anete-live-2026-10-15-v1",
+      "elapsedMs": 1143,
+      "status": 200,
+      "answer": {
+        "providerUsed": true,
+        "contact": {
+          "email": "info@anete.lv",
+          "phone": "+37120013727",
+          "hours": {
+            "ru": "Пн–пт 09:00–17:00 (Латвия)",
+            "lv": "P.–Pk. 09:00–17:00 (Latvija)",
+            "en": "Mon–Fri 09:00–17:00 (Latvia)"
+          },
+          "source": "https://anete.lv/kontakti"
+        },
+        "locale": "en",
+        "text": "Courier delivery, collection in Riga and Omniva/DPD parcel lockers are listed. Parcel lockers require prepayment; available methods depend on the size of the item.",
+        "cardIds": [
+          "delivery"
+        ],
+        "sources": [
+          {
+            "title": "Piegāde",
+            "url": "https://anete.lv/piegades-informacija/6/1/i"
+          }
+        ],
+        "handoff": false,
+        "mode": "ai",
+        "checked": "2026-10-15",
+        "topic": "delivery"
+      }
+    },
+    {
+      "id": "case-04",
+      "locale": "ru",
+      "message": "Какая гарнтия на тавар?",
+      "anyCards": [
+        "warranty"
+      ],
+      "handoff": false,
+      "state": "done",
+      "at": "2026-10-15T11:56:21.748Z",
+      "error": null,
+      "assessment": {
+        "pass": true,
+        "notes": []
+      },
+      "suite": "anete-live-2026-10-15-v1",
+      "elapsedMs": 1207,
+      "status": 200,
+      "answer": {
+        "providerUsed": true,
+        "contact": {
+          "email": "info@anete.lv",
+          "phone": "+37120013727",
+          "hours": {
+            "ru": "Пн–пт 09:00–17:00 (Латвия)",
+            "lv": "P.–Pk. 09:00–17:00 (Latvija)",
+            "en": "Mon–Fri 09:00–17:00 (Latvia)"
+          },
+          "source": "https://anete.lv/kontakti"
+        },
+        "locale": "ru",
+        "text": "Срок гарантии производителя зависит от товара и указан в описании. На странице отдельно упомянуты права потребителя на претензию о несоответствии в течение двух лет. Это разные основания обращения.",
+        "cardIds": [
+          "warranty"
+        ],
+        "sources": [
+          {
+            "title": "Garantija",
+            "url": "https://anete.lv/garantija/7/1/i"
+          }
+        ],
+        "handoff": false,
+        "mode": "ai",
+        "checked": "2026-10-15",
+        "topic": "warranty"
+      }
+    },
+    {
+      "id": "case-05",
+      "locale": "lv",
+      "message": "Kāda ir garantija precei?",
+      "anyCards": [
+        "warranty"
+      ],
+      "handoff": false,
+      "state": "done",
+      "at": "2026-10-15T11:56:29.959Z",
+      "error": null,
+      "assessment": {
+        "pass": true,
+        "notes": []
+      },
+      "suite": "anete-live-2026-10-15-v1",
+      "elapsedMs": 994,
+      "status": 200,
+      "answer": {
+        "providerUsed": true,
+        "contact": {
+          "email": "info@anete.lv",
+          "phone": "+37120013727",
+          "hours": {
+            "ru": "Пн–пт 09:00–17:00 (Латвия)",
+            "lv": "P.–Pk. 09:00–17:00 (Latvija)",
+            "en": "Mon–Fri 09:00–17:00 (Latvia)"
+          },
+          "source": "https://anete.lv/kontakti"
+        },
+        "locale": "lv",
+        "text": "Ražotāja garantijas termiņš atkarīgs no preces un norādīts aprakstā. Lapā atsevišķi minētas patērētāja tiesības divos gados pieteikt prasījumu par neatbilstību. Tie ir atšķirīgi pamati.",
+        "cardIds": [
+          "warranty"
+        ],
+        "sources": [
+          {
+            "title": "Garantija",
+            "url": "https://anete.lv/garantija/7/1/i"
+          }
+        ],
+        "handoff": false,
+        "mode": "ai",
+        "checked": "2026-10-15",
+        "topic": "warranty"
+      }
+    }
+  ]
+}
