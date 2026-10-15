@@ -1,0 +1,1416 @@
+{
+  "version": 1,
+  "assessed_at": "2026-10-15",
+  "purpose": "Research backlog, not an implemented-answer or test-pass inventory",
+  "status_definitions": {
+    "existing_topic": "Тема уже есть: проверить конкретную формулировку",
+    "source_candidate": "Источник найден: подготовить карточку",
+    "research": "Нужен отдельный проверенный источник",
+    "integration": "Нужны актуальные данные / интеграция",
+    "human": "Индивидуальная проверка человеком"
+  },
+  "stores": [
+    {
+      "id": "anete",
+      "name": "Anete.lv",
+      "policy_priority": {
+        "delivery": "высокий",
+        "payment": "высокий",
+        "returns": "высокий",
+        "warranty": "высокий"
+      },
+      "proposed_main_topics": "Доставка; оплата; возврат; гарантия",
+      "sources": [
+        "https://anete.lv/piegades-informacija/6/1/i",
+        "https://anete.lv/maksajuma-veidi/13/1/i",
+        "https://anete.lv/precu-atgriesana/17/1/i",
+        "https://anete.lv/garantija/7/1/i"
+      ]
+    },
+    {
+      "id": "rotallieta",
+      "name": "Rotallieta.lv",
+      "policy_priority": {
+        "delivery": "высокий",
+        "payment": "средний",
+        "returns": "высокий",
+        "warranty": "средний"
+      },
+      "proposed_main_topics": "Подбор по возрасту; комплектация; доставка; возврат",
+      "sources": [
+        "https://rotallieta.lv/prece/aktivitates-delis-busy-board-rotalu-virtuve-huanger/",
+        "https://rotallieta.lv/piegade-un-apmaksa/",
+        "https://rotallieta.lv/noteikumi/"
+      ]
+    },
+    {
+      "id": "bariba",
+      "name": "Bariba.lv",
+      "policy_priority": {
+        "delivery": "высокий",
+        "payment": "средний",
+        "returns": "средний",
+        "warranty": "ниже для главного экрана"
+      },
+      "proposed_main_topics": "Состав корма; возраст питомца; фасовка; доставка в мой город",
+      "sources": [
+        "https://www.bariba.lv/sausa-bariba-pieaugusiem-suniem-cooking-grain-free-lamb-recipe-daily-menu-ar-jeru-12-kg.html",
+        "https://www.bariba.lv/precu-piegade-riga-un-latvija.html"
+      ]
+    },
+    {
+      "id": "hobbyset",
+      "name": "HobbySet",
+      "policy_priority": {
+        "delivery": "высокий",
+        "payment": "средний",
+        "returns": "средний",
+        "warranty": "ниже для главного экрана"
+      },
+      "proposed_main_topics": "Материалы для задачи; совместимость; комплектация; доставка",
+      "sources": [
+        "https://hobbyset.lv/products/lv/2842/181784/sort/0/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-%E2%80%9CPOP-ART%E2%80%9D-12-%C3%97-10-ml.html",
+        "https://hobbyset.lv/site/content/lv/278/Pre%C4%8Du-atgrie-scaron-ana.html"
+      ]
+    },
+    {
+      "id": "apavi40plus",
+      "name": "Apavi 40 plus",
+      "policy_priority": {
+        "delivery": "высокий",
+        "payment": "средний",
+        "returns": "высокий",
+        "warranty": "средний"
+      },
+      "proposed_main_topics": "Размер и ширина; материалы; обмен размера; доставка",
+      "sources": [
+        "https://apavi40plus.com/products/josef-seibel-viriesu-klasiskie-adas-apavi-ar-k-platumu-modelis-42801-860-100",
+        "https://apavi40plus.com/pages/apavu-markejums",
+        "https://apavi40plus.com/",
+        "https://apavi40plus.com/policies/refund-policy"
+      ]
+    },
+    {
+      "id": "celotajs",
+      "name": "Veikals Ceļotājs",
+      "policy_priority": {
+        "delivery": "высокий",
+        "payment": "средний",
+        "returns": "высокий",
+        "warranty": "высокий"
+      },
+      "proposed_main_topics": "Выбор снаряжения; характеристики; доставка; возврат и гарантия",
+      "sources": [
+        "https://veikalscelotajs.lv/blogs/padomi_un_ieteikumi_pargajienam/gulammaisi-iesaceja-celvedis",
+        "https://veikalscelotajs.lv/pages/garantija"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "anete-01",
+      "tenant": "anete",
+      "question_ru": "Какие способы доставки есть?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://anete.lv/piegades-informacija/6/1/i",
+        "https://anete.lv/maksajuma-veidi/13/1/i",
+        "https://anete.lv/precu-atgriesana/17/1/i",
+        "https://anete.lv/garantija/7/1/i"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "anete-02",
+      "tenant": "anete",
+      "question_ru": "От чего зависит стоимость доставки?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://anete.lv/piegades-informacija/6/1/i",
+        "https://anete.lv/maksajuma-veidi/13/1/i",
+        "https://anete.lv/precu-atgriesana/17/1/i",
+        "https://anete.lv/garantija/7/1/i"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "anete-03",
+      "tenant": "anete",
+      "question_ru": "Какие сроки доставки указаны магазином?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://anete.lv/piegades-informacija/6/1/i",
+        "https://anete.lv/maksajuma-veidi/13/1/i",
+        "https://anete.lv/precu-atgriesana/17/1/i",
+        "https://anete.lv/garantija/7/1/i"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "anete-04",
+      "tenant": "anete",
+      "question_ru": "Как можно оплатить заказ?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://anete.lv/piegades-informacija/6/1/i",
+        "https://anete.lv/maksajuma-veidi/13/1/i",
+        "https://anete.lv/precu-atgriesana/17/1/i",
+        "https://anete.lv/garantija/7/1/i"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "anete-05",
+      "tenant": "anete",
+      "question_ru": "Какие правила возврата опубликованы?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://anete.lv/piegades-informacija/6/1/i",
+        "https://anete.lv/maksajuma-veidi/13/1/i",
+        "https://anete.lv/precu-atgriesana/17/1/i",
+        "https://anete.lv/garantija/7/1/i"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "anete-06",
+      "tenant": "anete",
+      "question_ru": "Как связаться по вопросу брака или гарантии?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://anete.lv/piegades-informacija/6/1/i",
+        "https://anete.lv/maksajuma-veidi/13/1/i",
+        "https://anete.lv/precu-atgriesana/17/1/i",
+        "https://anete.lv/garantija/7/1/i"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "anete-07",
+      "tenant": "anete",
+      "question_ru": "Где сейчас мой заказ?",
+      "status": "integration",
+      "scope": "baseline",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "anete-08",
+      "tenant": "anete",
+      "question_ru": "Деньги списались, но заказ не подтвердился: что делать?",
+      "status": "human",
+      "scope": "baseline",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "anete-09",
+      "tenant": "anete",
+      "question_ru": "Донесут ли заказ до квартиры?",
+      "status": "existing_topic",
+      "scope": "niche",
+      "candidate_sources": [
+        "https://anete.lv/piegades-informacija/6/1/i",
+        "https://anete.lv/maksajuma-veidi/13/1/i",
+        "https://anete.lv/precu-atgriesana/17/1/i",
+        "https://anete.lv/garantija/7/1/i"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "anete-10",
+      "tenant": "anete",
+      "question_ru": "Что делать, если товар не помещается в пакомат?",
+      "status": "existing_topic",
+      "scope": "niche",
+      "candidate_sources": [
+        "https://anete.lv/piegades-informacija/6/1/i",
+        "https://anete.lv/maksajuma-veidi/13/1/i",
+        "https://anete.lv/precu-atgriesana/17/1/i",
+        "https://anete.lv/garantija/7/1/i"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "anete-11",
+      "tenant": "anete",
+      "question_ru": "Когда придёт подтверждение заказа?",
+      "status": "existing_topic",
+      "scope": "niche",
+      "candidate_sources": [
+        "https://anete.lv/piegades-informacija/6/1/i",
+        "https://anete.lv/maksajuma-veidi/13/1/i",
+        "https://anete.lv/precu-atgriesana/17/1/i",
+        "https://anete.lv/garantija/7/1/i"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "anete-12",
+      "tenant": "anete",
+      "question_ru": "Сколько времени действует счёт?",
+      "status": "existing_topic",
+      "scope": "niche",
+      "candidate_sources": [
+        "https://anete.lv/piegades-informacija/6/1/i",
+        "https://anete.lv/maksajuma-veidi/13/1/i",
+        "https://anete.lv/precu-atgriesana/17/1/i",
+        "https://anete.lv/garantija/7/1/i"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "anete-13",
+      "tenant": "anete",
+      "question_ru": "Можно ли оплатить заказ компании?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "anete-14",
+      "tenant": "anete",
+      "question_ru": "Как узнать точные размеры выбранного товара?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "anete-15",
+      "tenant": "anete",
+      "question_ru": "Что входит в комплект этой модели?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "anete-16",
+      "tenant": "anete",
+      "question_ru": "Чем отличаются две модели по характеристикам?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "anete-17",
+      "tenant": "anete",
+      "question_ru": "Есть ли этот товар прямо сейчас?",
+      "status": "integration",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "anete-18",
+      "tenant": "anete",
+      "question_ru": "Можно ли изменить уже оформленный заказ?",
+      "status": "integration",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "anete-19",
+      "tenant": "anete",
+      "question_ru": "Подойдёт ли эта модель к моему оборудованию?",
+      "status": "human",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "anete-20",
+      "tenant": "anete",
+      "question_ru": "Распространяется ли гарантия на мою неисправность?",
+      "status": "human",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "rotallieta-01",
+      "tenant": "rotallieta",
+      "question_ru": "Какие способы доставки есть?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://rotallieta.lv/prece/aktivitates-delis-busy-board-rotalu-virtuve-huanger/",
+        "https://rotallieta.lv/piegade-un-apmaksa/",
+        "https://rotallieta.lv/noteikumi/"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "rotallieta-02",
+      "tenant": "rotallieta",
+      "question_ru": "От чего зависит стоимость доставки?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://rotallieta.lv/prece/aktivitates-delis-busy-board-rotalu-virtuve-huanger/",
+        "https://rotallieta.lv/piegade-un-apmaksa/",
+        "https://rotallieta.lv/noteikumi/"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "rotallieta-03",
+      "tenant": "rotallieta",
+      "question_ru": "Какие сроки доставки указаны магазином?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://rotallieta.lv/prece/aktivitates-delis-busy-board-rotalu-virtuve-huanger/",
+        "https://rotallieta.lv/piegade-un-apmaksa/",
+        "https://rotallieta.lv/noteikumi/"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "rotallieta-04",
+      "tenant": "rotallieta",
+      "question_ru": "Как можно оплатить заказ?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://rotallieta.lv/prece/aktivitates-delis-busy-board-rotalu-virtuve-huanger/",
+        "https://rotallieta.lv/piegade-un-apmaksa/",
+        "https://rotallieta.lv/noteikumi/"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "rotallieta-05",
+      "tenant": "rotallieta",
+      "question_ru": "Какие правила возврата опубликованы?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://rotallieta.lv/prece/aktivitates-delis-busy-board-rotalu-virtuve-huanger/",
+        "https://rotallieta.lv/piegade-un-apmaksa/",
+        "https://rotallieta.lv/noteikumi/"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "rotallieta-06",
+      "tenant": "rotallieta",
+      "question_ru": "Как связаться по вопросу брака или гарантии?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://rotallieta.lv/prece/aktivitates-delis-busy-board-rotalu-virtuve-huanger/",
+        "https://rotallieta.lv/piegade-un-apmaksa/",
+        "https://rotallieta.lv/noteikumi/"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "rotallieta-07",
+      "tenant": "rotallieta",
+      "question_ru": "Где сейчас мой заказ?",
+      "status": "integration",
+      "scope": "baseline",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "rotallieta-08",
+      "tenant": "rotallieta",
+      "question_ru": "Деньги списались, но заказ не подтвердился: что делать?",
+      "status": "human",
+      "scope": "baseline",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "rotallieta-09",
+      "tenant": "rotallieta",
+      "question_ru": "Какой возраст указан для Busy Board Huanger?",
+      "status": "source_candidate",
+      "scope": "niche",
+      "candidate_sources": [
+        "https://rotallieta.lv/prece/aktivitates-delis-busy-board-rotalu-virtuve-huanger/",
+        "https://rotallieta.lv/piegade-un-apmaksa/",
+        "https://rotallieta.lv/noteikumi/"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "rotallieta-10",
+      "tenant": "rotallieta",
+      "question_ru": "Какие батарейки нужны для Busy Board Huanger?",
+      "status": "source_candidate",
+      "scope": "niche",
+      "candidate_sources": [
+        "https://rotallieta.lv/prece/aktivitates-delis-busy-board-rotalu-virtuve-huanger/",
+        "https://rotallieta.lv/piegade-un-apmaksa/",
+        "https://rotallieta.lv/noteikumi/"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "rotallieta-11",
+      "tenant": "rotallieta",
+      "question_ru": "Входят ли батарейки в комплект Busy Board Huanger?",
+      "status": "source_candidate",
+      "scope": "niche",
+      "candidate_sources": [
+        "https://rotallieta.lv/prece/aktivitates-delis-busy-board-rotalu-virtuve-huanger/",
+        "https://rotallieta.lv/piegade-un-apmaksa/",
+        "https://rotallieta.lv/noteikumi/"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "rotallieta-12",
+      "tenant": "rotallieta",
+      "question_ru": "Какие детали входят в конкретный набор?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "rotallieta-13",
+      "tenant": "rotallieta",
+      "question_ru": "Есть ли мелкие детали и предупреждения на упаковке?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "rotallieta-14",
+      "tenant": "rotallieta",
+      "question_ru": "Каковы размеры игрушки и упаковки?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "rotallieta-15",
+      "tenant": "rotallieta",
+      "question_ru": "Нужна ли сборка и есть ли инструкция?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "rotallieta-16",
+      "tenant": "rotallieta",
+      "question_ru": "Можно ли подобрать подарок по возрасту и интересам?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "rotallieta-17",
+      "tenant": "rotallieta",
+      "question_ru": "Есть ли инструкция на русском или латышском?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "rotallieta-18",
+      "tenant": "rotallieta",
+      "question_ru": "Есть ли выбранный цвет в наличии?",
+      "status": "integration",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "rotallieta-19",
+      "tenant": "rotallieta",
+      "question_ru": "Успеет ли заказ к дню рождения в эту субботу?",
+      "status": "human",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "rotallieta-20",
+      "tenant": "rotallieta",
+      "question_ru": "В наборе не хватает детали: что делать?",
+      "status": "human",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "bariba-01",
+      "tenant": "bariba",
+      "question_ru": "Какие способы доставки есть?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://www.bariba.lv/sausa-bariba-pieaugusiem-suniem-cooking-grain-free-lamb-recipe-daily-menu-ar-jeru-12-kg.html",
+        "https://www.bariba.lv/precu-piegade-riga-un-latvija.html"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "bariba-02",
+      "tenant": "bariba",
+      "question_ru": "От чего зависит стоимость доставки?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://www.bariba.lv/sausa-bariba-pieaugusiem-suniem-cooking-grain-free-lamb-recipe-daily-menu-ar-jeru-12-kg.html",
+        "https://www.bariba.lv/precu-piegade-riga-un-latvija.html"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "bariba-03",
+      "tenant": "bariba",
+      "question_ru": "Какие сроки доставки указаны магазином?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://www.bariba.lv/sausa-bariba-pieaugusiem-suniem-cooking-grain-free-lamb-recipe-daily-menu-ar-jeru-12-kg.html",
+        "https://www.bariba.lv/precu-piegade-riga-un-latvija.html"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "bariba-04",
+      "tenant": "bariba",
+      "question_ru": "Как можно оплатить заказ?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://www.bariba.lv/sausa-bariba-pieaugusiem-suniem-cooking-grain-free-lamb-recipe-daily-menu-ar-jeru-12-kg.html",
+        "https://www.bariba.lv/precu-piegade-riga-un-latvija.html"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "bariba-05",
+      "tenant": "bariba",
+      "question_ru": "Какие правила возврата опубликованы?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://www.bariba.lv/sausa-bariba-pieaugusiem-suniem-cooking-grain-free-lamb-recipe-daily-menu-ar-jeru-12-kg.html",
+        "https://www.bariba.lv/precu-piegade-riga-un-latvija.html"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "bariba-06",
+      "tenant": "bariba",
+      "question_ru": "Как связаться по вопросу брака или гарантии?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://www.bariba.lv/sausa-bariba-pieaugusiem-suniem-cooking-grain-free-lamb-recipe-daily-menu-ar-jeru-12-kg.html",
+        "https://www.bariba.lv/precu-piegade-riga-un-latvija.html"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "bariba-07",
+      "tenant": "bariba",
+      "question_ru": "Где сейчас мой заказ?",
+      "status": "integration",
+      "scope": "baseline",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "bariba-08",
+      "tenant": "bariba",
+      "question_ru": "Деньги списались, но заказ не подтвердился: что делать?",
+      "status": "human",
+      "scope": "baseline",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "bariba-09",
+      "tenant": "bariba",
+      "question_ru": "Есть ли курица в CooKing Lamb Recipe Daily Menu 12 кг?",
+      "status": "source_candidate",
+      "scope": "niche",
+      "candidate_sources": [
+        "https://www.bariba.lv/sausa-bariba-pieaugusiem-suniem-cooking-grain-free-lamb-recipe-daily-menu-ar-jeru-12-kg.html",
+        "https://www.bariba.lv/precu-piegade-riga-un-latvija.html"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "bariba-10",
+      "tenant": "bariba",
+      "question_ru": "Какая фасовка указана у этого CooKing Lamb?",
+      "status": "source_candidate",
+      "scope": "niche",
+      "candidate_sources": [
+        "https://www.bariba.lv/sausa-bariba-pieaugusiem-suniem-cooking-grain-free-lamb-recipe-daily-menu-ar-jeru-12-kg.html",
+        "https://www.bariba.lv/precu-piegade-riga-un-latvija.html"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "bariba-11",
+      "tenant": "bariba",
+      "question_ru": "Для какого возраста предназначен этот CooKing Lamb?",
+      "status": "source_candidate",
+      "scope": "niche",
+      "candidate_sources": [
+        "https://www.bariba.lv/sausa-bariba-pieaugusiem-suniem-cooking-grain-free-lamb-recipe-daily-menu-ar-jeru-12-kg.html",
+        "https://www.bariba.lv/precu-piegade-riga-un-latvija.html"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "bariba-12",
+      "tenant": "bariba",
+      "question_ru": "Какие ингредиенты перечислены в составе?",
+      "status": "source_candidate",
+      "scope": "niche",
+      "candidate_sources": [
+        "https://www.bariba.lv/sausa-bariba-pieaugusiem-suniem-cooking-grain-free-lamb-recipe-daily-menu-ar-jeru-12-kg.html",
+        "https://www.bariba.lv/precu-piegade-riga-un-latvija.html"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "bariba-13",
+      "tenant": "bariba",
+      "question_ru": "В какие дни доставляете в мой город?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "bariba-14",
+      "tenant": "bariba",
+      "question_ru": "Какова норма кормления на упаковке этого корма?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "bariba-15",
+      "tenant": "bariba",
+      "question_ru": "Какие размеры гранул указаны производителем?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "bariba-16",
+      "tenant": "bariba",
+      "question_ru": "Как хранить корм после открытия?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "bariba-17",
+      "tenant": "bariba",
+      "question_ru": "Есть ли подходящий вариант без указанного ингредиента?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "bariba-18",
+      "tenant": "bariba",
+      "question_ru": "Какой срок годности у текущей партии?",
+      "status": "integration",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "bariba-19",
+      "tenant": "bariba",
+      "question_ru": "У питомца аллергия: гарантируете, что этот корм подойдёт?",
+      "status": "human",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "bariba-20",
+      "tenant": "bariba",
+      "question_ru": "Пришёл повреждённый мешок или корм с необычным запахом: что делать?",
+      "status": "human",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "hobbyset-01",
+      "tenant": "hobbyset",
+      "question_ru": "Какие способы доставки есть?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://hobbyset.lv/products/lv/2842/181784/sort/0/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-%E2%80%9CPOP-ART%E2%80%9D-12-%C3%97-10-ml.html",
+        "https://hobbyset.lv/site/content/lv/278/Pre%C4%8Du-atgrie-scaron-ana.html"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "hobbyset-02",
+      "tenant": "hobbyset",
+      "question_ru": "От чего зависит стоимость доставки?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://hobbyset.lv/products/lv/2842/181784/sort/0/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-%E2%80%9CPOP-ART%E2%80%9D-12-%C3%97-10-ml.html",
+        "https://hobbyset.lv/site/content/lv/278/Pre%C4%8Du-atgrie-scaron-ana.html"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "hobbyset-03",
+      "tenant": "hobbyset",
+      "question_ru": "Какие сроки доставки указаны магазином?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://hobbyset.lv/products/lv/2842/181784/sort/0/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-%E2%80%9CPOP-ART%E2%80%9D-12-%C3%97-10-ml.html",
+        "https://hobbyset.lv/site/content/lv/278/Pre%C4%8Du-atgrie-scaron-ana.html"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "hobbyset-04",
+      "tenant": "hobbyset",
+      "question_ru": "Как можно оплатить заказ?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://hobbyset.lv/products/lv/2842/181784/sort/0/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-%E2%80%9CPOP-ART%E2%80%9D-12-%C3%97-10-ml.html",
+        "https://hobbyset.lv/site/content/lv/278/Pre%C4%8Du-atgrie-scaron-ana.html"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "hobbyset-05",
+      "tenant": "hobbyset",
+      "question_ru": "Какие правила возврата опубликованы?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://hobbyset.lv/products/lv/2842/181784/sort/0/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-%E2%80%9CPOP-ART%E2%80%9D-12-%C3%97-10-ml.html",
+        "https://hobbyset.lv/site/content/lv/278/Pre%C4%8Du-atgrie-scaron-ana.html"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "hobbyset-06",
+      "tenant": "hobbyset",
+      "question_ru": "Как связаться по вопросу брака или гарантии?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://hobbyset.lv/products/lv/2842/181784/sort/0/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-%E2%80%9CPOP-ART%E2%80%9D-12-%C3%97-10-ml.html",
+        "https://hobbyset.lv/site/content/lv/278/Pre%C4%8Du-atgrie-scaron-ana.html"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "hobbyset-07",
+      "tenant": "hobbyset",
+      "question_ru": "Где сейчас мой заказ?",
+      "status": "integration",
+      "scope": "baseline",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "hobbyset-08",
+      "tenant": "hobbyset",
+      "question_ru": "Деньги списались, но заказ не подтвердился: что делать?",
+      "status": "human",
+      "scope": "baseline",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "hobbyset-09",
+      "tenant": "hobbyset",
+      "question_ru": "Подойдёт ли POP ART 12 × 10 мл для начинающего?",
+      "status": "source_candidate",
+      "scope": "niche",
+      "candidate_sources": [
+        "https://hobbyset.lv/products/lv/2842/181784/sort/0/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-%E2%80%9CPOP-ART%E2%80%9D-12-%C3%97-10-ml.html",
+        "https://hobbyset.lv/site/content/lv/278/Pre%C4%8Du-atgrie-scaron-ana.html"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "hobbyset-10",
+      "tenant": "hobbyset",
+      "question_ru": "Сколько цветов и какой объём в POP ART 12 × 10 мл?",
+      "status": "source_candidate",
+      "scope": "niche",
+      "candidate_sources": [
+        "https://hobbyset.lv/products/lv/2842/181784/sort/0/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-%E2%80%9CPOP-ART%E2%80%9D-12-%C3%97-10-ml.html",
+        "https://hobbyset.lv/site/content/lv/278/Pre%C4%8Du-atgrie-scaron-ana.html"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "hobbyset-11",
+      "tenant": "hobbyset",
+      "question_ru": "Для какой техники предназначен этот набор?",
+      "status": "source_candidate",
+      "scope": "niche",
+      "candidate_sources": [
+        "https://hobbyset.lv/products/lv/2842/181784/sort/0/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-%E2%80%9CPOP-ART%E2%80%9D-12-%C3%97-10-ml.html",
+        "https://hobbyset.lv/site/content/lv/278/Pre%C4%8Du-atgrie-scaron-ana.html"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "hobbyset-12",
+      "tenant": "hobbyset",
+      "question_ru": "Что нужно купить для первого рисунка акварелью?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "hobbyset-13",
+      "tenant": "hobbyset",
+      "question_ru": "Подходит ли эта краска для ткани или дерева?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "hobbyset-14",
+      "tenant": "hobbyset",
+      "question_ru": "Какие кисти подходят к конкретной краске?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "hobbyset-15",
+      "tenant": "hobbyset",
+      "question_ru": "Нужно ли грунтовать поверхность?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "hobbyset-16",
+      "tenant": "hobbyset",
+      "question_ru": "При какой температуре запекают этот полимерный материал?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "hobbyset-17",
+      "tenant": "hobbyset",
+      "question_ru": "Чем различаются два вида лака?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "hobbyset-18",
+      "tenant": "hobbyset",
+      "question_ru": "Есть ли нужный оттенок и все материалы из списка?",
+      "status": "integration",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "hobbyset-19",
+      "tenant": "hobbyset",
+      "question_ru": "Можно ли заказать большую партию для школы?",
+      "status": "human",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "hobbyset-20",
+      "tenant": "hobbyset",
+      "question_ru": "Материал высох или протёк в посылке: что делать?",
+      "status": "human",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "apavi40plus-01",
+      "tenant": "apavi40plus",
+      "question_ru": "Какие способы доставки есть?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://apavi40plus.com/products/josef-seibel-viriesu-klasiskie-adas-apavi-ar-k-platumu-modelis-42801-860-100",
+        "https://apavi40plus.com/pages/apavu-markejums",
+        "https://apavi40plus.com/",
+        "https://apavi40plus.com/policies/refund-policy"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "apavi40plus-02",
+      "tenant": "apavi40plus",
+      "question_ru": "От чего зависит стоимость доставки?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://apavi40plus.com/products/josef-seibel-viriesu-klasiskie-adas-apavi-ar-k-platumu-modelis-42801-860-100",
+        "https://apavi40plus.com/pages/apavu-markejums",
+        "https://apavi40plus.com/",
+        "https://apavi40plus.com/policies/refund-policy"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "apavi40plus-03",
+      "tenant": "apavi40plus",
+      "question_ru": "Какие сроки доставки указаны магазином?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://apavi40plus.com/products/josef-seibel-viriesu-klasiskie-adas-apavi-ar-k-platumu-modelis-42801-860-100",
+        "https://apavi40plus.com/pages/apavu-markejums",
+        "https://apavi40plus.com/",
+        "https://apavi40plus.com/policies/refund-policy"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "apavi40plus-04",
+      "tenant": "apavi40plus",
+      "question_ru": "Как можно оплатить заказ?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://apavi40plus.com/products/josef-seibel-viriesu-klasiskie-adas-apavi-ar-k-platumu-modelis-42801-860-100",
+        "https://apavi40plus.com/pages/apavu-markejums",
+        "https://apavi40plus.com/",
+        "https://apavi40plus.com/policies/refund-policy"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "apavi40plus-05",
+      "tenant": "apavi40plus",
+      "question_ru": "Какие правила возврата опубликованы?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://apavi40plus.com/products/josef-seibel-viriesu-klasiskie-adas-apavi-ar-k-platumu-modelis-42801-860-100",
+        "https://apavi40plus.com/pages/apavu-markejums",
+        "https://apavi40plus.com/",
+        "https://apavi40plus.com/policies/refund-policy"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "apavi40plus-06",
+      "tenant": "apavi40plus",
+      "question_ru": "Как связаться по вопросу брака или гарантии?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://apavi40plus.com/products/josef-seibel-viriesu-klasiskie-adas-apavi-ar-k-platumu-modelis-42801-860-100",
+        "https://apavi40plus.com/pages/apavu-markejums",
+        "https://apavi40plus.com/",
+        "https://apavi40plus.com/policies/refund-policy"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "apavi40plus-07",
+      "tenant": "apavi40plus",
+      "question_ru": "Где сейчас мой заказ?",
+      "status": "integration",
+      "scope": "baseline",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "apavi40plus-08",
+      "tenant": "apavi40plus",
+      "question_ru": "Деньги списались, но заказ не подтвердился: что делать?",
+      "status": "human",
+      "scope": "baseline",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "apavi40plus-09",
+      "tenant": "apavi40plus",
+      "question_ru": "Какая ширина указана у Josef Seibel 42801 860 100?",
+      "status": "source_candidate",
+      "scope": "niche",
+      "candidate_sources": [
+        "https://apavi40plus.com/products/josef-seibel-viriesu-klasiskie-adas-apavi-ar-k-platumu-modelis-42801-860-100",
+        "https://apavi40plus.com/pages/apavu-markejums",
+        "https://apavi40plus.com/",
+        "https://apavi40plus.com/policies/refund-policy"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "apavi40plus-10",
+      "tenant": "apavi40plus",
+      "question_ru": "Из какого материала эта модель Josef Seibel?",
+      "status": "source_candidate",
+      "scope": "niche",
+      "candidate_sources": [
+        "https://apavi40plus.com/products/josef-seibel-viriesu-klasiskie-adas-apavi-ar-k-platumu-modelis-42801-860-100",
+        "https://apavi40plus.com/pages/apavu-markejums",
+        "https://apavi40plus.com/",
+        "https://apavi40plus.com/policies/refund-policy"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "apavi40plus-11",
+      "tenant": "apavi40plus",
+      "question_ru": "Где расшифровать обозначения материалов обуви?",
+      "status": "source_candidate",
+      "scope": "niche",
+      "candidate_sources": [
+        "https://apavi40plus.com/products/josef-seibel-viriesu-klasiskie-adas-apavi-ar-k-platumu-modelis-42801-860-100",
+        "https://apavi40plus.com/pages/apavu-markejums",
+        "https://apavi40plus.com/",
+        "https://apavi40plus.com/policies/refund-policy"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "apavi40plus-12",
+      "tenant": "apavi40plus",
+      "question_ru": "Какая модель есть в категории для широкой стопы?",
+      "status": "source_candidate",
+      "scope": "niche",
+      "candidate_sources": [
+        "https://apavi40plus.com/products/josef-seibel-viriesu-klasiskie-adas-apavi-ar-k-platumu-modelis-42801-860-100",
+        "https://apavi40plus.com/pages/apavu-markejums",
+        "https://apavi40plus.com/",
+        "https://apavi40plus.com/policies/refund-policy"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "apavi40plus-13",
+      "tenant": "apavi40plus",
+      "question_ru": "Как измерить стопу для конкретной размерной таблицы?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "apavi40plus-14",
+      "tenant": "apavi40plus",
+      "question_ru": "Какой размер соответствует длине стопы 27 см у этой модели?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "apavi40plus-15",
+      "tenant": "apavi40plus",
+      "question_ru": "Съёмная ли у выбранной модели стелька?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "apavi40plus-16",
+      "tenant": "apavi40plus",
+      "question_ru": "Какова высота каблука этой модели?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "apavi40plus-17",
+      "tenant": "apavi40plus",
+      "question_ru": "Как ухаживать за материалом этой пары?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "apavi40plus-18",
+      "tenant": "apavi40plus",
+      "question_ru": "Есть ли размер 43 в выбранном цвете прямо сейчас?",
+      "status": "integration",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "apavi40plus-19",
+      "tenant": "apavi40plus",
+      "question_ru": "Можно ли обменять неподошедший размер?",
+      "status": "existing_topic",
+      "scope": "niche",
+      "candidate_sources": [
+        "https://apavi40plus.com/products/josef-seibel-viriesu-klasiskie-adas-apavi-ar-k-platumu-modelis-42801-860-100",
+        "https://apavi40plus.com/pages/apavu-markejums",
+        "https://apavi40plus.com/",
+        "https://apavi40plus.com/policies/refund-policy"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "apavi40plus-20",
+      "tenant": "apavi40plus",
+      "question_ru": "Подойдут ли эти туфли при медицинской проблеме стопы?",
+      "status": "human",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "celotajs-01",
+      "tenant": "celotajs",
+      "question_ru": "Какие способы доставки есть?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://veikalscelotajs.lv/blogs/padomi_un_ieteikumi_pargajienam/gulammaisi-iesaceja-celvedis",
+        "https://veikalscelotajs.lv/pages/garantija"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "celotajs-02",
+      "tenant": "celotajs",
+      "question_ru": "От чего зависит стоимость доставки?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://veikalscelotajs.lv/blogs/padomi_un_ieteikumi_pargajienam/gulammaisi-iesaceja-celvedis",
+        "https://veikalscelotajs.lv/pages/garantija"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "celotajs-03",
+      "tenant": "celotajs",
+      "question_ru": "Какие сроки доставки указаны магазином?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://veikalscelotajs.lv/blogs/padomi_un_ieteikumi_pargajienam/gulammaisi-iesaceja-celvedis",
+        "https://veikalscelotajs.lv/pages/garantija"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "celotajs-04",
+      "tenant": "celotajs",
+      "question_ru": "Как можно оплатить заказ?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://veikalscelotajs.lv/blogs/padomi_un_ieteikumi_pargajienam/gulammaisi-iesaceja-celvedis",
+        "https://veikalscelotajs.lv/pages/garantija"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "celotajs-05",
+      "tenant": "celotajs",
+      "question_ru": "Какие правила возврата опубликованы?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://veikalscelotajs.lv/blogs/padomi_un_ieteikumi_pargajienam/gulammaisi-iesaceja-celvedis",
+        "https://veikalscelotajs.lv/pages/garantija"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "celotajs-06",
+      "tenant": "celotajs",
+      "question_ru": "Как связаться по вопросу брака или гарантии?",
+      "status": "existing_topic",
+      "scope": "baseline",
+      "candidate_sources": [
+        "https://veikalscelotajs.lv/blogs/padomi_un_ieteikumi_pargajienam/gulammaisi-iesaceja-celvedis",
+        "https://veikalscelotajs.lv/pages/garantija"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "celotajs-07",
+      "tenant": "celotajs",
+      "question_ru": "Где сейчас мой заказ?",
+      "status": "integration",
+      "scope": "baseline",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "celotajs-08",
+      "tenant": "celotajs",
+      "question_ru": "Деньги списались, но заказ не подтвердился: что делать?",
+      "status": "human",
+      "scope": "baseline",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "celotajs-09",
+      "tenant": "celotajs",
+      "question_ru": "Чем отличаются температуры comfort, limit и extreme у спальника?",
+      "status": "source_candidate",
+      "scope": "niche",
+      "candidate_sources": [
+        "https://veikalscelotajs.lv/blogs/padomi_un_ieteikumi_pargajienam/gulammaisi-iesaceja-celvedis",
+        "https://veikalscelotajs.lv/pages/garantija"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "celotajs-10",
+      "tenant": "celotajs",
+      "question_ru": "Какие параметры сравнивать при выборе спальника?",
+      "status": "source_candidate",
+      "scope": "niche",
+      "candidate_sources": [
+        "https://veikalscelotajs.lv/blogs/padomi_un_ieteikumi_pargajienam/gulammaisi-iesaceja-celvedis",
+        "https://veikalscelotajs.lv/pages/garantija"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "celotajs-11",
+      "tenant": "celotajs",
+      "question_ru": "Где найти рекомендации магазина по выбору спальника?",
+      "status": "source_candidate",
+      "scope": "niche",
+      "candidate_sources": [
+        "https://veikalscelotajs.lv/blogs/padomi_un_ieteikumi_pargajienam/gulammaisi-iesaceja-celvedis",
+        "https://veikalscelotajs.lv/pages/garantija"
+      ],
+      "implemented_answer": false
+    },
+    {
+      "id": "celotajs-12",
+      "tenant": "celotajs",
+      "question_ru": "Какой вес у конкретной палатки или спальника?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "celotajs-13",
+      "tenant": "celotajs",
+      "question_ru": "Каковы размеры снаряжения в сложенном виде?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "celotajs-14",
+      "tenant": "celotajs",
+      "question_ru": "Что входит в комплект конкретной палатки?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "celotajs-15",
+      "tenant": "celotajs",
+      "question_ru": "Чем различаются два конкретных рюкзака?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "celotajs-16",
+      "tenant": "celotajs",
+      "question_ru": "Подходит ли этот дождевик к размеру моего рюкзака?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "celotajs-17",
+      "tenant": "celotajs",
+      "question_ru": "Какие правила ухода указаны для этого изделия?",
+      "status": "research",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "celotajs-18",
+      "tenant": "celotajs",
+      "question_ru": "Можно ли забрать эту модель сегодня в конкретном магазине?",
+      "status": "integration",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "celotajs-19",
+      "tenant": "celotajs",
+      "question_ru": "Гарантируете ли, что в этом спальнике безопасно при −15 °C?",
+      "status": "human",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    },
+    {
+      "id": "celotajs-20",
+      "tenant": "celotajs",
+      "question_ru": "Подходит ли это альпинистское снаряжение для моей системы страховки?",
+      "status": "human",
+      "scope": "niche",
+      "candidate_sources": [],
+      "implemented_answer": false
+    }
+  ]
+}
