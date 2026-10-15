@@ -34,3 +34,16 @@ test('language changes per message without resetting conversation',async()=>{
  assert.equal(response.status,200);const body=await response.json();assert.equal(body.locale,expected);assert.deepEqual(body.cardIds,['warranty']);assert.equal(body.handoff,false);
  }}finally{await mf.dispose();}
 });
+
+test('five prospect tenants run all 250 scenarios inside workerd without cross-store sources',async()=>{
+ const {prospectCases}=await import('../test/prospect-cases.mjs');
+ const {prospectTenants}=await import('../src/prospects.js');
+ const mf=new Miniflare(convertV4MiniflareOptions(options));
+ try{let i=0;for(const tenant of Object.values(prospectTenants)){for(const [locale,message,expected]of prospectCases){
+  const res=await mf.dispatchFetch('https://demo.example/api/chat',{method:'POST',headers:{Origin:'https://demo.example','Content-Type':'application/json','CF-Connecting-IP':`198.51.${Math.floor(i/200)}.${i++%200+1}`},body:JSON.stringify({tenant:tenant.id,locale,message})});
+  assert.equal(res.status,200,tenant.id+': '+message);const out=await res.json();
+  if(expected==='unknown')assert.equal(out.cardIds.length,0);else if(expected)assert.equal(out.cardIds[0],expected);
+  assert.equal(out.contact.email,tenant.contact.email);assert.ok(!JSON.stringify(out).includes('anete.lv'));
+  const own=new Set(Object.values(tenant.sources).map(s=>s.url));assert.ok(out.sources.every(s=>own.has(s.url)));
+ }}}finally{await mf.dispose();}
+});

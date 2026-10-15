@@ -52,8 +52,9 @@ export function createWorker(fetcher=fetch){return {
   const url=new URL(request.url),isApi=url.pathname.startsWith('/api/');
   try{
    if(url.pathname==='/api/config'&&request.method==='GET'){
+    const tenant=getTenant(url.searchParams.get('tenant')||'anete');if(!tenant)return reply({error:'unknown_tenant'},404);
     const error=configError(env);
-    return reply({dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:'anete',contact:getTenant('anete').contact,checked:getTenant('anete').checked,mode:env.AI_ENABLED==='true'?'ai':'reference',authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
+    return reply({dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:tenant.id,name:tenant.name,sources:Object.values(tenant.sources),contact:tenant.contact,checked:tenant.checked,mode:env.AI_ENABLED==='true'?'ai':'reference',authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
    }
    if(isApi){
     if(request.method!=='POST')return reply({error:'method_not_allowed'},405,{'Allow':'POST'});
@@ -78,7 +79,7 @@ export function createWorker(fetcher=fetch){return {
     data.locale=detectLocale(data.message,data.locale);
     const previous=tenant.cards.some(c=>c.id===data.previousTopic)?data.previousTopic:null;
     const blocked=preflight(data.message);
-    const ref=referenceRoute(data.message,previous);
+    const ref=referenceRoute(data.message,previous,tenant.id);
     const useAI=env.AI_ENABLED==='true'&&!blocked&&!ref.social&&!ref.ids.includes('contact')&&ref.kind!=='greeting';
     const denied=await gate(request,env,'chat',useAI);if(denied)return denied;
     if(blocked)return reply(render(data.tenant,data.locale,{ids:[],kind:blocked,handoff:false},'safety'));
@@ -91,7 +92,7 @@ export function createWorker(fetcher=fetch){return {
     return reply({...render(data.tenant,data.locale,result,result.social?'social':'ai'),providerUsed:true});
    }
    if(!['GET','HEAD'].includes(request.method))return reply({error:'method_not_allowed'},405);
-   if(!['/','/index.html','/app.js','/contact.js','/qa','/qa/','/qa.html','/qa.js','/qa-cases.js','/qa-core.js','/qa.css','/style.css','/favicon.svg'].includes(url.pathname))return reply({error:'not_found'},404);
+   if(!['/','/index.html','/app.js','/contact.js','/qa','/qa/','/qa.html','/qa.js','/qa-cases.js','/qa-core.js','/qa.css','/style.css','/favicon.svg','/demos.html'].includes(url.pathname))return reply({error:'not_found'},404);
    const res=await env.ASSETS.fetch(request),headers=new Headers(res.headers);
    for(const [k,v] of Object.entries(security))headers.set(k,v);
    return new Response(res.body,{status:res.status,headers});
