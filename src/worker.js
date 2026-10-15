@@ -21,7 +21,7 @@ async function authenticated(req,env){
  if(!token)return false;
  const [expiry,nonce,sig,...rest]=token.split('.');
  if(rest.length||!/^\d{13}$/.test(expiry)||!/^\w{32}$/.test(nonce||'')||!/^[a-f0-9]{64}$/.test(sig||'')||Number(expiry)<Date.now()||Number(expiry)>Date.now()+7200000)return false;
- return equal(sig,await mac(env.SESSION_SECRET,`${expiry}.${nonce}`));
+ return equal(sig,await mac(env.SESSION_SECRET,`${new URL(req.url).origin}|${env.TENANT_ID||'owner'}|${expiry}.${nonce}`));
 }
 export async function readLimited(req,max=4096){
  if(!req.body)throw new Error('body');
@@ -42,6 +42,7 @@ async function gate(req,env,kind,reserve){
  return null;
 }
 function configError(env){
+ if(env.TENANT_ID&&(!getTenant(env.TENANT_ID)||!env.DEMO_PASSWORD))return 'server_not_configured';
  if(!env.SESSION_SECRET||env.SESSION_SECRET.length<32)return 'server_not_configured';
  if(env.DEMO_PASSWORD&&env.DEMO_PASSWORD.length<12)return 'server_not_configured';
  if(env.AI_ENABLED==='true'&&(!env.OPENAI_API_KEY||!env.DEMO_PASSWORD))return 'ai_not_configured';
@@ -51,9 +52,17 @@ export function createWorker(fetcher=fetch){return {
  async fetch(request,env){
   const url=new URL(request.url),isApi=url.pathname.startsWith('/api/');
   try{
+   const locked=env.TENANT_ID||null;
+   if(locked&&configError(env))return reply({error:'server_not_configured'},503);
+   if(locked){
+    const allowed=['/','/index.html','/api/config','/api/login','/api/logout','/api/chat','/style.css','/brand.css','/favicon.svg'];
+    if(!allowed.includes(url.pathname)&&!/^\/chat-ui\.[a-f0-9]{12}\.js$/.test(url.pathname))return reply({error:'not_found'},404);
+    if(url.searchParams.getAll('shop').some(id=>id!==locked)||url.searchParams.getAll('tenant').some(id=>id!==locked))return reply({error:'not_found'},404);
+   }
    if(url.pathname==='/api/config'&&request.method==='GET'){
-    const tenant=getTenant(url.searchParams.get('tenant')||'anete');if(!tenant)return reply({error:'unknown_tenant'},404);
+    const tenant=getTenant(url.searchParams.get('tenant')||locked||'anete');if(!tenant)return reply({error:'unknown_tenant'},404);
     const error=configError(env);
+    if(!locked&&env.DEMO_PASSWORD&&tenant.id!=='anete'&&!await authenticated(request,env))return reply({tenant:tenant.id,name:'Private demo',sources:[],contact:null,mode:'reference',locked:true,authenticated:false,ready:!error,error});
     return reply({perCallMicroUSD:RESERVE_MICRO_USD,dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:tenant.id,name:tenant.name,sources:Object.values(tenant.sources),contact:tenant.contact,checked:tenant.checked,mode:env.AI_ENABLED==='true'?'ai':'reference',authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
    }
    if(url.pathname==='/api/usage'&&request.method==='GET'){
@@ -77,13 +86,14 @@ export function createWorker(fetcher=fetch){return {
      const data=await readLimited(request,1024);
      if(typeof data.password!=='string'||data.password.length>128)return reply({error:'invalid_input'},400);
      if(!env.DEMO_PASSWORD||!equal(await mac(env.SESSION_SECRET,data.password),await mac(env.SESSION_SECRET,env.DEMO_PASSWORD)))return reply({error:'login_failed'},401);
-     const nonce=crypto.randomUUID().replaceAll('-',''),value=`${Date.now()+7199000}.${nonce}`,sig=await mac(env.SESSION_SECRET,value);
+     const nonce=crypto.randomUUID().replaceAll('-',''),value=`${Date.now()+7199000}.${nonce}`,sig=await mac(env.SESSION_SECRET,`${url.origin}|${env.TENANT_ID||'owner'}|${value}`);
      const secure=url.protocol==='https:'?'; Secure':'';
      return reply({ok:true},200,{'Set-Cookie':`demo_session=${value}.${sig}; HttpOnly; SameSite=Strict; Path=/; Max-Age=7199${secure}`});
     }
     if(!await authenticated(request,env))return reply({error:'authentication_required'},401);
     const data=await readLimited(request);
     if(!data||typeof data!=='object'||Array.isArray(data)||typeof data.message!=='string'||!data.message.trim()||data.message.length>1000||!['ru','lv','en'].includes(data.locale)||typeof data.tenant!=='string')return reply({error:'invalid_input'},400);
+    if(locked&&data.tenant!==locked)return reply({error:'unknown_tenant'},404);
     const tenant=getTenant(data.tenant);if(!tenant)return reply({error:'unknown_tenant'},404);
     data.locale=detectLocale(data.message,data.locale);
     const previous=tenant.cards.some(c=>c.id===data.previousTopic)?data.previousTopic:null;
@@ -99,6 +109,9 @@ export function createWorker(fetcher=fetch){return {
     if(!response.ok)return reply({error:'ai_unavailable'},502);
     const result=route.parse(await response.json());
     return reply({...render(data.tenant,data.locale,result,result.social?'social':'ai'),providerUsed:true});
+   }
+   if(!locked&&env.DEMO_PASSWORD&&/^\/(demos|qa|usage)(?:[/.]|$)/.test(url.pathname)){
+    if(!env.DEMO_PASSWORD||!await authenticated(request,env)){const target=url.pathname.split(/[/.]/)[1];return new Response(null,{status:302,headers:{...security,Location:'/?return='+target}});}
    }
    if(!['GET','HEAD'].includes(request.method))return reply({error:'method_not_allowed'},405);
    if(!/^\/chat-ui\.[a-f0-9]{12}\.js$/.test(url.pathname)&&!['/','/index.html','/app.js','/branding.js','/brand.css','/contact.js','/qa','/qa/','/qa.html','/qa.js','/qa-cases.js','/qa-core.js','/qa.css','/style.css','/favicon.svg','/usage','/usage/','/usage.html','/usage.js','/demos','/demos/','/demos.html'].includes(url.pathname))return reply({error:'not_found'},404);

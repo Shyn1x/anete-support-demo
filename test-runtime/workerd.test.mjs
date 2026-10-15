@@ -56,3 +56,19 @@ test('usage endpoint reads persisted SQLite counters only after login and consum
   const cookie=login.headers.get('Set-Cookie').split(';')[0];for(let i=0;i<2;i++){const response=await mf.dispatchFetch('https://demo.example/api/usage',{headers:{cookie}});assert.equal(response.status,200);const data=await response.json();assert.equal(data.total.reservedMicroUSD,0);assert.equal(data.budgetCallsRemaining,50);assert.equal(data.callsAvailableNow,10);}
  }finally{await mf.dispose();}
 });
+
+test('isolated client Workers bind to the existing shared SQLite budget instead of multiplying caps',async()=>{
+ const client=id=>({...options,name:'client-'+id,bindings:{...options.bindings,TENANT_ID:id,DEMO_PASSWORD:'runtime-client-pass-123'},durableObjects:{GUARD:{className:'BudgetGuard',scriptName:'owner-runtime'}}});
+ const mf=new Miniflare(convertV4MiniflareOptions({workers:[{...options,name:'owner-runtime'},client('bariba'),client('hobbyset')]}));
+ try{
+  const clientWorker=await mf.getWorker('client-bariba');
+  const cfg=await clientWorker.fetch('https://bariba.example/api/config');assert.equal((await cfg.json()).tenant,'bariba');
+  assert.equal((await clientWorker.fetch('https://bariba.example/demos')).status,404);
+  assert.equal((await clientWorker.fetch('https://bariba.example/api/config?tenant=hobbyset')).status,404);
+  const namespace=await mf.getDurableObjectNamespace('GUARD','owner-runtime'),stub=namespace.get(namespace.idFromName('experiment-v1'));
+  const stateBefore=await stub.fetch('https://guard/status',{headers:{'X-Demo-Client':'a'.repeat(64)}});assert.equal((await stateBefore.json()).total.reservedMicroUSD,0);
+  // Both exported client bindings must resolve to the owner's exact object ID.
+  for(const id of ['bariba','hobbyset']){const ns=await mf.getDurableObjectNamespace('GUARD','client-'+id);assert.equal(ns.idFromName('experiment-v1').toString(),namespace.idFromName('experiment-v1').toString());const r=await ns.get(ns.idFromName('experiment-v1')).fetch('https://guard/check',{method:'POST',body:JSON.stringify({ip:(id==='bariba'?'b':'c').repeat(64),kind:'chat',reserve:true})});assert.equal(r.status,200);}
+  const after=await(await stub.fetch('https://guard/status',{headers:{'X-Demo-Client':'a'.repeat(64)}})).json();assert.equal(after.total.reservedMicroUSD,20000);
+ }finally{await mf.dispose();}
+});

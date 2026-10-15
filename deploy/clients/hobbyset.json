@@ -1,0 +1,29 @@
+{
+  "name": "support-demo-hobbyset",
+  "main": "../../src/client-worker.js",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {
+    "directory": "../../dist/clients/hobbyset",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "GUARD",
+        "class_name": "BudgetGuard",
+        "script_name": "anete-support-demo"
+      }
+    ]
+  },
+  "keep_vars": true,
+  "vars": {
+    "TENANT_ID": "hobbyset",
+    "AI_ENABLED": "false"
+  },
+  "observability": {
+    "enabled": false
+  }
+}
