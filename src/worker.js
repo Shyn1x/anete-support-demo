@@ -156,12 +156,12 @@ export function createWorker(fetcher=fetch){return {
      const result=route.parse(await response.json());
      const answer=render(data.tenant,data.locale,result,result.social?'social':'ai');
      if(conversational){
-      if(!result.reply)return reply({...render(data.tenant,data.locale,ref,'reference'),providerUsed:true,fallbackReason:'answer_validation'});
+      if(!result.reply)return reply({...render(data.tenant,data.locale,ref,'reference'),providerUsed:true,fallbackReason:'answer_validation',validationReason:result.validationReason||'rejected_reply'});
       const notice=result.handoff?render(data.tenant,data.locale,{ids:[],kind:'unknown',handoff:true},'reference').text.split('\n\n').slice(1).join('\n\n'):'';
       answer.text=result.reply+(notice?'\n\n'+notice:'');answer.conversational=true;
      }
      return reply({...answer,providerUsed:true});
-    }catch(error){if(!conversational)throw error;return reply({...render(data.tenant,data.locale,ref,'reference'),providerUsed:true,fallbackReason:'answer_validation'});}
+    }catch(error){if(!conversational)throw error;const validationReason=['incomplete','refusal','schema'].includes(error?.message)?error.message:error instanceof SyntaxError?'invalid_json':'provider_or_parse_error';return reply({...render(data.tenant,data.locale,ref,'reference'),providerUsed:true,fallbackReason:'answer_validation',validationReason});}
    }
    if(!locked&&env.DEMO_PASSWORD&&/^\/(demos|qa|usage)(?:[/.]|$)/.test(url.pathname)){
     if(!env.DEMO_PASSWORD||!await authenticated(request,env)){const target=url.pathname.split(/[/.]/)[1];return new Response(null,{status:302,headers:{...security,Location:'/?return='+target}});}

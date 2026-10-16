@@ -18,3 +18,22 @@ test('PII, injection and social thanks stay free and are never sent to provider'
 
 for(const [locale,reply]of [['ru','Товар в наличии.'],['ru','Доставим завтра.'],['ru','Вам точно подойдёт.'],['en','It is in stock.'],['en','It is available now.'],['en','It will arrive tomorrow.'],['en','This is a guaranteed fit.'],['lv','Prece ir noliktavā.'],['lv','Tas noteikti derēs.'],['lv','Piegādāsim rīt.']])test(`declines unverified promise: ${reply}`,async()=>{const r=await conversationRequest(getTenant('bariba'),'delivery',null,locale);assert.equal(r.parse(output(['delivery'],reply)).reply,null);});
 test('mandatory human review cannot be removed by a fluent answer',async()=>{const r=await conversationRequest(getTenant('anete'),'It is broken',null,'en');const result=r.parse(output(['defect'],'I understand. The shop needs to assess the issue.',false));assert.equal(result.handoff,true);});
+
+test('Hobbyset timing fallback explains validation without retaining unsafe prose',async()=>{
+ const r=await conversationRequest(getTenant('hobbyset'),'А сколько ждать?','delivery','ru');
+ const result=r.parse(output(['timing'],'Товары в наличии, доставка за 2–3 рабочих дня.'));
+ assert.equal(result.reply,null);assert.equal(result.validationReason,'unverified_promise');
+ const valid=r.parse(output(['timing'],'Для доступных товаров доставка в пакомат занимает 2–3 рабочих дня. Срок вашего заказа подтвердит магазин.'));
+ assert.equal(valid.validationReason,undefined);assert.ok(valid.reply);
+});
+test('unknown warranty is preserved as uncertainty, not absence of a warranty',async()=>{
+ const r=await conversationRequest(getTenant('bariba'),'Гарнтия',null,'ru');
+ const bad=r.parse(output(['warranty'],'Гарантийный срок для товаров не установлен единым правилом.',true));
+ assert.equal(bad.reply,null);assert.equal(bad.validationReason,'uncertainty_changed');
+ assert.ok(r.parse(output(['warranty'],'Единый гарантийный срок в проверенных источниках не подтверждён. Уточните условия для конкретного товара в магазине.',true)).reply);
+});
+test('Worker exposes only a safe reason code for rejected prose and parse failures',async()=>{
+ for(const [response,expected]of [[()=>Response.json(output(['delivery'],'Delivery takes 999 days.')),'unsupported_number'],[()=>Response.json({status:'incomplete'}),'incomplete'],[()=>{throw Error('secret-key-in-error');},'provider_or_parse_error']]){
+  const r=await runConversation({response});assert.equal(r.data.validationReason,expected);assert(!JSON.stringify(r.data).includes('secret-key-in-error'));assert.equal(r.calls,1);
+ }
+});

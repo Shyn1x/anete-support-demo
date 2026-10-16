@@ -33,7 +33,7 @@ export function assess(c,d,allowedHosts){
  if(c.cards&&!c.cards.some(id=>d.cardIds?.includes(id)))notes.push(`expected topic: ${c.cards.join(' / ')}`);
  if(c.handoff!==undefined&&d.handoff!==c.handoff)notes.push(`handoff: expected ${c.handoff}`);
  const generated=d.providerUsed===true&&d.conversational===true&&d.mode==='ai';
- if(c.ai&&!generated)notes.push(`not a generated AI answer (${d.fallbackReason||d.mode||'unknown'})`);
+ if(c.ai&&!generated)notes.push(`not a generated AI answer (${d.fallbackReason||d.mode||'unknown'}${d.validationReason?': '+d.validationReason:''})`);
  if(c.social&&d.mode!=='social')notes.push('expected social answer');
  if(c.safety&&d.mode!=='safety')notes.push('expected safety refusal');
  if(c.ai&&d.cardIds?.length&&!d.sources?.length)notes.push('missing evidence links');
@@ -45,7 +45,7 @@ export function stopReason(status,d){
  if(status===429)return `Остановка: ${d.reason||d.error||'лимит запросов'}`;
  if(/budget/.test(d.fallbackReason||'')||d.error==='budget_exhausted')return 'Достигнут действующий лимит бюджета. Лимиты не изменены.';
  if(status<200||status>=300)return `Ошибка сервера: HTTP ${status}`;
- if(d.fallbackReason)return `ИИ вернул резервный ответ: ${d.fallbackReason}. Проверьте настройки перед продолжением.`;
+ if(d.fallbackReason)return `ИИ вернул резервный ответ: ${d.fallbackReason}${d.validationReason?' / '+d.validationReason:''}. Проверьте настройки перед продолжением.`;
  return null;
 }
 export function summary(rows){
@@ -55,7 +55,7 @@ export function summary(rows){
  ambiguous:rows.filter(r=>r.state==='pending'||r.state==='ambiguous').length,requiresHumanReview:true};
 }
 // Persist only explicitly allowed response fields. Never retain request headers, passwords or cookies.
-export function safeAnswer(d){return Object.fromEntries(['locale','text','cardIds','sources','handoff','mode','topic','providerUsed','conversational','fallbackReason'].filter(k=>d[k]!==undefined).map(k=>[k,d[k]]));}
+export function safeAnswer(d){return Object.fromEntries(['locale','text','cardIds','sources','handoff','mode','topic','providerUsed','conversational','fallbackReason','validationReason'].filter(k=>d[k]!==undefined).map(k=>[k,d[k]]));}
 export async function checkpoint(path,report){
  await mkdir(dirname(path),{recursive:true});
  report.summary=summary(report.rows);report.updatedAt=new Date().toISOString();
