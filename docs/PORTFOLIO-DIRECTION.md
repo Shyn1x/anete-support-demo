@@ -1,0 +1,3 @@
+# Portfolio reference — 16 October 2026
+
+User supplied 5517.jpg, a beauty-store layout reference. Intended direction for a separate portfolio example: compact header/navigation, broad editorial photographic hero, restrained white text panel overlapping the hero, light neutral/pale pink surfaces and a clean four-column product row on desktop (two columns on mobile). Use original demo branding, imagery and copy rather than copying the reference's brand or product claims. Room725 keeps its approved dark direction. This note records the brief; it does not claim a new portfolio site has been built.

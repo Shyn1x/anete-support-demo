@@ -1,3 +1,4 @@
+import {conversationRequest,cleanHistory,MAX_CHAT_BODY} from './conversation.js';
 import {productURL,fetchProduct,catalogAnswer,catalogError,catalogDiagnostics,canContinueProduct,isSizingQuestion} from './catalog.js';
 import {shopLinks} from './shop-links.js';
 import {validateMedia,visionRoute,mediaCopy,MEDIA_BODY_LIMIT} from './media.js';
@@ -66,7 +67,7 @@ export function createWorker(fetcher=fetch){return {
     const tenant=getTenant(url.searchParams.get('tenant')||locked||'anete');if(!tenant)return reply({error:'unknown_tenant'},404);
     const error=configError(env);
     if(!locked&&env.DEMO_PASSWORD&&tenant.id!=='anete'&&!await authenticated(request,env))return reply({tenant:tenant.id,name:'Private demo',sources:[],contact:null,mode:'reference',locked:true,authenticated:false,ready:!error,error});
-    return reply({perCallMicroUSD:RESERVE_MICRO_USD,dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:tenant.id,name:tenant.name,sources:Object.values(tenant.sources),contact:tenant.contact,checked:tenant.checked,mode:env.AI_ENABLED==='true'?'ai':'reference',catalogEnabled:env.CATALOG_ENABLED==='true',authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
+    return reply({perCallMicroUSD:RESERVE_MICRO_USD,dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:tenant.id,name:tenant.name,sources:Object.values(tenant.sources),contact:tenant.contact,checked:tenant.checked,mode:env.AI_ENABLED==='true'?'ai':'reference',conversationEnabled:env.AI_CONVERSATIONAL==='true',catalogEnabled:env.CATALOG_ENABLED==='true',authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
    }
    if(url.pathname==='/api/usage'&&request.method==='GET'){
     const error=configError(env);if(error||!env.DEMO_PASSWORD)return reply({error:'server_not_configured'},503);
@@ -113,10 +114,11 @@ export function createWorker(fetcher=fetch){return {
      out.text=prefix+(result.intent==='private_data'?copy.private:result.intent==='damage'?copy.damage+out.text:result.model!=='unknown'?copy.confirm+result.model+copy.confirmEnd:copy.unknown);
      return reply({...out,providerUsed:true,mediaAnalysed:true});
     }
-    const data=await readLimited(request);
+    const data=await readLimited(request,MAX_CHAT_BODY);
     if(!data||typeof data!=='object'||Array.isArray(data)||typeof data.message!=='string'||!data.message.trim()||data.message.length>1000||!['ru','lv','en'].includes(data.locale)||typeof data.tenant!=='string')return reply({error:'invalid_input'},400);
     if(locked&&data.tenant!==locked)return reply({error:'unknown_tenant'},404);
     const tenant=getTenant(data.tenant);if(!tenant)return reply({error:'unknown_tenant'},404);
+    const history=cleanHistory(data.history,tenant.id);
     const linked=shopLinks(data.message,tenant);
     data.locale=detectLocale(linked.clean,data.locale);
     const previous=tenant.cards.some(c=>c.id===data.previousTopic)||clarificationTopics.includes(data.previousTopic)?data.previousTopic:null;
@@ -130,8 +132,10 @@ export function createWorker(fetcher=fetch){return {
      const base=render(tenant.id,data.locale,{ids:[],kind:'product-clarify',handoff:false},'reference');
      try{const product=await fetchProduct(productLink,tenant,fetcher,typeof caches!=='undefined'?caches.default:null);return reply({...base,text:catalogAnswer(product,linked.clean,data.locale,previous),sources:[{title:product.title,url:product.url,kind:'product'}],checked:product.checkedAt,topic:isSizingQuestion(linked.clean,previous)?'product-sizing':null,productURL:product.url,productRead:true,cached:product.cached,catalogFormat:product.format||'html',providerUsed:false,mode:'catalog'});}catch(error){return reply({...base,text:catalogError(data.locale),productURL:productLink,productRead:false,catalogDiagnostics:catalogDiagnostics(error),providerUsed:false,mode:'catalog'});}
     }
-    const useAI=env.AI_ENABLED==='true'&&!blocked&&!ref.social&&!ref.ids.includes('contact')&&!ref.ids.some(id=>tenant.cards.find(c=>c.id===id)?.source==='niche-product')&&!['product-live','product-clarify','product-sizing','product-help','product-safety','product-unverified','product-linked','product-linked-size','product-linked-size-chart','shop-link','link-unsupported'].includes(ref.kind)&&ref.kind!=='greeting';
-    const route=useAI?await aiRoute(tenant,linked.query,previous):null;
+    const conversational=env.AI_CONVERSATIONAL==='true';
+    const fixedKinds=conversational?['product-live','product-safety','product-unverified','product-linked','product-linked-size','product-linked-size-chart','shop-link','link-unsupported']:['product-live','product-clarify','product-sizing','product-help','product-safety','product-unverified','product-linked','product-linked-size','product-linked-size-chart','shop-link','link-unsupported'];
+    const useAI=env.AI_ENABLED==='true'&&!blocked&&!ref.social&&!ref.ids.includes('contact')&&(conversational||!ref.ids.some(id=>tenant.cards.find(c=>c.id===id)?.source==='niche-product'))&&!fixedKinds.includes(ref.kind)&&ref.kind!=='greeting';
+    const route=useAI?(conversational?await conversationRequest(tenant,linked.query,previous,data.locale,history):await aiRoute(tenant,linked.query,previous)):null;
     const denied=await gate(request,env,'chat',useAI);
     if(denied){
      const details=await denied.clone().json();
@@ -145,10 +149,18 @@ export function createWorker(fetcher=fetch){return {
     if(blocked)return reply(render(data.tenant,data.locale,{ids:[],kind:blocked,handoff:false},'safety'));
     if(!useAI)return reply(render(data.tenant,data.locale,ref,ref.social?'social':'reference'));
     // No provider retries: ambiguous failures retain budget reservation.
+    try{
     const response=await fetcher('https://api.openai.com/v1/responses',{method:'POST',headers:{'Authorization':`Bearer ${env.OPENAI_API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify(route.body),signal:AbortSignal.timeout(15000)});
-    if(!response.ok)return reply({error:'ai_unavailable'},502);
-    const result=route.parse(await response.json());
-    return reply({...render(data.tenant,data.locale,result,result.social?'social':'ai'),providerUsed:true});
+    if(!response.ok)return conversational?reply({...render(data.tenant,data.locale,ref,'reference'),providerUsed:true,fallbackReason:'ai_unavailable'}):reply({error:'ai_unavailable'},502);
+     const result=route.parse(await response.json());
+     const answer=render(data.tenant,data.locale,result,result.social?'social':'ai');
+     if(conversational){
+      if(!result.reply)return reply({...render(data.tenant,data.locale,ref,'reference'),providerUsed:true,fallbackReason:'answer_validation'});
+      const notice=result.handoff?render(data.tenant,data.locale,{ids:[],kind:'unknown',handoff:true},'reference').text.split('\n\n').slice(1).join('\n\n'):'';
+      answer.text=result.reply+(notice?'\n\n'+notice:'');answer.conversational=true;
+     }
+     return reply({...answer,providerUsed:true});
+    }catch(error){if(!conversational)throw error;return reply({...render(data.tenant,data.locale,ref,'reference'),providerUsed:true,fallbackReason:'answer_validation'});}
    }
    if(!locked&&env.DEMO_PASSWORD&&/^\/(demos|qa|usage)(?:[/.]|$)/.test(url.pathname)){
     if(!env.DEMO_PASSWORD||!await authenticated(request,env)){const target=url.pathname.split(/[/.]/)[1];return new Response(null,{status:302,headers:{...security,Location:'/?return='+target}});}
