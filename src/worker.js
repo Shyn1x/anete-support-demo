@@ -1,4 +1,4 @@
-import {productURL,fetchProduct,catalogAnswer,catalogError,canContinueProduct,isSizingQuestion} from './catalog.js';
+import {productURL,fetchProduct,catalogAnswer,catalogError,catalogDiagnostics,canContinueProduct,isSizingQuestion} from './catalog.js';
 import {shopLinks} from './shop-links.js';
 import {validateMedia,visionRoute,mediaCopy,MEDIA_BODY_LIMIT} from './media.js';
 import {dailyReservationLimit} from './guard.js';
@@ -128,7 +128,7 @@ export function createWorker(fetcher=fetch){return {
     if(env.CATALOG_ENABLED==='true'&&!blocked&&productLink&&productQuery&&!ref.handoff&&!ref.social&&!/достав|оплат|возврат|гарант|delivery|shipping|payment|return|warranty|piegād|apmaks|atgrie|garant/iu.test(linked.clean)){
      const denied=await gate(request,env,'chat',false);if(denied)return denied;
      const base=render(tenant.id,data.locale,{ids:[],kind:'product-clarify',handoff:false},'reference');
-     try{const product=await fetchProduct(productLink,tenant,fetcher,typeof caches!=='undefined'?caches.default:null);return reply({...base,text:catalogAnswer(product,linked.clean,data.locale,previous),sources:[{title:product.title,url:product.url,kind:'product'}],checked:product.checkedAt,topic:isSizingQuestion(linked.clean,previous)?'product-sizing':null,productURL:product.url,productRead:true,cached:product.cached,providerUsed:false,mode:'catalog'});}catch{return reply({...base,text:catalogError(data.locale),productURL:productLink,productRead:false,providerUsed:false,mode:'catalog'});}
+     try{const product=await fetchProduct(productLink,tenant,fetcher,typeof caches!=='undefined'?caches.default:null);return reply({...base,text:catalogAnswer(product,linked.clean,data.locale,previous),sources:[{title:product.title,url:product.url,kind:'product'}],checked:product.checkedAt,topic:isSizingQuestion(linked.clean,previous)?'product-sizing':null,productURL:product.url,productRead:true,cached:product.cached,catalogFormat:product.format||'html',providerUsed:false,mode:'catalog'});}catch(error){return reply({...base,text:catalogError(data.locale),productURL:productLink,productRead:false,catalogDiagnostics:catalogDiagnostics(error),providerUsed:false,mode:'catalog'});}
     }
     const useAI=env.AI_ENABLED==='true'&&!blocked&&!ref.social&&!ref.ids.includes('contact')&&!ref.ids.some(id=>tenant.cards.find(c=>c.id===id)?.source==='niche-product')&&!['product-live','product-clarify','product-sizing','product-help','product-safety','product-unverified','product-linked','product-linked-size','product-linked-size-chart','shop-link','link-unsupported'].includes(ref.kind)&&ref.kind!=='greeting';
     const route=useAI?await aiRoute(tenant,linked.query,previous):null;

@@ -1,6 +1,7 @@
 // Read-only product pages. No arbitrary origins, scripts, account data, AI prose or stock guarantees.
 import {shopLinks} from './shop-links.js';
 export const CATALOG_TTL=300,CATALOG_MAX_BYTES=800000;
+const shopifyTenants=new Set(['apavi40plus','celotajs']);
 const patterns={apavi40plus:/^\/(?:ru\/|lv\/|en\/|et\/|de\/)?products\/[\p{L}\p{N}-]+\/?$/iu,celotajs:/^\/(?:en\/|lv\/)?products\/[\p{L}\p{N}-]+\/?$/iu,rotallieta:/^\/prece\/[\p{L}\p{N}-]+\/?$/iu,bariba:/^\/[\p{L}\p{N}_.-]+\.html$/iu,hobbyset:/^\/products\/(?:lv|ru|en)\/\d+\/\d+\/[\p{L}\p{N}_.,%/×“”„–— -]+\.html$/iu};
 export function productURL(value,tenant){
  if(typeof value!=='string'||value.length>1500||/[\s\\]/u.test(value))return null;
@@ -25,26 +26,52 @@ export function parseProduct(html,url,tenant){
  if(node){title=plain(node.name);description=plain(node.description);summary=offer(node.offers);variants=arr(node.hasVariant).slice(0,250).map(v=>{const name=plain(v.name);return {label:plain(typeof v.size==='string'?v.size:name.startsWith(title+' - ')?name.slice(title.length+3):'').slice(0,60),...offer(v.offers)};}).filter(x=>x.label);}
  else if(tenant.id==='bariba'){title=plain(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/iu)?.[1]);description=plain(block(html,/<(div)\b[^>]*\bid=["']tab-description["'][^>]*>/iu));}
  else if(tenant.id==='hobbyset'){title=plain(block(html,/<(div)\b[^>]*class=["'][^"']*inner_product_name[^"']*["'][^>]*>/iu));description=plain(block(html,/<(div)\b[^>]*class=["'][^"']*inner_product_description[^"']*["'][^>]*>/iu));}
+ return productFacts(title,description,variants,summary,url,'html');
+}
+function productFacts(title,description,variants,summary,url,format){
  if(!title||title.length>240||description.length<5||/access denied|just a moment|captcha|attention required/i.test(title))throw Error('catalog_parse');
  const lines=description.split(/\n+/).map(x=>x.trim()).filter(x=>x.length>2&&!/ignore.{0,30}instruction|system prompt|api.?key|игнориру|системн.{0,10}инструк|ignorē.{0,15}instruk/i.test(x));
  const chart=[];for(const line of lines){const m=line.match(/^(\d{2}(?:[.,]\d)?)(?:\.?\s*(?:izm[eē]rs|размер|size))?\s*[-–—:]\s*(\d{2}(?:[.,]\d{1,2})?)\s*(?:cm|см)(?=\s|[.,;:]|$)/iu);if(m)chart.push({size:m[1].replace(',','.'),cm:m[2].replace(',','.')});}
  const measure=/iekšzolei|длин.{0,8}стельк|insole length/iu.test(description)?'insole':/pēdas garum|длин.{0,8}стоп|foot length/iu.test(description)?'foot':'unspecified';
- return {title,url,lines:lines.slice(0,120).map(x=>x.slice(0,2200)),variants,summary,chart:chart.slice(0,40),measure,checkedAt:new Date().toISOString()};
+ return {title,url,lines:lines.slice(0,120).map(x=>x.slice(0,2200)),variants,summary,chart:chart.slice(0,40),measure,format,checkedAt:new Date().toISOString()};
+}
+export function parseShopifyProduct(json,url,tenant){
+ if(!shopifyTenants.has(tenant.id)||!productURL(url,tenant)||!json||typeof json!=='object'||Array.isArray(json)||typeof json.title!=='string'||typeof json.description!=='string'||json.handle!==productIdentity(url).split('/').at(-1)||!Array.isArray(json.variants))throw Error('catalog_parse');
+ if(json.url){const own=productURL(new URL(json.url,url).href,tenant);if(!own||productIdentity(own)!==productIdentity(url))throw Error('catalog_parse');}
+ const state=value=>value===true?'in_stock':value===false?'out_of_stock':'unknown';
+ const variants=json.variants.slice(0,250).filter(v=>v&&typeof v.title==='string'&&v.title!=='Default Title').map(v=>({label:plain(v.title).slice(0,60),state:state(v.available),price:null})).filter(v=>v.label);
+ // Ajax prices have no verified presentment currency here. Never assume EUR or read a cart.
+ return productFacts(plain(json.title),plain(json.description),variants,{state:state(json.available),price:null},url,'shopify-json');
 }
 async function readText(res){const size=Number(res.headers.get('content-length'));if(size>CATALOG_MAX_BYTES)throw Error('catalog_size');const reader=res.body?.getReader();if(!reader)throw Error('catalog_body');let count=0,chunks=[];while(true){const x=await reader.read();if(x.done)break;count+=x.value.length;if(count>CATALOG_MAX_BYTES){await reader.cancel();throw Error('catalog_size');}chunks.push(x.value);}const b=new Uint8Array(count);let at=0;for(const x of chunks){b.set(x,at);at+=x.length;}return new TextDecoder('utf-8',{fatal:true}).decode(b);}
 export async function fetchProduct(url,tenant,fetcher=fetch,cache=null){
  let target=productURL(url,tenant);if(!target)throw Error('catalog_url');const key=new Request('https://catalog-cache.invalid/'+tenant.id+'?url='+encodeURIComponent(target));
  if(cache){try{const hit=await cache.match(key);if(hit){const data=await hit.json();if(data.url===target&&Date.now()-Date.parse(data.checkedAt)>=0&&Date.now()-Date.parse(data.checkedAt)<CATALOG_TTL*1000)return {...data,cached:true};}}catch{}}
- const original=target;const signal=AbortSignal.timeout(8000);
- for(let attempt=0;attempt<2;attempt++){
-  const res=await fetcher(target,{method:'GET',redirect:'manual',signal,headers:{Accept:'text/html'}});
+ const original=target,signal=AbortSignal.timeout(18000),attempts=[];
+ const options=(accept,timeout=6500)=>({method:'GET',redirect:'manual',signal:AbortSignal.any([signal,AbortSignal.timeout(timeout)]),headers:{Accept:accept}});
+ const success=async data=>{if(cache){try{await cache.put(key,Response.json({...data,url:original},{headers:{'Cache-Control':'public,max-age='+CATALOG_TTL}}));}catch{}}return {...data,url:original,cached:false};};
+ try{for(let attempt=0;attempt<2;attempt++){
+  const res=await fetcher(target,options('text/html'));
   if(res.status>=300&&res.status<400){const next=new URL(res.headers.get('Location')||'',target).href;target=productURL(next,tenant);if(!target||attempt===1||productIdentity(target)!==productIdentity(original))throw Error('catalog_redirect');continue;}
-  if(!res.ok||!/^text\/html\b/i.test(res.headers.get('Content-Type')||''))throw Error('catalog_http');
-  const data=parseProduct(await readText(res),target,tenant);if(cache){try{await cache.put(key,Response.json({...data,url:original},{headers:{'Cache-Control':'public,max-age='+CATALOG_TTL}}));}catch{}}
-  return {...data,url:original,cached:false};
+  if(!res.ok)throw Error('catalog_http_'+res.status);
+  if(!/^text\/html\b/i.test(res.headers.get('Content-Type')||''))throw Error('catalog_mime');
+  return await success(parseProduct(await readText(res),target,tenant));
+ }}catch(error){attempts.push({format:'html',error:failureReason(error)});if(error.message==='catalog_redirect')throw catalogFailure(attempts);}
+ if(shopifyTenants.has(tenant.id)&&!signal.aborted){
+  try{const endpoint=new URL(original);endpoint.pathname=endpoint.pathname.replace(/\/$/,'')+'.js';
+   const res=await fetcher(endpoint.href,options('application/json',10000));
+   if(res.status>=300&&res.status<400)throw Error('catalog_redirect');
+   if(!res.ok)throw Error('catalog_http_'+res.status);
+   if(!/^(?:application\/json|text\/javascript|application\/javascript)\b/i.test(res.headers.get('Content-Type')||''))throw Error('catalog_mime');
+   let json;try{json=JSON.parse(await readText(res));}catch(error){if(error instanceof SyntaxError)throw Error('catalog_parse');throw error;}
+   return await success(parseShopifyProduct(json,original,tenant));
+  }catch(error){attempts.push({format:'shopify-json',error:failureReason(error)});}
  }
- throw Error('catalog_http');
+ throw catalogFailure(attempts);
 }
+function failureReason(error){const m=String(error?.message||'');return /^catalog_(?:http_\d{3}|url|redirect|mime|parse|size|body)$/.test(m)?m.slice(8):['AbortError','TimeoutError'].includes(error?.name)?'timeout':'network';}
+function catalogFailure(attempts){const error=Error('catalog_failed');error.catalogAttempts=attempts;return error;}
+export function catalogDiagnostics(error){return {attempts:(error?.catalogAttempts||[]).slice(0,2).filter(x=>['html','shopify-json'].includes(x?.format)&&/^(?:http_\d{3}|url|redirect|mime|parse|size|body|timeout|network)$/.test(x?.error)).map(x=>({format:x.format,error:x.error}))};}
 const words={
  ru:{read:'Прочитана карточка',snapshot:'Данные страницы на',notWarehouse:'Это сведения страницы, не подтверждение физического остатка или резервирование.',variants:'Варианты, указанные в карточке',found:'Указан вариант',notFound:'Запрошенный вариант не найден в полученных данных. Это не доказательство отсутствия товара.',noChart:'В полученном описании нет соответствия этого размера длине в сантиметрах. Пересчитывать по универсальной таблице не буду; уточните у магазина.',chart:'В таблице этой карточки',insole:'длина стельки',foot:'длина стопы',measurement:'указанный замер',noFit:'Это данные конкретной модели, а не гарантия подходящей посадки.',price:'Цена, указанная на странице',noPrice:'Подтверждённая цена для этого варианта не найдена; проверьте оформление заказа.',states:{in_stock:'страница отмечает как доступный',out_of_stock:'страница отмечает как недоступный',preorder:'на странице указан предзаказ/ожидание',unknown:'доступность не подтверждена'},excerpt:'Из описания магазина (язык источника)',missing:'Этот параметр в прочитанных данных не найден. Уточните его у магазина.',error:'Не удалось надёжно прочитать карточку. Попробуйте позже или уточните параметр у магазина. Я не буду подставлять сведения другого товара.'},
  lv:{read:'Nolasīta preces lapa',snapshot:'Lapas dati uz',notWarehouse:'Tie ir lapas dati, nevis fiziskā atlikuma apstiprinājums vai rezervācija.',variants:'Lapā norādītie varianti',found:'Norādīts variants',notFound:'Pieprasītais variants saņemtajos datos nav atrasts. Tas nepierāda preces neesamību.',noChart:'Saņemtajā aprakstā šim izmēram nav atbilstības centimetros. Universālu tabulu nepiemērošu; jautājiet veikalam.',chart:'Šīs preces tabulā',insole:'iekšzoles garums',foot:'pēdas garums',measurement:'norādītais mērījums',noFit:'Tie ir konkrētā modeļa dati, nevis piemērota pieguluma garantija.',price:'Lapā norādītā cena',noPrice:'Šī varianta cena nav apstiprināta; pārbaudiet pasūtījuma noformēšanu.',states:{in_stock:'lapā atzīmēts kā pieejams',out_of_stock:'lapā atzīmēts kā nepieejams',preorder:'lapā norādīta iepriekšpasūtīšana/gaidīšana',unknown:'pieejamība nav apstiprināta'},excerpt:'No veikala apraksta (avota valodā)',missing:'Šis parametrs nolasītajos datos nav atrasts. Precizējiet veikalā.',error:'Preces lapu nevarēja droši nolasīt. Mēģiniet vēlāk vai jautājiet veikalam. Citas preces datus nepiemērošu.'},

@@ -1,0 +1,43 @@
+{
+  "checkedAt": "2026-10-16T00:04:44.923Z",
+  "scope": "live public Shopify JSON; simulated HTML refusal; not a deployed Cloudflare session",
+  "paidOpenAICalls": 0,
+  "results": [
+    {
+      "tenant": "apavi40plus",
+      "url": "https://apavi40plus.com/ru/products/klasiskas-viriesu-kurpes-lloyd-dargun-10-054-59",
+      "ok": true,
+      "title": "Классические мужские туфли Lloyd Dargun 10-054-59",
+      "format": "shopify-json",
+      "variantLabels": [
+        "48.5"
+      ],
+      "checkedAt": "2026-10-16T00:04:44.923Z",
+      "requests": [
+        {
+          "url": "https://apavi40plus.com/ru/products/klasiskas-viriesu-kurpes-lloyd-dargun-10-054-59.js",
+          "status": 200,
+          "type": "text/javascript; charset=utf-8"
+        }
+      ],
+      "noInventedConversion": true
+    },
+    {
+      "tenant": "celotajs",
+      "url": "https://veikalscelotajs.lv/products/mammut-sleepingbag-relax-down-bag",
+      "ok": true,
+      "title": "Dūnu guļammaiss Mammut Relax Down Bag 0C",
+      "format": "shopify-json",
+      "variantLabels": [],
+      "checkedAt": "2026-10-16T00:04:42.311Z",
+      "requests": [
+        {
+          "url": "https://veikalscelotajs.lv/products/mammut-sleepingbag-relax-down-bag.js",
+          "status": 200,
+          "type": "text/javascript; charset=utf-8"
+        }
+      ],
+      "noInventedConversion": null
+    }
+  ]
+}

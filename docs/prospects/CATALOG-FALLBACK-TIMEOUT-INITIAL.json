@@ -1,0 +1,43 @@
+{
+  "checkedAt": "2026-10-16T00:02:52.734Z",
+  "scope": "live public Shopify JSON; simulated HTML refusal; not a deployed Cloudflare session",
+  "paidOpenAICalls": 0,
+  "results": [
+    {
+      "tenant": "apavi40plus",
+      "url": "https://apavi40plus.com/ru/products/klasiskas-viriesu-kurpes-lloyd-dargun-10-054-59",
+      "ok": false,
+      "requests": [],
+      "diagnostics": {
+        "attempts": [
+          {
+            "format": "html",
+            "error": "http_403"
+          },
+          {
+            "format": "shopify-json",
+            "error": "timeout"
+          }
+        ]
+      }
+    },
+    {
+      "tenant": "celotajs",
+      "url": "https://veikalscelotajs.lv/products/mammut-sleepingbag-relax-down-bag",
+      "ok": false,
+      "requests": [],
+      "diagnostics": {
+        "attempts": [
+          {
+            "format": "html",
+            "error": "http_403"
+          },
+          {
+            "format": "shopify-json",
+            "error": "timeout"
+          }
+        ]
+      }
+    }
+  ]
+}
