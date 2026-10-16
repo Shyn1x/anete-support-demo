@@ -29,6 +29,27 @@ export function preflight(text,tenantId='anete'){
  if(/[\w.+-]+@[\w.-]+\.[a-z]{2,}|(?:\d[\s-]*){7,}|(?:мой|моя|mans|mana)\s+(?:адрес|телефон|паспорт|personas kods|adrese)|(?:cvv|cvc|iban)\s*[:=]?\s*\S+/iu.test(links.clean))return 'pii';
  return null;
 }
+// Whole-message continuations: a style/language request must not become a new product query.
+export function followupRoute(text,previous,tenantId='anete'){
+ const s=normalize(text).replace(/[?.!,;:]+$/gu,'').trim();
+ const rephrase=/^(?:(?:can|could|would) you )?(?:please )?(?:explain|say|put|rephrase|repeat|summari[sz]e)(?: (?:it|that|this|your (?:last )?answer))?(?: (?:again|more simply|simpler|in simpler (?:words|terms)|in simple (?:words|terms)|in plain english|briefly|in short|please)){1,3}$/iu.test(s)
+  ||/^(?:(?:можешь|можете) )?(?:пожалуйста[, ]+)?(?:объясни(?:те|ть)?|расскажи(?:те)?|рассказать|повтори(?:те|ть)?|скажи(?:те)?|сказать)(?: (?:это|ответ))?(?: (?:попроще|проще|ещё раз|еще раз|короче|простыми словами|пожалуйста)){1,3}$/iu.test(s)
+  ||/^(?:можно )?(?:попроще|проще|простыми словами|короче)$/iu.test(s)
+  ||/^(?:(?:vai )?(?:vari|varat) )?(?:lūdzu )?(?:paskaidro(?:t|jiet)?|izskaidro(?:t|jiet)?|pasaki(?:et)?|atkārto(?:t|jiet)?)(?: (?:to|atbildi))?(?: (?:vienkāršāk|īsāk|vēlreiz|vienkāršiem vārdiem|lūdzu)){1,3}$/iu.test(s);
+ const tenant=getTenant(tenantId);if(!tenant)return null;const has=id=>tenant.cards.some(c=>c.id===id);
+ const review=id=>['contact','status','business-warranty','payment-problem','unclaimed','defect','opened','shipping-cost'].includes(id)||!!tenant.cards.find(c=>c.id===id)?.requiresReview;
+ if(rephrase){if(previous&&has(previous))return {ids:[previous],kind:'answer',handoff:review(previous),continuation:true};return {ids:[],kind:'notHelpful',social:true,handoff:false,continuation:true};}
+ if(!['delivery','timing','pickup','order','shipping-cost'].includes(previous))return null;
+ const duration=/^(?:а )?(?:сколько (?:это )?(?:займ[её]т|ждать)|как долго(?: ждать)?|когда (?:привезут|доставят))$/iu.test(s)||/^(?:and )?(?:how long(?: (?:will|does) (?:it|that|this) take| (?:to wait|is that))?|when (?:will it arrive|is it delivered))$/iu.test(s)||/^(?:un )?(?:cik ilgi(?: (?:tas aizņems|jāgaida))?|kad piegādās)$/iu.test(s);
+ const cost=/^(?:а )?сколько (?:это )?(?:стоит|будет стоить)$/iu.test(s)||/^(?:and )?how much(?: (?:is|does|will) (?:it|that|this)(?: cost)?)?$/iu.test(s)||/^(?:un )?cik (?:tas )?maksā$/iu.test(s);
+ const id=duration&&has('timing')?'timing':cost&&has('shipping-cost')?'shipping-cost':null;
+ return id?{ids:[id],kind:'answer',handoff:review(id),continuation:true}:null;
+}
+export function historyTopic(history,tenantId='anete'){
+ let topic=null;
+ for(const item of history||[]){if(item.role!=='user')continue;const routed=referenceRoute(item.text,topic,tenantId);if(routed.ids.length)topic=routed.ids.at(-1);else if(!routed.social&&!routed.continuation)topic=null;}
+ return topic;
+}
 export function referenceRoute(text, previous=null, tenantId='anete'){
  const linked=shopLinks(text,getTenant(tenantId));if(linked.rejected)return {ids:[],kind:'link-unsupported',handoff:false};
  if(linked.links.length){
@@ -39,6 +60,7 @@ export function referenceRoute(text, previous=null, tenantId='anete'){
  }
  const social=socialRoute(text);if(social)return social;
  const s=correctTypos(normalize(text)).replace(/^(?:не нужен (?:оператор|сотрудник|человек)|(?:оператор|сотрудник|человек) не нужен)[,. ]*/iu,'');
+ const followup=followupRoute(s,previous,tenantId);if(followup)return followup;
  const control=buyerControl(s,tenantId);if(control)return control;
  const segments=s.split(/\s+(?:и|а также|and|un)\s+|[?;]+/iu).map(x=>x.trim()).filter(Boolean);
  if(segments.length>1&&segments.length<=4){
@@ -101,6 +123,7 @@ export function referenceRoute(text, previous=null, tenantId='anete'){
  const tenant=getTenant(tenantId);if(id!=='greeting'&&!tenant?.cards.some(c=>c.id===id))id=null;
  return {ids:id&&id!=='greeting'?[id]:[],kind:id==='greeting'?'greeting':id?'answer':'unknown',handoff:['contact','status','business-warranty','payment-problem','unclaimed','defect','opened','shipping-cost'].includes(id)||!!tenant?.cards.find(c=>c.id===id)?.requiresReview};
 }
+const genericClarify={ru:'Уточните, пожалуйста, что хотите узнать о магазине или товаре.',lv:'Lūdzu, precizējiet jautājumu par veikalu vai preci.',en:'Could you clarify your question about the shop or a product?'};
 export function render(tenantId,locale,result,mode){
  const tenant=getTenant(tenantId), t=strings[locale];
  const selected=tenant.cards.filter(c=>result.ids.includes(c.id));
@@ -108,7 +131,7 @@ export function render(tenantId,locale,result,mode){
  const parts=selected.map(c=>c[locale]);
  if(result.clarificationKind==='product-help')parts.push(buyerCopy[locale].help[tenantId]);
  else if(result.clarificationKind&&t[result.clarificationKind])parts.push(t[result.clarificationKind]);
- if(!parts.length)parts.push(linkCopy[locale][result.kind]|| (result.kind==='product-sizing'&&result.knownModel?t['product-sizing-known']:['unknown','clarify'].includes(result.kind)&&tenantId!=='anete'?buyerCopy[locale].help[tenantId]:result.kind==='product-help'?buyerCopy[locale].help[tenantId]:result.kind==='product-safety'?buyerCopy[locale].productSafety:result.kind==='language'?buyerCopy[locale].language:(result.social?socialText[locale][result.kind]:null)||t[result.kind]||t.unknown));
+ if(!parts.length)parts.push(linkCopy[locale][result.kind]|| (result.kind==='product-sizing'&&result.knownModel?t['product-sizing-known']:['unknown','clarify'].includes(result.kind)&&tenantId!=='anete'?genericClarify[locale]:result.kind==='product-help'?buyerCopy[locale].help[tenantId]:result.kind==='product-safety'?buyerCopy[locale].productSafety:result.kind==='language'?buyerCopy[locale].language:(result.social?socialText[locale][result.kind]:null)||t[result.kind]||t.unknown));
  if(result.handoff)parts.push(t.handoff);
  for(let i=0;i<parts.length;i++)parts[i]=parts[i].replaceAll('Anete.lv',tenant.name);
  const keys=[...new Set(selected.map(c=>c.source))];

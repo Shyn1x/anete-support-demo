@@ -5,7 +5,7 @@ import {validateMedia,visionRoute,mediaCopy,MEDIA_BODY_LIMIT} from './media.js';
 import {dailyReservationLimit} from './guard.js';
 import {detectLocale} from './locale.js';
 import {getTenant} from './kb.js';
-import {preflight,referenceRoute,render,aiRoute,RESERVE_MICRO_USD,clarificationTopics} from './core.js';
+import {preflight,referenceRoute,render,aiRoute,RESERVE_MICRO_USD,clarificationTopics,historyTopic} from './core.js';
 export {BudgetGuard} from './guard.js';
 const encoder=new TextEncoder();
 export const security={
@@ -67,7 +67,7 @@ export function createWorker(fetcher=fetch){return {
     const tenant=getTenant(url.searchParams.get('tenant')||locked||'anete');if(!tenant)return reply({error:'unknown_tenant'},404);
     const error=configError(env);
     if(!locked&&env.DEMO_PASSWORD&&tenant.id!=='anete'&&!await authenticated(request,env))return reply({tenant:tenant.id,name:'Private demo',sources:[],contact:null,mode:'reference',locked:true,authenticated:false,ready:!error,error});
-    return reply({perCallMicroUSD:RESERVE_MICRO_USD,dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:tenant.id,name:tenant.name,sources:Object.values(tenant.sources),contact:tenant.contact,checked:tenant.checked,mode:env.AI_ENABLED==='true'?'ai':'reference',conversationEnabled:env.AI_CONVERSATIONAL==='true',catalogEnabled:env.CATALOG_ENABLED==='true',authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
+    return reply({perCallMicroUSD:RESERVE_MICRO_USD,dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:tenant.id,name:tenant.name,sources:Object.values(tenant.sources),contact:tenant.contact,checked:tenant.checked,mode:env.AI_ENABLED==='true'?'ai':'reference',conversationEnabled:env.AI_CONVERSATIONAL==='true',conversationRevision:env.AI_CONVERSATIONAL==='true'?'context-v2':null,catalogEnabled:env.CATALOG_ENABLED==='true',authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
    }
    if(url.pathname==='/api/usage'&&request.method==='GET'){
     const error=configError(env);if(error||!env.DEMO_PASSWORD)return reply({error:'server_not_configured'},503);
@@ -121,7 +121,8 @@ export function createWorker(fetcher=fetch){return {
     const history=cleanHistory(data.history,tenant.id);
     const linked=shopLinks(data.message,tenant);
     data.locale=detectLocale(linked.clean,data.locale);
-    const previous=tenant.cards.some(c=>c.id===data.previousTopic)||clarificationTopics.includes(data.previousTopic)?data.previousTopic:null;
+    let previous=tenant.cards.some(c=>c.id===data.previousTopic)||clarificationTopics.includes(data.previousTopic)?data.previousTopic:null;
+    if(!previous)previous=historyTopic(history,tenant.id);
     const blocked=preflight(data.message,tenant.id);
     const ref=referenceRoute(data.message,previous,tenant.id);
     const contextURL=typeof data.productURL==='string'&&canContinueProduct(linked.clean)?productURL(data.productURL,tenant):null;
