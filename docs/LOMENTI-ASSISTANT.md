@@ -55,3 +55,25 @@ lifetime exhaustion, disabled AI, provider failure, output rejection and fallbac
 Workerd/SQLite tests cover route isolation and nonce serialization. Site tests cover
 signature construction, origin checks, bounded input/history, one attempt, UI busy
 state, duplicate prevention, reset races, escaped text and budget-error contacts.
+
+## Confirmed transport regression and fix
+
+The first deployment's Site-to-owner POST failed before network dispatch. On
+2026-10-17 a single separately authorized diagnostic request returned HTTP 503,
+stage upstream_fetch. The same failure reproduced in local workerd with zero
+outbound requests: TypeError, invalid redirect value "error". Cloudflare accepts
+"manual" or "follow" here. Node mock fetch tests had hidden the incompatibility.
+The owner-to-OpenAI studio call used the same unsupported value and is fixed too.
+
+Both hops now use redirect=manual. The Site explicitly rejects 3xx; the owner
+rejects all non-2xx responses. Neither follows redirects nor retries, so signatures
+and provider Authorization cannot be forwarded to a redirect destination. Added
+real-workerd regression tests for both hops, verifying one successful mock request
+and rejection of a mock 307 without following it. No paid provider request is used
+by these tests. Existing shop bot provider routing was not changed.
+
+The Site also has GET /api/chat for a local signing-key self-check only. This GET
+never invokes the owner, budget guard or model. Error logs contain bounded stage
+and upstream HTTP status only, no chat, IP, credentials, headers or response bodies.
+The initial signing self-check succeeded in production; end-to-end AI output still
+requires post-publication verification, and should not be inferred from deployment.
