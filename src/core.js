@@ -50,8 +50,30 @@ export function historyTopic(history,tenantId='anete'){
  for(const item of history||[]){if(item.role!=='user')continue;const routed=referenceRoute(item.text,topic,tenantId);if(routed.ids.length)topic=routed.ids.at(-1);else if(!routed.social&&!routed.continuation)topic=null;}
  return topic;
 }
+// Bounded support signals, not an eligibility or refund decision.
+export function prioritySupportRoute(text,tenantId='anete'){
+ const s=normalize(text),tenant=getTenant(tenantId);if(!tenant)return null;
+ const wantsHuman=/(?:мне |дай(?:те)? |нужен |позови(?:те)? |соедини(?:те)?|хочу).{0,22}(?:оператор|сотрудник|человек|менеджер|консультант)|^(?:оператор|сотрудник|человек)[!.? ]*$|(?:need|want|speak to|talk to|connect me|contact).{0,22}(?:human|agent|person|staff)|(?:vajag|vēlos|gribu|savieno).{0,22}(?:darbiniek|cilvēk|operator|konsultant)/iu.test(s);
+ const humanNegated=/(?<!\p{L})(?:не нужен|не хочу|no (?:human|agent)|don.t (?:need|want)|nevajag|nevēlos)(?!\p{L})/iu.test(s);
+ const damage=/поврежд|порван|разбит|слом|не работает|дефект|broken|faulty|damaged|doesn.t work|bojā|salūz|nestrād|saplēst/iu.test(s)||/(?:посылк|товар|упаковк|обув).{0,35}(?:мокр|порв|тресну)|(?:parcel|item|package|shoe).{0,35}(?:torn|wet|cracked)/iu.test(s);
+ const id=wantsHuman&&!humanNegated?'contact':damage?'defect':null;
+ return id&&tenant.cards.some(c=>c.id===id)?{ids:[id],kind:'answer',handoff:true}:null;
+}
+// Candidate is the schema-checked route, never rejected model-authored prose.
+export function safeFallbackRoute(tenant,reference,candidate=null){
+ if(reference.handoff)return {...reference,handoff:true};
+ const ids=Array.isArray(candidate?.ids)?candidate.ids.filter(id=>tenant.cards.some(c=>c.id===id)):[];
+ const requiresReview=ids.some(id=>['contact','status','business-warranty','payment-problem','unclaimed','defect','opened','shipping-cost'].includes(id)||tenant.cards.find(c=>c.id===id)?.requiresReview);
+ if(candidate?.handoff||requiresReview){
+  const safeIds=ids.length?ids:tenant.cards.some(c=>c.id==='contact')?['contact']:[];
+  return {ids:safeIds,kind:safeIds.length?'answer':'unknown',handoff:true};
+ }
+ return reference.ids.length||!ids.length?reference:{ids,kind:'answer',handoff:false};
+}
 export function referenceRoute(text, previous=null, tenantId='anete'){
  const linked=shopLinks(text,getTenant(tenantId));if(linked.rejected)return {ids:[],kind:'link-unsupported',handoff:false};
+ // URL anchors and previous sizing context must not hide an explicit support request.
+ const priority=prioritySupportRoute(correctTypos(normalize(linked.clean)),tenantId);if(priority)return priority;
  if(linked.links.length){
   if(linked.known&&!linked.clean)return {ids:[],kind:'shop-link',handoff:false};
   if(!linked.known&&previous==='product-sizing'&&tenantId==='apavi40plus')return {ids:[],kind:'product-linked-size-chart',handoff:false};

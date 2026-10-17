@@ -1,7 +1,8 @@
 // One bounded provider request: interpret the question AND phrase a grounded reply.
 // History is browser-local, untrusted context; it can never be policy evidence.
-import {aiRoute,preflight,referenceRoute,followupRoute} from './core.js';
+import {aiRoute,preflight,referenceRoute,followupRoute,prioritySupportRoute} from './core.js';
 import {detectLocale} from './locale.js';
+export const AUDIT_REVISION='safe-resume-v1';
 export const MAX_CHAT_BODY=12000;
 export const CONVERSATION_BYTES=22000;
 export const CONVERSATION_OUTPUT=400;
@@ -50,6 +51,8 @@ export async function conversationRequest(tenant,text,previous,locale,history=[]
   const out=JSON.parse(blocks.filter(b=>b.type==='output_text').map(b=>b.text).join(''));
   if(Object.keys(out).sort().join(',')!=='handoff,ids,reply')throw Error('schema');
   const result=router.parse({...data,output:[{content:[{type:'output_text',text:JSON.stringify({ids:out.ids,handoff:out.handoff})}]}]});
+  const mandatory=prioritySupportRoute(text,tenant.id);
+  if(mandatory&&!mandatory.ids.every(id=>result.ids.includes(id)))return {...mandatory,reply:null,validationReason:'mandatory_topic_mismatch'};
   result.handoff ||= referenceRoute(text,previous,tenant.id).handoff;
   if(continuation?.ids.length&&(result.ids.length!==1||result.ids[0]!==continuation.ids[0]))return {...continuation,reply:null,validationReason:'followup_topic_mismatch'};
   if(['delivery','timing','pickup','shipping-cost'].includes(continuation?.ids[0])&&/which food|ingredients|pet age|pack size|какой корм|название корма|возраст питомца|состав корма|barības nosauk|dzīvnieka vecum|iepakojuma izmēr/iu.test(out.reply))return {...continuation,reply:null,validationReason:'followup_unrelated_reply'};

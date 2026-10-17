@@ -1,11 +1,11 @@
-import {conversationRequest,cleanHistory,MAX_CHAT_BODY} from './conversation.js';
+import {conversationRequest,cleanHistory,MAX_CHAT_BODY,AUDIT_REVISION} from './conversation.js';
 import {productURL,fetchProduct,catalogAnswer,catalogError,catalogDiagnostics,canContinueProduct,isSizingQuestion} from './catalog.js';
 import {shopLinks} from './shop-links.js';
 import {validateMedia,visionRoute,mediaCopy,MEDIA_BODY_LIMIT} from './media.js';
 import {dailyReservationLimit} from './guard.js';
 import {detectLocale} from './locale.js';
 import {getTenant} from './kb.js';
-import {preflight,referenceRoute,render,aiRoute,RESERVE_MICRO_USD,clarificationTopics,historyTopic} from './core.js';
+import {preflight,referenceRoute,render,aiRoute,RESERVE_MICRO_USD,clarificationTopics,historyTopic,safeFallbackRoute} from './core.js';
 export {BudgetGuard} from './guard.js';
 const encoder=new TextEncoder();
 export const security={
@@ -67,7 +67,7 @@ export function createWorker(fetcher=fetch){return {
     const tenant=getTenant(url.searchParams.get('tenant')||locked||'anete');if(!tenant)return reply({error:'unknown_tenant'},404);
     const error=configError(env);
     if(!locked&&env.DEMO_PASSWORD&&tenant.id!=='anete'&&!await authenticated(request,env))return reply({tenant:tenant.id,name:'Private demo',sources:[],contact:null,mode:'reference',locked:true,authenticated:false,ready:!error,error});
-    return reply({perCallMicroUSD:RESERVE_MICRO_USD,dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:tenant.id,name:tenant.name,sources:Object.values(tenant.sources),contact:tenant.contact,checked:tenant.checked,mode:env.AI_ENABLED==='true'?'ai':'reference',conversationEnabled:env.AI_CONVERSATIONAL==='true',conversationRevision:env.AI_CONVERSATIONAL==='true'?'context-v2':null,catalogEnabled:env.CATALOG_ENABLED==='true',authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
+    return reply({perCallMicroUSD:RESERVE_MICRO_USD,dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:tenant.id,name:tenant.name,sources:Object.values(tenant.sources),contact:tenant.contact,checked:tenant.checked,mode:env.AI_ENABLED==='true'?'ai':'reference',conversationEnabled:env.AI_CONVERSATIONAL==='true',conversationRevision:env.AI_CONVERSATIONAL==='true'?'context-v2':null,auditRevision:AUDIT_REVISION,catalogEnabled:env.CATALOG_ENABLED==='true',authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
    }
    if(url.pathname==='/api/usage'&&request.method==='GET'){
     const error=configError(env);if(error||!env.DEMO_PASSWORD)return reply({error:'server_not_configured'},503);
@@ -156,7 +156,7 @@ export function createWorker(fetcher=fetch){return {
      const result=route.parse(await response.json());
      const answer=render(data.tenant,data.locale,result,result.social?'social':'ai');
      if(conversational){
-      if(!result.reply)return reply({...render(data.tenant,data.locale,ref,'reference'),providerUsed:true,fallbackReason:'answer_validation',validationReason:result.validationReason||'rejected_reply'});
+      if(!result.reply)return reply({...render(data.tenant,data.locale,safeFallbackRoute(tenant,ref,result),'reference'),providerUsed:true,fallbackReason:'answer_validation',validationReason:result.validationReason||'rejected_reply'});
       const notice=result.handoff?render(data.tenant,data.locale,{ids:[],kind:'unknown',handoff:true},'reference').text.split('\n\n').slice(1).join('\n\n'):'';
       answer.text=result.reply+(notice?'\n\n'+notice:'');answer.conversational=true;
      }

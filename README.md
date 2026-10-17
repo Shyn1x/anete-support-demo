@@ -1,5 +1,7 @@
 # Support Studio — independent Anete.lv demo
 
+**17 October audit branch:** safe fallback, byte-verified ZIP updater and immutable live-test resume are prepared in `fix/live-audit-safe-resume-20261017`. They have not been deployed to Cloudflare. The new five-shop live batch is owner-reported at 27/50, not completed. Read [the technical review](docs/evaluations/2026-10-17-safe-resume-review.md) and [the owner runbook](docs/SAFE-LIVE-RESUME.md) before updating or running any paid tests. Earlier 50-case acceptance notes below refer to a different baseline.
+
 A reusable Cloudflare Worker, own responsive RU/LV/EN chat, a reviewed policy catalog and an optional OpenAI intent router. This is not an official Anete.lv product. No shop installation or contact has been made.
 
 **Delivery state:** source is maintained in https://github.com/Shyn1x/anete-support-demo. Local checks pass: 395 Node tests and 4 workerd checks, including 108 customer scenarios. The user deployed the demo to https://anete-support-demo.fshyn1x.workers.dev and reports successful mobile checks. The user completed 50 live production scenarios; three observed issues were fixed and all three passed a targeted live rerun. This is 53 executions across 50 distinct inputs, not a fresh full run after the final changes. AI is disabled when AI_ENABLED is absent. A ChatGPT subscription is not an API key or API balance.

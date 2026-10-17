@@ -9,3 +9,9 @@ worker-build/
 Anete-demo-offline.html
 
 public/chat-ui.*.js
+
+# Local audit data and ZIP-copy update staging must never enter source control.
+reports/
+.audit-updates/
+.audit-publish/
+.audit-bootstrap-*.mjs
