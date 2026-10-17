@@ -28,11 +28,14 @@ async function verifyExistingWorker(cli,config,root){
  const text=await new Promise((ok,fail)=>{let output='';const child=spawn(process.execPath,[cli,'versions','list','--json','--config',config],{cwd:root,stdio:['inherit','pipe','inherit'],env:{...process.env,WRANGLER_SEND_METRICS:'false'}});child.stdout.setEncoding('utf8');child.stdout.on('data',part=>{output+=part;if(output.length>1048576)child.kill();});child.once('error',fail);child.once('exit',code=>code===0?ok(output):fail(Error('Existing Worker check failed; no deployment performed.')));});
  assertExistingVersions(text);
 }
+export function publicationFiles(args){
+ if(![3,4].includes(args.length)||args[0]!=='--receipt'||!args[1]||args[2]!=='--confirm-publish'||args.length===4&&args[3]!=='--owner-only')throw Error('Not deployed. After separate publication approval: --receipt PATH --confirm-publish [--owner-only]');
+ return args.length===4?['wrangler.jsonc']:['wrangler.jsonc',...shops.map(s=>'deploy/clients/'+s+'.json')];
+}
 async function main(){
- const args=process.argv.slice(2);if(args.length!==3||args[0]!=='--receipt'||args[2]!=='--confirm-publish')throw Error('Not deployed. After separate publication approval: --receipt PATH --confirm-publish');
+ const args=process.argv.slice(2),files=publicationFiles(args);
  const root=process.cwd(),receipt=JSON.parse(await readFile(args[1],'utf8'));
  for(const f of receipt.files)if(gitBlobSha(await readFile(join(root,f.path)))!==f.sha)throw Error('Source changed since validation: '+f.path);
- const files=['wrangler.jsonc',...shops.map(s=>'deploy/clients/'+s+'.json')];
  const area=join(root,'.audit-publish',new Date().toISOString().replace(/[:.]/g,'-'));await mkdir(area,{recursive:true});
  await runLocal(process.execPath,['scripts/build-clients.mjs'],root);
  const configs=[];
@@ -46,6 +49,6 @@ async function main(){
  // Fail rather than creating a fresh Worker/namespace in an unintended account.
  for(const config of configs)await verifyExistingWorker(cli,config,root);
  for(const config of configs)await runLocal(process.execPath,[cli,'deploy','--strict','--keep-vars','--config',config],root);
- console.log('Six Workers updated. No passwords, secrets, budget variables or counters were reset. No OpenAI test call was made.');
+ console.log((files.length===1?'Owner Worker updated. Client Workers were not deployed.':'Six Workers updated.')+' No passwords, secrets, budget variables or counters were reset. No OpenAI test call was made.');
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href)main().catch(e=>{console.error(e.message);process.exitCode=1;});

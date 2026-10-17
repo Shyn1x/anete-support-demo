@@ -1,3 +1,4 @@
+import {studioChat} from './studio.js';
 import {conversationRequest,cleanHistory,MAX_CHAT_BODY,AUDIT_REVISION} from './conversation.js';
 import {productURL,fetchProduct,catalogAnswer,catalogError,catalogDiagnostics,canContinueProduct,isSizingQuestion} from './catalog.js';
 import {shopLinks} from './shop-links.js';
@@ -56,6 +57,7 @@ export function createWorker(fetcher=fetch){return {
  async fetch(request,env){
   const url=new URL(request.url),isApi=url.pathname.startsWith('/api/');
   try{
+   if(url.pathname==='/api/lomenti-chat')return studioChat(request,env,fetcher);
    const locked=env.TENANT_ID||null;
    if(locked&&configError(env))return reply({error:'server_not_configured'},503);
    if(locked){

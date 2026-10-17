@@ -122,3 +122,13 @@ test('safe-resume: real workerd retains semantic damage after unsupported number
  assert.equal(calls,18);const ns=await mf.getDurableObjectNamespace('GUARD'),status=await(await ns.get(ns.idFromName('experiment-v1')).fetch('https://guard/status',{headers:{'X-Demo-Client':'a'.repeat(64)}})).json();assert.equal(status.total.reservedMicroUSD,180000);
  }finally{await mf.dispose();}
 });
+
+test('Lomenti route rejects unsigned calls in workerd and stays absent on client Workers',async()=>{
+ for(const tenant of [null,'bariba']){
+  let outbound=0;const mf=new Miniflare(convertV4MiniflareOptions({...options,bindings:{...options.bindings,...(tenant?{TENANT_ID:tenant}:{})},outboundService:()=>{outbound++;throw Error('No outbound expected');}}));
+  try{const r=await mf.dispatchFetch('https://demo.example/api/lomenti-chat',{method:'POST',body:'{}'});assert.equal(r.status,tenant?404:403);assert.equal(outbound,0);const ns=await mf.getDurableObjectNamespace('GUARD'),stub=ns.get(ns.idFromName('experiment-v1'));const status=await(await stub.fetch('https://guard/status',{headers:{'X-Demo-Client':'a'.repeat(64)}})).json();assert.equal(status.total.reservedMicroUSD,0);}finally{await mf.dispose();}
+ }
+});
+test('Lomenti nonces prevent concurrent duplicate reservations in real SQLite',async()=>{
+ const mf=new Miniflare(convertV4MiniflareOptions(options));try{const ns=await mf.getDurableObjectNamespace('GUARD'),stub=ns.get(ns.idFromName('experiment-v1'));const body=JSON.stringify({ip:'a'.repeat(64),kind:'chat',reserve:true,studioNonce:'a'.repeat(32)});const replies=await Promise.all([1,2].map(()=>stub.fetch('https://guard/check',{method:'POST',body})));assert.deepEqual(replies.map(r=>r.status).sort(),[200,409]);const status=await(await stub.fetch('https://guard/status',{headers:{'X-Demo-Client':'a'.repeat(64)}})).json();assert.equal(status.total.reservedMicroUSD,10000);}finally{await mf.dispose();}
+});
