@@ -37,3 +37,18 @@ test('Worker exposes only a safe reason code for rejected prose and parse failur
   const r=await runConversation({response});assert.equal(r.data.validationReason,expected);assert(!JSON.stringify(r.data).includes('secret-key-in-error'));assert.equal(r.calls,1);
  }
 });
+
+for(const [locale,reply]of [
+ ['ru','Я передам запрос сотруднику.'],['ru','Мы можем отправить заявку в магазин.'],['ru','Я помогу соединить вас со специалистом.'],
+ ['en','We will create a ticket for you.'],['en','I can connect you to an agent.'],['en','I will pass this to the team.'],
+ ['lv','Es nodošu pieprasījumu veikalam.'],['lv','Mēs varam izveidot pieteikumu.'],['lv','Es varu savienot ar darbinieku.']
+])test('rejects unsupported future handoff: '+reply,async()=>{
+ const r=await conversationRequest(getTenant('celotajs'),'Delivery',null,locale);const result=r.parse(output(['delivery'],reply,true));assert.equal(result.reply,null);assert.equal(result.validationReason,'unsupported_handoff_action');
+});
+for(const [locale,reply]of [
+ ['ru','Мне жаль, что посылка повреждена. Вы можете самостоятельно связаться с магазином.'],
+ ['en','I am sorry your parcel arrived damaged. You can contact the shop directly.'],
+ ['lv','Man žēl, ka sūtījums ir bojāts. Varat patstāvīgi sazināties ar veikalu.']
+])test('customer-led contact remains valid: '+locale,async()=>{
+ const r=await conversationRequest(getTenant('celotajs'),{ru:'Посылка повреждена',en:'Parcel damaged',lv:'Bojāts sūtījums'}[locale],null,locale);const result=r.parse(output(['defect'],reply,true));assert.equal(result.reply,reply);assert.equal(result.handoff,true);
+});

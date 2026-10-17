@@ -23,3 +23,13 @@ test('wrong model topic cannot override explicit damage',async()=>{const t=getTe
 test('fallback filters foreign IDs and uses only own contact when escalation has no safe topic',()=>{const t=getTenant('bariba'),ref={ids:[],kind:'unknown',handoff:false};const result=safeFallbackRoute(t,ref,{ids:['not-a-card','toy-batteries'],handoff:true});assert.deepEqual(result.ids,['contact']);assert.equal(result.handoff,true);});
 test('clear canonical Cyrillic complaint is already recognised on the baseline route',()=>{assert.equal(referenceRoute('Посылка пришла повреждённой, я очень недоволен. Что делать?',null,'apavi40plus').handoff,true);});
 for(const [message,id] of [['My parcel is damaged','defect'],['Мне нужен сотрудник','contact'],['Vēlos runāt ar darbinieku','contact']])test('prior product sizing and pasted product link cannot hide support intent: '+message,()=>{const route=referenceRoute(message+' https://apavi40plus.com/products/unlisted-example','product-sizing','apavi40plus');assert.deepEqual(route.ids,[id]);assert.equal(route.handoff,true);});
+
+const dispatchOffers={
+ ru:'Если посылка пришла повреждённой, рекомендуется связаться напрямую с магазином Veikals Ceļotājs для обсуждения вашей ситуации и возможного гарантийного покрытия. Я могу помочь передать запрос специалистам магазина.',
+ en:'I am sorry your parcel arrived damaged. I can help forward your request to the shop team.',
+ lv:'Man žēl, ka sūtījums ir bojāts. Es varu palīdzēt nosūtīt pieprasījumu veikala darbiniekam.'
+};
+for(const tenant of Object.keys(tenants))for(const locale of ['ru','lv','en'])test(`${tenant}/${locale}: unimplemented dispatch offer is rejected and falls back to own shop`,async()=>{
+ const r=await invoke(tenant,locale,cases[locale].message,()=>Response.json(output(['defect'],dispatchOffers[locale])));
+ assert.equal(r.res.status,200);assert.equal(r.data.validationReason,'unsupported_handoff_action');assert.equal(r.data.mode,'reference');assert.equal(r.data.handoff,true);assert(r.data.cardIds.includes('defect'));assert.equal(r.data.contact.email,getTenant(tenant).contact.email);assert(!r.data.text.includes(dispatchOffers[locale]));assert.equal(r.calls,1);assert.equal(r.storage.records.get('state').total,10000);
+});
