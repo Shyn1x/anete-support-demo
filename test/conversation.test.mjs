@@ -52,3 +52,23 @@ for(const [locale,reply]of [
 ])test('customer-led contact remains valid: '+locale,async()=>{
  const r=await conversationRequest(getTenant('celotajs'),{ru:'Посылка повреждена',en:'Parcel damaged',lv:'Bojāts sūtījums'}[locale],null,locale);const result=r.parse(output(['defect'],reply,true));assert.equal(result.reply,reply);assert.equal(result.handoff,true);
 });
+
+for(const [tenant,reply]of [
+ ['bariba','Единый гарантийный срок для всех товаров в магазине Bariba.lv не установлен. Для получения информации о гарантии на конкретный товар рекомендуем связаться с магазином напрямую.'],
+ ['hobbyset','В интернет-магазине HobbySet не указан единый гарантийный срок на товары. Рекомендуется обратиться напрямую в магазин для уточнения гарантийных условий по конкретному товару.']
+])test('actual retest warranty prose must preserve lack of confirmation: '+tenant,async()=>{const r=await conversationRequest(getTenant(tenant),'Гарнтия',null,'ru');assert.equal(r.parse(output(['warranty'],reply,true)).validationReason,'uncertainty_changed');});
+for(const tenant of ['bariba','hobbyset','apavi40plus'])for(const [locale,bad,good]of [
+ ['ru','Единый гарантийный срок не установлен.','Единый гарантийный срок не подтверждён. Уточните условия в магазине.'],
+ ['en','A universal warranty period is not specified.','A universal warranty period is not confirmed. Ask the shop about the specific product.'],
+ ['lv','Vienots garantijas termiņš nav norādīts.','Vienots garantijas termiņš nav apstiprināts. Precizējiet nosacījumus veikalā.']
+])test(`${tenant}/${locale}: warranty uncertainty is required in customer prose`,async()=>{const r=await conversationRequest(getTenant(tenant),{ru:'Гарнтия',en:'Warranty',lv:'Garantija'}[locale],null,locale);assert.equal(r.parse(output(['warranty'],bad,true)).validationReason,'uncertainty_changed');assert.equal(r.parse(output(['warranty'],good,true)).reply,good);});
+for(const [locale,reply]of [
+ ['ru','У Josef Seibel 42801 860 100 указана натуральная гладкая кожа.'],
+ ['en','Josef Seibel 42801 860 100 lists genuine smooth leather.'],
+ ['lv','Josef Seibel 42801 860 100 norādīta dabīga gludā āda.']
+])test('approved selected product identifier is not customer PII: '+locale,async()=>{const r=await conversationRequest(getTenant('apavi40plus'),{ru:'У 42801 натуральная кожа?',en:'42801 leather?',lv:'42801 āda?'}[locale],null,locale);assert.equal(r.parse(output(['shoe-material'],reply)).reply,reply);});
+test('product identifier exception never permits unknown numbers, contacts or unselected evidence',async()=>{
+ const t=getTenant('apavi40plus'),r=await conversationRequest(t,'42801 leather?',null,'en');
+ for(const reply of ['The model is 42801 860 100. Call 123456789.','The phone is 42801 860 100.','The model is +42801 860 100.','The model is 42801 860 101.'])assert.equal(r.parse(output(['shoe-material'],reply)).reply,null);
+ const delivery=await conversationRequest(t,'Delivery',null,'en');assert.equal(delivery.parse(output(['delivery'],'The model is 42801 860 100.')).reply,null);
+});

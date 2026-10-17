@@ -19,12 +19,21 @@ export function cleanHistory(value,tenantId){
  return clean;
 }
 const numbers=text=>text.normalize('NFKC').match(/\d+(?:[.,:]\d+)*/gu)||[];
+// Only exact long numeric identifiers from selected approved product facts may be
+// masked for the output PII check. User-input privacy checks remain unchanged.
+export function replySafetyText(reply,result,tenant,locale){
+ const numericRuns=/(?<![\p{L}\p{N}+])\d(?:[\s-]*\d){6,}(?![\p{L}\p{N}])/gu;
+ const approved=new Set(tenant.cards.filter(c=>result.ids.includes(c.id)&&c.source==='niche-product').flatMap(c=>c[locale].match(numericRuns)||[]));
+ // Do not turn an identifier into a purported telephone/contact detail.
+ if(/телефон|позвон|номер связи|\bphone\b|\bcall\b|tālrun|zvanīt/iu.test(reply))return reply;
+ return reply.replace(numericRuns,value=>approved.has(value)?'verified product identifier':value);
+}
 export function replyValidationReason(reply,result,tenant,locale){
  if(typeof reply!=='string'||!reply.trim()||reply.length>1400)return 'empty_or_long';
  if(detectLocale(reply,locale)!==locale)return 'wrong_language';
  // Contacts, source links and human escalation are rendered by the server.
  if(/https?:|www\.|@|<[^>]*>|\[[^\]]*\]\(|\b(?:cardIds|dialogue:|system prompt|API key)\b|баз[аеуы] знаний|карточк[аиу] ответ/iu.test(reply))return 'links_contacts_or_internal_text';
- if(preflight(reply,tenant.id))return 'unsafe_content';
+ if(preflight(replySafetyText(reply,result,tenant,locale),tenant.id))return 'unsafe_content';
  // No generated stock/fit guarantees or concrete delivery promises in a policy demo.
  if(/в наличии|есть на складе|точно подойд[её]т|гарантированно|доставим завтра|in stock|available now|guaranteed fit|will arrive tomorrow|noliktavā|noteikti derēs|piegādāsim rīt/iu.test(reply))return 'unverified_promise';
  // A demo cannot offer future dispatch either: no ticket/chat integration exists.
@@ -36,7 +45,11 @@ export function replyValidationReason(reply,result,tenant,locale){
  // No policy evidence: a short clarification or conversational response only.
  if(!result.ids.length&&!result.social&&(!/[?？]/u.test(reply)||reply.length>300))return 'ungrounded_assertion';
  // Missing confirmation must never become a claim that a policy does not exist.
- if(/не подтвержд|not confirmed|nav apstiprin/iu.test(evidence)&&/(?:гарантийн.{0,30}(?:не установлен|не существует)|(?:no warranty|warranty.{0,25}(?:does not exist|is not provided))|garantij.{0,25}nepastāv)/iu.test(reply))return 'uncertainty_changed';
+ const uncertainty=/не подтвержд|не (?:могу|можем|удалось) подтверд|нет подтвержд|not confirmed|(?:cannot|can't|do not|does not) confirm|nav apstiprin|nevar.{0,15}apstiprin/iu;
+ // Missing confirmation must be explicitly retained; a short distance regex
+ // missed long shop names and reversed word order in the live retest.
+ const absence=/(?:гаранти.{0,250}(?:не установлен|не указан|не существует)|(?:не установлен|не указан|не существует).{0,250}гаранти|no warranty|warranty.{0,250}(?:does not exist|is not provided|not established|not specified)|garantij.{0,250}(?:nepastāv|nav noteikt|nav norād))/iu;
+ if(result.ids.includes('warranty')&&uncertainty.test(evidence)&&(!uncertainty.test(reply)||absence.test(reply)))return 'uncertainty_changed';
  return null;
 }
 export async function conversationRequest(tenant,text,previous,locale,history=[]){
