@@ -1,0 +1,2005 @@
+{
+  "revision": "product-coverage-v1",
+  "scope": "Offline routing and evidence coverage. Does not test live model phrasing, completeness of the shop catalogue, runtime deployment, or current prices/stock.",
+  "modelCalls": 0,
+  "shops": [
+    {
+      "tenant": "rotallieta",
+      "productEvidenceCards": 3,
+      "productEvidenceSources": 1,
+      "fullCatalogueConnected": false
+    },
+    {
+      "tenant": "bariba",
+      "productEvidenceCards": 5,
+      "productEvidenceSources": 3,
+      "fullCatalogueConnected": false
+    },
+    {
+      "tenant": "hobbyset",
+      "productEvidenceCards": 3,
+      "productEvidenceSources": 1,
+      "fullCatalogueConnected": false
+    },
+    {
+      "tenant": "apavi40plus",
+      "productEvidenceCards": 3,
+      "productEvidenceSources": 1,
+      "fullCatalogueConnected": false
+    },
+    {
+      "tenant": "celotajs",
+      "productEvidenceCards": 3,
+      "productEvidenceSources": 1,
+      "fullCatalogueConnected": false
+    },
+    {
+      "tenant": "anete",
+      "productEvidenceCards": 0,
+      "productEvidenceSources": 0,
+      "fullCatalogueConnected": false
+    }
+  ],
+  "totals": {
+    "cases": 129,
+    "answeredFromEvidence": 36,
+    "clarificationOnly": 54,
+    "humanReview": 39,
+    "contractFailures": 0
+  },
+  "results": [
+    {
+      "id": "anete-policy-ru",
+      "tenant": "anete",
+      "kind": "policy",
+      "expected": "answer",
+      "locale": "ru",
+      "message": "Какие способы доставки есть?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "delivery"
+      ],
+      "route": "answer",
+      "text": "Доступны курьер, самовывоз в Риге и пакоматы Omniva/DPD. Пакоматы требуют предоплаты; способ зависит от размера товара."
+    },
+    {
+      "id": "anete-policy-lv",
+      "tenant": "anete",
+      "kind": "policy",
+      "expected": "answer",
+      "locale": "lv",
+      "message": "Kādi piegādes veidi ir pieejami?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "delivery"
+      ],
+      "route": "answer",
+      "text": "Pieejams kurjers, saņemšana Rīgā un Omniva/DPD pakomāti. Pakomātiem vajadzīga priekšapmaksa; veids atkarīgs no preces izmēra."
+    },
+    {
+      "id": "anete-policy-en",
+      "tenant": "anete",
+      "kind": "policy",
+      "expected": "answer",
+      "locale": "en",
+      "message": "What delivery options are available?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "delivery"
+      ],
+      "route": "answer",
+      "text": "Courier delivery, collection in Riga and Omniva/DPD parcel lockers are listed. Parcel lockers require prepayment; available methods depend on the size of the item."
+    },
+    {
+      "id": "anete-complaint-ru",
+      "tenant": "anete",
+      "kind": "complaint",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Получил повреждённую посылку",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "defect"
+      ],
+      "route": "answer",
+      "text": "По неисправности можно обратиться в магазин или указанный производителем сервис. Подготовьте документ о покупке и гарантийный талон, если он выдавался. Покрытие случая оценивает сотрудник.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин."
+    },
+    {
+      "id": "anete-complaint-lv",
+      "tenant": "anete",
+      "kind": "complaint",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Saņēmu bojātu sūtījumu",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "defect"
+      ],
+      "route": "answer",
+      "text": "Par bojājumu var vērsties veikalā vai ražotāja norādītajā servisā. Sagatavojiet pirkuma dokumentu un garantijas talonu, ja tas izsniegts. Gadījuma segumu izvērtē darbinieks.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu."
+    },
+    {
+      "id": "anete-complaint-en",
+      "tenant": "anete",
+      "kind": "complaint",
+      "expected": "review",
+      "locale": "en",
+      "message": "My parcel arrived damaged",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "defect"
+      ],
+      "route": "answer",
+      "text": "For a faulty item, contact the shop or the service centre specified by the manufacturer. Prepare proof of purchase and the warranty card, if one was supplied. An employee must assess coverage.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself."
+    },
+    {
+      "id": "anete-human-ru",
+      "tenant": "anete",
+      "kind": "human",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Мне нужен сотрудник",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "contact"
+      ],
+      "route": "answer",
+      "text": "Контакты магазина: info@anete.lv, +371 2001 3727. Это публичные контакты; сообщение из демо автоматически не отправляется.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин."
+    },
+    {
+      "id": "anete-human-lv",
+      "tenant": "anete",
+      "kind": "human",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Vēlos runāt ar darbinieku",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "contact"
+      ],
+      "route": "answer",
+      "text": "Veikala kontakti: info@anete.lv, +371 2001 3727. Tie ir publiski kontakti; no demonstrācijas ziņa automātiski netiek sūtīta.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu."
+    },
+    {
+      "id": "anete-human-en",
+      "tenant": "anete",
+      "kind": "human",
+      "expected": "review",
+      "locale": "en",
+      "message": "I want to speak to a human",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "contact"
+      ],
+      "route": "answer",
+      "text": "Public shop contacts: info@anete.lv, +371 2001 3727. This demo does not automatically send a message to the shop.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself."
+    },
+    {
+      "id": "anete-selection-ru",
+      "tenant": "anete",
+      "kind": "selection",
+      "expected": "clarify",
+      "locale": "ru",
+      "message": "Какой пылесос лучше выбрать?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Что подбираете и какие характеристики для вас важнее? Если есть конкретные модели, пришлите названия или ссылки. Полный каталог магазина к демо пока не подключён."
+    },
+    {
+      "id": "anete-selection-lv",
+      "tenant": "anete",
+      "kind": "selection",
+      "expected": "clarify",
+      "locale": "lv",
+      "message": "Kādu putekļsūcēju izvēlēties?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Kādu preci meklējat un kuras īpašības ir svarīgākās? Ja jau apsverat modeļus, atsūtiet nosaukumus vai saites. Pilns veikala katalogs demonstrācijai vēl nav pieslēgts."
+    },
+    {
+      "id": "anete-selection-en",
+      "tenant": "anete",
+      "kind": "selection",
+      "expected": "clarify",
+      "locale": "en",
+      "message": "Which vacuum should I choose?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "What product are you looking for, and which features matter most? If you have models in mind, share their names or links. The full shop catalogue is not connected to this demo yet."
+    },
+    {
+      "id": "anete-comparison-ru",
+      "tenant": "anete",
+      "kind": "comparison",
+      "expected": "clarify",
+      "locale": "ru",
+      "message": "Сравни модели холодильников Example-X и Example-Y",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Какие товары хотите сравнить? Пришлите их точные названия или ссылки и укажите, что для вас важнее. Сравнение возможно только по подтверждённым характеристикам."
+    },
+    {
+      "id": "anete-comparison-lv",
+      "tenant": "anete",
+      "kind": "comparison",
+      "expected": "clarify",
+      "locale": "lv",
+      "message": "Salīdzini ledusskapja modeļus Example-X un Example-Y",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Kuras preces vēlaties salīdzināt? Atsūtiet precīzus nosaukumus vai saites un norādiet svarīgāko. Salīdzināt var tikai pārbaudītas īpašības."
+    },
+    {
+      "id": "anete-comparison-en",
+      "tenant": "anete",
+      "kind": "comparison",
+      "expected": "clarify",
+      "locale": "en",
+      "message": "Compare fridge models Example-X and Example-Y",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Which products would you like to compare? Share their exact names or links and what matters most to you. Only verified specifications can be compared."
+    },
+    {
+      "id": "anete-unknown-model-ru",
+      "tenant": "anete",
+      "kind": "unknown-model",
+      "expected": "clarify",
+      "locale": "ru",
+      "message": "У пылесоса Example-X сменный фильтр?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Укажите точное название товара или ссылку и что хотите узнать. Характеристики неизвестной модели не подтверждаю; полный каталог пока не подключён."
+    },
+    {
+      "id": "anete-unknown-model-lv",
+      "tenant": "anete",
+      "kind": "unknown-model",
+      "expected": "clarify",
+      "locale": "lv",
+      "message": "Vai putekļsūcēja modelim Example-X ir maināms filtrs?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Norādiet precīzu preces nosaukumu vai saiti un jautājumu. Nezināma modeļa īpašības neapstiprinu; pilns katalogs vēl nav pieslēgts."
+    },
+    {
+      "id": "anete-unknown-model-en",
+      "tenant": "anete",
+      "kind": "unknown-model",
+      "expected": "clarify",
+      "locale": "en",
+      "message": "Does the vacuum Example-X have a replaceable filter?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Please give the exact product name or link and your question. I cannot confirm an unknown model’s specifications; the full catalogue is not connected yet."
+    },
+    {
+      "id": "bariba-policy-ru",
+      "tenant": "bariba",
+      "kind": "policy",
+      "expected": "answer",
+      "locale": "ru",
+      "message": "Какие способы доставки есть?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "delivery"
+      ],
+      "route": "answer",
+      "text": "Бесплатная доставка заказов свыше 30 € указана для городов маршрута магазина. Другие города — по согласованию; это не бесплатная доставка по всей Латвии."
+    },
+    {
+      "id": "bariba-policy-lv",
+      "tenant": "bariba",
+      "kind": "policy",
+      "expected": "answer",
+      "locale": "lv",
+      "message": "Kādi piegādes veidi ir pieejami?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "delivery"
+      ],
+      "route": "answer",
+      "text": "Bezmaksas piegāde virs 30 € norādīta veikala maršruta pilsētām. Citās pilsētās — pēc vienošanās; ne visā Latvijā bez maksas."
+    },
+    {
+      "id": "bariba-policy-en",
+      "tenant": "bariba",
+      "kind": "policy",
+      "expected": "answer",
+      "locale": "en",
+      "message": "What delivery options are available?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "delivery"
+      ],
+      "route": "answer",
+      "text": "Free delivery above €30 is listed for towns on the shop’s route. Other towns require agreement; this is not nationwide free delivery."
+    },
+    {
+      "id": "bariba-complaint-ru",
+      "tenant": "bariba",
+      "kind": "complaint",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Получил повреждённую посылку",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "defect"
+      ],
+      "route": "answer",
+      "text": "Неисправность или повреждение нужно обсудить с магазином. Демо не решает, покрывается ли случай гарантией.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин."
+    },
+    {
+      "id": "bariba-complaint-lv",
+      "tenant": "bariba",
+      "kind": "complaint",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Saņēmu bojātu sūtījumu",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "defect"
+      ],
+      "route": "answer",
+      "text": "Par defektu vai bojājumu sazinieties ar veikalu. Demonstrācija neizlemj, vai gadījumu sedz garantija.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu."
+    },
+    {
+      "id": "bariba-complaint-en",
+      "tenant": "bariba",
+      "kind": "complaint",
+      "expected": "review",
+      "locale": "en",
+      "message": "My parcel arrived damaged",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "defect"
+      ],
+      "route": "answer",
+      "text": "Contact the shop about a defect or damage. The demo cannot decide warranty coverage.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself."
+    },
+    {
+      "id": "bariba-human-ru",
+      "tenant": "bariba",
+      "kind": "human",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Мне нужен сотрудник",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "contact"
+      ],
+      "route": "answer",
+      "text": "Контакты Bariba.lv: veikals@bariba.lv, +37167134777. Демо сообщения не отправляет.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин."
+    },
+    {
+      "id": "bariba-human-lv",
+      "tenant": "bariba",
+      "kind": "human",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Vēlos runāt ar darbinieku",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "contact"
+      ],
+      "route": "answer",
+      "text": "Bariba.lv kontakti: veikals@bariba.lv, +37167134777. Demonstrācija ziņas nesūta.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu."
+    },
+    {
+      "id": "bariba-human-en",
+      "tenant": "bariba",
+      "kind": "human",
+      "expected": "review",
+      "locale": "en",
+      "message": "I want to speak to a human",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "contact"
+      ],
+      "route": "answer",
+      "text": "Bariba.lv contacts: veikals@bariba.lv, +37167134777. The demo sends no messages.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself."
+    },
+    {
+      "id": "bariba-selection-ru",
+      "tenant": "bariba",
+      "kind": "selection",
+      "expected": "clarify",
+      "locale": "ru",
+      "message": "Какой корм лучше выбрать для кота?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Сколько лет питомцу и какой корм ищете: сухой или влажный? Если уже присмотрели варианты, пришлите названия или ссылки. Полный каталог магазина к демо пока не подключён."
+    },
+    {
+      "id": "bariba-selection-lv",
+      "tenant": "bariba",
+      "kind": "selection",
+      "expected": "clarify",
+      "locale": "lv",
+      "message": "Kādu barību izvēlēties kaķim?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Cik vecs ir mājdzīvnieks, un vai meklējat sauso vai mitro barību? Ja jau apsverat preces, atsūtiet to nosaukumus vai saites. Pilns veikala katalogs demonstrācijai vēl nav pieslēgts."
+    },
+    {
+      "id": "bariba-selection-en",
+      "tenant": "bariba",
+      "kind": "selection",
+      "expected": "clarify",
+      "locale": "en",
+      "message": "Which cat food should I choose?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "How old is your pet, and are you looking for dry or wet food? If you have products in mind, share their names or links. The full shop catalogue is not connected to this demo yet."
+    },
+    {
+      "id": "bariba-comparison-ru",
+      "tenant": "bariba",
+      "kind": "comparison",
+      "expected": "clarify",
+      "locale": "ru",
+      "message": "Сравни корм Example-X и Example-Y",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Какие товары хотите сравнить? Пришлите их точные названия или ссылки и укажите, что для вас важнее. Сравнение возможно только по подтверждённым характеристикам."
+    },
+    {
+      "id": "bariba-comparison-lv",
+      "tenant": "bariba",
+      "kind": "comparison",
+      "expected": "clarify",
+      "locale": "lv",
+      "message": "Salīdzini barību Example-X un Example-Y",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Kuras preces vēlaties salīdzināt? Atsūtiet precīzus nosaukumus vai saites un norādiet svarīgāko. Salīdzināt var tikai pārbaudītas īpašības."
+    },
+    {
+      "id": "bariba-comparison-en",
+      "tenant": "bariba",
+      "kind": "comparison",
+      "expected": "clarify",
+      "locale": "en",
+      "message": "Compare food Example-X and Example-Y",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Which products would you like to compare? Share their exact names or links and what matters most to you. Only verified specifications can be compared."
+    },
+    {
+      "id": "bariba-unknown-model-ru",
+      "tenant": "bariba",
+      "kind": "unknown-model",
+      "expected": "clarify",
+      "locale": "ru",
+      "message": "В корме Example-X есть курица?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Уточните название корма и что хотите проверить: состав, возраст питомца, фасовку или хранение. Для конкретного ответа нужна проверенная карточка; полный каталог пока не подключён."
+    },
+    {
+      "id": "bariba-unknown-model-lv",
+      "tenant": "bariba",
+      "kind": "unknown-model",
+      "expected": "clarify",
+      "locale": "lv",
+      "message": "Vai barībā Example-X ir vista?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Precizējiet barības nosaukumu un jautājumu: sastāvs, dzīvnieka vecums, iepakojums vai glabāšana. Vajadzīgs pārbaudīts preces apraksts; pilns katalogs vēl nav pieslēgts."
+    },
+    {
+      "id": "bariba-unknown-model-en",
+      "tenant": "bariba",
+      "kind": "unknown-model",
+      "expected": "clarify",
+      "locale": "en",
+      "message": "Does food Example-X contain chicken?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Please clarify which food you mean and what you want to check: ingredients, pet age, pack size or storage. A verified product description is needed; the full catalogue is not connected yet."
+    },
+    {
+      "id": "bariba-known-product-ru",
+      "tenant": "bariba",
+      "kind": "known-product",
+      "expected": "answer",
+      "locale": "ru",
+      "message": "CooKing Lamb состав?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "food-composition"
+      ],
+      "route": "answer",
+      "text": "В составе CooKing Lamb Recipe Daily Menu 12 кг перечислены курица, куриный жир и гидролизат куриной печени. Это не корм без курицы."
+    },
+    {
+      "id": "bariba-known-product-lv",
+      "tenant": "bariba",
+      "kind": "known-product",
+      "expected": "answer",
+      "locale": "lv",
+      "message": "CooKing Lamb sastāvs?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "food-composition"
+      ],
+      "route": "answer",
+      "text": "CooKing Lamb Recipe Daily Menu 12 kg sastāvā ir vista, vistu tauki un vistas aknu hidrolizāts. Tā nav barība bez vistas."
+    },
+    {
+      "id": "bariba-known-product-en",
+      "tenant": "bariba",
+      "kind": "known-product",
+      "expected": "answer",
+      "locale": "en",
+      "message": "CooKing Lamb ingredients?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "food-composition"
+      ],
+      "route": "answer",
+      "text": "CooKing Lamb Recipe Daily Menu 12 kg lists chicken, chicken fat and chicken liver hydrolysate. It is not chicken-free."
+    },
+    {
+      "id": "bariba-reported-puppy-selection-ru",
+      "tenant": "bariba",
+      "kind": "reported-puppy-selection",
+      "expected": "answer",
+      "locale": "ru",
+      "message": "Какой корм лучше подойдет для щенков",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "puppy-necon",
+        "puppy-cooking"
+      ],
+      "route": "product-selection",
+      "text": "В описании Bariba.lv Necon Atletic Puppy указан как полнорационный сухой корм для щенков, фасовка 15 кг. Это пример из каталога, а не подтверждение наличия или индивидуальной пригодности.\n\nВ каталоге Bariba.lv также указан CooKing Grain Free Puppies Recipe Daily Menu — сухой корм для щенков, фасовка 12 кг. По одному названию нельзя выбрать лучший корм для конкретного щенка.\n\nСколько месяцев щенку и какая у него порода?"
+    },
+    {
+      "id": "bariba-reported-puppy-selection-lv",
+      "tenant": "bariba",
+      "kind": "reported-puppy-selection",
+      "expected": "answer",
+      "locale": "lv",
+      "message": "Kāda barība ir piemērota kucēniem?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "puppy-necon",
+        "puppy-cooking"
+      ],
+      "route": "product-selection",
+      "text": "Bariba.lv aprakstā Necon Atletic Puppy norādīta pilnvērtīga sausā barība kucēniem 15 kg iepakojumā. Tas ir piemērs no kataloga, nevis atlikuma vai individuālas piemērotības apstiprinājums.\n\nBariba.lv katalogā norādīta arī CooKing Grain Free Puppies Recipe Daily Menu sausā barība kucēniem 12 kg iepakojumā. Pēc nosaukuma vien nevar izvēlēties labāko barību konkrētam kucēnam.\n\nCik mēnešu ir kucēnam un kāda ir viņa šķirne?"
+    },
+    {
+      "id": "bariba-reported-puppy-selection-en",
+      "tenant": "bariba",
+      "kind": "reported-puppy-selection",
+      "expected": "answer",
+      "locale": "en",
+      "message": "What food is best for puppies?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "puppy-necon",
+        "puppy-cooking"
+      ],
+      "route": "product-selection",
+      "text": "Bariba.lv describes Necon Atletic Puppy as complete dry food for puppies in a 15 kg pack. This is a catalogue example, not confirmation of stock or individual suitability.\n\nBariba.lv also lists CooKing Grain Free Puppies Recipe Daily Menu dry food for puppies in a 12 kg pack. A product name alone cannot establish the best food for a particular puppy.\n\nHow old is your puppy, and what breed is it?"
+    },
+    {
+      "id": "bariba-medical-constraint-ru",
+      "tenant": "bariba",
+      "kind": "medical-constraint",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Какой корм подойдет щенку с аллергией?",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-safety",
+      "text": "Не могу подтвердить безопасность, лечебный эффект или пригодность в конкретных условиях. Нужны точная модель и проверка специалиста; по свойствам товара можно обратиться в магазин.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин."
+    },
+    {
+      "id": "bariba-medical-constraint-lv",
+      "tenant": "bariba",
+      "kind": "medical-constraint",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Kāda barība kucēnam ar alerģiju?",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-safety",
+      "text": "Nevaru apstiprināt drošību, ārstniecisku iedarbību vai piemērotību konkrētiem apstākļiem. Vajadzīgs precīzs modelis un speciālista izvērtējums; par preces īpašībām var jautāt veikalam.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu."
+    },
+    {
+      "id": "bariba-medical-constraint-en",
+      "tenant": "bariba",
+      "kind": "medical-constraint",
+      "expected": "review",
+      "locale": "en",
+      "message": "What food is suitable for a puppy with allergies?",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-safety",
+      "text": "I cannot confirm safety, therapeutic effects or suitability for specific conditions. The exact model and a specialist’s assessment are needed; ask the shop about product specifications.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself."
+    },
+    {
+      "id": "hobbyset-policy-ru",
+      "tenant": "hobbyset",
+      "kind": "policy",
+      "expected": "answer",
+      "locale": "ru",
+      "message": "Какие способы доставки есть?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "delivery"
+      ],
+      "route": "answer",
+      "text": "Пакоматы в Латвии: Latvijas Pasts 2,49 €, Venipak 1,99 €, Omniva 3,29 €. Для заказов свыше 50 € пакомат в Латвии бесплатный."
+    },
+    {
+      "id": "hobbyset-policy-lv",
+      "tenant": "hobbyset",
+      "kind": "policy",
+      "expected": "answer",
+      "locale": "lv",
+      "message": "Kādi piegādes veidi ir pieejami?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "delivery"
+      ],
+      "route": "answer",
+      "text": "Pakomāti Latvijā: Latvijas Pasts 2,49 €, Venipak 1,99 €, Omniva 3,29 €. Pasūtījumiem virs 50 € pakomāts Latvijā bez maksas."
+    },
+    {
+      "id": "hobbyset-policy-en",
+      "tenant": "hobbyset",
+      "kind": "policy",
+      "expected": "answer",
+      "locale": "en",
+      "message": "What delivery options are available?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "delivery"
+      ],
+      "route": "answer",
+      "text": "Latvian lockers: Latvijas Pasts €2.49, Venipak €1.99, Omniva €3.29. Latvian locker delivery is free above €50."
+    },
+    {
+      "id": "hobbyset-complaint-ru",
+      "tenant": "hobbyset",
+      "kind": "complaint",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Получил повреждённую посылку",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "defect"
+      ],
+      "route": "answer",
+      "text": "Неисправность или повреждение нужно обсудить с магазином. Демо не решает, покрывается ли случай гарантией.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин."
+    },
+    {
+      "id": "hobbyset-complaint-lv",
+      "tenant": "hobbyset",
+      "kind": "complaint",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Saņēmu bojātu sūtījumu",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "defect"
+      ],
+      "route": "answer",
+      "text": "Par defektu vai bojājumu sazinieties ar veikalu. Demonstrācija neizlemj, vai gadījumu sedz garantija.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu."
+    },
+    {
+      "id": "hobbyset-complaint-en",
+      "tenant": "hobbyset",
+      "kind": "complaint",
+      "expected": "review",
+      "locale": "en",
+      "message": "My parcel arrived damaged",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "defect"
+      ],
+      "route": "answer",
+      "text": "Contact the shop about a defect or damage. The demo cannot decide warranty coverage.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself."
+    },
+    {
+      "id": "hobbyset-human-ru",
+      "tenant": "hobbyset",
+      "kind": "human",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Мне нужен сотрудник",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "contact"
+      ],
+      "route": "answer",
+      "text": "Контакты HobbySet: hobbyset@hobbyset.lv, +37127071071. Демо сообщения не отправляет.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин."
+    },
+    {
+      "id": "hobbyset-human-lv",
+      "tenant": "hobbyset",
+      "kind": "human",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Vēlos runāt ar darbinieku",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "contact"
+      ],
+      "route": "answer",
+      "text": "HobbySet kontakti: hobbyset@hobbyset.lv, +37127071071. Demonstrācija ziņas nesūta.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu."
+    },
+    {
+      "id": "hobbyset-human-en",
+      "tenant": "hobbyset",
+      "kind": "human",
+      "expected": "review",
+      "locale": "en",
+      "message": "I want to speak to a human",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "contact"
+      ],
+      "route": "answer",
+      "text": "HobbySet contacts: hobbyset@hobbyset.lv, +37127071071. The demo sends no messages.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself."
+    },
+    {
+      "id": "hobbyset-selection-ru",
+      "tenant": "hobbyset",
+      "kind": "selection",
+      "expected": "clarify",
+      "locale": "ru",
+      "message": "Какие краски лучше выбрать для ткани?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Что хотите сделать и с каким материалом будете работать? Это поможет сузить выбор. Можно прислать ссылки на понравившиеся товары."
+    },
+    {
+      "id": "hobbyset-selection-lv",
+      "tenant": "hobbyset",
+      "kind": "selection",
+      "expected": "clarify",
+      "locale": "lv",
+      "message": "Kādas krāsas izvēlēties audumam?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Ko vēlaties izgatavot un ar kādu materiālu strādāsiet? Varat atsūtīt arī iepatikušos preču saites."
+    },
+    {
+      "id": "hobbyset-selection-en",
+      "tenant": "hobbyset",
+      "kind": "selection",
+      "expected": "clarify",
+      "locale": "en",
+      "message": "Which paint should I choose for fabric?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "What would you like to make, and what material will you work with? You can also share links to products you are considering."
+    },
+    {
+      "id": "hobbyset-comparison-ru",
+      "tenant": "hobbyset",
+      "kind": "comparison",
+      "expected": "clarify",
+      "locale": "ru",
+      "message": "Сравни краски Example-X и Example-Y",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Какие товары хотите сравнить? Пришлите их точные названия или ссылки и укажите, что для вас важнее. Сравнение возможно только по подтверждённым характеристикам."
+    },
+    {
+      "id": "hobbyset-comparison-lv",
+      "tenant": "hobbyset",
+      "kind": "comparison",
+      "expected": "clarify",
+      "locale": "lv",
+      "message": "Salīdzini krāsas Example-X un Example-Y",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Kuras preces vēlaties salīdzināt? Atsūtiet precīzus nosaukumus vai saites un norādiet svarīgāko. Salīdzināt var tikai pārbaudītas īpašības."
+    },
+    {
+      "id": "hobbyset-comparison-en",
+      "tenant": "hobbyset",
+      "kind": "comparison",
+      "expected": "clarify",
+      "locale": "en",
+      "message": "Compare paint Example-X and Example-Y",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Which products would you like to compare? Share their exact names or links and what matters most to you. Only verified specifications can be compared."
+    },
+    {
+      "id": "hobbyset-unknown-model-ru",
+      "tenant": "hobbyset",
+      "kind": "unknown-model",
+      "expected": "clarify",
+      "locale": "ru",
+      "message": "Краски Example-X можно разводить водой?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Для какой задачи и какого материала подбираете товар? Укажите название или артикул, если он есть. Без описания конкретного продукта совместимость и способ применения не подтверждаю."
+    },
+    {
+      "id": "hobbyset-unknown-model-lv",
+      "tenant": "hobbyset",
+      "kind": "unknown-model",
+      "expected": "clarify",
+      "locale": "lv",
+      "message": "Vai krāsas Example-X var atšķaidīt ar ūdeni?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Kādam darbam un materiālam vajadzīga prece? Norādiet nosaukumu vai artikulu, ja tas zināms. Bez konkrētā apraksta saderību un lietošanu neapstiprinu."
+    },
+    {
+      "id": "hobbyset-unknown-model-en",
+      "tenant": "hobbyset",
+      "kind": "unknown-model",
+      "expected": "clarify",
+      "locale": "en",
+      "message": "Can paint Example-X be thinned with water?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "What task and material is the product for? Please give its name or code if known. I cannot confirm compatibility or use without that product’s verified description."
+    },
+    {
+      "id": "hobbyset-known-product-ru",
+      "tenant": "hobbyset",
+      "kind": "known-product",
+      "expected": "answer",
+      "locale": "ru",
+      "message": "POP ART сколько тюбиков?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "art-pack"
+      ],
+      "route": "answer",
+      "text": "POP ART 12 × 10 мл содержит 12 акварельных красок в тюбиках по 10 мл."
+    },
+    {
+      "id": "hobbyset-known-product-lv",
+      "tenant": "hobbyset",
+      "kind": "known-product",
+      "expected": "answer",
+      "locale": "lv",
+      "message": "POP ART cik tūbiņu?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "art-pack"
+      ],
+      "route": "answer",
+      "text": "POP ART 12 × 10 ml komplektā ir 12 akvareļkrāsas 10 ml tūbiņās."
+    },
+    {
+      "id": "hobbyset-known-product-en",
+      "tenant": "hobbyset",
+      "kind": "known-product",
+      "expected": "answer",
+      "locale": "en",
+      "message": "POP ART how many tubes?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "art-pack"
+      ],
+      "route": "answer",
+      "text": "POP ART 12 × 10 ml contains 12 watercolour paints in 10 ml tubes."
+    },
+    {
+      "id": "apavi40plus-policy-ru",
+      "tenant": "apavi40plus",
+      "kind": "policy",
+      "expected": "answer",
+      "locale": "ru",
+      "message": "Какие способы доставки есть?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "delivery"
+      ],
+      "route": "answer",
+      "text": "В Латвии: Unisend 2,20 €, Omniva 2,65–4 €, Latvijas Pasts 3,50–7,50 €. Доступен бесплатный самовывоз."
+    },
+    {
+      "id": "apavi40plus-policy-lv",
+      "tenant": "apavi40plus",
+      "kind": "policy",
+      "expected": "answer",
+      "locale": "lv",
+      "message": "Kādi piegādes veidi ir pieejami?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "delivery"
+      ],
+      "route": "answer",
+      "text": "Latvijā: Unisend 2,20 €, Omniva 2,65–4 €, Latvijas Pasts 3,50–7,50 €. Pieejama bezmaksas saņemšana."
+    },
+    {
+      "id": "apavi40plus-policy-en",
+      "tenant": "apavi40plus",
+      "kind": "policy",
+      "expected": "answer",
+      "locale": "en",
+      "message": "What delivery options are available?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "delivery"
+      ],
+      "route": "answer",
+      "text": "In Latvia: Unisend €2.20, Omniva €2.65–4, Latvijas Pasts €3.50–7.50. Free collection is available."
+    },
+    {
+      "id": "apavi40plus-complaint-ru",
+      "tenant": "apavi40plus",
+      "kind": "complaint",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Получил повреждённую посылку",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "defect"
+      ],
+      "route": "answer",
+      "text": "Неисправность или повреждение нужно обсудить с магазином. Демо не решает, покрывается ли случай гарантией.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин."
+    },
+    {
+      "id": "apavi40plus-complaint-lv",
+      "tenant": "apavi40plus",
+      "kind": "complaint",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Saņēmu bojātu sūtījumu",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "defect"
+      ],
+      "route": "answer",
+      "text": "Par defektu vai bojājumu sazinieties ar veikalu. Demonstrācija neizlemj, vai gadījumu sedz garantija.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu."
+    },
+    {
+      "id": "apavi40plus-complaint-en",
+      "tenant": "apavi40plus",
+      "kind": "complaint",
+      "expected": "review",
+      "locale": "en",
+      "message": "My parcel arrived damaged",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "defect"
+      ],
+      "route": "answer",
+      "text": "Contact the shop about a defect or damage. The demo cannot decide warranty coverage.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself."
+    },
+    {
+      "id": "apavi40plus-human-ru",
+      "tenant": "apavi40plus",
+      "kind": "human",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Мне нужен сотрудник",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "contact"
+      ],
+      "route": "answer",
+      "text": "Контакты Apavi 40 plus: info@apavi40plus.lv, +37122339398. Демо сообщения не отправляет.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин."
+    },
+    {
+      "id": "apavi40plus-human-lv",
+      "tenant": "apavi40plus",
+      "kind": "human",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Vēlos runāt ar darbinieku",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "contact"
+      ],
+      "route": "answer",
+      "text": "Apavi 40 plus kontakti: info@apavi40plus.lv, +37122339398. Demonstrācija ziņas nesūta.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu."
+    },
+    {
+      "id": "apavi40plus-human-en",
+      "tenant": "apavi40plus",
+      "kind": "human",
+      "expected": "review",
+      "locale": "en",
+      "message": "I want to speak to a human",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "contact"
+      ],
+      "route": "answer",
+      "text": "Apavi 40 plus contacts: info@apavi40plus.lv, +37122339398. The demo sends no messages.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself."
+    },
+    {
+      "id": "apavi40plus-selection-ru",
+      "tenant": "apavi40plus",
+      "kind": "selection",
+      "expected": "clarify",
+      "locale": "ru",
+      "message": "Какую обувь лучше выбрать для прогулок?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Для какого сезона и случая нужна обувь? Напишите размер и пожелания по ширине, а если уже выбрали модели — пришлите ссылки."
+    },
+    {
+      "id": "apavi40plus-selection-lv",
+      "tenant": "apavi40plus",
+      "kind": "selection",
+      "expected": "clarify",
+      "locale": "lv",
+      "message": "Kādus apavus izvēlēties pastaigām?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Kādai sezonai un situācijai vajadzīgi apavi? Norādiet izmēru un vēlamo platumu. Ja modeļi jau izvēlēti, atsūtiet saites."
+    },
+    {
+      "id": "apavi40plus-selection-en",
+      "tenant": "apavi40plus",
+      "kind": "selection",
+      "expected": "clarify",
+      "locale": "en",
+      "message": "Which shoes should I choose for walking?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "What season and occasion are the shoes for? Tell me the size and preferred width. If you have models in mind, share their links."
+    },
+    {
+      "id": "apavi40plus-comparison-ru",
+      "tenant": "apavi40plus",
+      "kind": "comparison",
+      "expected": "clarify",
+      "locale": "ru",
+      "message": "Сравни обувь Example-X и Example-Y",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Какие товары хотите сравнить? Пришлите их точные названия или ссылки и укажите, что для вас важнее. Сравнение возможно только по подтверждённым характеристикам."
+    },
+    {
+      "id": "apavi40plus-comparison-lv",
+      "tenant": "apavi40plus",
+      "kind": "comparison",
+      "expected": "clarify",
+      "locale": "lv",
+      "message": "Salīdzini apavus Example-X un Example-Y",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Kuras preces vēlaties salīdzināt? Atsūtiet precīzus nosaukumus vai saites un norādiet svarīgāko. Salīdzināt var tikai pārbaudītas īpašības."
+    },
+    {
+      "id": "apavi40plus-comparison-en",
+      "tenant": "apavi40plus",
+      "kind": "comparison",
+      "expected": "clarify",
+      "locale": "en",
+      "message": "Compare shoes Example-X and Example-Y",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Which products would you like to compare? Share their exact names or links and what matters most to you. Only verified specifications can be compared."
+    },
+    {
+      "id": "apavi40plus-unknown-model-ru",
+      "tenant": "apavi40plus",
+      "kind": "unknown-model",
+      "expected": "clarify",
+      "locale": "ru",
+      "message": "У обуви Example-X съёмная стелька?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Укажите модель обуви и нужный параметр: размер, ширину, материал, стельку или уход. Характеристики разных моделей отличаются; полный каталог пока не подключён."
+    },
+    {
+      "id": "apavi40plus-unknown-model-lv",
+      "tenant": "apavi40plus",
+      "kind": "unknown-model",
+      "expected": "clarify",
+      "locale": "lv",
+      "message": "Vai apaviem Example-X ir izņemama iekšzole?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Norādiet apavu modeli un interesējošo parametru: izmērs, platums, materiāls, iekšzole vai kopšana. Modeļu īpašības atšķiras; pilns katalogs vēl nav pieslēgts."
+    },
+    {
+      "id": "apavi40plus-unknown-model-en",
+      "tenant": "apavi40plus",
+      "kind": "unknown-model",
+      "expected": "clarify",
+      "locale": "en",
+      "message": "Do shoes Example-X have a removable insole?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Please give the shoe model and the detail you need: size, width, material, insole or care. Specifications vary by model; the full catalogue is not connected yet."
+    },
+    {
+      "id": "apavi40plus-known-product-ru",
+      "tenant": "apavi40plus",
+      "kind": "known-product",
+      "expected": "answer",
+      "locale": "ru",
+      "message": "42801 какой материал?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "shoe-material"
+      ],
+      "route": "answer",
+      "text": "У Josef Seibel 42801 860 100 в техническом описании указана натуральная гладкая кожа; подкладка — кожа / текстиль."
+    },
+    {
+      "id": "apavi40plus-known-product-lv",
+      "tenant": "apavi40plus",
+      "kind": "known-product",
+      "expected": "answer",
+      "locale": "lv",
+      "message": "42801 kāds materiāls?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "shoe-material"
+      ],
+      "route": "answer",
+      "text": "Josef Seibel 42801 860 100 tehniskajā aprakstā norādīta dabīgā gludāda; odere — āda / tekstils."
+    },
+    {
+      "id": "apavi40plus-known-product-en",
+      "tenant": "apavi40plus",
+      "kind": "known-product",
+      "expected": "answer",
+      "locale": "en",
+      "message": "42801 leather material?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "shoe-material"
+      ],
+      "route": "answer",
+      "text": "Josef Seibel 42801 860 100 lists natural smooth leather; the technical section lists leather / textile lining."
+    },
+    {
+      "id": "rotallieta-policy-ru",
+      "tenant": "rotallieta",
+      "kind": "policy",
+      "expected": "answer",
+      "locale": "ru",
+      "message": "Какие способы доставки есть?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "delivery"
+      ],
+      "route": "answer",
+      "text": "В Латвии указана бесплатная доставка в пункты DPD, Latvijas Pasts и Venipak; курьер DPD — 3,99 €."
+    },
+    {
+      "id": "rotallieta-policy-lv",
+      "tenant": "rotallieta",
+      "kind": "policy",
+      "expected": "answer",
+      "locale": "lv",
+      "message": "Kādi piegādes veidi ir pieejami?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "delivery"
+      ],
+      "route": "answer",
+      "text": "Latvijā norādīta bezmaksas piegāde DPD, Latvijas Pasts un Venipak punktos; DPD kurjers — 3,99 €."
+    },
+    {
+      "id": "rotallieta-policy-en",
+      "tenant": "rotallieta",
+      "kind": "policy",
+      "expected": "answer",
+      "locale": "en",
+      "message": "What delivery options are available?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "delivery"
+      ],
+      "route": "answer",
+      "text": "In Latvia, DPD, Latvijas Pasts and Venipak collection points are listed as free; DPD courier costs €3.99."
+    },
+    {
+      "id": "rotallieta-complaint-ru",
+      "tenant": "rotallieta",
+      "kind": "complaint",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Получил повреждённую посылку",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "defect"
+      ],
+      "route": "answer",
+      "text": "Неисправность или повреждение нужно обсудить с магазином. Демо не решает, покрывается ли случай гарантией.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин."
+    },
+    {
+      "id": "rotallieta-complaint-lv",
+      "tenant": "rotallieta",
+      "kind": "complaint",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Saņēmu bojātu sūtījumu",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "defect"
+      ],
+      "route": "answer",
+      "text": "Par defektu vai bojājumu sazinieties ar veikalu. Demonstrācija neizlemj, vai gadījumu sedz garantija.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu."
+    },
+    {
+      "id": "rotallieta-complaint-en",
+      "tenant": "rotallieta",
+      "kind": "complaint",
+      "expected": "review",
+      "locale": "en",
+      "message": "My parcel arrived damaged",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "defect"
+      ],
+      "route": "answer",
+      "text": "Contact the shop about a defect or damage. The demo cannot decide warranty coverage.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself."
+    },
+    {
+      "id": "rotallieta-human-ru",
+      "tenant": "rotallieta",
+      "kind": "human",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Мне нужен сотрудник",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "contact"
+      ],
+      "route": "answer",
+      "text": "Контакты Rotallieta.lv: info@rotallieta.lv, +37124824808. Демо сообщения не отправляет.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин."
+    },
+    {
+      "id": "rotallieta-human-lv",
+      "tenant": "rotallieta",
+      "kind": "human",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Vēlos runāt ar darbinieku",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "contact"
+      ],
+      "route": "answer",
+      "text": "Rotallieta.lv kontakti: info@rotallieta.lv, +37124824808. Demonstrācija ziņas nesūta.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu."
+    },
+    {
+      "id": "rotallieta-human-en",
+      "tenant": "rotallieta",
+      "kind": "human",
+      "expected": "review",
+      "locale": "en",
+      "message": "I want to speak to a human",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "contact"
+      ],
+      "route": "answer",
+      "text": "Rotallieta.lv contacts: info@rotallieta.lv, +37124824808. The demo sends no messages.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself."
+    },
+    {
+      "id": "rotallieta-selection-ru",
+      "tenant": "rotallieta",
+      "kind": "selection",
+      "expected": "clarify",
+      "locale": "ru",
+      "message": "Какую игрушку лучше выбрать ребёнку?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Для какого возраста и чем интересуется ребёнок? Если уже присмотрели игрушки, пришлите названия или ссылки."
+    },
+    {
+      "id": "rotallieta-selection-lv",
+      "tenant": "rotallieta",
+      "kind": "selection",
+      "expected": "clarify",
+      "locale": "lv",
+      "message": "Kādu rotaļlietu izvēlēties bērnam?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Kāds ir bērna vecums un intereses? Ja jau apsverat rotaļlietas, atsūtiet to nosaukumus vai saites."
+    },
+    {
+      "id": "rotallieta-selection-en",
+      "tenant": "rotallieta",
+      "kind": "selection",
+      "expected": "clarify",
+      "locale": "en",
+      "message": "Which toy should I choose for a child?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "How old is the child, and what do they enjoy? If you already have toys in mind, share their names or links."
+    },
+    {
+      "id": "rotallieta-comparison-ru",
+      "tenant": "rotallieta",
+      "kind": "comparison",
+      "expected": "clarify",
+      "locale": "ru",
+      "message": "Сравни игрушки Example-X и Example-Y",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Какие товары хотите сравнить? Пришлите их точные названия или ссылки и укажите, что для вас важнее. Сравнение возможно только по подтверждённым характеристикам."
+    },
+    {
+      "id": "rotallieta-comparison-lv",
+      "tenant": "rotallieta",
+      "kind": "comparison",
+      "expected": "clarify",
+      "locale": "lv",
+      "message": "Salīdzini rotaļlietas Example-X un Example-Y",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Kuras preces vēlaties salīdzināt? Atsūtiet precīzus nosaukumus vai saites un norādiet svarīgāko. Salīdzināt var tikai pārbaudītas īpašības."
+    },
+    {
+      "id": "rotallieta-comparison-en",
+      "tenant": "rotallieta",
+      "kind": "comparison",
+      "expected": "clarify",
+      "locale": "en",
+      "message": "Compare toys Example-X and Example-Y",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Which products would you like to compare? Share their exact names or links and what matters most to you. Only verified specifications can be compared."
+    },
+    {
+      "id": "rotallieta-unknown-model-ru",
+      "tenant": "rotallieta",
+      "kind": "unknown-model",
+      "expected": "clarify",
+      "locale": "ru",
+      "message": "Игрушка Example-X включает батарейки?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Какую игрушку рассматриваете? Напишите название или артикул и возраст ребёнка. Проверю только сведения, которые есть в базе; полный каталог пока не подключён."
+    },
+    {
+      "id": "rotallieta-unknown-model-lv",
+      "tenant": "rotallieta",
+      "kind": "unknown-model",
+      "expected": "clarify",
+      "locale": "lv",
+      "message": "Vai rotaļlietai Example-X baterijas ir komplektā?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Kuru rotaļlietu apsverat? Uzrakstiet nosaukumu vai artikulu un bērna vecumu. Pārbaudīšu tikai datubāzē esošo informāciju; pilns katalogs vēl nav pieslēgts."
+    },
+    {
+      "id": "rotallieta-unknown-model-en",
+      "tenant": "rotallieta",
+      "kind": "unknown-model",
+      "expected": "clarify",
+      "locale": "en",
+      "message": "Does toy Example-X include batteries?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Which toy are you considering? Please give its name or code and the child’s age. I can check only verified information in the knowledge base; the full catalogue is not connected yet."
+    },
+    {
+      "id": "rotallieta-known-product-ru",
+      "tenant": "rotallieta",
+      "kind": "known-product",
+      "expected": "answer",
+      "locale": "ru",
+      "message": "Busy Board HE0545 какие батарейки?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "toy-batteries"
+      ],
+      "route": "answer",
+      "text": "Busy Board Huanger HE0545 нужны 3 батарейки AA. Они не входят в комплект."
+    },
+    {
+      "id": "rotallieta-known-product-lv",
+      "tenant": "rotallieta",
+      "kind": "known-product",
+      "expected": "answer",
+      "locale": "lv",
+      "message": "Busy Board HE0545 kādas baterijas?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "toy-batteries"
+      ],
+      "route": "answer",
+      "text": "Busy Board Huanger HE0545 vajadzīgas 3 AA baterijas. Tās nav iekļautas komplektā."
+    },
+    {
+      "id": "rotallieta-known-product-en",
+      "tenant": "rotallieta",
+      "kind": "known-product",
+      "expected": "answer",
+      "locale": "en",
+      "message": "Busy Board HE0545 batteries?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "toy-batteries"
+      ],
+      "route": "answer",
+      "text": "Busy Board Huanger HE0545 needs 3 AA batteries, which are not included."
+    },
+    {
+      "id": "celotajs-policy-ru",
+      "tenant": "celotajs",
+      "kind": "policy",
+      "expected": "answer",
+      "locale": "ru",
+      "message": "Какие способы доставки есть?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "delivery"
+      ],
+      "route": "answer",
+      "text": "В Латвии, Литве и Эстонии указаны Itella/Omniva и курьер. Пакоматы бесплатны от 30 €, иначе 1,82–2,99 €; крупные товары — курьером."
+    },
+    {
+      "id": "celotajs-policy-lv",
+      "tenant": "celotajs",
+      "kind": "policy",
+      "expected": "answer",
+      "locale": "lv",
+      "message": "Kādi piegādes veidi ir pieejami?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "delivery"
+      ],
+      "route": "answer",
+      "text": "Latvijā, Lietuvā un Igaunijā norādīti Itella/Omniva un kurjers. Pakomāti bez maksas no 30 €, citādi 1,82–2,99 €; lielas preces — ar kurjeru."
+    },
+    {
+      "id": "celotajs-policy-en",
+      "tenant": "celotajs",
+      "kind": "policy",
+      "expected": "answer",
+      "locale": "en",
+      "message": "What delivery options are available?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "delivery"
+      ],
+      "route": "answer",
+      "text": "Itella/Omniva and courier are listed for Latvia, Lithuania and Estonia. Lockers are free from €30, otherwise €1.82–2.99; oversized goods require courier."
+    },
+    {
+      "id": "celotajs-complaint-ru",
+      "tenant": "celotajs",
+      "kind": "complaint",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Получил повреждённую посылку",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "defect"
+      ],
+      "route": "answer",
+      "text": "Неисправность или повреждение нужно обсудить с магазином. Демо не решает, покрывается ли случай гарантией.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин."
+    },
+    {
+      "id": "celotajs-complaint-lv",
+      "tenant": "celotajs",
+      "kind": "complaint",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Saņēmu bojātu sūtījumu",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "defect"
+      ],
+      "route": "answer",
+      "text": "Par defektu vai bojājumu sazinieties ar veikalu. Demonstrācija neizlemj, vai gadījumu sedz garantija.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu."
+    },
+    {
+      "id": "celotajs-complaint-en",
+      "tenant": "celotajs",
+      "kind": "complaint",
+      "expected": "review",
+      "locale": "en",
+      "message": "My parcel arrived damaged",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "defect"
+      ],
+      "route": "answer",
+      "text": "Contact the shop about a defect or damage. The demo cannot decide warranty coverage.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself."
+    },
+    {
+      "id": "celotajs-human-ru",
+      "tenant": "celotajs",
+      "kind": "human",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Мне нужен сотрудник",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "contact"
+      ],
+      "route": "answer",
+      "text": "Контакты Veikals Ceļotājs: celotajs@veikalscelotajs.lv, +37127267207. Демо сообщения не отправляет.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин."
+    },
+    {
+      "id": "celotajs-human-lv",
+      "tenant": "celotajs",
+      "kind": "human",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Vēlos runāt ar darbinieku",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "contact"
+      ],
+      "route": "answer",
+      "text": "Veikals Ceļotājs kontakti: celotajs@veikalscelotajs.lv, +37127267207. Demonstrācija ziņas nesūta.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu."
+    },
+    {
+      "id": "celotajs-human-en",
+      "tenant": "celotajs",
+      "kind": "human",
+      "expected": "review",
+      "locale": "en",
+      "message": "I want to speak to a human",
+      "outcome": "review",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "contact"
+      ],
+      "route": "answer",
+      "text": "Veikals Ceļotājs contacts: celotajs@veikalscelotajs.lv, +37127267207. The demo sends no messages.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself."
+    },
+    {
+      "id": "celotajs-selection-ru",
+      "tenant": "celotajs",
+      "kind": "selection",
+      "expected": "clarify",
+      "locale": "ru",
+      "message": "Какую палатку лучше выбрать для похода?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Куда и в какое время года планируете идти? Напишите, какое снаряжение ищете. Конкретные модели можно прислать ссылками."
+    },
+    {
+      "id": "celotajs-selection-lv",
+      "tenant": "celotajs",
+      "kind": "selection",
+      "expected": "clarify",
+      "locale": "lv",
+      "message": "Kādu telti izvēlēties pārgājienam?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Kur un kurā gadalaikā plānojat doties? Kāds ekipējums vajadzīgs? Konkrētus modeļus varat atsūtīt ar saitēm."
+    },
+    {
+      "id": "celotajs-selection-en",
+      "tenant": "celotajs",
+      "kind": "selection",
+      "expected": "clarify",
+      "locale": "en",
+      "message": "Which tent should I choose for hiking?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Where and in what season are you going? What equipment do you need? You can share links to specific models."
+    },
+    {
+      "id": "celotajs-comparison-ru",
+      "tenant": "celotajs",
+      "kind": "comparison",
+      "expected": "clarify",
+      "locale": "ru",
+      "message": "Сравни палатки Example-X и Example-Y",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Какие товары хотите сравнить? Пришлите их точные названия или ссылки и укажите, что для вас важнее. Сравнение возможно только по подтверждённым характеристикам."
+    },
+    {
+      "id": "celotajs-comparison-lv",
+      "tenant": "celotajs",
+      "kind": "comparison",
+      "expected": "clarify",
+      "locale": "lv",
+      "message": "Salīdzini teltis Example-X un Example-Y",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Kuras preces vēlaties salīdzināt? Atsūtiet precīzus nosaukumus vai saites un norādiet svarīgāko. Salīdzināt var tikai pārbaudītas īpašības."
+    },
+    {
+      "id": "celotajs-comparison-en",
+      "tenant": "celotajs",
+      "kind": "comparison",
+      "expected": "clarify",
+      "locale": "en",
+      "message": "Compare tents Example-X and Example-Y",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Which products would you like to compare? Share their exact names or links and what matters most to you. Only verified specifications can be compared."
+    },
+    {
+      "id": "celotajs-unknown-model-ru",
+      "tenant": "celotajs",
+      "kind": "unknown-model",
+      "expected": "clarify",
+      "locale": "ru",
+      "message": "Палатка Example-X сколько весит?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Какое снаряжение и для каких условий рассматриваете? Напишите модель и нужный параметр. Без проверенной карточки не подтверждаю вес, совместимость или подходящие условия использования."
+    },
+    {
+      "id": "celotajs-unknown-model-lv",
+      "tenant": "celotajs",
+      "kind": "unknown-model",
+      "expected": "clarify",
+      "locale": "lv",
+      "message": "Cik sver telts Example-X?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Kādu ekipējumu un kādiem apstākļiem apsverat? Uzrakstiet modeli un vajadzīgo parametru. Bez pārbaudīta apraksta svaru, saderību vai piemērotus apstākļus neapstiprinu."
+    },
+    {
+      "id": "celotajs-unknown-model-en",
+      "tenant": "celotajs",
+      "kind": "unknown-model",
+      "expected": "clarify",
+      "locale": "en",
+      "message": "What is the weight of tent Example-X?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [],
+      "route": "product-help",
+      "text": "Which equipment and conditions are you considering? Please give the model and the detail you need. I cannot confirm weight, compatibility or suitable conditions without a verified description."
+    },
+    {
+      "id": "celotajs-known-product-ru",
+      "tenant": "celotajs",
+      "kind": "known-product",
+      "expected": "answer",
+      "locale": "ru",
+      "message": "Спальник comfort limit extreme?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "sleep-ratings"
+      ],
+      "route": "answer",
+      "text": "В руководстве Ceļotājs comfort означает комфортные условия испытания, limit — более холодный предел, extreme — аварийный диапазон с риском для здоровья, не комфортный ночлег."
+    },
+    {
+      "id": "celotajs-known-product-lv",
+      "tenant": "celotajs",
+      "kind": "known-product",
+      "expected": "answer",
+      "locale": "lv",
+      "message": "Guļammaiss comfort limit extreme?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "sleep-ratings"
+      ],
+      "route": "answer",
+      "text": "Ceļotājs ceļvedī comfort apzīmē komforta testa apstākļus, limit — aukstāku robežu, extreme — ārkārtas diapazonu ar veselības risku, nevis komfortablu nakšņošanu."
+    },
+    {
+      "id": "celotajs-known-product-en",
+      "tenant": "celotajs",
+      "kind": "known-product",
+      "expected": "answer",
+      "locale": "en",
+      "message": "Sleeping bag comfort limit extreme?",
+      "outcome": "answer",
+      "contractMet": true,
+      "sourcesValid": true,
+      "cardIds": [
+        "sleep-ratings"
+      ],
+      "route": "answer",
+      "text": "Ceļotājs explains comfort as comfortable test conditions, limit as a colder threshold, and extreme as an emergency range with health risks, not comfortable overnight use."
+    }
+  ]
+}

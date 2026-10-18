@@ -1,4 +1,5 @@
 import {nicheKnowledge} from './niche-data.js';
+import {selectionKnowledge} from './product-selection.js';
 // Independently checked public store pages, 2026-10-15. Unofficial demonstrations.
 export const prospectTenants = {
   "rotallieta": {
@@ -781,3 +782,5 @@ for (const [id, knowledge] of Object.entries(nicheKnowledge)) {
   prospectTenants[id].sources['niche-product'] = knowledge.source;
   prospectTenants[id].cards.push(...knowledge.cards);
 }
+
+for(const [id,knowledge]of Object.entries(selectionKnowledge)){Object.assign(prospectTenants[id].sources,knowledge.sources);prospectTenants[id].cards.push(...knowledge.cards);}

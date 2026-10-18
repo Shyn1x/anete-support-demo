@@ -1,5 +1,6 @@
 import {shopLinks,linkCopy} from './shop-links.js';
-import {buyerControl,buyerProduct,buyerCopy} from './buyer-intents.js';
+import {buyerControl,buyerProduct,buyerCopy,productSelectionCopy,productCompareCopy} from './buyer-intents.js';
+import {productSelectionRoute,selectionQuestion} from './product-selection.js';
 import {nicheRoute} from './niche-route.js';
 import {socialRoute,socialText,dialogueIntents} from './social.js';
 import {getTenant} from './kb.js';
@@ -90,6 +91,7 @@ export function referenceRoute(text, previous=null, tenantId='anete'){
   const useful=pieces.filter(r=>r.ids.length||r.kind.startsWith('product-'));
   if(useful.length>1){const ids=[...new Set(useful.flatMap(r=>r.ids))].slice(0,3);return {ids,kind:ids.length?'answer':useful[0].kind,clarificationKind:useful.find(r=>!r.ids.length)?.kind,handoff:useful.some(r=>r.handoff)};}
  }
+ const selection=productSelectionRoute(s,tenantId);if(selection)return selection;
  const niche=nicheRoute(s,tenantId);if(niche&&niche.kind!=='product-clarify')return niche;
  const product=buyerProduct(s,tenantId,previous);if(product)return product;
  if(niche)return niche;
@@ -151,9 +153,10 @@ export function render(tenantId,locale,result,mode){
  const selected=tenant.cards.filter(c=>result.ids.includes(c.id));
  result={...result,handoff:!!result.handoff||selected.some(c=>c.requiresReview)};
  const parts=selected.map(c=>c[locale]);
+ if(result.selectionNeeds)parts.push(selectionQuestion[locale]);
  if(result.clarificationKind==='product-help')parts.push(buyerCopy[locale].help[tenantId]);
  else if(result.clarificationKind&&t[result.clarificationKind])parts.push(t[result.clarificationKind]);
- if(!parts.length)parts.push(linkCopy[locale][result.kind]|| (result.kind==='product-sizing'&&result.knownModel?t['product-sizing-known']:['unknown','clarify'].includes(result.kind)&&tenantId!=='anete'?genericClarify[locale]:result.kind==='product-help'?buyerCopy[locale].help[tenantId]:result.kind==='product-safety'?buyerCopy[locale].productSafety:result.kind==='language'?buyerCopy[locale].language:(result.social?socialText[locale][result.kind]:null)||t[result.kind]||t.unknown));
+ if(!parts.length)parts.push(linkCopy[locale][result.kind]|| (result.kind==='product-sizing'&&result.knownModel?t['product-sizing-known']:['unknown','clarify'].includes(result.kind)&&tenantId!=='anete'?genericClarify[locale]:result.kind==='product-help'?(result.productIntent==='selection'?productSelectionCopy[locale][tenantId]:result.productIntent==='compare'?productCompareCopy[locale]:buyerCopy[locale].help[tenantId]):result.kind==='product-safety'?buyerCopy[locale].productSafety:result.kind==='language'?buyerCopy[locale].language:(result.social?socialText[locale][result.kind]:null)||t[result.kind]||t.unknown));
  if(result.handoff)parts.push(t.handoff);
  for(let i=0;i<parts.length;i++)parts[i]=parts[i].replaceAll('Anete.lv',tenant.name);
  const keys=[...new Set(selected.map(c=>c.source))];
@@ -177,7 +180,7 @@ export async function aiRoute(tenant,text,previous,fetcher=fetch){
   const raw=blocks.filter(b=>b.type==='output_text').map(b=>b.text).join('');
   const out=JSON.parse(raw);
   if(!Array.isArray(out.ids)||out.ids.length>3||new Set(out.ids).size!==out.ids.length||out.ids.some(id=>!ids.includes(id))||typeof out.handoff!=='boolean')throw new Error('schema');
-  const nicheIds=tenant.cards.filter(c=>c.source==='niche-product').map(c=>c.id);
+  const nicheIds=tenant.cards.filter(c=>c.topic==='product').map(c=>c.id);
   const allowed=referenceRoute(text,previous,tenant.id);
   if(out.ids.some(id=>nicheIds.includes(id)&&!allowed?.ids.includes(id)))return {ids:[],kind:'product-clarify',handoff:false};
   const dialogue=out.ids.filter(id=>id.startsWith('dialogue:'));
