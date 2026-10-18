@@ -1,4 +1,5 @@
-import {productURL,plain,catalogAnswer} from './catalog.js';
+import {productURL,catalogAnswer} from './catalog.js';
+import {knownCatalogDetails,requestedCatalogFields} from './catalog-evidence.js';
 const memo=new Map();
 export const fold=s=>s.normalize('NFKD').replace(/\p{M}/gu,'').toLowerCase().replace(/ё/g,'е');
 export function validateIndex(value,tenant){
@@ -60,9 +61,14 @@ export const searchCopy={
 };
 export function searchFallback(products,message,locale,index){
  const t=searchCopy[locale];if(!products.length)return t.none;
- if(/налич|доступ|есть|цен|стоим|размер|сетк|price|cost|stock|availab|size|sizing|cena|pieejam|izm[eē]r/iu.test(message))return products.map(p=>catalogAnswer(p,message,locale)).join('\n\n');
- const feature=/состав|ingredient|sast[aā]v/iu.test(message)?/состав|ingredient|sast[aā]v/iu:/материал|material|кож|ādas/iu.test(message)?/material|материал|ādas|odere|leather/iu:/батар|batter|bater/iu.test(message)?/батар|batter|bater/iu:/возраст|age|vecum/iu.test(message)?/возраст|vecum|m[eē]ne|age|month/iu:null;
- return products.map((p,i)=>{const lines=(feature?p.lines.filter(l=>feature.test(l)):p.lines).slice(0,1);return `${i+1}. ${p.title}\n${lines.length?t.source+' (original): '+plain(lines[0]).slice(0,300):t.missing}`;}).join('\n\n')+'\n\n'+t.unknown+' '+t.choose;
+ const wanted=requestedCatalogFields(message);
+ const unconfirmed={ru:'Не все запрошенные характеристики удалось надёжно подтвердить. Проверьте подробности на странице товара по ссылке ниже.',lv:'Ne visas pieprasītās īpašības varēju droši apstiprināt. Pārbaudiet informāciju preces lapā, izmantojot saiti zemāk.',en:'I could not reliably confirm all the requested details. Please check the linked product page.'}[locale];
+ return products.map(p=>{
+  const prefix=p.title+'\n',snapshot=p.reviewedSnapshot?{ru:`Использую проверенное название от ${p.checkedAt.slice(0,10)}. Сейчас магазин не разрешил прочитать страницу; актуальное наличие и цены не проверены.`,lv:`Izmantoju ${p.checkedAt.slice(0,10)} pārbaudīto nosaukumu. Veikals šobrīd neļāva nolasīt lapu; aktuālais atlikums un cenas nav pārbaudītas.`,en:`This uses the name checked on ${p.checkedAt.slice(0,10)}. The shop refused a current page read; current stock and prices are unverified.`}[locale]+'\n':'';
+  if(!p.reviewedSnapshot&&!wanted.length&&/налич|доступ|цен|стоим|размер|сетк|price|cost|stock|availab|size|sizing|cena|pieejam|izm[eē]r/iu.test(message))return prefix+catalogAnswer(p,message,locale);
+  const details=knownCatalogDetails(p,message,locale),missing=!wanted.length||wanted.some(k=>!details.some(d=>d.field===k));
+  return prefix+snapshot+details.map(d=>d.text).join(' ')+(missing?'\n'+unconfirmed:'');
+ }).join('\n\n');
 }
 
 // Runtime lookup uses small, build-generated posting lists and row shards. It

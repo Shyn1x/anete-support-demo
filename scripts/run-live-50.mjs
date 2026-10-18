@@ -33,7 +33,10 @@ export function assertCaseIntegrity(cases=CASES){
  if(sha256(JSON.stringify(cases))!==CASESET_SHA256)throw Error('Scenario integrity failed. Restore the byte-verified runner; do not repair Cyrillic with PowerShell text replacement.');
 }
 export function configCompatible(config,shop){
- return config.tenant===shop.id&&config.ready===true&&config.locked===true&&config.mode==='ai'&&config.conversationEnabled===true&&config.conversationRevision==='context-v2'&&config.auditRevision===RUNNER_REVISION;
+ // This evaluator expects fixed card IDs and mode=ai. Catalogue replies use
+ // product evidence and mode=catalog, requiring a different assessment. Stop
+ // before paid requests rather than misgrade or silently migrate old results.
+ return !config.catalogRevision&&config.tenant===shop.id&&config.ready===true&&config.locked===true&&config.mode==='ai'&&config.conversationEnabled===true&&config.conversationRevision==='context-v2'&&config.auditRevision===RUNNER_REVISION;
 }
 
 export function assess(c,d,allowedHosts){
