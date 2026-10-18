@@ -15,3 +15,14 @@ test('AI-enabled courtesy makes zero provider calls and reserves no API budget',
  }
  assert.equal(calls,0);assert.equal(storage.records.get('state').total,0);
 });
+
+for(const shop of ['anete','bariba','hobbyset','apavi40plus','rotallieta','celotajs'])for(const [locale,message]of [
+ ['en','Thanks for your help, have a great day!'],['ru','Спасибо за помощь. Всего доброго!'],['lv','Paldies par palīdzību, jauku vakaru!']
+])test(`${shop}: natural closing does not reopen support in ${locale}`,async()=>{
+ const {env,storage}=environment({TENANT_ID:shop,AI_ENABLED:'true',AI_CONVERSATIONAL:'true',DEMO_PASSWORD:'synthetic-password',OPENAI_API_KEY:'fake-test-key'});let calls=0;
+ const w=createWorker(()=>{calls++;throw Error('Closing must not call provider');});
+ const login=await w.fetch(request('/api/login',{password:env.DEMO_PASSWORD}),env),cookie=login.headers.get('Set-Cookie').split(';')[0];
+ const r=await w.fetch(request('/api/chat',{tenant:shop,locale,message,previousTopic:'defect',history:[{role:'user',text:'Need help'},{role:'assistant',text:'How can I help?'}]},{headers:{cookie}}),env);
+ assert.equal(r.status,200);const data=await r.json();assert.equal(data.locale,locale);assert.equal(data.mode,'social');assert.equal(data.providerUsed,false);assert.equal(data.handoff,false);assert.deepEqual(data.sources,[]);assert.doesNotMatch(data.text,/\?|delivery|payment|warranty|доставк|оплат|гарант|piegād|apmaks|garant/iu);assert.equal(calls,0);assert.equal(storage.records.get('state').total,0);
+});
+for(const message of ['Thanks for your help, but where is my order?','Have a great day, but my item is broken','Спасибо за помощь, но товар сломался','Paldies par palīdzību, bet prece salūza'])test('new courtesy phrases cannot consume an unresolved request: '+message,()=>assert.equal(socialRoute(message),null));
