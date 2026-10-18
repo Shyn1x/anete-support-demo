@@ -1,0 +1,183 @@
+{
+  "schema": "catalog-read-only-smoke-v1",
+  "checkedAt": "2026-10-18T12:32:42.020Z",
+  "paidOpenAICalls": 0,
+  "deployedWorkerRequests": 0,
+  "scope": "Six current merchant search/read probes, not a live AI-quality test or exhaustive catalogue validation.",
+  "results": [
+    {
+      "tenant": "bariba",
+      "message": "What food is best for puppies?",
+      "matched": [
+        {
+          "title": "CooKing Grain Free Puppies Recipe Daily Menu - sausā barība kucēniem12 kg",
+          "url": "https://www.bariba.lv/cooking-grain-free-puppies-recipe-daily-menu-sausa-bariba-kuceniem12-kg.html"
+        },
+        {
+          "title": "Necon Atletic Puppy - sausa barība kucēniem, grūsnām un laktējošām kucēm 15 kg",
+          "url": "https://www.bariba.lv/necon-atletic-puppy-sausa-bariba-kuceniem-grusnam-un-laktejosam-kucem-15-kg.html"
+        },
+        {
+          "title": "Willowy Gold Premium Puppy - sausā barība kucēniem vistas gaļa, tuncis 15 kg",
+          "url": "https://www.bariba.lv/sausa-bariba-kuceniem-willowy-gold-premium-puppy-vistas-gala-tuncis-risi-darzeni-15-kg.html"
+        }
+      ],
+      "readFailures": 2,
+      "products": [],
+      "elapsedMs": 6527
+    },
+    {
+      "tenant": "hobbyset",
+      "message": "Какие акварельные краски выбрать?",
+      "matched": [
+        {
+          "title": "Gumiarābika šķīdums akvareļkrāsu spīduma un caurspīdīguma palielināšanai 75 ml",
+          "url": "https://hobbyset.lv/products/lv/2225/141022/sort/1/filter/0_0_0_0/Gumiar%C4%81bika-%C5%A1%C4%B7%C4%ABdums-akvare%C4%BCkr%C4%81su-sp%C4%ABduma-un-caursp%C4%ABd%C4%ABguma-palielin%C4%81%C5%A1anai-75-ml.html"
+        },
+        {
+          "title": "Maskējošs līdzeklis akvareļu krāsām 75ml",
+          "url": "https://hobbyset.lv/products/lv/2225/141143/sort/1/filter/0_0_0_0/Mask%C4%93jo%C5%A1s-l%C4%ABdzeklis-akvare%C4%BCu-kr%C4%81s%C4%81m-75ml.html"
+        },
+        {
+          "title": "Maskējošs šķidrums akvareļiem MASKOL 30 ml",
+          "url": "https://hobbyset.lv/products/lv/2225/156872/sort/1/filter/0_0_0_0/Mask%C4%93jo%C5%A1s-%C5%A1%C4%B7idrums-akvare%C4%BCiem-MASKOL-30-ml.html"
+        }
+      ],
+      "readFailures": 0,
+      "products": [
+        {
+          "title": "Gumiarābika šķīdums akvareļkrāsu spīduma un caurspīdīguma palielināšanai, 75 ml",
+          "url": "https://hobbyset.lv/products/lv/2225/141022/sort/1/filter/0_0_0_0/Gumiar%C4%81bika-%C5%A1%C4%B7%C4%ABdums-akvare%C4%BCkr%C4%81su-sp%C4%ABduma-un-caursp%C4%ABd%C4%ABguma-palielin%C4%81%C5%A1anai-75-ml.html",
+          "checkedAt": "2026-10-18T12:32:16.142Z",
+          "format": "html",
+          "descriptionLines": 1,
+          "variantCount": 0
+        },
+        {
+          "title": "Maskējošs līdzeklis akvareļu krāsām, 75ml",
+          "url": "https://hobbyset.lv/products/lv/2225/141143/sort/1/filter/0_0_0_0/Mask%C4%93jo%C5%A1s-l%C4%ABdzeklis-akvare%C4%BCu-kr%C4%81s%C4%81m-75ml.html",
+          "checkedAt": "2026-10-18T12:32:16.145Z",
+          "format": "html",
+          "descriptionLines": 1,
+          "variantCount": 0
+        }
+      ],
+      "elapsedMs": 6105
+    },
+    {
+      "tenant": "rotallieta",
+      "message": "Busy Board",
+      "matched": [
+        {
+          "title": "aktivitates delis busy board rotalu virtuve huanger",
+          "url": "https://rotallieta.lv/prece/aktivitates-delis-busy-board-rotalu-virtuve-huanger/"
+        },
+        {
+          "title": "bernu interaktivais galds busy board baby partner",
+          "url": "https://rotallieta.lv/prece/bernu-interaktivais-galds-busy-board-baby-partner/"
+        }
+      ],
+      "readFailures": 0,
+      "products": [
+        {
+          "title": "Aktivitātes dēlis Busy Board rotaļu virtuve Huanger Kitchen training board",
+          "url": "https://rotallieta.lv/prece/aktivitates-delis-busy-board-rotalu-virtuve-huanger/",
+          "checkedAt": "2026-10-18T12:32:21.085Z",
+          "format": "html",
+          "descriptionLines": 5,
+          "variantCount": 0
+        },
+        {
+          "title": "Bērnu interaktīvais galds Busy Board Baby Partner",
+          "url": "https://rotallieta.lv/prece/bernu-interaktivais-galds-busy-board-baby-partner/",
+          "checkedAt": "2026-10-18T12:32:20.785Z",
+          "format": "html",
+          "descriptionLines": 5,
+          "variantCount": 0
+        }
+      ],
+      "elapsedMs": 4940
+    },
+    {
+      "tenant": "apavi40plus",
+      "message": "Josef Seibel 42801",
+      "matched": [
+        {
+          "title": "Josef Seibel – Vīriešu klasiskie ādas apavi ar K platumu (Modelis 42801 860 100)",
+          "url": "https://apavi40plus.com/products/josef-seibel-viriesu-klasiskie-adas-apavi-ar-k-platumu-modelis-42801-860-100"
+        }
+      ],
+      "readFailures": 0,
+      "products": [
+        {
+          "title": "Josef Seibel – Vīriešu klasiskie ādas apavi ar K platumu (Modelis 42801 860 100)",
+          "url": "https://apavi40plus.com/products/josef-seibel-viriesu-klasiskie-adas-apavi-ar-k-platumu-modelis-42801-860-100",
+          "checkedAt": "2026-10-18T12:32:27.558Z",
+          "format": "html",
+          "descriptionLines": 24,
+          "variantCount": 4
+        }
+      ],
+      "elapsedMs": 6473
+    },
+    {
+      "tenant": "celotajs",
+      "message": "Какую палатку выбрать?",
+      "matched": [
+        {
+          "title": "Astoņvietīga telts Coleman Octagon 8 BlackOut",
+          "url": "https://veikalscelotajs.lv/products/astonvietiga-telts-coleman-octagon-8-blackout"
+        },
+        {
+          "title": "Telts loku remonta uzmava BasicNature",
+          "url": "https://veikalscelotajs.lv/products/basicnature-tent-pole-repair"
+        },
+        {
+          "title": "Telts Big Agnes Copper Spur Ultralight 1-vietīga",
+          "url": "https://veikalscelotajs.lv/products/big-agnes-telts-cooper-spur-ul1"
+        }
+      ],
+      "readFailures": 2,
+      "products": [],
+      "elapsedMs": 7533
+    },
+    {
+      "tenant": "anete",
+      "message": "Which vacuum should I choose?",
+      "matched": [
+        {
+          "title": "Anktel rokas putekļu sūcējs, 9000PA rokas putekļsūcējs, akumulators, bez maisa, mitrs un sauss ar sienas stiprinājumu, uzlādes stacija, mazgājams HEPA filtrs, rokas putekļsūcējs, 14,8 V, 100 W bezvadu automašīnas putekļsūcējs",
+          "url": "https://anete.lv/anktel-rokas-puteklu-sucejs-9000pa-rokas-puteklsucejs-akumulators-bez-maisa-mitrs-un-sauss-ar-sienas-stiprinajumu-uzlades-stacija-mazgajams-hepa-filtrs-rokas-puteklsucejs-148-v-100-w-bezvadu-automasinas-puteklsucejs-2778227/2778227/1/p"
+        },
+        {
+          "title": "Anktel rokas putekļu sūcējs, 9000PA rokas putekļsūcējs, akumulators, bez maisa, mitrs un sauss ar sienas stiprinājumu, uzlādes stacija, mazgājams HEPA filtrs, rokas putekļsūcējs, 14,8 V, 100 W bezvadu automašīnas putekļsūcējs",
+          "url": "https://anete.lv/anktel-rokas-puteklu-sucejs-9000pa-rokas-puteklsucejs-akumulators-bez-maisa-mitrs-un-sauss-ar-sienas-stiprinajumu-uzlades-stacija-mazgajams-hepa-filtrs-rokas-puteklsucejs-148-v-100-w-bezvadu-automasinas-puteklsucejs-3402776/3402776/1/p"
+        },
+        {
+          "title": "Akumulatora putekļsūcējs, bezvadu putekļsūcējs 4-in-1, 150 W viegls rokas putekļsūcējs, 22,2 V akumulatora putekļsūcējs, 40 min darbības laiks, 800 ml putekļsūcējs, akumulatora putekļsūcējs",
+          "url": "https://anete.lv/jaunums/klienti-izvelas/akumulatora-puteklsucejs-bezvadu-puteklsucejs-4-in-1-150-w-viegls-rokas-puteklsucejs-22-2-v-akumulatora-puteklsucejs-40-min-darbibas-laiks-800-ml-puteklsucejs-akumulatora-puteklsucejs/7689352/1/p"
+        }
+      ],
+      "readFailures": 0,
+      "products": [
+        {
+          "title": "Anktel rokas putekļu sūcējs, 9000PA rokas putekļsūcējs, akumulators, bez maisa, mitrs un sauss ar sienas stiprinājumu, uzlādes stacija, mazgājams HEPA filtrs, rokas putekļsūcējs, 14,8 V, 100 W bezvadu automašīnas putekļsūcējs",
+          "url": "https://anete.lv/anktel-rokas-puteklu-sucejs-9000pa-rokas-puteklsucejs-akumulators-bez-maisa-mitrs-un-sauss-ar-sienas-stiprinajumu-uzlades-stacija-mazgajams-hepa-filtrs-rokas-puteklsucejs-148-v-100-w-bezvadu-automasinas-puteklsucejs-2778227/2778227/1/p",
+          "checkedAt": "2026-10-18T12:32:39.259Z",
+          "format": "html",
+          "descriptionLines": 1,
+          "variantCount": 0
+        },
+        {
+          "title": "Anktel rokas putekļu sūcējs, 9000PA rokas putekļsūcējs, akumulators, bez maisa, mitrs un sauss ar sienas stiprinājumu, uzlādes stacija, mazgājams HEPA filtrs, rokas putekļsūcējs, 14,8 V, 100 W bezvadu automašīnas putekļsūcējs",
+          "url": "https://anete.lv/anktel-rokas-puteklu-sucejs-9000pa-rokas-puteklsucejs-akumulators-bez-maisa-mitrs-un-sauss-ar-sienas-stiprinajumu-uzlades-stacija-mazgajams-hepa-filtrs-rokas-puteklsucejs-148-v-100-w-bezvadu-automasinas-puteklsucejs-3402776/3402776/1/p",
+          "checkedAt": "2026-10-18T12:32:42.020Z",
+          "format": "html",
+          "descriptionLines": 1,
+          "variantCount": 0
+        }
+      ],
+      "elapsedMs": 6929
+    }
+  ]
+}

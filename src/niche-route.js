@@ -6,7 +6,7 @@ const rules={
  apavi40plus:{model:/42801/i,questions:[['shoe-width',/ширин|полн[оы]т|plat|width|wide/],['shoe-insole',/стельк|iekšzol|iekszol|insole/],['shoe-material',/материал|кож|подклад|materi[aā]l|[aā]da|oder|leather|lining/]]},
  celotajs:{model:/спальник|спальн.{0,5}меш|gu[lļ]ammais|sleeping\s*bag|comfort|extreme/i,questions:[['sleep-ratings',/comfort|limit|extreme|комфорт|лимит|экстр|temperat|температур|grād/],['sleep-factors',/ветер|влажност|коврик|устал|одежд|wind|moist|mat\b|fatigue|cloth|vēj|mitrum|paklāj|nogurum|apģērb/],['sleep-guide',/руковод|нович|выбор|выбрать|ceļved|izvēl|iesāc|guide|beginner|choose/]]}
 };
-const priority=/оператор|сотрудник|человек|связаться|human|agent|contact|darbiniek|sazin|слом|брак|поврежд|broken|faulty|damag|defect|bojā|salūz|аллерг|лечени|allerg|alerģ|alerg|ārst|arst|гарантиру|guarantee|garantē|безопасно|safe at|droši pie|где.{0,12}заказ|order status|kur.{0,12}pasūt/iu;
+const priority=/оператор|сотрудник|человек|связаться|human|agent|contact|darbiniek|sazin|слом|брак|поврежд|broken|faulty|damag|defect|bojā|salūz|аллерг|лечени|лечеб|ветеринар|veterinar|allerg|alerģ|alerg|ārst|arst|гарантиру|guarantee|garantē|безопас|safe|droš|где.{0,12}заказ|order status|kur.{0,12}pasūt/iu;
 const policy=/достав|возврат|оплат|гарант|pieg[aā]d|atgrie|apmaks|garant|delivery|shipping|return|payment|warranty/iu;
 const live=/налич|сейчас|сегодня|цена|цене|стоим|срок.{0,8}годност|in stock|availab|price|today|expiry|expir|pieejam|noliktav|šodien|cena|derīg/iu;
 export function nicheRoute(s,tenantId){

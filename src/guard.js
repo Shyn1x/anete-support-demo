@@ -28,9 +28,12 @@ export class BudgetGuard {
    });
   }
   if(request.method!=='POST')return json({error:'method'},405);
-  const {ip,kind,reserve,studioNonce}=await request.json();
+  const {ip,kind,reserve,studioNonce,catalogNonce}=await request.json();
+  const reserveOnly=kind==='catalog-reserve';
+  if(catalogNonce!==undefined&&(!/^[a-zA-Z0-9_]{32}$/.test(catalogNonce)||!(kind==='chat'&&!reserve||reserveOnly&&reserve)))return json({error:'invalid'},400);
+  if(reserveOnly&&catalogNonce===undefined)return json({error:'invalid'},400);
   if(studioNonce!==undefined&&(!/^[a-zA-Z0-9_]{32}$/.test(studioNonce)||kind!=='chat'))return json({error:'invalid'},400);
-  if(!/^[a-f0-9]{64}$/.test(ip)||!['auth','chat'].includes(kind)||typeof reserve!=='boolean')return json({error:'invalid'},400);
+  if(!/^[a-f0-9]{64}$/.test(ip)||!['auth','chat','catalog-reserve'].includes(kind)||typeof reserve!=='boolean')return json({error:'invalid'},400);
   const now=this.now(),day=new Date(now).toISOString().slice(0,10),minute=Math.floor(now/60000);
   const daily=dailyReservationLimit(this.env,day),total=cap(this.env.TOTAL_BUDGET_MICRO_USD,5000000,5000000);
   return this.ctx.storage.transaction(async tx=>{
@@ -42,6 +45,12 @@ export class BudgetGuard {
     if(Object.keys(recent).length>=2000)return json({error:'rate_limit'},429);
     recent[studioNonce]=now;state.studioNonces=recent;
    }
+   if(catalogNonce!==undefined){
+    const tickets=Object.fromEntries(Object.entries(state.catalogTickets||{}).filter(([,v])=>now-v.at<30000));
+    if(reserveOnly){if(tickets[catalogNonce]?.ip!==ip)return json({error:'invalid_catalog_ticket'},409);delete tickets[catalogNonce];}
+    else {if(tickets[catalogNonce]||Object.keys(tickets).length>=2000)return json({error:'rate_limit'},429);tickets[catalogNonce]={ip,at:now};}
+    state.catalogTickets=tickets;
+   }
    if(!state.ips[ip]&&Object.keys(state.ips).length>=2000)return json({error:'rate_limit'},429);
    const entry=state.ips[ip]||{minute,chat:0,auth:0,dayChat:0};
    if(entry.minute!==minute){entry.minute=minute;entry.chat=0;entry.auth=0;}
@@ -49,7 +58,7 @@ export class BudgetGuard {
    if(kind==='chat'&&entry.dayChat>=100)return json({error:'rate_limit',reason:'day_rate',retryAt:new Date(Date.parse(day+'T00:00:00Z')+86400000).toISOString()},429);
    if(reserve&&state.total+RESERVE_MICRO_USD>total)return json({error:'budget_exhausted',reason:'total_budget',retryAt:null},429);
    if(reserve&&state.daily+RESERVE_MICRO_USD>daily)return json({error:'budget_exhausted',reason:'daily_budget',retryAt:new Date(Date.parse(day+'T00:00:00Z')+86400000).toISOString()},429);
-   entry[kind]++;if(kind==='chat')entry.dayChat++;
+   if(!reserveOnly){entry[kind]++;if(kind==='chat')entry.dayChat++;}
    state.ips[ip]=entry;
    if(reserve){state.daily+=RESERVE_MICRO_USD;state.total+=RESERVE_MICRO_USD;}
    await tx.put('state',state);

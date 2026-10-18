@@ -15,3 +15,8 @@ reports/
 .audit-updates/
 .audit-publish/
 .audit-bootstrap-*.mjs
+
+# Rebuilt from versioned private index shards, never exposed by public routes.
+public/catalog-*.json
+
+public/catalog-data/

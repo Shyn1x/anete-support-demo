@@ -1,0 +1,14 @@
+{
+  "schema": "shop-catalog-index-v1",
+  "tenant": "apavi40plus",
+  "importedAt": "2026-10-18T09:03:36.932Z",
+  "source": "https://apavi40plus.com/sitemap.xml",
+  "sourcePages": 6,
+  "entries": 252,
+  "completeSitemapImport": true,
+  "fullDescriptionImport": false,
+  "shards": [
+    "000.json",
+    "001.json"
+  ]
+}

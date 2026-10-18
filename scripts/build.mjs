@@ -2,6 +2,8 @@ import {mkdir,copyFile,readFile,writeFile,readdir,unlink} from 'node:fs/promises
 import {createHash} from 'node:crypto';
 import {browserBundle} from './browser-bundle.mjs';
 import {tenants} from '../src/kb.js';
+import {buildCatalogues} from './build-catalog-index.mjs';
+await buildCatalogues();
 let count=0;for(const tenant of Object.values(tenants)){const ids=new Set();for(const c of tenant.cards){if(ids.has(c.id)||!c.ru||!c.lv||!c.en||!tenant.sources[c.source])throw Error('Invalid knowledge base: '+tenant.id);ids.add(c.id);count++;}for(const source of Object.values(tenant.sources))if(new URL(source.url).protocol!=='https:')throw Error('Unsafe source');}
 const bundle=await browserBundle();
 for(const file of await readdir('public'))if(/^chat-ui\.[a-f0-9]{12}\.js$/.test(file))await unlink('public/'+file);

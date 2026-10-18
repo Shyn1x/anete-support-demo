@@ -1,0 +1,192 @@
+{
+  "schema": "catalog-read-only-smoke-v1",
+  "checkedAt": "2026-10-18T12:38:25.388Z",
+  "paidOpenAICalls": 0,
+  "deployedWorkerRequests": 0,
+  "scope": "Six current merchant search/read probes, not a live AI-quality test or exhaustive catalogue validation.",
+  "results": [
+    {
+      "tenant": "bariba",
+      "message": "What food is best for puppies?",
+      "matched": [
+        {
+          "title": "CooKing Grain Free Puppies Recipe Daily Menu - sausā barība kucēniem12 kg",
+          "url": "https://www.bariba.lv/cooking-grain-free-puppies-recipe-daily-menu-sausa-bariba-kuceniem12-kg.html"
+        },
+        {
+          "title": "Necon Atletic Puppy - sausa barība kucēniem, grūsnām un laktējošām kucēm 15 kg",
+          "url": "https://www.bariba.lv/necon-atletic-puppy-sausa-bariba-kuceniem-grusnam-un-laktejosam-kucem-15-kg.html"
+        },
+        {
+          "title": "Willowy Gold Premium Puppy - sausā barība kucēniem vistas gaļa, tuncis 15 kg",
+          "url": "https://www.bariba.lv/sausa-bariba-kuceniem-willowy-gold-premium-puppy-vistas-gala-tuncis-risi-darzeni-15-kg.html"
+        }
+      ],
+      "readFailures": 2,
+      "diagnostics": [
+        {
+          "url": "https://www.bariba.lv/cooking-grain-free-puppies-recipe-daily-menu-sausa-bariba-kuceniem12-kg.html",
+          "attempts": [
+            {
+              "format": "html",
+              "error": "timeout"
+            }
+          ]
+        },
+        {
+          "url": "https://www.bariba.lv/necon-atletic-puppy-sausa-bariba-kuceniem-grusnam-un-laktejosam-kucem-15-kg.html",
+          "attempts": [
+            {
+              "format": "html",
+              "error": "timeout"
+            }
+          ]
+        }
+      ],
+      "products": [],
+      "elapsedMs": 6527
+    },
+    {
+      "tenant": "hobbyset",
+      "message": "Какие акварельные краски выбрать?",
+      "matched": [
+        {
+          "title": "Akvareļkrāsu komplekts 12 krāsas",
+          "url": "https://hobbyset.lv/products/lv/2372/150958/sort/1/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-12-kr%C4%81sas.html"
+        },
+        {
+          "title": "Akvareļkrāsu komplekts perlamutra toņi 6 krāsas",
+          "url": "https://hobbyset.lv/products/lv/2372/150959/sort/1/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-perlamutra-to%C5%86i-6-kr%C4%81sas.html"
+        },
+        {
+          "title": "Akvareļkrāsu komplekts 24 krāsas",
+          "url": "https://hobbyset.lv/products/lv/2372/150960/sort/1/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-24-kr%C4%81sas.html"
+        }
+      ],
+      "readFailures": 0,
+      "diagnostics": [],
+      "products": [
+        {
+          "title": "Akvareļkrāsu komplekts, 12 krāsas",
+          "url": "https://hobbyset.lv/products/lv/2372/150958/sort/1/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-12-kr%C4%81sas.html",
+          "checkedAt": "2026-10-18T12:38:02.142Z",
+          "format": "html",
+          "descriptionLines": 6,
+          "variantCount": 0
+        },
+        {
+          "title": "Akvareļkrāsu komplekts, perlamutra toņi, 6 krāsas",
+          "url": "https://hobbyset.lv/products/lv/2372/150959/sort/1/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-perlamutra-to%C5%86i-6-kr%C4%81sas.html",
+          "checkedAt": "2026-10-18T12:38:02.125Z",
+          "format": "html",
+          "descriptionLines": 6,
+          "variantCount": 0
+        }
+      ],
+      "elapsedMs": 5921
+    },
+    {
+      "tenant": "rotallieta",
+      "message": "Busy Board",
+      "matched": [
+        {
+          "title": "aktivitates delis busy board rotalu virtuve huanger",
+          "url": "https://rotallieta.lv/prece/aktivitates-delis-busy-board-rotalu-virtuve-huanger/"
+        },
+        {
+          "title": "bernu interaktivais galds busy board baby partner",
+          "url": "https://rotallieta.lv/prece/bernu-interaktivais-galds-busy-board-baby-partner/"
+        }
+      ],
+      "readFailures": 0,
+      "diagnostics": [],
+      "products": [
+        {
+          "title": "Aktivitātes dēlis Busy Board rotaļu virtuve Huanger Kitchen training board",
+          "url": "https://rotallieta.lv/prece/aktivitates-delis-busy-board-rotalu-virtuve-huanger/",
+          "checkedAt": "2026-10-18T12:38:06.226Z",
+          "format": "html",
+          "descriptionLines": 5,
+          "variantCount": 0
+        },
+        {
+          "title": "Bērnu interaktīvais galds Busy Board Baby Partner",
+          "url": "https://rotallieta.lv/prece/bernu-interaktivais-galds-busy-board-baby-partner/",
+          "checkedAt": "2026-10-18T12:38:06.083Z",
+          "format": "html",
+          "descriptionLines": 5,
+          "variantCount": 0
+        }
+      ],
+      "elapsedMs": 4083
+    },
+    {
+      "tenant": "apavi40plus",
+      "message": "Josef Seibel 42801",
+      "matched": [
+        {
+          "title": "Josef Seibel – Vīriešu klasiskie ādas apavi ar K platumu (Modelis 42801 860 100)",
+          "url": "https://apavi40plus.com/products/josef-seibel-viriesu-klasiskie-adas-apavi-ar-k-platumu-modelis-42801-860-100"
+        }
+      ],
+      "readFailures": 0,
+      "diagnostics": [],
+      "products": [
+        {
+          "title": "Josef Seibel – Vīriešu klasiskie ādas apavi ar K platumu (Modelis 42801 860 100)",
+          "url": "https://apavi40plus.com/products/josef-seibel-viriesu-klasiskie-adas-apavi-ar-k-platumu-modelis-42801-860-100",
+          "checkedAt": "2026-10-18T12:38:12.592Z",
+          "format": "shopify-json",
+          "descriptionLines": 24,
+          "variantCount": 4
+        }
+      ],
+      "elapsedMs": 6366
+    },
+    {
+      "tenant": "celotajs",
+      "message": "Какую палатку выбрать?",
+      "matched": [
+        {
+          "title": "Astoņvietīga telts Coleman Octagon 8 BlackOut",
+          "url": "https://veikalscelotajs.lv/products/astonvietiga-telts-coleman-octagon-8-blackout"
+        },
+        {
+          "title": "Telts Big Agnes Copper Spur Ultralight 1-vietīga",
+          "url": "https://veikalscelotajs.lv/products/big-agnes-telts-cooper-spur-ul1"
+        },
+        {
+          "title": "Telts Big Agnes Copper Spur Ultralight 2-vietīga",
+          "url": "https://veikalscelotajs.lv/products/big-agnes-telts-cooper-spur-ul2-lichen"
+        }
+      ],
+      "readFailures": 0,
+      "diagnostics": [],
+      "products": [
+        {
+          "title": "Astoņvietīga telts Coleman Octagon 8 BlackOut",
+          "url": "https://veikalscelotajs.lv/products/astonvietiga-telts-coleman-octagon-8-blackout",
+          "checkedAt": "2026-10-18T12:38:18.887Z",
+          "format": "shopify-json",
+          "descriptionLines": 12,
+          "variantCount": 0
+        },
+        {
+          "title": "Telts Big Agnes Copper Spur Ultralight 1-vietīga",
+          "url": "https://veikalscelotajs.lv/products/big-agnes-telts-cooper-spur-ul1",
+          "checkedAt": "2026-10-18T12:38:18.782Z",
+          "format": "shopify-json",
+          "descriptionLines": 3,
+          "variantCount": 0
+        }
+      ],
+      "elapsedMs": 6295
+    },
+    {
+      "tenant": "anete",
+      "message": "Which vacuum should I choose?",
+      "error": "The operation was aborted due to timeout",
+      "elapsedMs": 6501
+    }
+  ]
+}

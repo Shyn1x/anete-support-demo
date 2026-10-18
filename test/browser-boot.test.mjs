@@ -44,3 +44,13 @@ for(const shop of ['anete',...Object.keys(brands)])for(const locale of ['ru','lv
  h.elements.get('#handoff-toggle').onclick();h.elements.get('#choose-email').onclick();assert.ok(h.elements.get('#contact-open').href.startsWith('mailto:'+getTenant(shop).contact.email+'?'));
  h.elements.get('#reset').listeners.click();assert.equal(panel.hidden,true);assert.equal(h.elements.get('#handoff-toggle')['aria-expanded'],'true');assert.equal(h.elements.get('#handoff-content').hidden,false);assert.equal(h.elements.get('#messages').children.length,1);
 });
+
+test('catalogue choices survive ordinal follow-ups, become a single linked product and clear on reset',async()=>{
+ const a='https://www.bariba.lv/food-a.html',b='https://www.bariba.lv/food-b.html',requests=[];
+ const h=await harness('bariba',{chatRequests:requests,chatReply:n=>({locale:'en',mode:'catalog',text:'Synthetic catalogue response',sources:[],cardIds:[],handoff:false,...(n===1?{catalogURLs:[a,b,'https://evil.invalid/products/food']}:{productURL:b})})});
+ const send=async q=>{h.elements.get('#message').value=q;h.elements.get('#chat-form').listeners.submit({preventDefault(){}});await new Promise(setImmediate);await new Promise(setImmediate);};
+ await send('Which puppy food?');assert.deepEqual(requests[0].catalogURLs,[]);
+ await send('The second one, ingredients?');assert.deepEqual(requests[1].catalogURLs,[a,b]);
+ await send('And the price?');assert.deepEqual(requests[2].catalogURLs,[b]);
+ h.elements.get('#reset').listeners.click();await send('Which cat food?');assert.deepEqual(requests[3].catalogURLs,[]);
+});

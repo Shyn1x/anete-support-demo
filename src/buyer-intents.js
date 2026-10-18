@@ -35,7 +35,7 @@ export function buyerProduct(s,tenant,previous){
  if(anchors[previous]&&/^(а(?=\s|[?.!]|$)|and\b|what about|un\b|bet\b)/iu.test(s)&&s.length<100&&canContinueProduct(s)&&!switching&&!/(?:[a-z]{1,5}\d{3,}|\b\d{4,}\b)/iu.test(s)){
   const match=nicheRoute(anchors[previous]+' '+s,tenant);if(match?.ids.length)return match;
  }
- const safety=tenant==='bariba'?/аллерг|болезн|лечит|лечени|allerg|alerģ|alerg|disease|treat|ārst|slim/iu:tenant==='rotallieta'?/безопас|младен|новорожд|safe|newborn|droš|jaundzim/iu:tenant==='hobbyset'?/на теле|на коже|безопас.{0,20}реб[её]н|реб[её]н.{0,20}безопас|skin|body paint|droš.{0,15}bērn/iu:tenant==='celotajs'?/безопас|safe|droš|[−-]\s*\d+.{0,20}(спать|спаль|sleep)|спаль.{0,30}[−-]\s*\d+|горелк|баллон|страхов|burner|gas canister|belay/iu:/ортопед|болезн|medical|orthop|ārst/iu;
+ const safety=tenant==='bariba'?/аллерг|болезн|лечит|лечени|лечеб|ветеринар|veterinar|allerg|alerģ|alerg|disease|treat|ārst|slim/iu:tenant==='rotallieta'?/безопас|младен|новорожд|safe|newborn|droš|jaundzim/iu:tenant==='hobbyset'?/на теле|на коже|безопас.{0,20}реб[её]н|реб[её]н.{0,20}безопас|skin|body paint|droš.{0,15}bērn/iu:tenant==='celotajs'?/безопас|safe|droš|[−-]\s*\d+.{0,20}(спать|спаль|sleep)|спаль.{0,30}[−-]\s*\d+|горелк|баллон|страхов|burner|gas canister|belay/iu:/ортопед|болезн|medical|orthop|ārst/iu;
  if(safety.test(s))return result('product-safety',true);
  const sizing=tenant==='apavi40plus'&&/размер|рамзер|разме|сетк|таблиц|\bsize|sizing|izm[eē]r|п[её]с?т.{0,5}стоп|\d+\s*см/iu.test(s);
  if(sizing&&!/налич|есть|available|stock|noliktav|pieejam/iu.test(s))return result('product-sizing');

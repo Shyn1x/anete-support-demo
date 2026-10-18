@@ -1,3 +1,6 @@
+import {catalogReplyRequest} from './catalog-reply.js';
+import {catalogueQuery} from './catalog-index.js';
+import {retrievalPlan,readCandidates,retrievalFallback,generateCatalogReply,catalogReason} from './catalog-service.js';
 import {studioChat} from './studio.js';
 import {conversationRequest,cleanHistory,MAX_CHAT_BODY,AUDIT_REVISION} from './conversation.js';
 import {productURL,fetchProduct,catalogAnswer,catalogError,catalogDiagnostics,canContinueProduct,isSizingQuestion} from './catalog.js';
@@ -35,14 +38,14 @@ export async function readLimited(req,max=4096){
  const bytes=new Uint8Array(size);let offset=0;for(const c of chunks){bytes.set(c,offset);offset+=c.byteLength;}
  return JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
 }
-async function gate(req,env,kind,reserve){
+async function gate(req,env,kind,reserve,catalogNonce){
  if(!env.GUARD)throw new Error('guard_missing');
  // Only Cloudflare's managed client-IP header is trusted, never X-Forwarded-For.
  const address=req.headers.get('CF-Connecting-IP')||'unknown';
  const day=new Date().toISOString().slice(0,10);
  const ip=await mac(env.SESSION_SECRET,`${day}:${address}`);
  const id=env.GUARD.idFromName('experiment-v1'); // shared hard cap across all tenants
- const response=await env.GUARD.get(id).fetch('https://guard.internal/check',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ip,kind,reserve})});
+ const response=await env.GUARD.get(id).fetch('https://guard.internal/check',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ip,kind,reserve,...(catalogNonce?{catalogNonce}:{})})});
  if(!response.ok){const result=await response.json();const retry=Date.parse(result.retryAt),headers=Number.isFinite(retry)?{'Retry-After':String(Math.max(1,Math.ceil((retry-Date.now())/1000)))}:{};return reply({error:result.error||'guard_unavailable',reason:result.reason||null,retryAt:result.retryAt||null},response.status,headers);}
  return null;
 }
@@ -69,7 +72,7 @@ export function createWorker(fetcher=fetch){return {
     const tenant=getTenant(url.searchParams.get('tenant')||locked||'anete');if(!tenant)return reply({error:'unknown_tenant'},404);
     const error=configError(env);
     if(!locked&&env.DEMO_PASSWORD&&tenant.id!=='anete'&&!await authenticated(request,env))return reply({tenant:tenant.id,name:'Private demo',sources:[],contact:null,mode:'reference',locked:true,authenticated:false,ready:!error,error});
-    return reply({perCallMicroUSD:RESERVE_MICRO_USD,dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:tenant.id,name:tenant.name,sources:Object.values(tenant.sources),contact:tenant.contact,checked:tenant.checked,mode:env.AI_ENABLED==='true'?'ai':'reference',conversationEnabled:env.AI_CONVERSATIONAL==='true',conversationRevision:env.AI_CONVERSATIONAL==='true'?'context-v2':null,auditRevision:AUDIT_REVISION,catalogEnabled:env.CATALOG_ENABLED==='true',authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
+    return reply({perCallMicroUSD:RESERVE_MICRO_USD,dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:tenant.id,name:tenant.name,sources:Object.values(tenant.sources),contact:tenant.contact,checked:tenant.checked,mode:env.AI_ENABLED==='true'?'ai':'reference',conversationEnabled:env.AI_CONVERSATIONAL==='true',conversationRevision:env.AI_CONVERSATIONAL==='true'?'context-v2':null,auditRevision:AUDIT_REVISION,catalogEnabled:env.CATALOG_ENABLED==='true',catalogRevision:env.CATALOG_ENABLED==='true'?'retrieval-v1':null,authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
    }
    if(url.pathname==='/api/usage'&&request.method==='GET'){
     const error=configError(env);if(error||!env.DEMO_PASSWORD)return reply({error:'server_not_configured'},503);
@@ -130,10 +133,28 @@ export function createWorker(fetcher=fetch){return {
     const contextURL=typeof data.productURL==='string'&&canContinueProduct(linked.clean)?productURL(data.productURL,tenant):null;
     const productLink=linked.links.length===1?productURL(linked.links[0].url,tenant):!linked.links.length?contextURL:null;
     const productQuery=!!linked.links.length||!!contextURL&&canContinueProduct(linked.clean)||/размер|сетк|стельк|состав|материал|вес|батар|налич|цен|сколько|size|chart|insole|ingredient|material|weight|batter|availab|stock|price|izmēr|sastāv|materiāl|svars|bater|pieejam/iu.test(linked.clean);
-    if(env.CATALOG_ENABLED==='true'&&!blocked&&productLink&&productQuery&&!ref.handoff&&!ref.social&&!/достав|оплат|возврат|гарант|delivery|shipping|payment|return|warranty|piegād|apmaks|atgrie|garant/iu.test(linked.clean)){
+    if(env.CATALOG_ENABLED==='true'&&!(env.AI_ENABLED==='true'&&env.AI_CONVERSATIONAL==='true')&&!blocked&&productLink&&productQuery&&!ref.handoff&&!ref.social&&!/достав|оплат|возврат|гарант|delivery|shipping|payment|return|warranty|piegād|apmaks|atgrie|garant/iu.test(linked.clean)){
      const denied=await gate(request,env,'chat',false);if(denied)return denied;
      const base=render(tenant.id,data.locale,{ids:[],kind:'product-clarify',handoff:false},'reference');
      try{const product=await fetchProduct(productLink,tenant,fetcher,typeof caches!=='undefined'?caches.default:null);return reply({...base,text:catalogAnswer(product,linked.clean,data.locale,previous),sources:[{title:product.title,url:product.url,kind:'product'}],checked:product.checkedAt,topic:isSizingQuestion(linked.clean,previous)?'product-sizing':null,productURL:product.url,productRead:true,cached:product.cached,catalogFormat:product.format||'html',providerUsed:false,mode:'catalog'});}catch(error){return reply({...base,text:catalogError(data.locale),productURL:productLink,productRead:false,catalogDiagnostics:catalogDiagnostics(error),providerUsed:false,mode:'catalog'});}
+    }
+    if(env.CATALOG_ENABLED==='true'&&!blocked&&(!productLink||env.AI_ENABLED==='true'&&env.AI_CONVERSATIONAL==='true')&&(productLink&&productQuery&&!ref.handoff&&!ref.social||catalogueQuery(linked.clean,ref,tenant)||Array.isArray(data.catalogURLs)&&data.catalogURLs.length&&!ref.handoff&&!ref.social&&/втор|перв|сравни|second|first|compare|otraj|pirmaj|salīdzini/iu.test(linked.clean))){
+     let plan;try{plan=productLink?{explicitContext:true,index:{tenant:tenant.id,importedAt:null},candidates:[{u:productLink,t:''}]}:await retrievalPlan(env,tenant,linked.clean,ref,data.catalogURLs);}catch{}
+     if(plan){
+      const nonce=crypto.randomUUID().replaceAll('-','');
+      const denied=await gate(request,env,'chat',false,nonce);if(denied)return denied;
+      let loaded;try{loaded=await readCandidates(plan,tenant,linked.clean,fetcher);}catch{loaded={candidates:plan.candidates,products:[],readFailures:1};}
+      const base=render(tenant.id,data.locale,{ids:[],kind:'product-clarify',handoff:false},'reference');
+      const out={...base,mode:'catalog',text:retrievalFallback(loaded,plan,linked.clean,data.locale),sources:loaded.metadataOnly?loaded.candidates.map(p=>({title:p.t,url:p.u,kind:'product'})):loaded.products.map(p=>({title:p.title,url:p.url,kind:'product'})),catalogURLs:loaded.metadataOnly?loaded.candidates.map(p=>p.u):loaded.products.map(p=>p.url),...(productLink?{productURL:productLink,catalogDiagnostics:loaded.diagnostics?.[0]?{attempts:loaded.diagnostics[0].attempts}:undefined}:{}),catalogSearch:true,catalogMetadataOnly:!!loaded.metadataOnly,catalogRevision:'retrieval-v1',catalogIndexDate:plan.index.importedAt,checked:loaded.products[0]?.checkedAt||plan.index.importedAt||tenant.checked,productRead:loaded.products.length>0,readFailures:loaded.readFailures,catalogReadDiagnostics:loaded.diagnostics||[],providerUsed:false};
+      // No API reserve on a failed lookup, and no second message-rate charge.
+      if(loaded.products.length&&!(loaded.readFailures&&/сравн|compare|salīdzin/iu.test(linked.clean))&&env.AI_ENABLED==='true'&&env.AI_CONVERSATIONAL==='true'){
+       let prepared;try{prepared=catalogReplyRequest(tenant,loaded.products,linked.clean,data.locale);}catch(error){out.fallbackReason='answer_validation';out.validationReason=catalogReason(error);return reply(out);}
+       const reserve=await gate(request,env,'catalog-reserve',true,nonce);
+       if(reserve){const reason=await reserve.clone().json();out.fallbackReason=reason.reason||'catalog_reservation_unavailable';return reply(out);}
+       try{out.providerUsed=true;const generated=await generateCatalogReply(tenant,loaded.products,linked.clean,data.locale,env,fetcher,prepared);out.text=generated.text;out.conversational=true;}catch(error){out.fallbackReason='answer_validation';out.validationReason=catalogReason(error);}
+      }
+      return reply(out);
+     }
     }
     const conversational=env.AI_CONVERSATIONAL==='true';
     const fixedKinds=conversational?['product-help','product-live','product-safety','product-unverified','product-linked','product-linked-size','product-linked-size-chart','shop-link','link-unsupported']:['product-live','product-clarify','product-sizing','product-help','product-safety','product-unverified','product-linked','product-linked-size','product-linked-size-chart','shop-link','link-unsupported'];

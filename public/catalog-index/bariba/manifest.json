@@ -1,0 +1,14 @@
+{
+  "schema": "shop-catalog-index-v1",
+  "tenant": "bariba",
+  "importedAt": "2026-10-18T09:01:55.620Z",
+  "source": "https://www.bariba.lv/sitemap.xml",
+  "sourcePages": 1,
+  "entries": 284,
+  "completeSitemapImport": true,
+  "fullDescriptionImport": false,
+  "shards": [
+    "000.json",
+    "001.json"
+  ]
+}

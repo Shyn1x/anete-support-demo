@@ -1,0 +1,23 @@
+{
+  "schema": "shop-catalog-index-v1",
+  "tenant": "rotallieta",
+  "importedAt": "2026-10-18T09:03:58.618Z",
+  "source": "https://rotallieta.lv/sitemap.xml",
+  "sourcePages": 5,
+  "entries": 1645,
+  "completeSitemapImport": true,
+  "fullDescriptionImport": false,
+  "shards": [
+    "000.json",
+    "001.json",
+    "002.json",
+    "003.json",
+    "004.json",
+    "005.json",
+    "006.json",
+    "007.json",
+    "008.json",
+    "009.json",
+    "010.json"
+  ]
+}

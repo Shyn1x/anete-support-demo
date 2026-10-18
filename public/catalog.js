@@ -1,5 +1,5 @@
 // Allow a dynamic product source only on a host already present in this demo's verified metadata.
-export function isProductSource(value,approved){try{const u=new URL(value);if(u.protocol!=='https:'||u.username||u.password||u.port||u.search||u.hash||!approved)return false;const hosts=new Set([...approved].map(s=>new URL(s).hostname));return hosts.has(u.hostname)&&(/^\/(?:ru\/|lv\/|en\/|et\/|de\/)?(?:products|prece)\//.test(u.pathname)||/^\/[\p{L}\p{N}_.-]+\.html$/u.test(u.pathname));}catch{return false;}}
+export function isProductSource(value,approved){try{const u=new URL(value);if(u.protocol!=='https:'||u.username||u.password||u.port||u.search||u.hash||!approved)return false;const hosts=new Set([...approved].map(s=>new URL(s).hostname));return hosts.has(u.hostname)&&(/^\/(?:ru\/|lv\/|en\/|et\/|de\/)?(?:products|prece)\//.test(u.pathname)||/^\/[\p{L}\p{N}_.-]+\.html$/u.test(u.pathname)||/^(?:\/[\p{L}\p{N}_.&%-]+){1,8}\/\d+\/\d+\/p$/u.test(u.pathname));}catch{return false;}}
 // Copy only public product context and allowlisted failure codes, never the full chat response.
 export function catalogReport(data,approved){
  if(data?.mode!=='catalog'||data.productRead!==false||!isProductSource(data.productURL,approved))return null;

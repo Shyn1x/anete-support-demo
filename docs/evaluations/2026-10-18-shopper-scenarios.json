@@ -1,0 +1,2664 @@
+{
+  "schema": "shopper-scenarios-v1",
+  "scope": "Customer goals in RU/LV/EN. Offline routing and metadata matching only. A matching title is not a correct product answer. Anete requires live search; live model wording and individual suitability remain untested.",
+  "paidOpenAICalls": 0,
+  "totals": {
+    "variants": 159,
+    "goals": 53,
+    "contractFailures": 0,
+    "needsLiveSearch": 3,
+    "metadataMatches": 18,
+    "clarifications": 18
+  },
+  "results": [
+    {
+      "id": "anete-delivery-ru",
+      "tenant": "anete",
+      "goal": "delivery",
+      "expected": "policy",
+      "locale": "ru",
+      "message": "Хочу сделать заказ. Какие способы доставки есть?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "delivery"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "anete-delivery-lv",
+      "tenant": "anete",
+      "goal": "delivery",
+      "expected": "policy",
+      "locale": "lv",
+      "message": "Vēlos pasūtīt. Kādi ir piegādes veidi?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "delivery"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "anete-delivery-en",
+      "tenant": "anete",
+      "goal": "delivery",
+      "expected": "policy",
+      "locale": "en",
+      "message": "I want to order. What delivery options are available?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "delivery"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "anete-payment-ru",
+      "tenant": "anete",
+      "goal": "payment",
+      "expected": "policy",
+      "locale": "ru",
+      "message": "Как можно оплатить покупку?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "payment"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "anete-payment-lv",
+      "tenant": "anete",
+      "goal": "payment",
+      "expected": "policy",
+      "locale": "lv",
+      "message": "Kā var apmaksāt pirkumu?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "payment"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "anete-payment-en",
+      "tenant": "anete",
+      "goal": "payment",
+      "expected": "policy",
+      "locale": "en",
+      "message": "How can I pay for my purchase?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "payment"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "anete-return-ru",
+      "tenant": "anete",
+      "goal": "return",
+      "expected": "policy",
+      "locale": "ru",
+      "message": "Можно вернуть товар, если я передумал?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "return"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "anete-return-lv",
+      "tenant": "anete",
+      "goal": "return",
+      "expected": "policy",
+      "locale": "lv",
+      "message": "Vai varu atgriezt preci, ja pārdomāju?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "return"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "anete-return-en",
+      "tenant": "anete",
+      "goal": "return",
+      "expected": "policy",
+      "locale": "en",
+      "message": "Can I return an item if I changed my mind?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "return"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "anete-damaged-ru",
+      "tenant": "anete",
+      "goal": "damaged",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Посылка приехала повреждённой. Что делать?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "defect"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "anete-damaged-lv",
+      "tenant": "anete",
+      "goal": "damaged",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Sūtījums pienāca bojāts. Ko darīt?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "defect"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "anete-damaged-en",
+      "tenant": "anete",
+      "goal": "damaged",
+      "expected": "review",
+      "locale": "en",
+      "message": "My parcel arrived damaged. What should I do?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "defect"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "anete-human-ru",
+      "tenant": "anete",
+      "goal": "human",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Хочу поговорить с сотрудником магазина",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "anete-human-lv",
+      "tenant": "anete",
+      "goal": "human",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Vēlos runāt ar veikala darbinieku",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "anete-human-en",
+      "tenant": "anete",
+      "goal": "human",
+      "expected": "review",
+      "locale": "en",
+      "message": "I want to speak to a shop employee",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "anete-privacy-ru",
+      "tenant": "anete",
+      "goal": "privacy",
+      "expected": "blocked",
+      "locale": "ru",
+      "message": "Моя почта test@example.invalid",
+      "outcome": "blocked",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "anete-privacy-lv",
+      "tenant": "anete",
+      "goal": "privacy",
+      "expected": "blocked",
+      "locale": "lv",
+      "message": "Mans e-pasts test@example.invalid",
+      "outcome": "blocked",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "anete-privacy-en",
+      "tenant": "anete",
+      "goal": "privacy",
+      "expected": "blocked",
+      "locale": "en",
+      "message": "My email is test@example.invalid",
+      "outcome": "blocked",
+      "contractMet": true,
+      "matched": [],
+      "route": "unknown",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "anete-vacuum-ru",
+      "tenant": "anete",
+      "goal": "vacuum",
+      "expected": "search",
+      "locale": "ru",
+      "message": "Какой пылесос выбрать?",
+      "outcome": "needs_live_search",
+      "contractMet": null,
+      "matched": [],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "anete-vacuum-lv",
+      "tenant": "anete",
+      "goal": "vacuum",
+      "expected": "search",
+      "locale": "lv",
+      "message": "Kādu putekļsūcēju izvēlēties?",
+      "outcome": "needs_live_search",
+      "contractMet": null,
+      "matched": [],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "anete-vacuum-en",
+      "tenant": "anete",
+      "goal": "vacuum",
+      "expected": "search",
+      "locale": "en",
+      "message": "Which vacuum should I choose?",
+      "outcome": "needs_live_search",
+      "contractMet": null,
+      "matched": [],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "anete-unknown-ru",
+      "tenant": "anete",
+      "goal": "unknown",
+      "expected": "unknown",
+      "locale": "ru",
+      "message": "Пылесос Example-X999 с HEPA фильтром?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "anete-unknown-lv",
+      "tenant": "anete",
+      "goal": "unknown",
+      "expected": "unknown",
+      "locale": "lv",
+      "message": "Vai putekļsūcējam Example-X999 ir HEPA filtrs?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "anete-unknown-en",
+      "tenant": "anete",
+      "goal": "unknown",
+      "expected": "unknown",
+      "locale": "en",
+      "message": "Does vacuum Example-X999 have a HEPA filter?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-delivery-ru",
+      "tenant": "bariba",
+      "goal": "delivery",
+      "expected": "policy",
+      "locale": "ru",
+      "message": "Хочу сделать заказ. Какие способы доставки есть?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "delivery"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-delivery-lv",
+      "tenant": "bariba",
+      "goal": "delivery",
+      "expected": "policy",
+      "locale": "lv",
+      "message": "Vēlos pasūtīt. Kādi ir piegādes veidi?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "delivery"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-delivery-en",
+      "tenant": "bariba",
+      "goal": "delivery",
+      "expected": "policy",
+      "locale": "en",
+      "message": "I want to order. What delivery options are available?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "delivery"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-payment-ru",
+      "tenant": "bariba",
+      "goal": "payment",
+      "expected": "policy",
+      "locale": "ru",
+      "message": "Как можно оплатить покупку?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "payment"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-payment-lv",
+      "tenant": "bariba",
+      "goal": "payment",
+      "expected": "policy",
+      "locale": "lv",
+      "message": "Kā var apmaksāt pirkumu?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "payment"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-payment-en",
+      "tenant": "bariba",
+      "goal": "payment",
+      "expected": "policy",
+      "locale": "en",
+      "message": "How can I pay for my purchase?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "payment"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-return-ru",
+      "tenant": "bariba",
+      "goal": "return",
+      "expected": "policy",
+      "locale": "ru",
+      "message": "Можно вернуть товар, если я передумал?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "return"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-return-lv",
+      "tenant": "bariba",
+      "goal": "return",
+      "expected": "policy",
+      "locale": "lv",
+      "message": "Vai varu atgriezt preci, ja pārdomāju?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "return"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-return-en",
+      "tenant": "bariba",
+      "goal": "return",
+      "expected": "policy",
+      "locale": "en",
+      "message": "Can I return an item if I changed my mind?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "return"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-damaged-ru",
+      "tenant": "bariba",
+      "goal": "damaged",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Посылка приехала повреждённой. Что делать?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "defect"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-damaged-lv",
+      "tenant": "bariba",
+      "goal": "damaged",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Sūtījums pienāca bojāts. Ko darīt?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "defect"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-damaged-en",
+      "tenant": "bariba",
+      "goal": "damaged",
+      "expected": "review",
+      "locale": "en",
+      "message": "My parcel arrived damaged. What should I do?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "defect"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-human-ru",
+      "tenant": "bariba",
+      "goal": "human",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Хочу поговорить с сотрудником магазина",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-human-lv",
+      "tenant": "bariba",
+      "goal": "human",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Vēlos runāt ar veikala darbinieku",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-human-en",
+      "tenant": "bariba",
+      "goal": "human",
+      "expected": "review",
+      "locale": "en",
+      "message": "I want to speak to a shop employee",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-privacy-ru",
+      "tenant": "bariba",
+      "goal": "privacy",
+      "expected": "blocked",
+      "locale": "ru",
+      "message": "Моя почта test@example.invalid",
+      "outcome": "blocked",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-privacy-lv",
+      "tenant": "bariba",
+      "goal": "privacy",
+      "expected": "blocked",
+      "locale": "lv",
+      "message": "Mans e-pasts test@example.invalid",
+      "outcome": "blocked",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-privacy-en",
+      "tenant": "bariba",
+      "goal": "privacy",
+      "expected": "blocked",
+      "locale": "en",
+      "message": "My email is test@example.invalid",
+      "outcome": "blocked",
+      "contractMet": true,
+      "matched": [],
+      "route": "unknown",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-puppy-ru",
+      "tenant": "bariba",
+      "goal": "puppy",
+      "expected": "search",
+      "locale": "ru",
+      "message": "Какой корм лучше подойдет для щенков?",
+      "outcome": "metadata_match",
+      "contractMet": true,
+      "matched": [
+        {
+          "title": "CooKing Grain Free Puppies Recipe Daily Menu - sausā barība kucēniem12 kg",
+          "url": "https://www.bariba.lv/cooking-grain-free-puppies-recipe-daily-menu-sausa-bariba-kuceniem12-kg.html"
+        },
+        {
+          "title": "Necon Atletic Puppy - sausa barība kucēniem, grūsnām un laktējošām kucēm 15 kg",
+          "url": "https://www.bariba.lv/necon-atletic-puppy-sausa-bariba-kuceniem-grusnam-un-laktejosam-kucem-15-kg.html"
+        },
+        {
+          "title": "Willowy Gold Premium Puppy - sausā barība kucēniem vistas gaļa, tuncis 15 kg",
+          "url": "https://www.bariba.lv/sausa-bariba-kuceniem-willowy-gold-premium-puppy-vistas-gala-tuncis-risi-darzeni-15-kg.html"
+        }
+      ],
+      "route": "product-selection",
+      "cardIds": [
+        "puppy-necon",
+        "puppy-cooking"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-puppy-lv",
+      "tenant": "bariba",
+      "goal": "puppy",
+      "expected": "search",
+      "locale": "lv",
+      "message": "Kādu barību izvēlēties kucēniem?",
+      "outcome": "metadata_match",
+      "contractMet": true,
+      "matched": [
+        {
+          "title": "CooKing Grain Free Puppies Recipe Daily Menu - sausā barība kucēniem12 kg",
+          "url": "https://www.bariba.lv/cooking-grain-free-puppies-recipe-daily-menu-sausa-bariba-kuceniem12-kg.html"
+        },
+        {
+          "title": "Necon Atletic Puppy - sausa barība kucēniem, grūsnām un laktējošām kucēm 15 kg",
+          "url": "https://www.bariba.lv/necon-atletic-puppy-sausa-bariba-kuceniem-grusnam-un-laktejosam-kucem-15-kg.html"
+        },
+        {
+          "title": "Willowy Gold Premium Puppy - sausā barība kucēniem vistas gaļa, tuncis 15 kg",
+          "url": "https://www.bariba.lv/sausa-bariba-kuceniem-willowy-gold-premium-puppy-vistas-gala-tuncis-risi-darzeni-15-kg.html"
+        }
+      ],
+      "route": "product-selection",
+      "cardIds": [
+        "puppy-necon",
+        "puppy-cooking"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-puppy-en",
+      "tenant": "bariba",
+      "goal": "puppy",
+      "expected": "search",
+      "locale": "en",
+      "message": "What food is best for puppies?",
+      "outcome": "metadata_match",
+      "contractMet": true,
+      "matched": [
+        {
+          "title": "CooKing Grain Free Puppies Recipe Daily Menu - sausā barība kucēniem12 kg",
+          "url": "https://www.bariba.lv/cooking-grain-free-puppies-recipe-daily-menu-sausa-bariba-kuceniem12-kg.html"
+        },
+        {
+          "title": "Necon Atletic Puppy - sausa barība kucēniem, grūsnām un laktējošām kucēm 15 kg",
+          "url": "https://www.bariba.lv/necon-atletic-puppy-sausa-bariba-kuceniem-grusnam-un-laktejosam-kucem-15-kg.html"
+        },
+        {
+          "title": "Willowy Gold Premium Puppy - sausā barība kucēniem vistas gaļa, tuncis 15 kg",
+          "url": "https://www.bariba.lv/sausa-bariba-kuceniem-willowy-gold-premium-puppy-vistas-gala-tuncis-risi-darzeni-15-kg.html"
+        }
+      ],
+      "route": "product-selection",
+      "cardIds": [
+        "puppy-necon",
+        "puppy-cooking"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-cat-ru",
+      "tenant": "bariba",
+      "goal": "cat",
+      "expected": "search",
+      "locale": "ru",
+      "message": "Какой корм выбрать для кота?",
+      "outcome": "metadata_match",
+      "contractMet": true,
+      "matched": [
+        {
+          "title": "ACTI CROQ Complete dog Adult - sausā barība pieaugušiem suņiem ar vistas gaļu 20 kg",
+          "url": "https://www.bariba.lv/acti-croq-complete-dog-adult-sausa-bariba-pieaugusiem-suniem-ar-vistas-galu-20-kg.html"
+        },
+        {
+          "title": "ACTI CROQ Lamb & Rice dog Adult - sausā barība pieaugušiem suņiem ar jēra gaļu 20 kg",
+          "url": "https://www.bariba.lv/acti-croq-lamb-rice-dog-adult-sausa-bariba-pieaugusiem-suniem-ar-jera-galu-20-kg.html"
+        },
+        {
+          "title": "MEGAN tauku bumbas meža un ielu putniem 30 gb",
+          "url": "https://www.bariba.lv/bariba-meza-un-ielu-putniem-tauku-bumbinas-megan-30-gb-3-kg.html"
+        }
+      ],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-cat-lv",
+      "tenant": "bariba",
+      "goal": "cat",
+      "expected": "search",
+      "locale": "lv",
+      "message": "Kādu barību izvēlēties kaķim?",
+      "outcome": "metadata_match",
+      "contractMet": true,
+      "matched": [
+        {
+          "title": "Del + Gourmet Cat Adult - sausā barība pieaugušiem kaķiem ar vistu un tunci 15 kg",
+          "url": "https://www.bariba.lv/del-gourmet-cat-adult-sausa-bariba-pieaugusiem-kakiem-ar-vistu-un-tunci-15-kg.html"
+        },
+        {
+          "title": "Le Chef Coctail cat adult - sausā barība pieaugušiem kaķiem ar vistu un zivi 20 kg",
+          "url": "https://www.bariba.lv/le-chef-coctail-cat-adult-sausa-bariba-pieaugusiem-kakiem-ar-vistu-un-zivi-20-kg.html"
+        },
+        {
+          "title": "Nataly Cat Adult with Chicken - sausa barība kaķiem ar vistas gaļu 20 kg",
+          "url": "https://www.bariba.lv/nataly-cat-adult-with-chicken-sausa-bariba-kakiem-ar-vistas-galu-20-kg.html"
+        }
+      ],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-cat-en",
+      "tenant": "bariba",
+      "goal": "cat",
+      "expected": "search",
+      "locale": "en",
+      "message": "Which cat food should I choose?",
+      "outcome": "metadata_match",
+      "contractMet": true,
+      "matched": [
+        {
+          "title": "Del + Gourmet Cat Adult - sausā barība pieaugušiem kaķiem ar vistu un tunci 15 kg",
+          "url": "https://www.bariba.lv/del-gourmet-cat-adult-sausa-bariba-pieaugusiem-kakiem-ar-vistu-un-tunci-15-kg.html"
+        },
+        {
+          "title": "Le Chef Coctail cat adult - sausā barība pieaugušiem kaķiem ar vistu un zivi 20 kg",
+          "url": "https://www.bariba.lv/le-chef-coctail-cat-adult-sausa-bariba-pieaugusiem-kakiem-ar-vistu-un-zivi-20-kg.html"
+        },
+        {
+          "title": "Nataly Cat Adult with Chicken - sausa barība kaķiem ar vistas gaļu 20 kg",
+          "url": "https://www.bariba.lv/nataly-cat-adult-with-chicken-sausa-bariba-kakiem-ar-vistas-galu-20-kg.html"
+        }
+      ],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-allergy-ru",
+      "tenant": "bariba",
+      "goal": "allergy",
+      "expected": "review",
+      "locale": "ru",
+      "message": "У щенка аллергия, посоветуй корм",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-safety",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-allergy-lv",
+      "tenant": "bariba",
+      "goal": "allergy",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Kucēnam ir alerģija, kādu barību izvēlēties?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-safety",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-allergy-en",
+      "tenant": "bariba",
+      "goal": "allergy",
+      "expected": "review",
+      "locale": "en",
+      "message": "My puppy has allergies. Which food should I choose?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-safety",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-unknown-ru",
+      "tenant": "bariba",
+      "goal": "unknown",
+      "expected": "unknown",
+      "locale": "ru",
+      "message": "Что в составе корма Example-X999?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-unknown-lv",
+      "tenant": "bariba",
+      "goal": "unknown",
+      "expected": "unknown",
+      "locale": "lv",
+      "message": "Kāds ir barības Example-X999 sastāvs?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "bariba-unknown-en",
+      "tenant": "bariba",
+      "goal": "unknown",
+      "expected": "unknown",
+      "locale": "en",
+      "message": "What are the ingredients of food Example-X999?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-delivery-ru",
+      "tenant": "hobbyset",
+      "goal": "delivery",
+      "expected": "policy",
+      "locale": "ru",
+      "message": "Хочу сделать заказ. Какие способы доставки есть?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "delivery"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-delivery-lv",
+      "tenant": "hobbyset",
+      "goal": "delivery",
+      "expected": "policy",
+      "locale": "lv",
+      "message": "Vēlos pasūtīt. Kādi ir piegādes veidi?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "delivery"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-delivery-en",
+      "tenant": "hobbyset",
+      "goal": "delivery",
+      "expected": "policy",
+      "locale": "en",
+      "message": "I want to order. What delivery options are available?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "delivery"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-payment-ru",
+      "tenant": "hobbyset",
+      "goal": "payment",
+      "expected": "policy",
+      "locale": "ru",
+      "message": "Как можно оплатить покупку?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "payment"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-payment-lv",
+      "tenant": "hobbyset",
+      "goal": "payment",
+      "expected": "policy",
+      "locale": "lv",
+      "message": "Kā var apmaksāt pirkumu?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "payment"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-payment-en",
+      "tenant": "hobbyset",
+      "goal": "payment",
+      "expected": "policy",
+      "locale": "en",
+      "message": "How can I pay for my purchase?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "payment"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-return-ru",
+      "tenant": "hobbyset",
+      "goal": "return",
+      "expected": "policy",
+      "locale": "ru",
+      "message": "Можно вернуть товар, если я передумал?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "return"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-return-lv",
+      "tenant": "hobbyset",
+      "goal": "return",
+      "expected": "policy",
+      "locale": "lv",
+      "message": "Vai varu atgriezt preci, ja pārdomāju?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "return"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-return-en",
+      "tenant": "hobbyset",
+      "goal": "return",
+      "expected": "policy",
+      "locale": "en",
+      "message": "Can I return an item if I changed my mind?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "return"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-damaged-ru",
+      "tenant": "hobbyset",
+      "goal": "damaged",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Посылка приехала повреждённой. Что делать?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "defect"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-damaged-lv",
+      "tenant": "hobbyset",
+      "goal": "damaged",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Sūtījums pienāca bojāts. Ko darīt?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "defect"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-damaged-en",
+      "tenant": "hobbyset",
+      "goal": "damaged",
+      "expected": "review",
+      "locale": "en",
+      "message": "My parcel arrived damaged. What should I do?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "defect"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-human-ru",
+      "tenant": "hobbyset",
+      "goal": "human",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Хочу поговорить с сотрудником магазина",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-human-lv",
+      "tenant": "hobbyset",
+      "goal": "human",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Vēlos runāt ar veikala darbinieku",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-human-en",
+      "tenant": "hobbyset",
+      "goal": "human",
+      "expected": "review",
+      "locale": "en",
+      "message": "I want to speak to a shop employee",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-privacy-ru",
+      "tenant": "hobbyset",
+      "goal": "privacy",
+      "expected": "blocked",
+      "locale": "ru",
+      "message": "Моя почта test@example.invalid",
+      "outcome": "blocked",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-privacy-lv",
+      "tenant": "hobbyset",
+      "goal": "privacy",
+      "expected": "blocked",
+      "locale": "lv",
+      "message": "Mans e-pasts test@example.invalid",
+      "outcome": "blocked",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-privacy-en",
+      "tenant": "hobbyset",
+      "goal": "privacy",
+      "expected": "blocked",
+      "locale": "en",
+      "message": "My email is test@example.invalid",
+      "outcome": "blocked",
+      "contractMet": true,
+      "matched": [],
+      "route": "unknown",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-watercolour-ru",
+      "tenant": "hobbyset",
+      "goal": "watercolour",
+      "expected": "search",
+      "locale": "ru",
+      "message": "Какие акварельные краски выбрать?",
+      "outcome": "metadata_match",
+      "contractMet": true,
+      "matched": [
+        {
+          "title": "Akvareļkrāsu komplekts 12 krāsas",
+          "url": "https://hobbyset.lv/products/lv/2372/150958/sort/1/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-12-kr%C4%81sas.html"
+        },
+        {
+          "title": "Akvareļkrāsu komplekts perlamutra toņi 6 krāsas",
+          "url": "https://hobbyset.lv/products/lv/2372/150959/sort/1/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-perlamutra-to%C5%86i-6-kr%C4%81sas.html"
+        },
+        {
+          "title": "Akvareļkrāsu komplekts 24 krāsas",
+          "url": "https://hobbyset.lv/products/lv/2372/150960/sort/1/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-24-kr%C4%81sas.html"
+        }
+      ],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-watercolour-lv",
+      "tenant": "hobbyset",
+      "goal": "watercolour",
+      "expected": "search",
+      "locale": "lv",
+      "message": "Kādas akvareļkrāsas izvēlēties?",
+      "outcome": "metadata_match",
+      "contractMet": true,
+      "matched": [
+        {
+          "title": "Akvareļkrāsu komplekts 12 krāsas",
+          "url": "https://hobbyset.lv/products/lv/2372/150958/sort/1/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-12-kr%C4%81sas.html"
+        },
+        {
+          "title": "Akvareļkrāsu komplekts perlamutra toņi 6 krāsas",
+          "url": "https://hobbyset.lv/products/lv/2372/150959/sort/1/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-perlamutra-to%C5%86i-6-kr%C4%81sas.html"
+        },
+        {
+          "title": "Akvareļkrāsu komplekts 24 krāsas",
+          "url": "https://hobbyset.lv/products/lv/2372/150960/sort/1/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-24-kr%C4%81sas.html"
+        }
+      ],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-watercolour-en",
+      "tenant": "hobbyset",
+      "goal": "watercolour",
+      "expected": "search",
+      "locale": "en",
+      "message": "Which watercolor paints should I choose?",
+      "outcome": "metadata_match",
+      "contractMet": true,
+      "matched": [
+        {
+          "title": "Akvareļkrāsu komplekts 12 krāsas",
+          "url": "https://hobbyset.lv/products/lv/2372/150958/sort/1/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-12-kr%C4%81sas.html"
+        },
+        {
+          "title": "Akvareļkrāsu komplekts perlamutra toņi 6 krāsas",
+          "url": "https://hobbyset.lv/products/lv/2372/150959/sort/1/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-perlamutra-to%C5%86i-6-kr%C4%81sas.html"
+        },
+        {
+          "title": "Akvareļkrāsu komplekts 24 krāsas",
+          "url": "https://hobbyset.lv/products/lv/2372/150960/sort/1/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-24-kr%C4%81sas.html"
+        }
+      ],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-body-ru",
+      "tenant": "hobbyset",
+      "goal": "body",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Можно использовать эти краски на коже ребёнка?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-safety",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-body-lv",
+      "tenant": "hobbyset",
+      "goal": "body",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Vai šīs krāsas droši izmantot uz bērna ādas?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-safety",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-body-en",
+      "tenant": "hobbyset",
+      "goal": "body",
+      "expected": "review",
+      "locale": "en",
+      "message": "Can I use these paints on a child’s skin?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-safety",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-unknown-ru",
+      "tenant": "hobbyset",
+      "goal": "unknown",
+      "expected": "unknown",
+      "locale": "ru",
+      "message": "Краски Example-X999 подходят для ткани?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-unknown-lv",
+      "tenant": "hobbyset",
+      "goal": "unknown",
+      "expected": "unknown",
+      "locale": "lv",
+      "message": "Vai krāsas Example-X999 der audumam?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "hobbyset-unknown-en",
+      "tenant": "hobbyset",
+      "goal": "unknown",
+      "expected": "unknown",
+      "locale": "en",
+      "message": "Is paint Example-X999 suitable for fabric?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-delivery-ru",
+      "tenant": "apavi40plus",
+      "goal": "delivery",
+      "expected": "policy",
+      "locale": "ru",
+      "message": "Хочу сделать заказ. Какие способы доставки есть?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "delivery"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-delivery-lv",
+      "tenant": "apavi40plus",
+      "goal": "delivery",
+      "expected": "policy",
+      "locale": "lv",
+      "message": "Vēlos pasūtīt. Kādi ir piegādes veidi?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "delivery"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-delivery-en",
+      "tenant": "apavi40plus",
+      "goal": "delivery",
+      "expected": "policy",
+      "locale": "en",
+      "message": "I want to order. What delivery options are available?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "delivery"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-payment-ru",
+      "tenant": "apavi40plus",
+      "goal": "payment",
+      "expected": "policy",
+      "locale": "ru",
+      "message": "Как можно оплатить покупку?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "payment"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-payment-lv",
+      "tenant": "apavi40plus",
+      "goal": "payment",
+      "expected": "policy",
+      "locale": "lv",
+      "message": "Kā var apmaksāt pirkumu?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "payment"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-payment-en",
+      "tenant": "apavi40plus",
+      "goal": "payment",
+      "expected": "policy",
+      "locale": "en",
+      "message": "How can I pay for my purchase?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "payment"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-return-ru",
+      "tenant": "apavi40plus",
+      "goal": "return",
+      "expected": "policy",
+      "locale": "ru",
+      "message": "Можно вернуть товар, если я передумал?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "return"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-return-lv",
+      "tenant": "apavi40plus",
+      "goal": "return",
+      "expected": "policy",
+      "locale": "lv",
+      "message": "Vai varu atgriezt preci, ja pārdomāju?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "return"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-return-en",
+      "tenant": "apavi40plus",
+      "goal": "return",
+      "expected": "policy",
+      "locale": "en",
+      "message": "Can I return an item if I changed my mind?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "return"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-damaged-ru",
+      "tenant": "apavi40plus",
+      "goal": "damaged",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Посылка приехала повреждённой. Что делать?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "defect"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-damaged-lv",
+      "tenant": "apavi40plus",
+      "goal": "damaged",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Sūtījums pienāca bojāts. Ko darīt?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "defect"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-damaged-en",
+      "tenant": "apavi40plus",
+      "goal": "damaged",
+      "expected": "review",
+      "locale": "en",
+      "message": "My parcel arrived damaged. What should I do?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "defect"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-human-ru",
+      "tenant": "apavi40plus",
+      "goal": "human",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Хочу поговорить с сотрудником магазина",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-human-lv",
+      "tenant": "apavi40plus",
+      "goal": "human",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Vēlos runāt ar veikala darbinieku",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-human-en",
+      "tenant": "apavi40plus",
+      "goal": "human",
+      "expected": "review",
+      "locale": "en",
+      "message": "I want to speak to a shop employee",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-privacy-ru",
+      "tenant": "apavi40plus",
+      "goal": "privacy",
+      "expected": "blocked",
+      "locale": "ru",
+      "message": "Моя почта test@example.invalid",
+      "outcome": "blocked",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-privacy-lv",
+      "tenant": "apavi40plus",
+      "goal": "privacy",
+      "expected": "blocked",
+      "locale": "lv",
+      "message": "Mans e-pasts test@example.invalid",
+      "outcome": "blocked",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-privacy-en",
+      "tenant": "apavi40plus",
+      "goal": "privacy",
+      "expected": "blocked",
+      "locale": "en",
+      "message": "My email is test@example.invalid",
+      "outcome": "blocked",
+      "contractMet": true,
+      "matched": [],
+      "route": "unknown",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-model-ru",
+      "tenant": "apavi40plus",
+      "goal": "model",
+      "expected": "search",
+      "locale": "ru",
+      "message": "Josef Seibel 42801 какой материал?",
+      "outcome": "metadata_match",
+      "contractMet": true,
+      "matched": [
+        {
+          "title": "Josef Seibel – Vīriešu klasiskie ādas apavi ar K platumu (Modelis 42801 860 100)",
+          "url": "https://apavi40plus.com/products/josef-seibel-viriesu-klasiskie-adas-apavi-ar-k-platumu-modelis-42801-860-100"
+        }
+      ],
+      "route": "answer",
+      "cardIds": [
+        "shoe-material"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-model-lv",
+      "tenant": "apavi40plus",
+      "goal": "model",
+      "expected": "search",
+      "locale": "lv",
+      "message": "Josef Seibel 42801 kāds materiāls?",
+      "outcome": "metadata_match",
+      "contractMet": true,
+      "matched": [
+        {
+          "title": "Josef Seibel – Vīriešu klasiskie ādas apavi ar K platumu (Modelis 42801 860 100)",
+          "url": "https://apavi40plus.com/products/josef-seibel-viriesu-klasiskie-adas-apavi-ar-k-platumu-modelis-42801-860-100"
+        }
+      ],
+      "route": "answer",
+      "cardIds": [
+        "shoe-material"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-model-en",
+      "tenant": "apavi40plus",
+      "goal": "model",
+      "expected": "search",
+      "locale": "en",
+      "message": "What material is Josef Seibel 42801 made from?",
+      "outcome": "metadata_match",
+      "contractMet": true,
+      "matched": [
+        {
+          "title": "Josef Seibel – Vīriešu klasiskie ādas apavi ar K platumu (Modelis 42801 860 100)",
+          "url": "https://apavi40plus.com/products/josef-seibel-viriesu-klasiskie-adas-apavi-ar-k-platumu-modelis-42801-860-100"
+        }
+      ],
+      "route": "answer",
+      "cardIds": [
+        "shoe-material"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-unknown-ru",
+      "tenant": "apavi40plus",
+      "goal": "unknown",
+      "expected": "unknown",
+      "locale": "ru",
+      "message": "У обуви Example-X999 какая ширина?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-unknown-lv",
+      "tenant": "apavi40plus",
+      "goal": "unknown",
+      "expected": "unknown",
+      "locale": "lv",
+      "message": "Kāds ir apavu Example-X999 platums?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "apavi40plus-unknown-en",
+      "tenant": "apavi40plus",
+      "goal": "unknown",
+      "expected": "unknown",
+      "locale": "en",
+      "message": "What is the width of shoe Example-X999?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-delivery-ru",
+      "tenant": "rotallieta",
+      "goal": "delivery",
+      "expected": "policy",
+      "locale": "ru",
+      "message": "Хочу сделать заказ. Какие способы доставки есть?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "delivery"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-delivery-lv",
+      "tenant": "rotallieta",
+      "goal": "delivery",
+      "expected": "policy",
+      "locale": "lv",
+      "message": "Vēlos pasūtīt. Kādi ir piegādes veidi?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "delivery"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-delivery-en",
+      "tenant": "rotallieta",
+      "goal": "delivery",
+      "expected": "policy",
+      "locale": "en",
+      "message": "I want to order. What delivery options are available?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "delivery"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-payment-ru",
+      "tenant": "rotallieta",
+      "goal": "payment",
+      "expected": "policy",
+      "locale": "ru",
+      "message": "Как можно оплатить покупку?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "payment"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-payment-lv",
+      "tenant": "rotallieta",
+      "goal": "payment",
+      "expected": "policy",
+      "locale": "lv",
+      "message": "Kā var apmaksāt pirkumu?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "payment"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-payment-en",
+      "tenant": "rotallieta",
+      "goal": "payment",
+      "expected": "policy",
+      "locale": "en",
+      "message": "How can I pay for my purchase?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "payment"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-return-ru",
+      "tenant": "rotallieta",
+      "goal": "return",
+      "expected": "policy",
+      "locale": "ru",
+      "message": "Можно вернуть товар, если я передумал?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "return"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-return-lv",
+      "tenant": "rotallieta",
+      "goal": "return",
+      "expected": "policy",
+      "locale": "lv",
+      "message": "Vai varu atgriezt preci, ja pārdomāju?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "return"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-return-en",
+      "tenant": "rotallieta",
+      "goal": "return",
+      "expected": "policy",
+      "locale": "en",
+      "message": "Can I return an item if I changed my mind?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "return"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-damaged-ru",
+      "tenant": "rotallieta",
+      "goal": "damaged",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Посылка приехала повреждённой. Что делать?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "defect"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-damaged-lv",
+      "tenant": "rotallieta",
+      "goal": "damaged",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Sūtījums pienāca bojāts. Ko darīt?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "defect"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-damaged-en",
+      "tenant": "rotallieta",
+      "goal": "damaged",
+      "expected": "review",
+      "locale": "en",
+      "message": "My parcel arrived damaged. What should I do?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "defect"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-human-ru",
+      "tenant": "rotallieta",
+      "goal": "human",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Хочу поговорить с сотрудником магазина",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-human-lv",
+      "tenant": "rotallieta",
+      "goal": "human",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Vēlos runāt ar veikala darbinieku",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-human-en",
+      "tenant": "rotallieta",
+      "goal": "human",
+      "expected": "review",
+      "locale": "en",
+      "message": "I want to speak to a shop employee",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-privacy-ru",
+      "tenant": "rotallieta",
+      "goal": "privacy",
+      "expected": "blocked",
+      "locale": "ru",
+      "message": "Моя почта test@example.invalid",
+      "outcome": "blocked",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-privacy-lv",
+      "tenant": "rotallieta",
+      "goal": "privacy",
+      "expected": "blocked",
+      "locale": "lv",
+      "message": "Mans e-pasts test@example.invalid",
+      "outcome": "blocked",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-privacy-en",
+      "tenant": "rotallieta",
+      "goal": "privacy",
+      "expected": "blocked",
+      "locale": "en",
+      "message": "My email is test@example.invalid",
+      "outcome": "blocked",
+      "contractMet": true,
+      "matched": [],
+      "route": "unknown",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-board-ru",
+      "tenant": "rotallieta",
+      "goal": "board",
+      "expected": "search",
+      "locale": "ru",
+      "message": "Какие игрушки Busy Board есть?",
+      "outcome": "metadata_match",
+      "contractMet": true,
+      "matched": [
+        {
+          "title": "aktivitates delis busy board rotalu virtuve huanger",
+          "url": "https://rotallieta.lv/prece/aktivitates-delis-busy-board-rotalu-virtuve-huanger/"
+        },
+        {
+          "title": "bernu interaktivais galds busy board baby partner",
+          "url": "https://rotallieta.lv/prece/bernu-interaktivais-galds-busy-board-baby-partner/"
+        }
+      ],
+      "route": "product-unverified",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-board-lv",
+      "tenant": "rotallieta",
+      "goal": "board",
+      "expected": "search",
+      "locale": "lv",
+      "message": "Kādas Busy Board rotaļlietas ir?",
+      "outcome": "metadata_match",
+      "contractMet": true,
+      "matched": [
+        {
+          "title": "aktivitates delis busy board rotalu virtuve huanger",
+          "url": "https://rotallieta.lv/prece/aktivitates-delis-busy-board-rotalu-virtuve-huanger/"
+        },
+        {
+          "title": "bernu interaktivais galds busy board baby partner",
+          "url": "https://rotallieta.lv/prece/bernu-interaktivais-galds-busy-board-baby-partner/"
+        }
+      ],
+      "route": "product-unverified",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-board-en",
+      "tenant": "rotallieta",
+      "goal": "board",
+      "expected": "search",
+      "locale": "en",
+      "message": "Which Busy Board toys are listed?",
+      "outcome": "metadata_match",
+      "contractMet": true,
+      "matched": [
+        {
+          "title": "aktivitates delis busy board rotalu virtuve huanger",
+          "url": "https://rotallieta.lv/prece/aktivitates-delis-busy-board-rotalu-virtuve-huanger/"
+        },
+        {
+          "title": "bernu interaktivais galds busy board baby partner",
+          "url": "https://rotallieta.lv/prece/bernu-interaktivais-galds-busy-board-baby-partner/"
+        }
+      ],
+      "route": "product-unverified",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-safety-ru",
+      "tenant": "rotallieta",
+      "goal": "safety",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Эта игрушка безопасна для новорождённого?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-safety",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-safety-lv",
+      "tenant": "rotallieta",
+      "goal": "safety",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Vai šī rotaļlieta ir droša jaundzimušajam?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-safety",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-safety-en",
+      "tenant": "rotallieta",
+      "goal": "safety",
+      "expected": "review",
+      "locale": "en",
+      "message": "Is this toy safe for a newborn?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-safety",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-unknown-ru",
+      "tenant": "rotallieta",
+      "goal": "unknown",
+      "expected": "unknown",
+      "locale": "ru",
+      "message": "У игрушки Example-X999 батарейки в комплекте?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-unknown-lv",
+      "tenant": "rotallieta",
+      "goal": "unknown",
+      "expected": "unknown",
+      "locale": "lv",
+      "message": "Vai rotaļlietai Example-X999 baterijas ir komplektā?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "rotallieta-unknown-en",
+      "tenant": "rotallieta",
+      "goal": "unknown",
+      "expected": "unknown",
+      "locale": "en",
+      "message": "Does toy Example-X999 include batteries?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-delivery-ru",
+      "tenant": "celotajs",
+      "goal": "delivery",
+      "expected": "policy",
+      "locale": "ru",
+      "message": "Хочу сделать заказ. Какие способы доставки есть?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "delivery"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-delivery-lv",
+      "tenant": "celotajs",
+      "goal": "delivery",
+      "expected": "policy",
+      "locale": "lv",
+      "message": "Vēlos pasūtīt. Kādi ir piegādes veidi?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "delivery"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-delivery-en",
+      "tenant": "celotajs",
+      "goal": "delivery",
+      "expected": "policy",
+      "locale": "en",
+      "message": "I want to order. What delivery options are available?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "delivery"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-payment-ru",
+      "tenant": "celotajs",
+      "goal": "payment",
+      "expected": "policy",
+      "locale": "ru",
+      "message": "Как можно оплатить покупку?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "payment"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-payment-lv",
+      "tenant": "celotajs",
+      "goal": "payment",
+      "expected": "policy",
+      "locale": "lv",
+      "message": "Kā var apmaksāt pirkumu?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "payment"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-payment-en",
+      "tenant": "celotajs",
+      "goal": "payment",
+      "expected": "policy",
+      "locale": "en",
+      "message": "How can I pay for my purchase?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "payment"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-return-ru",
+      "tenant": "celotajs",
+      "goal": "return",
+      "expected": "policy",
+      "locale": "ru",
+      "message": "Можно вернуть товар, если я передумал?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "return"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-return-lv",
+      "tenant": "celotajs",
+      "goal": "return",
+      "expected": "policy",
+      "locale": "lv",
+      "message": "Vai varu atgriezt preci, ja pārdomāju?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "return"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-return-en",
+      "tenant": "celotajs",
+      "goal": "return",
+      "expected": "policy",
+      "locale": "en",
+      "message": "Can I return an item if I changed my mind?",
+      "outcome": "policy_or_snapshot",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "return"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-damaged-ru",
+      "tenant": "celotajs",
+      "goal": "damaged",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Посылка приехала повреждённой. Что делать?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "defect"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-damaged-lv",
+      "tenant": "celotajs",
+      "goal": "damaged",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Sūtījums pienāca bojāts. Ko darīt?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "defect"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-damaged-en",
+      "tenant": "celotajs",
+      "goal": "damaged",
+      "expected": "review",
+      "locale": "en",
+      "message": "My parcel arrived damaged. What should I do?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "defect"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-human-ru",
+      "tenant": "celotajs",
+      "goal": "human",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Хочу поговорить с сотрудником магазина",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-human-lv",
+      "tenant": "celotajs",
+      "goal": "human",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Vēlos runāt ar veikala darbinieku",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-human-en",
+      "tenant": "celotajs",
+      "goal": "human",
+      "expected": "review",
+      "locale": "en",
+      "message": "I want to speak to a shop employee",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-privacy-ru",
+      "tenant": "celotajs",
+      "goal": "privacy",
+      "expected": "blocked",
+      "locale": "ru",
+      "message": "Моя почта test@example.invalid",
+      "outcome": "blocked",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-privacy-lv",
+      "tenant": "celotajs",
+      "goal": "privacy",
+      "expected": "blocked",
+      "locale": "lv",
+      "message": "Mans e-pasts test@example.invalid",
+      "outcome": "blocked",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-privacy-en",
+      "tenant": "celotajs",
+      "goal": "privacy",
+      "expected": "blocked",
+      "locale": "en",
+      "message": "My email is test@example.invalid",
+      "outcome": "blocked",
+      "contractMet": true,
+      "matched": [],
+      "route": "unknown",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-tent-ru",
+      "tenant": "celotajs",
+      "goal": "tent",
+      "expected": "search",
+      "locale": "ru",
+      "message": "Какую палатку выбрать?",
+      "outcome": "metadata_match",
+      "contractMet": true,
+      "matched": [
+        {
+          "title": "Astoņvietīga telts Coleman Octagon 8 BlackOut",
+          "url": "https://veikalscelotajs.lv/products/astonvietiga-telts-coleman-octagon-8-blackout"
+        },
+        {
+          "title": "Telts Big Agnes Copper Spur Ultralight 1-vietīga",
+          "url": "https://veikalscelotajs.lv/products/big-agnes-telts-cooper-spur-ul1"
+        },
+        {
+          "title": "Telts Big Agnes Copper Spur Ultralight 2-vietīga",
+          "url": "https://veikalscelotajs.lv/products/big-agnes-telts-cooper-spur-ul2-lichen"
+        }
+      ],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-tent-lv",
+      "tenant": "celotajs",
+      "goal": "tent",
+      "expected": "search",
+      "locale": "lv",
+      "message": "Kādu telti izvēlēties?",
+      "outcome": "metadata_match",
+      "contractMet": true,
+      "matched": [
+        {
+          "title": "Astoņvietīga telts Coleman Octagon 8 BlackOut",
+          "url": "https://veikalscelotajs.lv/products/astonvietiga-telts-coleman-octagon-8-blackout"
+        },
+        {
+          "title": "Telts Big Agnes Copper Spur Ultralight 1-vietīga",
+          "url": "https://veikalscelotajs.lv/products/big-agnes-telts-cooper-spur-ul1"
+        },
+        {
+          "title": "Telts Big Agnes Copper Spur Ultralight 2-vietīga",
+          "url": "https://veikalscelotajs.lv/products/big-agnes-telts-cooper-spur-ul2-lichen"
+        }
+      ],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-tent-en",
+      "tenant": "celotajs",
+      "goal": "tent",
+      "expected": "search",
+      "locale": "en",
+      "message": "Which tent should I choose?",
+      "outcome": "metadata_match",
+      "contractMet": true,
+      "matched": [
+        {
+          "title": "Astoņvietīga telts Coleman Octagon 8 BlackOut",
+          "url": "https://veikalscelotajs.lv/products/astonvietiga-telts-coleman-octagon-8-blackout"
+        },
+        {
+          "title": "Telts Big Agnes Copper Spur Ultralight 1-vietīga",
+          "url": "https://veikalscelotajs.lv/products/big-agnes-telts-cooper-spur-ul1"
+        },
+        {
+          "title": "Telts Big Agnes Copper Spur Ultralight 2-vietīga",
+          "url": "https://veikalscelotajs.lv/products/big-agnes-telts-cooper-spur-ul2-lichen"
+        }
+      ],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-cold-ru",
+      "tenant": "celotajs",
+      "goal": "cold",
+      "expected": "review",
+      "locale": "ru",
+      "message": "Безопасно спать в этом спальнике при -20?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-cold-lv",
+      "tenant": "celotajs",
+      "goal": "cold",
+      "expected": "review",
+      "locale": "lv",
+      "message": "Vai šajā guļammaisā droši gulēt -20 grādos?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-cold-en",
+      "tenant": "celotajs",
+      "goal": "cold",
+      "expected": "review",
+      "locale": "en",
+      "message": "Is it safe to sleep in this sleeping bag at -20?",
+      "outcome": "review",
+      "contractMet": true,
+      "matched": [],
+      "route": "answer",
+      "cardIds": [
+        "contact"
+      ],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-unknown-ru",
+      "tenant": "celotajs",
+      "goal": "unknown",
+      "expected": "unknown",
+      "locale": "ru",
+      "message": "Сколько весит палатка Example-X999?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-unknown-lv",
+      "tenant": "celotajs",
+      "goal": "unknown",
+      "expected": "unknown",
+      "locale": "lv",
+      "message": "Cik sver telts Example-X999?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    },
+    {
+      "id": "celotajs-unknown-en",
+      "tenant": "celotajs",
+      "goal": "unknown",
+      "expected": "unknown",
+      "locale": "en",
+      "message": "What is the weight of tent Example-X999?",
+      "outcome": "clarify",
+      "contractMet": true,
+      "matched": [],
+      "route": "product-help",
+      "cardIds": [],
+      "liveAIQuality": "not_tested"
+    }
+  ]
+}

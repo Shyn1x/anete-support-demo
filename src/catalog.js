@@ -2,7 +2,7 @@
 import {shopLinks} from './shop-links.js';
 export const CATALOG_TTL=300,CATALOG_MAX_BYTES=800000;
 const shopifyTenants=new Set(['apavi40plus','celotajs']);
-const patterns={apavi40plus:/^\/(?:ru\/|lv\/|en\/|et\/|de\/)?products\/[\p{L}\p{N}-]+\/?$/iu,celotajs:/^\/(?:en\/|lv\/)?products\/[\p{L}\p{N}-]+\/?$/iu,rotallieta:/^\/prece\/[\p{L}\p{N}-]+\/?$/iu,bariba:/^\/[\p{L}\p{N}_.-]+\.html$/iu,hobbyset:/^\/products\/(?:lv|ru|en)\/\d+\/\d+\/[\p{L}\p{N}_.,%/×“”„–— -]+\.html$/iu};
+const patterns={anete:/^\/(?:[\p{L}\p{N}_.&%-]+\/){1,8}\d+\/\d+\/p$/iu,apavi40plus:/^\/(?:ru\/|lv\/|en\/|et\/|de\/)?products\/[\p{L}\p{N}-]+\/?$/iu,celotajs:/^\/(?:en\/|lv\/)?products\/[\p{L}\p{N}-]+\/?$/iu,rotallieta:/^\/prece\/[\p{L}\p{N}-]+\/?$/iu,bariba:/^\/[\p{L}\p{N}_.-]+\.html$/iu,hobbyset:/^\/products\/(?:lv|ru|en)\/\d+\/\d+\/[\p{L}\p{N}_.,%/×“”„–— -]+\.html$/iu};
 export function productURL(value,tenant){
  if(typeof value!=='string'||value.length>1500||/[\s\\]/u.test(value))return null;
  const parsed=shopLinks(value,tenant);if(parsed.rejected||parsed.links.length!==1||parsed.clean)return null;
@@ -24,12 +24,13 @@ export function parseProduct(html,url,tenant){
  let title='',description='',variants=[],summary={state:'unknown'};
  const node=productNodes(html,url);
  if(node){title=plain(node.name);description=plain(node.description);summary=offer(node.offers);variants=arr(node.hasVariant).slice(0,250).map(v=>{const name=plain(v.name);return {label:plain(typeof v.size==='string'?v.size:name.startsWith(title+' - ')?name.slice(title.length+3):'').slice(0,60),...offer(v.offers)};}).filter(x=>x.label);}
+ else if(tenant.id==='anete'){title=plain(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/iu)?.[1]);description=plain(block(html,/<(div)\b[^>]*\bid=["']tab-description["'][^>]*>/iu));}
  else if(tenant.id==='bariba'){title=plain(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/iu)?.[1]);description=plain(block(html,/<(div)\b[^>]*\bid=["']tab-description["'][^>]*>/iu));}
  else if(tenant.id==='hobbyset'){title=plain(block(html,/<(div)\b[^>]*class=["'][^"']*inner_product_name[^"']*["'][^>]*>/iu));description=plain(block(html,/<(div)\b[^>]*class=["'][^"']*inner_product_description[^"']*["'][^>]*>/iu));}
  return productFacts(title,description,variants,summary,url,'html');
 }
 function productFacts(title,description,variants,summary,url,format){
- if(!title||title.length>240||description.length<5||/access denied|just a moment|captcha|attention required/i.test(title))throw Error('catalog_parse');
+ if(!title||title.length>700||description.length<5||/access denied|just a moment|captcha|attention required/i.test(title))throw Error('catalog_parse');
  const lines=description.split(/\n+/).map(x=>x.trim()).filter(x=>x.length>2&&!/ignore.{0,30}instruction|system prompt|api.?key|игнориру|системн.{0,10}инструк|ignorē.{0,15}instruk/i.test(x));
  const chart=[];for(const line of lines){const m=line.match(/^(\d{2}(?:[.,]\d)?)(?:\.?\s*(?:izm[eē]rs|размер|size))?\s*[-–—:]\s*(\d{2}(?:[.,]\d{1,2})?)\s*(?:cm|см)(?=\s|[.,;:]|$)/iu);if(m)chart.push({size:m[1].replace(',','.'),cm:m[2].replace(',','.')});}
  const measure=/iekšzolei|длин.{0,8}стельк|insole length/iu.test(description)?'insole':/pēdas garum|длин.{0,8}стоп|foot length/iu.test(description)?'foot':'unspecified';
@@ -43,30 +44,33 @@ export function parseShopifyProduct(json,url,tenant){
  // Ajax prices have no verified presentment currency here. Never assume EUR or read a cart.
  return productFacts(plain(json.title),plain(json.description),variants,{state:state(json.available),price:null},url,'shopify-json');
 }
-async function readText(res){const size=Number(res.headers.get('content-length'));if(size>CATALOG_MAX_BYTES)throw Error('catalog_size');const reader=res.body?.getReader();if(!reader)throw Error('catalog_body');let count=0,chunks=[];while(true){const x=await reader.read();if(x.done)break;count+=x.value.length;if(count>CATALOG_MAX_BYTES){await reader.cancel();throw Error('catalog_size');}chunks.push(x.value);}const b=new Uint8Array(count);let at=0;for(const x of chunks){b.set(x,at);at+=x.length;}return new TextDecoder('utf-8',{fatal:true}).decode(b);}
-export async function fetchProduct(url,tenant,fetcher=fetch,cache=null){
+export async function readText(res,max=CATALOG_MAX_BYTES){const size=Number(res.headers.get('content-length'));if(size>max)throw Error('catalog_size');const reader=res.body?.getReader();if(!reader)throw Error('catalog_body');let count=0,chunks=[];while(true){const x=await reader.read();if(x.done)break;count+=x.value.length;if(count>max){await reader.cancel();throw Error('catalog_size');}chunks.push(x.value);}const b=new Uint8Array(count);let at=0;for(const x of chunks){b.set(x,at);at+=x.length;}return new TextDecoder('utf-8',{fatal:true}).decode(b);}
+export async function fetchProduct(url,tenant,fetcher=fetch,cache=null,preferJson=false){
  let target=productURL(url,tenant);if(!target)throw Error('catalog_url');const key=new Request('https://catalog-cache.invalid/'+tenant.id+'?url='+encodeURIComponent(target));
  if(cache){try{const hit=await cache.match(key);if(hit){const data=await hit.json();if(data.url===target&&Date.now()-Date.parse(data.checkedAt)>=0&&Date.now()-Date.parse(data.checkedAt)<CATALOG_TTL*1000)return {...data,cached:true};}}catch{}}
  const original=target,signal=AbortSignal.timeout(18000),attempts=[];
- const options=(accept,timeout=6500)=>({method:'GET',redirect:'manual',signal:AbortSignal.any([signal,AbortSignal.timeout(timeout)]),headers:{Accept:accept}});
+ const options=(accept,timeout=6500)=>({method:'GET',redirect:'manual',signal:AbortSignal.any([signal,AbortSignal.timeout(timeout)]),headers:{Accept:accept,'User-Agent':'LomentiDemoCatalog/1.0 (read-only public catalogue)'}});
  const success=async data=>{if(cache){try{await cache.put(key,Response.json({...data,url:original},{headers:{'Cache-Control':'public,max-age='+CATALOG_TTL}}));}catch{}}return {...data,url:original,cached:false};};
- try{for(let attempt=0;attempt<2;attempt++){
-  const res=await fetcher(target,options('text/html'));
-  if(res.status>=300&&res.status<400){const next=new URL(res.headers.get('Location')||'',target).href;target=productURL(next,tenant);if(!target||attempt===1||productIdentity(target)!==productIdentity(original))throw Error('catalog_redirect');continue;}
-  if(!res.ok)throw Error('catalog_http_'+res.status);
-  if(!/^text\/html\b/i.test(res.headers.get('Content-Type')||''))throw Error('catalog_mime');
-  return await success(parseProduct(await readText(res),target,tenant));
- }}catch(error){attempts.push({format:'html',error:failureReason(error)});if(error.message==='catalog_redirect')throw catalogFailure(attempts);}
- if(shopifyTenants.has(tenant.id)&&!signal.aborted){
-  try{const endpoint=new URL(original);endpoint.pathname=endpoint.pathname.replace(/\/$/,'')+'.js';
-   const res=await fetcher(endpoint.href,options('application/json',10000));
+ const formats=shopifyTenants.has(tenant.id)?preferJson?['shopify-json','html']:['html','shopify-json']:['html'];
+ for(const format of formats){if(signal.aborted)break;try{
+  if(format==='shopify-json'){
+   const endpoint=new URL(original);endpoint.pathname=endpoint.pathname.replace(/\/$/,'')+'.js';
+   const res=await fetcher(endpoint.href,options('application/json',preferJson?6500:10000));
    if(res.status>=300&&res.status<400)throw Error('catalog_redirect');
    if(!res.ok)throw Error('catalog_http_'+res.status);
    if(!/^(?:application\/json|text\/javascript|application\/javascript)\b/i.test(res.headers.get('Content-Type')||''))throw Error('catalog_mime');
    let json;try{json=JSON.parse(await readText(res));}catch(error){if(error instanceof SyntaxError)throw Error('catalog_parse');throw error;}
    return await success(parseShopifyProduct(json,original,tenant));
-  }catch(error){attempts.push({format:'shopify-json',error:failureReason(error)});}
- }
+  }
+  target=original;
+  for(let attempt=0;attempt<2;attempt++){
+   const res=await fetcher(target,options('text/html',tenant.id==='hobbyset'?9000:6500));
+   if(res.status>=300&&res.status<400){const next=new URL(res.headers.get('Location')||'',target).href;target=productURL(next,tenant);if(!target||attempt===1||productIdentity(target)!==productIdentity(original))throw Error('catalog_redirect');continue;}
+   if(!res.ok)throw Error('catalog_http_'+res.status);
+   if(!/^text\/html\b/i.test(res.headers.get('Content-Type')||''))throw Error('catalog_mime');
+   return await success(parseProduct(await readText(res,tenant.id==='anete'?3000000:['bariba','hobbyset'].includes(tenant.id)?2000000:CATALOG_MAX_BYTES),target,tenant));
+  }
+ }catch(error){attempts.push({format,error:failureReason(error)});if(error.message==='catalog_redirect')throw catalogFailure(attempts);}}
  throw catalogFailure(attempts);
 }
 function failureReason(error){const m=String(error?.message||'');return /^catalog_(?:http_\d{3}|url|redirect|mime|parse|size|body)$/.test(m)?m.slice(8):['AbortError','TimeoutError'].includes(error?.name)?'timeout':'network';}
