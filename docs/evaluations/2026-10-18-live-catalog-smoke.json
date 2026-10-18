@@ -1,0 +1,235 @@
+{
+  "schema": "catalog-live-smoke-v1",
+  "startedAt": "2026-10-18T16:01:25.281192+00:00",
+  "release": "86d96cdd2daf59c5e9884e21da857e7672311cd6",
+  "approval": {
+    "maxChatRequests": 6,
+    "retry": false,
+    "budgetChanges": false
+  },
+  "scope": "Direct product questions, one per accessible shop; not full search or conversation evaluation",
+  "preflightNote": "Prior preflight sent zero chat requests. Client /api/usage is intentionally unavailable; existing guard enforces every request budget. No route or configuration changed.",
+  "rows": [
+    {
+      "tenant": "bariba",
+      "locale": "ru",
+      "question": "Какой состав у этого корма для щенков? Есть ли в составе курица?",
+      "productURL": "https://www.bariba.lv/cooking-grain-free-puppies-recipe-daily-menu-sausa-bariba-kuceniem12-kg.html",
+      "startedAt": "2026-10-18T16:02:14.984228+00:00",
+      "state": "complete",
+      "requestBodySha256": "edff4b9e5695345e533da8aab1ccce0c7f848b2de453ee4560e2c3ff376e881e",
+      "httpStatus": 200,
+      "elapsedMs": 10128,
+      "answer": {
+        "locale": "ru",
+        "text": "В составе корма CooKing Grain Free Puppies Recipe Daily Menu есть свежая птица, в частности, свежая куриная грудка составляет около 25% и также используются куриные жиры и куриные печеночные гидролизаты. Вот выдержка: \"Gaļa un dzīvnieku izcelsmes produkti (svaiga putnu gaļa vismaz 25%),...vistu tauki,... vistas aknu hidrolizāts\".",
+        "sources": [
+          {
+            "title": "CooKing Grain Free Puppies Recipe Daily Menu - sausā barība kucēniem12 kg",
+            "url": "https://www.bariba.lv/cooking-grain-free-puppies-recipe-daily-menu-sausa-bariba-kuceniem12-kg.html",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": true,
+        "conversational": true,
+        "catalogRevision": "retrieval-v1",
+        "productRead": true,
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": false,
+        "checked": "2026-10-18T16:02:21.015Z"
+      },
+      "humanReview": {
+        "outcome": "factual_error",
+        "finding": "The source says fresh poultry meat at least 25%, not chicken breast around 25%. Chicken fat and chicken liver hydrolysate support presence of chicken but do not support that invented cut or changed percentage qualifier. Existing number and exact-quote validation accepted this semantic distortion.",
+        "sourceChecked": true
+      }
+    },
+    {
+      "tenant": "hobbyset",
+      "locale": "lv",
+      "question": "Cik krāsu ir šajā komplektā un kāds ir to sastāvs?",
+      "productURL": "https://hobbyset.lv/products/lv/2372/150958/sort/1/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-12-kr%C4%81sas.html",
+      "startedAt": "2026-10-18T16:02:25.113315+00:00",
+      "state": "complete",
+      "requestBodySha256": "48a892686d49f4fdc5410006b19694de8229adefa22f720b81551485dfc33460",
+      "httpStatus": 200,
+      "elapsedMs": 5207,
+      "answer": {
+        "locale": "lv",
+        "text": "Šobrīd atrastās preces aprakstu nevarēja nolasīt. Mēģiniet vēlāk vai atsūtiet citu saiti.",
+        "sources": [],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": false,
+        "catalogRevision": "retrieval-v1",
+        "productRead": false,
+        "readFailures": 1,
+        "catalogReadDiagnostics": [
+          {
+            "url": "https://hobbyset.lv/products/lv/2372/150958/sort/1/filter/0_0_0_0/Akvare%C4%BCkr%C4%81su-komplekts-12-kr%C4%81sas.html",
+            "attempts": [
+              {
+                "format": "html",
+                "error": "http_403"
+              }
+            ]
+          }
+        ],
+        "catalogMetadataOnly": false,
+        "checked": "2026-10-15"
+      },
+      "humanReview": {
+        "outcome": "source_blocked",
+        "finding": "The deployed Worker received HTTP 403 from the merchant. No provider call. Independent later public read succeeded, confirming the product page exists; this is a Worker access problem, not absent assortment.",
+        "sourceChecked": true
+      }
+    },
+    {
+      "tenant": "apavi40plus",
+      "locale": "en",
+      "question": "What materials are the upper and lining of these shoes made from?",
+      "productURL": "https://apavi40plus.com/products/josef-seibel-viriesu-klasiskie-adas-apavi-ar-k-platumu-modelis-42801-860-100",
+      "startedAt": "2026-10-18T16:02:30.322047+00:00",
+      "state": "complete",
+      "requestBodySha256": "e0035f4484e5129e13d23f90079421b21db88e0c2949c932e0a8954449c065aa",
+      "httpStatus": 200,
+      "elapsedMs": 7701,
+      "answer": {
+        "locale": "en",
+        "text": "1. Josef Seibel – Vīriešu klasiskie ādas apavi ar K platumu (Modelis 42801 860 100)\nFrom the shop description (original): Brūna ādas odere: Kontrastējošā, silti brūnā iekšpuse nav tikai vizuāls akcents – tā ir mīksta un nodrošina izcilu mikroklimatu pēdai visas dienas garumā.\n\nA name alone cannot confirm compatibility, safety or a suitable size. Which option would you like to look at more closely?",
+        "sources": [
+          {
+            "title": "Josef Seibel – Vīriešu klasiskie ādas apavi ar K platumu (Modelis 42801 860 100)",
+            "url": "https://apavi40plus.com/products/josef-seibel-viriesu-klasiskie-adas-apavi-ar-k-platumu-modelis-42801-860-100",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": true,
+        "fallbackReason": "answer_validation",
+        "validationReason": "catalog_evidence_quote",
+        "catalogRevision": "retrieval-v1",
+        "productRead": true,
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": false,
+        "checked": "2026-10-18T16:02:36.013Z"
+      },
+      "humanReview": {
+        "outcome": "validation_fallback",
+        "finding": "Provider attempted; catalog_evidence_quote rejected the answer. Rejected text is not exposed, so the exact quoting mistake is unknown. Fallback mixes English with a long Latvian excerpt and asks an unnecessary question. Source technical material and lining fields occur at description indexes 19 and 20, beyond the first 12 lines sent to the model; earlier marketing mentions both, but omits the technical textile qualification.",
+        "sourceChecked": true
+      }
+    },
+    {
+      "tenant": "rotallieta",
+      "locale": "ru",
+      "question": "Входят ли батарейки в комплект этой игрушки?",
+      "productURL": "https://rotallieta.lv/prece/aktivitates-delis-busy-board-rotalu-virtuve-huanger/",
+      "startedAt": "2026-10-18T16:02:38.026275+00:00",
+      "state": "complete",
+      "requestBodySha256": "7f87e4fc613d6702bc4731939a46cc9ada6aefb21789e9943ad26dae3c8be7ee",
+      "httpStatus": 200,
+      "elapsedMs": 8497,
+      "answer": {
+        "locale": "ru",
+        "text": "В комплект игрушки не входят батарейки. Для работы требуется 3 батарейки AA, но их нужно приобрести отдельно.",
+        "sources": [
+          {
+            "title": "Aktivitātes dēlis Busy Board rotaļu virtuve Huanger Kitchen training board",
+            "url": "https://rotallieta.lv/prece/aktivitates-delis-busy-board-rotalu-virtuve-huanger/",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": true,
+        "conversational": true,
+        "catalogRevision": "retrieval-v1",
+        "productRead": true,
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": false,
+        "checked": "2026-10-18T16:02:44.600Z"
+      },
+      "humanReview": {
+        "outcome": "accepted_this_case",
+        "finding": "Independent source confirms 3 x AA batteries, not included. The Russian answer preserves both details. This single case does not establish full toy or age-safety coverage.",
+        "sourceChecked": true
+      }
+    },
+    {
+      "tenant": "celotajs",
+      "locale": "en",
+      "question": "How many people does this tent fit and what does it weigh?",
+      "productURL": "https://veikalscelotajs.lv/products/astonvietiga-telts-coleman-octagon-8-blackout",
+      "startedAt": "2026-10-18T16:02:46.523963+00:00",
+      "state": "complete",
+      "requestBodySha256": "77b7d22e32230eec6d78ffed798ae02cf189cf453ccd549ceb83da115aa72039",
+      "httpStatus": 200,
+      "elapsedMs": 7023,
+      "answer": {
+        "locale": "en",
+        "text": "This tent fits 8 people comfortably. However, the weight of the tent is not specified in the available information.",
+        "sources": [
+          {
+            "title": "Astoņvietīga telts Coleman Octagon 8 BlackOut",
+            "url": "https://veikalscelotajs.lv/products/astonvietiga-telts-coleman-octagon-8-blackout",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": true,
+        "conversational": true,
+        "catalogRevision": "retrieval-v1",
+        "productRead": true,
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": false,
+        "checked": "2026-10-18T16:02:51.963Z"
+      },
+      "humanReview": {
+        "outcome": "accepted_this_case",
+        "finding": "Independent parsed product description confirms capacity 8 and contains no weight field. The English answer gives capacity and clearly declines to invent weight. This does not establish that no weight exists elsewhere on the website.",
+        "sourceChecked": true
+      }
+    }
+  ],
+  "pending": [
+    {
+      "tenant": "anete",
+      "reason": "No authenticated session or demo password available; no login/chat attempted"
+    }
+  ],
+  "finishedAt": "2026-10-18T16:02:53.548615+00:00",
+  "summary": {
+    "plannedShops": 6,
+    "chatRequests": 5,
+    "providerAttemptsReported": 4,
+    "generatedRepliesAcceptedByServer": 3,
+    "acceptedAfterSourceReview": 2,
+    "factualErrors": 1,
+    "validationFallbacks": 1,
+    "merchantReadBlocked": 1,
+    "notExecuted": 1,
+    "retries": 0,
+    "expectedReservationMicroUSD": 40000,
+    "actualOpenAIInvoice": "not_read",
+    "elapsedRangeMs": [
+      5207,
+      10128
+    ],
+    "readyForOutreach": false
+  },
+  "auditNote": "Original live-50 reports on the user PC were not accessed, modified or merged. This is a separate small smoke test. No cloud deployment, budget changes or further paid attempts were performed during this audit. Source review used separate free public reads; raw merchant pages and credentials are excluded."
+}

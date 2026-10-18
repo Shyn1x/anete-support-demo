@@ -1,0 +1,20 @@
+{
+  "schema": "catalog-live-smoke-v1",
+  "startedAt": "2026-10-18T16:00:09.804572+00:00",
+  "release": "86d96cdd2daf59c5e9884e21da857e7672311cd6",
+  "approval": {
+    "maxChatRequests": 6,
+    "retry": false,
+    "budgetChanges": false
+  },
+  "scope": "Direct product questions, one per accessible shop; not full search or conversation evaluation",
+  "rows": [],
+  "pending": [
+    {
+      "tenant": "anete",
+      "reason": "No authenticated session or demo password available; no login/chat attempted"
+    }
+  ],
+  "stoppedReason": "bariba: usage unavailable; no chat",
+  "finishedAt": "2026-10-18T16:00:27.040526+00:00"
+}
