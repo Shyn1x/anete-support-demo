@@ -9,6 +9,6 @@ window.fetch=async function(path,options){
 };`,resolveDir:process.cwd(),sourcefile:'standalone-entry.js'},bundle:true,write:false,format:'iife',minify:true,platform:'browser'});
 let html=await readFile('public/index.html','utf8');const css=(await readFile('public/style.css','utf8'))+'\n'+(await readFile('public/brand.css','utf8')),app=(await build({entryPoints:['public/app.js'],bundle:true,write:false,format:'iife',minify:true,platform:'browser'})).outputFiles[0].text,icon=await readFile('public/favicon.svg','utf8');
 html=html.replace(/<link rel="stylesheet" href="\/brand\.css(?:\?v=[a-f0-9]+)?">/,'').replace('<link rel="icon" href="/favicon.svg">',`<link rel="icon" href="data:image/svg+xml,${encodeURIComponent(icon)}">`).replace(/<link rel="stylesheet" href="\/style\.css(?:\?v=[a-f0-9]+)?">/,`<style>${css}</style>`).replace(/<script[^>]*src="\/(?:app\.js|chat-ui\.[a-f0-9]{12}\.js)"[^>]*><\/script>/,'');
-html=html.replace('href="/" aria-label="Support Studio"','href="#" aria-label="Support Studio"');
+html=html.replace('href="/" aria-label="Lomenti"','href="#" aria-label="Lomenti"');
 html=html.replace('</body>',`<script>${result.outputFiles[0].text.replaceAll('</script','<\\/script')}${app.replaceAll('</script','<\\/script')}</script></body>`);
 await writeFile('Anete-demo-offline.html',html);console.log('Built Anete-demo-offline.html: RU/LV/EN reference chat, no API calls or costs.');
