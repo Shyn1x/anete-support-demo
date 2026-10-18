@@ -5,7 +5,7 @@
 .contact-options{display:grid;grid-template-columns:1fr 1fr;gap:8px}.contact-options button{margin:0;min-height:44px}.handoff{max-height:360px}#contact-warning{font-size:11px;color:#77532b}#contact-step{border-top:1px solid #efd9bc;margin-top:12px;padding-top:6px}#contact-preview{max-height:150px;overflow:auto;overflow-wrap:anywhere}.handoff .contact-open{display:inline-block;background:var(--green);color:white;padding:12px;border-radius:8px;text-decoration:none;margin-bottom:10px;min-height:44px}#contact-back{display:block;margin-bottom:12px}@media(max-width:360px){.contact-options{grid-template-columns:1fr}}
 
 /* Keep contact choices visible instead of allowing flexbox to squash the panel. */
-.chat-shell.has-handoff .suggestions{display:none}.chat-shell.has-handoff .messages{min-height:100px}.chat-shell.has-handoff .handoff{flex-shrink:0;max-height:min(360px,36dvh);min-height:170px}.chat-shell.has-handoff .handoff>p{margin:8px 0}.contact-options{margin:12px 0}.chat-shell.has-handoff .handoff>b{display:block}
+.chat-shell.has-handoff .suggestions{display:none}.chat-shell.has-handoff .messages{min-height:64px}.chat-shell.has-handoff .handoff{flex-shrink:1;min-height:60px}.handoff-content>p{margin:8px 0}.contact-options{margin:12px 0}.chat-shell.has-handoff .handoff>b{display:block}
 
 #contact-step{width:min(92vw,460px);max-height:85dvh;overflow:auto;margin:auto;padding:24px}#contact-step pre{font:inherit;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5;background:#f2f3ed;padding:12px;border-radius:8px}#contact-step .contact-open{display:block;padding:14px;background:var(--green);color:white;text-align:center;text-decoration:none;border-radius:8px;margin:16px 0;min-height:44px}#contact-step>a:not(.contact-open){display:block;margin:12px 0;color:var(--green);font-size:12px}#contact-step #contact-back{margin:16px 0 0}#contact-step #contact-warning{font-size:12px;background:#fff5e9;padding:12px;border-radius:8px}
 
@@ -17,3 +17,16 @@ h1{font-size:clamp(30px,3vw,44px);line-height:1.15;letter-spacing:-1.2px;margin:
 .attachment-toolbar{display:flex;gap:8px;padding:10px 20px 0}.attachment-toolbar button{border:1px solid #d7d9d3;background:white;border-radius:12px;padding:9px 12px;color:#192d39;cursor:pointer}.attachment-toolbar button:disabled{opacity:.5;cursor:default}.attachment-hint,#attachment-status{font-size:12px;line-height:1.5;padding:0 20px;color:#66716c;margin:6px 0}.attachment-preview{padding:4px 20px}.attachment-preview img,.message-attachment{display:block;max-width:180px;max-height:140px;border-radius:10px;margin-top:7px} [hidden]{display:none!important}
 
 .catalog-diagnostic{display:block;margin-top:1rem;padding:.5rem .75rem;border:1px solid var(--line,#d9ddd7);border-radius:.65rem;background:transparent;color:inherit;font:inherit;font-size:.85em;cursor:pointer}.catalog-diagnostic-text{display:block;width:100%;max-width:100%;margin-top:.7rem;padding:.6rem;border:1px solid #d9ddd7;border-radius:.5rem;font:12px/1.5 monospace;overflow:auto}
+
+/* Keep the toggle and composer available; scroll only the contact contents. */
+.chat-head,.demo-banner,.attachment-toolbar,.attachment-hint,#attachment-status,#attachment-preview,#chat-form,.composer-note{flex-shrink:0}
+.handoff{display:flex;flex-direction:column;padding:0;overflow:hidden;max-height:min(360px,36dvh)}
+.handoff .handoff-toggle{display:flex;align-items:center;gap:10px;flex-shrink:0;width:100%;border:0;border-radius:0;margin:0;padding:12px 14px;min-height:60px;cursor:pointer;font:inherit;line-height:1.4;text-align:left;background:transparent;color:var(--ink)}
+:root[data-shop] .handoff .handoff-toggle{background:transparent;color:var(--ink)}
+.handoff-toggle b{flex:1;min-width:0;overflow-wrap:anywhere}
+.handoff-toggle span{flex-shrink:0;font-size:12px;text-decoration:underline;text-underline-offset:3px}
+.handoff-toggle:focus-visible{outline:3px solid #e1a374;outline-offset:-4px;border-radius:10px}
+.handoff-toggle::after{content:'';width:7px;height:7px;flex-shrink:0;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);margin:0 2px 4px}
+.handoff-toggle[aria-expanded=true]::after{transform:rotate(225deg);margin-block:4px 0}
+.handoff-toggle[aria-expanded=false] .handoff-collapse,.handoff-toggle[aria-expanded=true] .handoff-expand{display:none}
+.handoff-content{padding:0 14px 12px;min-height:0;overflow:auto;overflow-wrap:anywhere}

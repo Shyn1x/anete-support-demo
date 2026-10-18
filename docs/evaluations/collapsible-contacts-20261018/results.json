@@ -1,0 +1,727 @@
+{
+  "cases": 90,
+  "apiCalls": 180,
+  "externalRequests": 0,
+  "results": [
+    {
+      "shop": "anete",
+      "locale": "ru",
+      "width": 320,
+      "expandedHeight": 162.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "anete",
+      "locale": "ru",
+      "width": 375,
+      "expandedHeight": 228.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "anete",
+      "locale": "ru",
+      "width": 390,
+      "expandedHeight": 228.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "anete",
+      "locale": "ru",
+      "width": 430,
+      "expandedHeight": 246.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "anete",
+      "locale": "ru",
+      "width": 1280,
+      "expandedHeight": 253,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "anete",
+      "locale": "lv",
+      "width": 320,
+      "expandedHeight": 209.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "anete",
+      "locale": "lv",
+      "width": 375,
+      "expandedHeight": 246.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "anete",
+      "locale": "lv",
+      "width": 390,
+      "expandedHeight": 246.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "anete",
+      "locale": "lv",
+      "width": 430,
+      "expandedHeight": 246.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "anete",
+      "locale": "lv",
+      "width": 1280,
+      "expandedHeight": 253,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "anete",
+      "locale": "en",
+      "width": 320,
+      "expandedHeight": 209.3125,
+      "collapsedHeight": 76.390625,
+      "pass": true
+    },
+    {
+      "shop": "anete",
+      "locale": "en",
+      "width": 375,
+      "expandedHeight": 238.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "anete",
+      "locale": "en",
+      "width": 390,
+      "expandedHeight": 246.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "anete",
+      "locale": "en",
+      "width": 430,
+      "expandedHeight": 246.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "anete",
+      "locale": "en",
+      "width": 1280,
+      "expandedHeight": 253,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "bariba",
+      "locale": "ru",
+      "width": 320,
+      "expandedHeight": 158.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "bariba",
+      "locale": "ru",
+      "width": 375,
+      "expandedHeight": 224.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "bariba",
+      "locale": "ru",
+      "width": 390,
+      "expandedHeight": 224.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "bariba",
+      "locale": "ru",
+      "width": 430,
+      "expandedHeight": 242.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "bariba",
+      "locale": "ru",
+      "width": 1280,
+      "expandedHeight": 249,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "bariba",
+      "locale": "lv",
+      "width": 320,
+      "expandedHeight": 205.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "bariba",
+      "locale": "lv",
+      "width": 375,
+      "expandedHeight": 242.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "bariba",
+      "locale": "lv",
+      "width": 390,
+      "expandedHeight": 242.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "bariba",
+      "locale": "lv",
+      "width": 430,
+      "expandedHeight": 242.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "bariba",
+      "locale": "lv",
+      "width": 1280,
+      "expandedHeight": 249,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "bariba",
+      "locale": "en",
+      "width": 320,
+      "expandedHeight": 205.3125,
+      "collapsedHeight": 76.390625,
+      "pass": true
+    },
+    {
+      "shop": "bariba",
+      "locale": "en",
+      "width": 375,
+      "expandedHeight": 234.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "bariba",
+      "locale": "en",
+      "width": 390,
+      "expandedHeight": 242.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "bariba",
+      "locale": "en",
+      "width": 430,
+      "expandedHeight": 242.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "bariba",
+      "locale": "en",
+      "width": 1280,
+      "expandedHeight": 249,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "hobbyset",
+      "locale": "ru",
+      "width": 320,
+      "expandedHeight": 158.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "hobbyset",
+      "locale": "ru",
+      "width": 375,
+      "expandedHeight": 216.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "hobbyset",
+      "locale": "ru",
+      "width": 390,
+      "expandedHeight": 224.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "hobbyset",
+      "locale": "ru",
+      "width": 430,
+      "expandedHeight": 242.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "hobbyset",
+      "locale": "ru",
+      "width": 1280,
+      "expandedHeight": 249,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "hobbyset",
+      "locale": "lv",
+      "width": 320,
+      "expandedHeight": 205.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "hobbyset",
+      "locale": "lv",
+      "width": 375,
+      "expandedHeight": 242.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "hobbyset",
+      "locale": "lv",
+      "width": 390,
+      "expandedHeight": 242.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "hobbyset",
+      "locale": "lv",
+      "width": 430,
+      "expandedHeight": 242.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "hobbyset",
+      "locale": "lv",
+      "width": 1280,
+      "expandedHeight": 249,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "hobbyset",
+      "locale": "en",
+      "width": 320,
+      "expandedHeight": 205.3125,
+      "collapsedHeight": 76.390625,
+      "pass": true
+    },
+    {
+      "shop": "hobbyset",
+      "locale": "en",
+      "width": 375,
+      "expandedHeight": 234.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "hobbyset",
+      "locale": "en",
+      "width": 390,
+      "expandedHeight": 234.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "hobbyset",
+      "locale": "en",
+      "width": 430,
+      "expandedHeight": 242.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "hobbyset",
+      "locale": "en",
+      "width": 1280,
+      "expandedHeight": 249,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "apavi40plus",
+      "locale": "ru",
+      "width": 320,
+      "expandedHeight": 158.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "apavi40plus",
+      "locale": "ru",
+      "width": 375,
+      "expandedHeight": 216.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "apavi40plus",
+      "locale": "ru",
+      "width": 390,
+      "expandedHeight": 216.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "apavi40plus",
+      "locale": "ru",
+      "width": 430,
+      "expandedHeight": 242.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "apavi40plus",
+      "locale": "ru",
+      "width": 1280,
+      "expandedHeight": 249,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "apavi40plus",
+      "locale": "lv",
+      "width": 320,
+      "expandedHeight": 205.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "apavi40plus",
+      "locale": "lv",
+      "width": 375,
+      "expandedHeight": 234.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "apavi40plus",
+      "locale": "lv",
+      "width": 390,
+      "expandedHeight": 242.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "apavi40plus",
+      "locale": "lv",
+      "width": 430,
+      "expandedHeight": 242.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "apavi40plus",
+      "locale": "lv",
+      "width": 1280,
+      "expandedHeight": 249,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "apavi40plus",
+      "locale": "en",
+      "width": 320,
+      "expandedHeight": 205.3125,
+      "collapsedHeight": 76.390625,
+      "pass": true
+    },
+    {
+      "shop": "apavi40plus",
+      "locale": "en",
+      "width": 375,
+      "expandedHeight": 234.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "apavi40plus",
+      "locale": "en",
+      "width": 390,
+      "expandedHeight": 234.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "apavi40plus",
+      "locale": "en",
+      "width": 430,
+      "expandedHeight": 242.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "apavi40plus",
+      "locale": "en",
+      "width": 1280,
+      "expandedHeight": 249,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "rotallieta",
+      "locale": "ru",
+      "width": 320,
+      "expandedHeight": 158.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "rotallieta",
+      "locale": "ru",
+      "width": 375,
+      "expandedHeight": 216.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "rotallieta",
+      "locale": "ru",
+      "width": 390,
+      "expandedHeight": 216.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "rotallieta",
+      "locale": "ru",
+      "width": 430,
+      "expandedHeight": 242.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "rotallieta",
+      "locale": "ru",
+      "width": 1280,
+      "expandedHeight": 249,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "rotallieta",
+      "locale": "lv",
+      "width": 320,
+      "expandedHeight": 205.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "rotallieta",
+      "locale": "lv",
+      "width": 375,
+      "expandedHeight": 242.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "rotallieta",
+      "locale": "lv",
+      "width": 390,
+      "expandedHeight": 242.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "rotallieta",
+      "locale": "lv",
+      "width": 430,
+      "expandedHeight": 242.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "rotallieta",
+      "locale": "lv",
+      "width": 1280,
+      "expandedHeight": 249,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "rotallieta",
+      "locale": "en",
+      "width": 320,
+      "expandedHeight": 205.3125,
+      "collapsedHeight": 76.390625,
+      "pass": true
+    },
+    {
+      "shop": "rotallieta",
+      "locale": "en",
+      "width": 375,
+      "expandedHeight": 234.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "rotallieta",
+      "locale": "en",
+      "width": 390,
+      "expandedHeight": 234.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "rotallieta",
+      "locale": "en",
+      "width": 430,
+      "expandedHeight": 242.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "rotallieta",
+      "locale": "en",
+      "width": 1280,
+      "expandedHeight": 249,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "celotajs",
+      "locale": "ru",
+      "width": 320,
+      "expandedHeight": 158.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "celotajs",
+      "locale": "ru",
+      "width": 375,
+      "expandedHeight": 216.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "celotajs",
+      "locale": "ru",
+      "width": 390,
+      "expandedHeight": 216.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "celotajs",
+      "locale": "ru",
+      "width": 430,
+      "expandedHeight": 242.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "celotajs",
+      "locale": "ru",
+      "width": 1280,
+      "expandedHeight": 249,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "celotajs",
+      "locale": "lv",
+      "width": 320,
+      "expandedHeight": 205.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "celotajs",
+      "locale": "lv",
+      "width": 375,
+      "expandedHeight": 234.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "celotajs",
+      "locale": "lv",
+      "width": 390,
+      "expandedHeight": 234.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "celotajs",
+      "locale": "lv",
+      "width": 430,
+      "expandedHeight": 242.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "celotajs",
+      "locale": "lv",
+      "width": 1280,
+      "expandedHeight": 249,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "celotajs",
+      "locale": "en",
+      "width": 320,
+      "expandedHeight": 205.3125,
+      "collapsedHeight": 76.390625,
+      "pass": true
+    },
+    {
+      "shop": "celotajs",
+      "locale": "en",
+      "width": 375,
+      "expandedHeight": 234.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "celotajs",
+      "locale": "en",
+      "width": 390,
+      "expandedHeight": 234.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "celotajs",
+      "locale": "en",
+      "width": 430,
+      "expandedHeight": 234.3125,
+      "collapsedHeight": 62,
+      "pass": true
+    },
+    {
+      "shop": "celotajs",
+      "locale": "en",
+      "width": 1280,
+      "expandedHeight": 249,
+      "collapsedHeight": 62,
+      "pass": true
+    }
+  ]
+}

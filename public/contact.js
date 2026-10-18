@@ -33,3 +33,12 @@ export function mountContactChoices(root,contact,locale,summary){
  q('contact-back').textContent=t.cancel;
  q('contact-back').onclick=()=>{q('contact-step').close();q('contact-step').hidden=true;q('contact-open').removeAttribute('href');};
 }
+
+// This UI-only disclosure never navigates, sends a message or changes chat state.
+export function mountHandoffPanel(root){
+ const toggle=root.querySelector('#handoff-toggle'),content=root.querySelector('#handoff-content');
+ const expanded=value=>{toggle.setAttribute('aria-expanded',String(value));content.hidden=!value;};
+ toggle.onclick=()=>expanded(content.hidden);
+ expanded(true);
+ return {reset:()=>expanded(true)};
+}
