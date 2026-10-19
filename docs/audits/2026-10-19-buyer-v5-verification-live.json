@@ -1,0 +1,463 @@
+{
+  "schema": "buyer-conversation-audit-v1",
+  "startedAt": "2026-10-19T19:33:51.304721+00:00",
+  "planSha256": "b2bab1bad1f57c4c5f0ab60f51a4324fa3c5802c5de28a3a091557fa67ebe8de",
+  "authorization": {
+    "maxChatRequests": 6,
+    "maxReservationMicroUSD": 60000,
+    "retries": false,
+    "budgetChanges": false
+  },
+  "scope": "Post-publication buyer-v5 verification of six targeted turns across three shops. Only first six cases authorized; remaining44 retained solely for existing runner schema, not authorized or executed. Request cap6, reserve cap USD0.06, no retries. Separate from all previous reports, not legacy live-50 completion.",
+  "missing": [
+    {
+      "tenant": "anete",
+      "reason": "No authenticated session; no login/chat attempted."
+    },
+    {
+      "tenant": "bariba",
+      "reason": "Not repeated: targeted v5 fixes do not require repeating already source-reviewed v4 food/conflict cases."
+    },
+    {
+      "tenant": "celotajs",
+      "reason": "Not repeated in targeted v5 verification."
+    }
+  ],
+  "configs": [
+    {
+      "tenant": "hobbyset",
+      "catalogRevision": "buyer-v5",
+      "conversationRevision": "context-v2",
+      "perCallMicroUSD": 10000,
+      "auditRevision": "safe-resume-v1"
+    },
+    {
+      "tenant": "apavi40plus",
+      "catalogRevision": "buyer-v5",
+      "conversationRevision": "context-v2",
+      "perCallMicroUSD": 10000,
+      "auditRevision": "safe-resume-v1"
+    },
+    {
+      "tenant": "rotallieta",
+      "catalogRevision": "buyer-v5",
+      "conversationRevision": "context-v2",
+      "perCallMicroUSD": 10000,
+      "auditRevision": "safe-resume-v1"
+    }
+  ],
+  "rows": [
+    {
+      "id": "v5-hobbyset-1",
+      "tenant": "hobbyset",
+      "goal": "natural-product-selection",
+      "question": "Kādas akrila krāsas var apskatīt?",
+      "expectedLocale": "lv",
+      "expect": {
+        "selection": true
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v5",
+      "state": "complete",
+      "startedAt": "2026-10-19T19:34:25.542739+00:00",
+      "requestBodySha256": "44387cb8a29a4d06e67efdeb73b7dd2c332b2dd2879e0fd645e6a005f696673b",
+      "inputContext": {
+        "locale": "ru",
+        "previousTopic": null,
+        "productURL": null,
+        "catalogURLs": [],
+        "history": []
+      },
+      "httpStatus": 200,
+      "elapsedMs": 5818,
+      "answer": {
+        "locale": "lv",
+        "text": "Katalogā atradu šādus variantus:\n1. Akrila krāsa pouringam Pouring Exieriences 118ml ciāna zila Cyan \n2. Akrila krāsa pouringam Pouring Exieriences 118ml vara tonis\n3. Akrila krāsa pouringam Pouring Exieriences 118ml purpura tonis metālisks \n\nTie ir katalogā atrodamie nosaukumi. Aktuālais atlikums un piemērotība konkrētam gadījumam vēl nav pārbaudīti. Ko vēlaties izgatavot un ar kādu materiālu strādāsiet?",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "Akrila krāsa pouringam Pouring Exieriences 118ml ciāna zila Cyan ",
+            "url": "https://hobbyset.lv/products/lv/2224/180792/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-ci%C4%81na-zila-Cyan-.html",
+            "kind": "product"
+          },
+          {
+            "title": "Akrila krāsa pouringam Pouring Exieriences 118ml vara tonis",
+            "url": "https://hobbyset.lv/products/lv/2224/180794/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-vara-tonis.html",
+            "kind": "product"
+          },
+          {
+            "title": "Akrila krāsa pouringam Pouring Exieriences 118ml purpura tonis metālisks ",
+            "url": "https://hobbyset.lv/products/lv/2224/180796/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-purpura-tonis-met%C4%81lisks-.html",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": false,
+        "catalogRevision": "buyer-v5",
+        "productRead": false,
+        "catalogURLs": [
+          "https://hobbyset.lv/products/lv/2224/180792/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-ci%C4%81na-zila-Cyan-.html",
+          "https://hobbyset.lv/products/lv/2224/180794/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-vara-tonis.html",
+          "https://hobbyset.lv/products/lv/2224/180796/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-purpura-tonis-met%C4%81lisks-.html"
+        ],
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": true,
+        "catalogSnapshot": false,
+        "checked": "2026-10-18T12:30:30.009Z"
+      },
+      "assessment": {
+        "contractFlags": [],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "v5-hobbyset-3",
+      "tenant": "hobbyset",
+      "goal": "delivery-priority-over-product-url",
+      "question": "Как получить заказ? https://hobbyset.lv/products/lv/2224/180792/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-ci%C4%81na-zila-Cyan-.html",
+      "expectedLocale": "ru",
+      "expect": {
+        "topic": "delivery"
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v5",
+      "state": "complete",
+      "startedAt": "2026-10-19T19:34:32.544761+00:00",
+      "requestBodySha256": "94f1e226e4a734f556e47273dad4eb7b042e4f6af651efb0416e239e903b703f",
+      "inputContext": {
+        "locale": "lv",
+        "previousTopic": "product-clarify",
+        "productURL": null,
+        "catalogURLs": [],
+        "history": [
+          {
+            "role": "user",
+            "text": "Kādas akrila krāsas var apskatīt?"
+          },
+          {
+            "role": "assistant",
+            "text": "Katalogā atradu šādus variantus:\n1. Akrila krāsa pouringam Pouring Exieriences 118ml ciāna zila Cyan \n2. Akrila krāsa pouringam Pouring Exieriences 118ml vara tonis\n3. Akrila krāsa pouringam Pouring Exieriences 118ml purpura tonis metālisks \n\nTie ir katalogā atrodamie nosaukumi. Aktuālais atlikums un piemērotība konkrētam gadījumam vēl nav pārbaudīti. Ko vēlaties izgatavot un ar kādu materiālu str"
+          }
+        ]
+      },
+      "httpStatus": 200,
+      "elapsedMs": 7982,
+      "answer": {
+        "locale": "ru",
+        "text": "Вы можете получить заказ бесплатно при самовывозе из нашего пункта по адресу Dzirnavu 100, Рига. Рекомендуем перед визитом подтвердить готовность вашего заказа.",
+        "cardIds": [
+          "pickup"
+        ],
+        "sources": [
+          {
+            "title": "Piegāde",
+            "url": "https://hobbyset.lv/site/content/lv/276/Pieg%C4%81des-veidi.html"
+          }
+        ],
+        "handoff": false,
+        "mode": "ai",
+        "topic": "pickup",
+        "providerUsed": true,
+        "conversational": true,
+        "checked": "2026-10-15"
+      },
+      "assessment": {
+        "contractFlags": [],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "v5-apavi40plus-1",
+      "tenant": "apavi40plus",
+      "goal": "natural-product-selection",
+      "question": "Нужны зимние ботинки. Что можете предложить?",
+      "expectedLocale": "ru",
+      "expect": {
+        "selection": true
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v5",
+      "state": "complete",
+      "startedAt": "2026-10-19T19:34:40.528212+00:00",
+      "requestBodySha256": "ff4881dab1f0607cddd215b06adb1565f0f0ea0ad9234e40018e9257bfc78b47",
+      "inputContext": {
+        "locale": "ru",
+        "previousTopic": null,
+        "productURL": null,
+        "catalogURLs": [],
+        "history": []
+      },
+      "httpStatus": 200,
+      "elapsedMs": 5832,
+      "answer": {
+        "locale": "ru",
+        "text": "Нашёл такие варианты в каталоге:\n1. Aaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju\n2. Babouche RAIN – Ekskluzīvi zamšādas ziemas puszābaki ar siltu oderi\n3. Babouche SAAR – Stilīgi ziemas puszābaki ar teksturētu rakstu un siltu oderi\n\nЭто названия из каталога. Актуальное наличие и пригодность для конкретного случая ещё не проверены. Для какого сезона и случая нужна обувь?",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "Aaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju",
+            "url": "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+            "kind": "product"
+          },
+          {
+            "title": "Babouche RAIN – Ekskluzīvi zamšādas ziemas puszābaki ar siltu oderi",
+            "url": "https://apavi40plus.com/products/babouche-rain-ekskluzivi-zamsadas-ziemas-puszabaki-ar-siltu-oderi",
+            "kind": "product"
+          },
+          {
+            "title": "Babouche SAAR – Stilīgi ziemas puszābaki ar teksturētu rakstu un siltu oderi",
+            "url": "https://apavi40plus.com/products/babouche-saar-stiligi-ziemas-puszabaki-ar-teksturetu-rakstu-un-siltu-oderi",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": false,
+        "catalogRevision": "buyer-v5",
+        "productRead": false,
+        "catalogURLs": [
+          "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+          "https://apavi40plus.com/products/babouche-rain-ekskluzivi-zamsadas-ziemas-puszabaki-ar-siltu-oderi",
+          "https://apavi40plus.com/products/babouche-saar-stiligi-ziemas-puszabaki-ar-teksturetu-rakstu-un-siltu-oderi"
+        ],
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": true,
+        "catalogSnapshot": false,
+        "checked": "2026-10-18T09:03:36.932Z"
+      },
+      "assessment": {
+        "contractFlags": [],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "v5-apavi40plus-2",
+      "tenant": "apavi40plus",
+      "goal": "chosen-product-detail",
+      "question": "А у третьих ботинок какая подкладка?",
+      "expectedLocale": "ru",
+      "expect": {
+        "productQuestion": true
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v5",
+      "state": "complete",
+      "startedAt": "2026-10-19T19:34:47.528674+00:00",
+      "requestBodySha256": "07a3e52a7da08f73aedb74e6a7f889c6e7fdd4a6b6837fdb5b5cb1069fc62326",
+      "inputContext": {
+        "locale": "ru",
+        "previousTopic": "product-clarify",
+        "productURL": null,
+        "catalogURLs": [
+          "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+          "https://apavi40plus.com/products/babouche-rain-ekskluzivi-zamsadas-ziemas-puszabaki-ar-siltu-oderi",
+          "https://apavi40plus.com/products/babouche-saar-stiligi-ziemas-puszabaki-ar-teksturetu-rakstu-un-siltu-oderi"
+        ],
+        "history": [
+          {
+            "role": "user",
+            "text": "Нужны зимние ботинки. Что можете предложить?"
+          },
+          {
+            "role": "assistant",
+            "text": "Нашёл такие варианты в каталоге:\n1. Aaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju\n2. Babouche RAIN – Ekskluzīvi zamšādas ziemas puszābaki ar siltu oderi\n3. Babouche SAAR – Stilīgi ziemas puszābaki ar teksturētu rakstu un siltu oderi\n\nЭто названия из каталога. Актуальное наличие и пригодность для конкретного случая ещё не проверены. Для какого сезона и случая нужна обу"
+          }
+        ]
+      },
+      "httpStatus": 200,
+      "elapsedMs": 7574,
+      "answer": {
+        "locale": "ru",
+        "text": "У Babouche SAAR, представленных третьими ботинками, подкладка сделана из теплого искусственного меха, который обеспечивает отличный комфорт и тепло.",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "Babouche SAAR – Stilīgi ziemas puszābaki ar teksturētu rakstu un siltu oderi",
+            "url": "https://apavi40plus.com/products/babouche-saar-stiligi-ziemas-puszabaki-ar-teksturetu-rakstu-un-siltu-oderi",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": true,
+        "conversational": true,
+        "catalogRevision": "buyer-v5",
+        "productRead": true,
+        "catalogURLs": [
+          "https://apavi40plus.com/products/babouche-saar-stiligi-ziemas-puszabaki-ar-teksturetu-rakstu-un-siltu-oderi"
+        ],
+        "productURL": "https://apavi40plus.com/products/babouche-saar-stiligi-ziemas-puszabaki-ar-teksturetu-rakstu-un-siltu-oderi",
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": false,
+        "catalogSnapshot": false,
+        "checked": "2026-10-19T19:34:53.619Z"
+      },
+      "assessment": {
+        "contractFlags": [],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "v5-apavi40plus-3",
+      "tenant": "apavi40plus",
+      "goal": "two-explicit-product-links",
+      "question": "Compare these two products. Only use confirmed differences. https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija",
+      "expectedLocale": "en",
+      "expect": {
+        "twoProductSources": true
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v5",
+      "state": "complete",
+      "startedAt": "2026-10-19T19:34:55.105356+00:00",
+      "requestBodySha256": "a2f071e0952b64b1a965069ca4e0936a067b0a41a251b7aa2afdeb603e5dc534",
+      "inputContext": {
+        "locale": "ru",
+        "previousTopic": "product-clarify",
+        "productURL": null,
+        "catalogURLs": [],
+        "history": [
+          {
+            "role": "user",
+            "text": "Нужны зимние ботинки. Что можете предложить?"
+          },
+          {
+            "role": "assistant",
+            "text": "Нашёл такие варианты в каталоге:\n1. Aaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju\n2. Babouche RAIN – Ekskluzīvi zamšādas ziemas puszābaki ar siltu oderi\n3. Babouche SAAR – Stilīgi ziemas puszābaki ar teksturētu rakstu un siltu oderi\n\nЭто названия из каталога. Актуальное наличие и пригодность для конкретного случая ещё не проверены. Для какого сезона и случая нужна обу"
+          },
+          {
+            "role": "user",
+            "text": "А у третьих ботинок какая подкладка?"
+          },
+          {
+            "role": "assistant",
+            "text": "У Babouche SAAR, представленных третьими ботинками, подкладка сделана из теплого искусственного меха, который обеспечивает отличный комфорт и тепло."
+          }
+        ]
+      },
+      "httpStatus": 200,
+      "elapsedMs": 9099,
+      "answer": {
+        "locale": "en",
+        "text": "Aaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju\n\nI could not reliably confirm all the requested details. Please check the linked product page.\n\nAndres Machado AM6002 – Kovboju stila zābaki ar sudraba kniedēm (Ražots Spānijā)\n\nI could not reliably confirm all the requested details. Please check the linked product page.",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "Aaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju",
+            "url": "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+            "kind": "product"
+          },
+          {
+            "title": "Andres Machado AM6002 – Kovboju stila zābaki ar sudraba kniedēm (Ražots Spānijā)",
+            "url": "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": true,
+        "fallbackReason": "answer_validation",
+        "validationReason": "catalog_evidence_quote",
+        "catalogRevision": "buyer-v5",
+        "productRead": true,
+        "catalogURLs": [
+          "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+          "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija"
+        ],
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": false,
+        "catalogSnapshot": false,
+        "checked": "2026-10-19T19:35:00.879Z"
+      },
+      "assessment": {
+        "contractFlags": [
+          "fallback:answer_validation"
+        ],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "v5-rotallieta-2",
+      "tenant": "rotallieta",
+      "goal": "chosen-product-detail",
+      "question": "Ребёнку 8 лет. Для какого возраста этот пазл? https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/",
+      "expectedLocale": "ru",
+      "expect": {
+        "productQuestion": true
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v5",
+      "state": "complete",
+      "startedAt": "2026-10-19T19:35:04.206120+00:00",
+      "requestBodySha256": "a0ad88ce2618985c067c02fc19305b5636e934cde7e17174cfb6113471f50b92",
+      "inputContext": {
+        "locale": "ru",
+        "previousTopic": null,
+        "productURL": null,
+        "catalogURLs": [],
+        "history": []
+      },
+      "httpStatus": 200,
+      "elapsedMs": 10602,
+      "answer": {
+        "locale": "ru",
+        "text": "3D puzzle globuss 49 pcs\nНа странице указан возраст: 3+.",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "3D puzzle globuss 49 pcs",
+            "url": "https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": true,
+        "fallbackReason": "answer_validation",
+        "validationReason": "unsupported_number",
+        "catalogRevision": "buyer-v5",
+        "productRead": true,
+        "catalogURLs": [
+          "https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/"
+        ],
+        "productURL": "https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/",
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": false,
+        "catalogSnapshot": false,
+        "checked": "2026-10-19T19:35:13.444Z"
+      },
+      "assessment": {
+        "contractFlags": [
+          "fallback:answer_validation"
+        ],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    }
+  ],
+  "stoppedReason": "Local request allowance reached",
+  "finishedAt": "2026-10-19T19:35:14.809281+00:00",
+  "summary": {
+    "chatRequestsSent": 6,
+    "providerAttemptsReported": 4,
+    "ambiguous": 0,
+    "contractFlagged": 2,
+    "accuracy": "requires_source_and_human_review"
+  }
+}
