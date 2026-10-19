@@ -30,3 +30,11 @@ h1{font-size:clamp(30px,3vw,44px);line-height:1.15;letter-spacing:-1.2px;margin:
 .handoff-toggle[aria-expanded=true]::after{transform:rotate(225deg);margin-block:4px 0}
 .handoff-toggle[aria-expanded=false] .handoff-collapse,.handoff-toggle[aria-expanded=true] .handoff-expand{display:none}
 .handoff-content{padding:0 14px 12px;min-height:0;overflow:auto;overflow-wrap:anywhere}
+
+/* Mobile controls may be taller than the desktop chat's fixed-height budget.
+   Keep them in page flow; never clip an unfocused composer below the card. */
+@media(max-width:720px){
+ .chat-shell{height:auto;min-height:0;max-height:none}
+ .messages,.chat-shell.has-handoff .messages{flex:0 1 auto;min-height:0;max-height:50svh}
+ .suggestions{flex-shrink:0}
+}
