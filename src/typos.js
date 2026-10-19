@@ -6,7 +6,7 @@ const vocabulary=[
  'самовывоз','оператор','сотрудник','компенсация','упаковка','упаковку',
  'garantija','garantijas','garantiju','piegāde','piegādes','piegādi','apmaksa','apmaksāt',
  'maksājums','atmaksa','atmaksas','atmaksāt','atgriešana','atgriezt','pakomāts','pakomāta','kurjers','rēķins','rēķinu',
- 'darbinieks','sazināties','pasūtījums','bojāts',
+ 'darbinieks','sazināties','pasūtījums','pasūtījumu','pasūtījuma','bojāts',
  'warranty','delivery','payment','returns','return','refund','invoice','courier',
  'shipping','instalments','packaging','damaged','broken','contact','cancel'
 ];

@@ -81,6 +81,12 @@ export function referenceRoute(text, previous=null, tenantId='anete'){
  const linked=shopLinks(text,getTenant(tenantId));linked.clean=correctTypos(normalize(linked.clean));if(linked.rejected)return {ids:[],kind:'link-unsupported',handoff:false};
  // URL anchors and previous sizing context must not hide an explicit support request.
  const priority=prioritySupportRoute(correctTypos(normalize(linked.clean)),tenantId);if(priority)return priority;
+ // Route the actual link-free question through the same policy logic. A
+ // keyword allowlist here missed ordinary receiving/collection phrases.
+ if(linked.links.length&&linked.clean){
+  const policy=referenceRoute(linked.clean,previous,tenantId);
+  if(policy.ids.some(id=>getTenant(tenantId).cards.find(c=>c.id===id)?.topic!=='product'))return policy;
+ }
  if(linked.links.length){
   if(linked.known&&!linked.clean)return {ids:[],kind:'shop-link',handoff:false};
   if(!linked.known&&previous==='product-sizing'&&tenantId==='apavi40plus'&&!/достав|оплат|вернуть|возврат|гарант|delivery|shipping|pay|return|warranty|piegād|apmaks|atgrie|garant/iu.test(linked.clean))return {ids:[],kind:'product-linked-size-chart',handoff:false};

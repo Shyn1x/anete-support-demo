@@ -54,6 +54,12 @@ function knownComposition(product,locale){
 }
 export function knownCatalogDetails(product,message,locale){
  const wanted=requestedCatalogFields(message),out=[];
+ if(wanted.includes('age')){
+  // Only an explicit technical label, never a model/title numeral or the
+  // buyer's age. Conflicting labels remain unconfirmed.
+  const ages=[...new Set(product.lines.flatMap(line=>{const m=line.match(/^(?:Vecums|Age|Возраст)\s*:\s*(\d{1,2})\+\s*(?:gadi|years?|лет)\s*[.!]?$/iu);return m?[m[1]]:[];}))];
+  if(ages.length===1){const age=ages[0]+'+';out.push({field:'age',text:{ru:`На странице указан возраст: ${age}.`,lv:`Lapā norādītais vecums: ${age}.`,en:`The page lists an age rating of ${age}.`}[locale]});}
+ }
  if(wanted.includes('composition'))for(const text of knownComposition(product,locale))out.push({field:'composition',text});
  if(wanted.includes('material'))for(const [key,value]of Object.entries(productMaterialFields(product,locale)))if(value)out.push({field:'material',text:labels[locale][key]+': '+value+'.'});
  if(wanted.includes('colours')){

@@ -1,0 +1,128 @@
+{
+  "schema": "assistant-source-code-review-v1",
+  "independentHumanReview": false,
+  "liveReportSHA256": "def6b26dbb22ca195a314bb27af49b7abe273fb95763f72730ca23525611bfaa",
+  "meaning": "Separate assistant review. Original live rows and automated flags remain unchanged. Safe but unavailable or rejected answers are not successful product answers.",
+  "cases": [
+    {
+      "id": "v4-bariba-1",
+      "outcome": "bounded_catalogue_selection",
+      "note": "All three returned titles explicitly say Adult / pieaugušiem; kitten category excluded."
+    },
+    {
+      "id": "v4-bariba-2",
+      "outcome": "source_supported",
+      "note": "The selected third URL is Nataly adult food. Fresh page states Pilna sausā barība NATALY pieaugušiem kaķiem ar vistas gaļu."
+    },
+    {
+      "id": "v4-bariba-3",
+      "outcome": "safe_conflict_handoff",
+      "note": "Acknowledges source conflict, withdraws confirmation, does not claim a ticket or transfer."
+    },
+    {
+      "id": "v4-hobbyset-1",
+      "outcome": "confirmed_code_defect_and_merchant_refusal",
+      "note": "Kādas contains ādas as substring. Listing was incorrectly treated as leather-detail question, causing two blocked HTTP403 merchant reads instead of free metadata listing."
+    },
+    {
+      "id": "v4-hobbyset-2",
+      "outcome": "safe_unavailable_not_answered",
+      "note": "Explicit paint page returned HTTP403. No provider attempt or invented fabric suitability. Adaptive second-choice branch could not run after the empty first response."
+    },
+    {
+      "id": "v4-hobbyset-3",
+      "outcome": "confirmed_policy_routing_defect",
+      "note": "Link routing keyword allowlist omitted receiving phrasing, despite link-free buyerControl recognizing it. Product page HTTP403 displaced delivery policy."
+    },
+    {
+      "id": "v4-apavi40plus-1",
+      "outcome": "bounded_catalogue_selection",
+      "note": "All returned titles say ziemas. Season follow-up is repetitive because winter already supplied; not fixed here."
+    },
+    {
+      "id": "v4-apavi40plus-2",
+      "outcome": "confirmed_ordinal_defect",
+      "note": "Third-person plural Russian третьих was not recognized; no third product selected despite three valid choices."
+    },
+    {
+      "id": "v4-apavi40plus-3",
+      "outcome": "wrong_language_and_safe_rejection_not_answered",
+      "note": "English comparison retained Russian. Both product pages read; generation rejected catalog_evidence_quote. Rejected raw prose is intentionally not retained, so exact malformed excerpt is unknown. No bypass/retry."
+    },
+    {
+      "id": "v4-rotallieta-1",
+      "outcome": "bounded_catalogue_selection",
+      "note": "Three puzzle titles/own-shop URLs, no age or suitability claims."
+    },
+    {
+      "id": "v4-rotallieta-2",
+      "outcome": "safe_rejection_incomplete_fallback",
+      "note": "Generation rejected unsupported_number. Fresh source contains Vecums: 3+ gadi. Fallback omitted this known age label. Exact rejected numeral is unknown; user age8 is not source evidence."
+    },
+    {
+      "id": "v4-rotallieta-3",
+      "outcome": "safe_corrected_infant_review",
+      "note": "New eight-month age overrides prior eight-year context; no model attempt, suitability certification or fake transfer."
+    },
+    {
+      "id": "v4-celotajs-1",
+      "outcome": "bounded_catalogue_selection",
+      "note": "All three titles are hiking backpacks. Generic people/season question could be more product-specific; not fixed here."
+    },
+    {
+      "id": "v4-celotajs-2",
+      "outcome": "source_supported_missing_details",
+      "note": "Fresh Shopify product JSON has no explicit numeric capacity/weight specifications in description. Model Lithium15 alone is not proof of 15L. Correct second URL retained."
+    },
+    {
+      "id": "v4-celotajs-3",
+      "outcome": "safe_damage_human_handoff",
+      "note": "Human request prioritized; demo clearly says no ticket or live operator. No provider attempt."
+    }
+  ],
+  "sourceDownloads": {
+    "checkedAt": "2026-10-19T18:40:12.130738+00:00",
+    "sources": [
+      {
+        "tenant": "bariba",
+        "url": "https://www.bariba.lv/nataly-cat-adult-with-chicken-sausa-bariba-kakiem-ar-vistas-galu-20-kg.html",
+        "requestURL": "https://www.bariba.lv/nataly-cat-adult-with-chicken-sausa-bariba-kakiem-ar-vistas-galu-20-kg.html",
+        "file": "bariba-d157258bd5.html",
+        "status": 200,
+        "sha256": "130c28c0fea387e9ed15e1e01b42508d5613aa57871d08e8bed8d1129887bd45"
+      },
+      {
+        "tenant": "apavi40plus",
+        "url": "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+        "requestURL": "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju.js",
+        "file": "apavi40plus-68f7efe2fd.json",
+        "status": 200,
+        "sha256": "b23d396a7ccf77fbc51e91c7f3d634d7446aa103e2d329d17eab2aa4732039dc"
+      },
+      {
+        "tenant": "apavi40plus",
+        "url": "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija",
+        "requestURL": "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija.js",
+        "file": "apavi40plus-1225db21ac.json",
+        "status": 200,
+        "sha256": "d14335b2ab77dba117b00f3f3f48c8b65ce669e2b8dd3fa954754b9d3e44ba42"
+      },
+      {
+        "tenant": "rotallieta",
+        "url": "https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/",
+        "requestURL": "https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/",
+        "file": "rotallieta-67240d4f3a.html",
+        "status": 200,
+        "sha256": "5ea8d810999984c214a9d85c206133e5ab52fda320568d351cfdcec2486b9279"
+      },
+      {
+        "tenant": "celotajs",
+        "url": "https://veikalscelotajs.lv/products/mammut-pargajienu-mugursoma-lithium-15-women",
+        "requestURL": "https://veikalscelotajs.lv/products/mammut-pargajienu-mugursoma-lithium-15-women.js",
+        "file": "celotajs-50ce09bcb3.json",
+        "status": 200,
+        "sha256": "958b48501b27b7108a48a97a597405656c0ea1a3473861c42c70a35db144750d"
+      }
+    ]
+  }
+}

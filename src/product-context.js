@@ -3,7 +3,7 @@
 export function ordinalSelection(message,count){
  const text=message.normalize('NFKC').toLowerCase();
  if(/\b(?:first aid|first[- ]time|second[- ]hand|third[- ]party)\b/iu.test(text)||/(?:\p{L}\d{3,}|\b\d{4,}\b)/u.test(text))return [];
- const mentions=[...text.matchAll(/(?<!\p{L})(перв(?:ый|ого|ой|ом|ому|ую)|втор(?:ой|ого|ом|ому|ую)|трет(?:ий|ьего|ьей|ьем|ьему|ью)|first|second|third|pirm(?:ais|o|ā|am|ajam|ajā|ajai|ās)|otr(?:ais|o|ā|am|ajam|ajā|ajai|ās)|treš(?:ais|o|ā|am|ajam|ajā|ajai|ās))(?!\p{L})/giu)].map(m=>{
+ const mentions=[...text.matchAll(/(?<!\p{L})(перв(?:ый|ого|ой|ом|ому|ую|ая|ое|ые|ых|ым|ыми)|втор(?:ой|ого|ом|ому|ую|ая|ое|ые|ых|ым|ыми)|трет(?:ий|ьего|ьей|ьем|ьему|ью|ья|ье|ьи|ьих|ьим|ьими)|first|second|third|pirm(?:ais|o|ā|am|ajam|ajā|ajai|ās)|otr(?:ais|o|ā|am|ajam|ajā|ajai|ās)|treš(?:ais|o|ā|am|ajam|ajā|ajai|ās))(?!\p{L})/giu)].map(m=>{
   const before=text.slice(Math.max(0,m.index-24),m.index),after=text.slice(m.index+m[0].length,m.index+m[0].length+24);
   const negative=/(?<!\p{L})(?:не|not|nevis)\s+(?:(?:the|a)\s+)?$/iu.test(before)||/^\s+(?:не (?:подходит|нужен)|(?:doesn.t|does not) (?:fit|work)|neder)(?!\p{L})/iu.test(after);
   const id=/^(?:перв|first|pirm)/u.test(m[0])?0:/^(?:втор|second|otr)/u.test(m[0])?1:2;return {id,negative};

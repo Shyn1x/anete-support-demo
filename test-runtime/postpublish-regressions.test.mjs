@@ -1,0 +1,14 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {Miniflare,convertV4MiniflareOptions} from 'miniflare';
+test('workerd/SQLite: Latvian listing is free; receiving ignores a blocked product; English pair switches language',async()=>{
+ const urls=['one','two'].map(n=>'https://hobbyset.lv/products/lv/1/2/sort/1/filter/0/'+n+'.html');let provider=0,merchant=0;
+ const mf=new Miniflare(convertV4MiniflareOptions({name:'postpublish-regressions',modules:true,scriptPath:'worker-build/worker.js',compatibilityDate:'2026-10-01',durableObjects:{GUARD:{className:'BudgetGuard',useSQLite:true}},bindings:{TENANT_ID:'hobbyset',DEMO_PASSWORD:'synthetic-runtime-password',SESSION_SECRET:'runtime-test-secret-at-least-32-characters',CATALOG_ENABLED:'true',AI_ENABLED:'true',AI_CONVERSATIONAL:'true',OPENAI_API_KEY:'fake-key',TOTAL_BUDGET_MICRO_USD:'10000'},serviceBindings:{ASSETS:async()=>Response.json({schema:'shop-catalog-index-v1',tenant:'hobbyset',importedAt:'2026-10-19T00:00:00Z',products:urls.map(u=>({u,t:'Akrila krāsa'}))})},outboundService:async req=>{if(req.url==='https://api.openai.com/v1/responses'){provider++;return new Response('unavailable',{status:503});}merchant++;assert(urls.includes(req.url));return new Response('denied',{status:403});}}));
+ const post=(path,body,cookie)=>mf.dispatchFetch('https://demo.example'+path,{method:'POST',headers:{Origin:'https://demo.example','Content-Type':'application/json','CF-Connecting-IP':'192.0.2.19',...(cookie?{Cookie:cookie}:{})},body:JSON.stringify(body)});
+ try{
+  const login=await post('/api/login',{password:'synthetic-runtime-password'}),cookie=login.headers.get('Set-Cookie').split(';')[0];
+  const chat=async(message,locale='ru')=>{const r=await post('/api/chat',{tenant:'hobbyset',message,locale},cookie);assert.equal(r.status,200);return r.json();};
+  const listing=await chat('Kādas akrila krāsas var apskatīt?');assert.equal(listing.catalogMetadataOnly,true);assert.equal(listing.locale,'lv');assert.equal(listing.catalogURLs.length,2);assert.equal(provider,0);assert.equal(merchant,0);
+  const delivery=await chat('Как получить заказ? '+urls[0]);assert(delivery.cardIds.includes('delivery'));assert.equal(delivery.catalogSearch,undefined);assert.equal(provider,1);assert.equal(merchant,0);
+  const comparison=await chat('Compare these two products. Only use confirmed differences. '+urls.join(' '));assert.equal(comparison.locale,'en');assert.equal(comparison.readFailures,2);assert.equal(comparison.providerUsed,false);assert.equal(provider,1);assert.equal(merchant,2);
+  const ns=await mf.getDurableObjectNamespace('GUARD'),stub=ns.get(ns.idFromName('experiment-v1')),state=await(await stub.fetch('https://guard/status',{headers:{'X-Demo-Client':'a'.repeat(64)}})).json();assert.equal(state.total.reservedMicroUSD,10000);
+ }finally{await mf.dispose();}
+});

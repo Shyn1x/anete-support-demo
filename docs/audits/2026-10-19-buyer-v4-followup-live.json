@@ -1,0 +1,1094 @@
+{
+  "schema": "buyer-conversation-audit-v1",
+  "startedAt": "2026-10-19T18:35:40.777311+00:00",
+  "planSha256": "042cbe3633f0cb84d7369ed619cb26e2c9c566798d82153f438069d5338a58b4",
+  "authorization": {
+    "maxChatRequests": 15,
+    "maxReservationMicroUSD": 150000,
+    "retries": false,
+    "budgetChanges": false
+  },
+  "scope": "Post-publication buyer-v4 follow-up. Only the first 15 cases are authorized for this run, with max-requests=15 and reservation cap USD 0.15. Three consecutive turns per accessible store. The final 35 original-plan cases are retained solely for runner compatibility and MUST NOT execute in this run. Not a completion or replacement of the legacy live-50 report.",
+  "missing": [
+    {
+      "tenant": "anete",
+      "reason": "No authenticated session; no login or chat attempted."
+    }
+  ],
+  "configs": [
+    {
+      "tenant": "bariba",
+      "catalogRevision": "buyer-v4",
+      "conversationRevision": "context-v2",
+      "perCallMicroUSD": 10000,
+      "auditRevision": "safe-resume-v1"
+    },
+    {
+      "tenant": "hobbyset",
+      "catalogRevision": "buyer-v4",
+      "conversationRevision": "context-v2",
+      "perCallMicroUSD": 10000,
+      "auditRevision": "safe-resume-v1"
+    },
+    {
+      "tenant": "apavi40plus",
+      "catalogRevision": "buyer-v4",
+      "conversationRevision": "context-v2",
+      "perCallMicroUSD": 10000,
+      "auditRevision": "safe-resume-v1"
+    },
+    {
+      "tenant": "rotallieta",
+      "catalogRevision": "buyer-v4",
+      "conversationRevision": "context-v2",
+      "perCallMicroUSD": 10000,
+      "auditRevision": "safe-resume-v1"
+    },
+    {
+      "tenant": "celotajs",
+      "catalogRevision": "buyer-v4",
+      "conversationRevision": "context-v2",
+      "perCallMicroUSD": 10000,
+      "auditRevision": "safe-resume-v1"
+    }
+  ],
+  "rows": [
+    {
+      "id": "v4-bariba-1",
+      "tenant": "bariba",
+      "goal": "natural-product-selection",
+      "question": "I do not want kitten food, I need adult cat food",
+      "expectedLocale": "en",
+      "expect": {
+        "selection": true
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v4",
+      "state": "complete",
+      "startedAt": "2026-10-19T18:36:54.987560+00:00",
+      "requestBodySha256": "4c4e672009df457961970f6308ded8a3a023a47e8b7c47b87786492e94a6967c",
+      "inputContext": {
+        "locale": "ru",
+        "previousTopic": null,
+        "productURL": null,
+        "catalogURLs": [],
+        "history": []
+      },
+      "httpStatus": 200,
+      "elapsedMs": 6803,
+      "answer": {
+        "locale": "en",
+        "text": "I found these catalogue matches:\n1. Del + Gourmet Cat Adult - sausā barība pieaugušiem kaķiem ar vistu un tunci 15 kg\n2. Le Chef Coctail cat adult - sausā barība pieaugušiem kaķiem ar vistu un zivi 20 kg\n3. Nataly Cat Adult with Chicken - sausa barība kaķiem ar vistas gaļu 20 kg\n\nThese are catalogue names. Current stock and suitability for your situation have not yet been checked. How old is your pet, and are you looking for dry or wet food?",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "Del + Gourmet Cat Adult - sausā barība pieaugušiem kaķiem ar vistu un tunci 15 kg",
+            "url": "https://www.bariba.lv/del-gourmet-cat-adult-sausa-bariba-pieaugusiem-kakiem-ar-vistu-un-tunci-15-kg.html",
+            "kind": "product"
+          },
+          {
+            "title": "Le Chef Coctail cat adult - sausā barība pieaugušiem kaķiem ar vistu un zivi 20 kg",
+            "url": "https://www.bariba.lv/le-chef-coctail-cat-adult-sausa-bariba-pieaugusiem-kakiem-ar-vistu-un-zivi-20-kg.html",
+            "kind": "product"
+          },
+          {
+            "title": "Nataly Cat Adult with Chicken - sausa barība kaķiem ar vistas gaļu 20 kg",
+            "url": "https://www.bariba.lv/nataly-cat-adult-with-chicken-sausa-bariba-kakiem-ar-vistas-galu-20-kg.html",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": false,
+        "catalogRevision": "buyer-v4",
+        "productRead": false,
+        "catalogURLs": [
+          "https://www.bariba.lv/del-gourmet-cat-adult-sausa-bariba-pieaugusiem-kakiem-ar-vistu-un-tunci-15-kg.html",
+          "https://www.bariba.lv/le-chef-coctail-cat-adult-sausa-bariba-pieaugusiem-kakiem-ar-vistu-un-zivi-20-kg.html",
+          "https://www.bariba.lv/nataly-cat-adult-with-chicken-sausa-bariba-kakiem-ar-vistas-galu-20-kg.html"
+        ],
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": true,
+        "catalogSnapshot": false,
+        "checked": "2026-10-18T09:01:55.620Z"
+      },
+      "assessment": {
+        "contractFlags": [],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "v4-bariba-2",
+      "tenant": "bariba",
+      "goal": "chosen-product-detail",
+      "question": "Не первый, а третий. Для какого возраста этот корм?",
+      "expectedLocale": "ru",
+      "expect": {
+        "productQuestion": true
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v4",
+      "state": "complete",
+      "startedAt": "2026-10-19T18:37:01.989411+00:00",
+      "requestBodySha256": "5c03b97408298eee6a7f5dcd1c9d9c8e917fbca02455e9c9d58213003ad1071f",
+      "inputContext": {
+        "locale": "en",
+        "previousTopic": "product-clarify",
+        "productURL": null,
+        "catalogURLs": [
+          "https://www.bariba.lv/del-gourmet-cat-adult-sausa-bariba-pieaugusiem-kakiem-ar-vistu-un-tunci-15-kg.html",
+          "https://www.bariba.lv/le-chef-coctail-cat-adult-sausa-bariba-pieaugusiem-kakiem-ar-vistu-un-zivi-20-kg.html",
+          "https://www.bariba.lv/nataly-cat-adult-with-chicken-sausa-bariba-kakiem-ar-vistas-galu-20-kg.html"
+        ],
+        "history": [
+          {
+            "role": "user",
+            "text": "I do not want kitten food, I need adult cat food"
+          },
+          {
+            "role": "assistant",
+            "text": "I found these catalogue matches:\n1. Del + Gourmet Cat Adult - sausā barība pieaugušiem kaķiem ar vistu un tunci 15 kg\n2. Le Chef Coctail cat adult - sausā barība pieaugušiem kaķiem ar vistu un zivi 20 kg\n3. Nataly Cat Adult with Chicken - sausa barība kaķiem ar vistas gaļu 20 kg\n\nThese are catalogue names. Current stock and suitability for your situation have not yet been checked. How old is your "
+          }
+        ]
+      },
+      "httpStatus": 200,
+      "elapsedMs": 14477,
+      "answer": {
+        "locale": "ru",
+        "text": "Этот корм Nataly Cat Adult с курицей предназначен для взрослых кошек, то есть для взрослых котов.",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "Nataly Cat Adult with Chicken - sausa barība kaķiem ar vistas gaļu 20 kg",
+            "url": "https://www.bariba.lv/nataly-cat-adult-with-chicken-sausa-bariba-kakiem-ar-vistas-galu-20-kg.html",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": true,
+        "conversational": true,
+        "catalogRevision": "buyer-v4",
+        "productRead": true,
+        "catalogURLs": [
+          "https://www.bariba.lv/nataly-cat-adult-with-chicken-sausa-bariba-kakiem-ar-vistas-galu-20-kg.html"
+        ],
+        "productURL": "https://www.bariba.lv/nataly-cat-adult-with-chicken-sausa-bariba-kakiem-ar-vistas-galu-20-kg.html",
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": false,
+        "catalogSnapshot": false,
+        "checked": "2026-10-19T18:37:13.378Z"
+      },
+      "assessment": {
+        "contractFlags": [],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "v4-bariba-3",
+      "tenant": "bariba",
+      "goal": "reported-source-label-conflict",
+      "question": "На упаковке написано другое, чем ты сказал. Почему информация отличается?",
+      "expectedLocale": "ru",
+      "expect": {
+        "handoff": true,
+        "noProvider": true
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v4",
+      "state": "complete",
+      "startedAt": "2026-10-19T18:37:16.479920+00:00",
+      "requestBodySha256": "752817534024c7ce4fd6ed520595f1ec0668391658551f454ed855f78e59f851",
+      "inputContext": {
+        "locale": "ru",
+        "previousTopic": "product-clarify",
+        "productURL": "https://www.bariba.lv/nataly-cat-adult-with-chicken-sausa-bariba-kakiem-ar-vistas-galu-20-kg.html",
+        "catalogURLs": [
+          "https://www.bariba.lv/del-gourmet-cat-adult-sausa-bariba-pieaugusiem-kakiem-ar-vistu-un-tunci-15-kg.html",
+          "https://www.bariba.lv/le-chef-coctail-cat-adult-sausa-bariba-pieaugusiem-kakiem-ar-vistu-un-zivi-20-kg.html",
+          "https://www.bariba.lv/nataly-cat-adult-with-chicken-sausa-bariba-kakiem-ar-vistas-galu-20-kg.html"
+        ],
+        "history": [
+          {
+            "role": "user",
+            "text": "I do not want kitten food, I need adult cat food"
+          },
+          {
+            "role": "assistant",
+            "text": "I found these catalogue matches:\n1. Del + Gourmet Cat Adult - sausā barība pieaugušiem kaķiem ar vistu un tunci 15 kg\n2. Le Chef Coctail cat adult - sausā barība pieaugušiem kaķiem ar vistu un zivi 20 kg\n3. Nataly Cat Adult with Chicken - sausa barība kaķiem ar vistas gaļu 20 kg\n\nThese are catalogue names. Current stock and suitability for your situation have not yet been checked. How old is your "
+          },
+          {
+            "role": "user",
+            "text": "Не первый, а третий. Для какого возраста этот корм?"
+          },
+          {
+            "role": "assistant",
+            "text": "Этот корм Nataly Cat Adult с курицей предназначен для взрослых кошек, то есть для взрослых котов."
+          }
+        ]
+      },
+      "httpStatus": 200,
+      "elapsedMs": 7525,
+      "answer": {
+        "locale": "ru",
+        "text": "Вы сообщили о расхождении с упаковкой. Не буду считать прежний ответ подтверждённым; информацию по конкретному товару нужно сверить с магазином.\n\nКонтакты Bariba.lv: veikals@bariba.lv, +37167134777. Демо сообщения не отправляет.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.",
+        "cardIds": [
+          "contact"
+        ],
+        "sources": [
+          {
+            "title": "Kontakti",
+            "url": "https://www.bariba.lv/"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "topic": "contact",
+        "providerUsed": false,
+        "checked": "2026-10-15"
+      },
+      "assessment": {
+        "contractFlags": [],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "v4-hobbyset-1",
+      "tenant": "hobbyset",
+      "goal": "natural-product-selection",
+      "question": "Kādas akrila krāsas var apskatīt?",
+      "expectedLocale": "lv",
+      "expect": {
+        "selection": true
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v4",
+      "state": "complete",
+      "startedAt": "2026-10-19T18:37:24.014481+00:00",
+      "requestBodySha256": "44387cb8a29a4d06e67efdeb73b7dd2c332b2dd2879e0fd645e6a005f696673b",
+      "inputContext": {
+        "locale": "ru",
+        "previousTopic": null,
+        "productURL": null,
+        "catalogURLs": [],
+        "history": []
+      },
+      "httpStatus": 200,
+      "elapsedMs": 8104,
+      "answer": {
+        "locale": "lv",
+        "text": "Šobrīd atrastās preces aprakstu nevarēja nolasīt. Mēģiniet vēlāk vai atsūtiet citu saiti.",
+        "cardIds": [],
+        "sources": [],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": false,
+        "catalogRevision": "buyer-v4",
+        "productRead": false,
+        "catalogURLs": [],
+        "readFailures": 2,
+        "catalogReadDiagnostics": [
+          {
+            "url": "https://hobbyset.lv/products/lv/2224/180792/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-ci%C4%81na-zila-Cyan-.html",
+            "attempts": [
+              {
+                "format": "html",
+                "error": "http_403"
+              }
+            ]
+          },
+          {
+            "url": "https://hobbyset.lv/products/lv/2224/180794/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-vara-tonis.html",
+            "attempts": [
+              {
+                "format": "html",
+                "error": "http_403"
+              }
+            ]
+          }
+        ],
+        "catalogMetadataOnly": false,
+        "catalogSnapshot": false,
+        "checked": "2026-10-18T12:30:30.009Z"
+      },
+      "assessment": {
+        "contractFlags": [
+          "no_product_candidates_for_selection"
+        ],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "v4-hobbyset-2",
+      "tenant": "hobbyset",
+      "goal": "chosen-product-detail",
+      "question": "Can this paint be used on fabric, or is that unconfirmed? https://hobbyset.lv/products/lv/2224/180792/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-ci%C4%81na-zila-Cyan-.html",
+      "expectedLocale": "en",
+      "expect": {
+        "productQuestion": true
+      },
+      "branch": "explicit_link_after_no_list",
+      "serverCatalogRevision": "buyer-v4",
+      "state": "complete",
+      "startedAt": "2026-10-19T18:37:32.123909+00:00",
+      "requestBodySha256": "9e4371010055fa6dc8dcffa3b302a26dba5ea772d0991b7887e965ff78211b29",
+      "inputContext": {
+        "locale": "lv",
+        "previousTopic": "product-clarify",
+        "productURL": null,
+        "catalogURLs": [],
+        "history": [
+          {
+            "role": "user",
+            "text": "Kādas akrila krāsas var apskatīt?"
+          },
+          {
+            "role": "assistant",
+            "text": "Šobrīd atrastās preces aprakstu nevarēja nolasīt. Mēģiniet vēlāk vai atsūtiet citu saiti."
+          }
+        ]
+      },
+      "httpStatus": 200,
+      "elapsedMs": 6941,
+      "answer": {
+        "locale": "en",
+        "text": "I could not read the matched product description right now. Try later or share another link.",
+        "cardIds": [],
+        "sources": [],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": false,
+        "catalogRevision": "buyer-v4",
+        "productRead": false,
+        "catalogURLs": [],
+        "productURL": "https://hobbyset.lv/products/lv/2224/180792/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-ci%C4%81na-zila-Cyan-.html",
+        "readFailures": 1,
+        "catalogReadDiagnostics": [
+          {
+            "url": "https://hobbyset.lv/products/lv/2224/180792/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-ci%C4%81na-zila-Cyan-.html",
+            "attempts": [
+              {
+                "format": "html",
+                "error": "http_403"
+              }
+            ]
+          }
+        ],
+        "catalogMetadataOnly": false,
+        "catalogSnapshot": false,
+        "checked": "2026-10-15"
+      },
+      "assessment": {
+        "contractFlags": [],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "v4-hobbyset-3",
+      "tenant": "hobbyset",
+      "goal": "delivery-priority-over-product-url",
+      "question": "Как получить заказ? https://hobbyset.lv/products/lv/2224/180792/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-ci%C4%81na-zila-Cyan-.html",
+      "expectedLocale": "ru",
+      "expect": {
+        "topic": "delivery"
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v4",
+      "state": "complete",
+      "startedAt": "2026-10-19T18:37:39.127531+00:00",
+      "requestBodySha256": "698a917cb99b1422f818851c37d773ece30c817d75b6aa61aea715282ce84b3c",
+      "inputContext": {
+        "locale": "en",
+        "previousTopic": "product-clarify",
+        "productURL": null,
+        "catalogURLs": [],
+        "history": [
+          {
+            "role": "user",
+            "text": "Kādas akrila krāsas var apskatīt?"
+          },
+          {
+            "role": "assistant",
+            "text": "Šobrīd atrastās preces aprakstu nevarēja nolasīt. Mēģiniet vēlāk vai atsūtiet citu saiti."
+          },
+          {
+            "role": "user",
+            "text": "Can this paint be used on fabric, or is that unconfirmed? https://hobbyset.lv/products/lv/2224/180792/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-ci%C4%81na-zila-Cyan-.html"
+          },
+          {
+            "role": "assistant",
+            "text": "I could not read the matched product description right now. Try later or share another link."
+          }
+        ]
+      },
+      "httpStatus": 200,
+      "elapsedMs": 8621,
+      "answer": {
+        "locale": "ru",
+        "text": "Сейчас не удалось прочитать описание найденного товара. Можно попробовать позже или прислать другую ссылку.",
+        "cardIds": [],
+        "sources": [],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": false,
+        "catalogRevision": "buyer-v4",
+        "productRead": false,
+        "catalogURLs": [],
+        "productURL": "https://hobbyset.lv/products/lv/2224/180792/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-ci%C4%81na-zila-Cyan-.html",
+        "readFailures": 1,
+        "catalogReadDiagnostics": [
+          {
+            "url": "https://hobbyset.lv/products/lv/2224/180792/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-ci%C4%81na-zila-Cyan-.html",
+            "attempts": [
+              {
+                "format": "html",
+                "error": "http_403"
+              }
+            ]
+          }
+        ],
+        "catalogMetadataOnly": false,
+        "catalogSnapshot": false,
+        "checked": "2026-10-15"
+      },
+      "assessment": {
+        "contractFlags": [],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "v4-apavi40plus-1",
+      "tenant": "apavi40plus",
+      "goal": "natural-product-selection",
+      "question": "Нужны зимние ботинки. Что можете предложить?",
+      "expectedLocale": "ru",
+      "expect": {
+        "selection": true
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v4",
+      "state": "complete",
+      "startedAt": "2026-10-19T18:37:47.753460+00:00",
+      "requestBodySha256": "ff4881dab1f0607cddd215b06adb1565f0f0ea0ad9234e40018e9257bfc78b47",
+      "inputContext": {
+        "locale": "ru",
+        "previousTopic": null,
+        "productURL": null,
+        "catalogURLs": [],
+        "history": []
+      },
+      "httpStatus": 200,
+      "elapsedMs": 8313,
+      "answer": {
+        "locale": "ru",
+        "text": "Нашёл такие варианты в каталоге:\n1. Aaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju\n2. Babouche RAIN – Ekskluzīvi zamšādas ziemas puszābaki ar siltu oderi\n3. Babouche SAAR – Stilīgi ziemas puszābaki ar teksturētu rakstu un siltu oderi\n\nЭто названия из каталога. Актуальное наличие и пригодность для конкретного случая ещё не проверены. Для какого сезона и случая нужна обувь?",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "Aaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju",
+            "url": "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+            "kind": "product"
+          },
+          {
+            "title": "Babouche RAIN – Ekskluzīvi zamšādas ziemas puszābaki ar siltu oderi",
+            "url": "https://apavi40plus.com/products/babouche-rain-ekskluzivi-zamsadas-ziemas-puszabaki-ar-siltu-oderi",
+            "kind": "product"
+          },
+          {
+            "title": "Babouche SAAR – Stilīgi ziemas puszābaki ar teksturētu rakstu un siltu oderi",
+            "url": "https://apavi40plus.com/products/babouche-saar-stiligi-ziemas-puszabaki-ar-teksturetu-rakstu-un-siltu-oderi",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": false,
+        "catalogRevision": "buyer-v4",
+        "productRead": false,
+        "catalogURLs": [
+          "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+          "https://apavi40plus.com/products/babouche-rain-ekskluzivi-zamsadas-ziemas-puszabaki-ar-siltu-oderi",
+          "https://apavi40plus.com/products/babouche-saar-stiligi-ziemas-puszabaki-ar-teksturetu-rakstu-un-siltu-oderi"
+        ],
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": true,
+        "catalogSnapshot": false,
+        "checked": "2026-10-18T09:03:36.932Z"
+      },
+      "assessment": {
+        "contractFlags": [],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "v4-apavi40plus-2",
+      "tenant": "apavi40plus",
+      "goal": "chosen-product-detail",
+      "question": "А у третьих ботинок какая подкладка?",
+      "expectedLocale": "ru",
+      "expect": {
+        "productQuestion": true
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v4",
+      "state": "complete",
+      "startedAt": "2026-10-19T18:37:56.073031+00:00",
+      "requestBodySha256": "07a3e52a7da08f73aedb74e6a7f889c6e7fdd4a6b6837fdb5b5cb1069fc62326",
+      "inputContext": {
+        "locale": "ru",
+        "previousTopic": "product-clarify",
+        "productURL": null,
+        "catalogURLs": [
+          "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+          "https://apavi40plus.com/products/babouche-rain-ekskluzivi-zamsadas-ziemas-puszabaki-ar-siltu-oderi",
+          "https://apavi40plus.com/products/babouche-saar-stiligi-ziemas-puszabaki-ar-teksturetu-rakstu-un-siltu-oderi"
+        ],
+        "history": [
+          {
+            "role": "user",
+            "text": "Нужны зимние ботинки. Что можете предложить?"
+          },
+          {
+            "role": "assistant",
+            "text": "Нашёл такие варианты в каталоге:\n1. Aaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju\n2. Babouche RAIN – Ekskluzīvi zamšādas ziemas puszābaki ar siltu oderi\n3. Babouche SAAR – Stilīgi ziemas puszābaki ar teksturētu rakstu un siltu oderi\n\nЭто названия из каталога. Актуальное наличие и пригодность для конкретного случая ещё не проверены. Для какого сезона и случая нужна обу"
+          }
+        ]
+      },
+      "httpStatus": 200,
+      "elapsedMs": 8501,
+      "answer": {
+        "locale": "ru",
+        "text": "По этому запросу не удалось надёжно подобрать товары. Это не означает, что их нет в магазине. Уточните название, модель или пришлите ссылку.",
+        "cardIds": [],
+        "sources": [],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": false,
+        "catalogRevision": "buyer-v4",
+        "productRead": false,
+        "catalogURLs": [],
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": true,
+        "catalogSnapshot": false,
+        "checked": "2026-10-18T09:03:36.932Z"
+      },
+      "assessment": {
+        "contractFlags": [],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "v4-apavi40plus-3",
+      "tenant": "apavi40plus",
+      "goal": "two-explicit-product-links",
+      "question": "Compare these two products. Only use confirmed differences. https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija",
+      "expectedLocale": "en",
+      "expect": {
+        "twoProductSources": true
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v4",
+      "state": "complete",
+      "startedAt": "2026-10-19T18:38:04.583203+00:00",
+      "requestBodySha256": "2b14cc46947ffc418d9f38a97c413a756c7e39ad9ad05e3442d73dd734a04918",
+      "inputContext": {
+        "locale": "ru",
+        "previousTopic": "product-clarify",
+        "productURL": null,
+        "catalogURLs": [],
+        "history": [
+          {
+            "role": "user",
+            "text": "Нужны зимние ботинки. Что можете предложить?"
+          },
+          {
+            "role": "assistant",
+            "text": "Нашёл такие варианты в каталоге:\n1. Aaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju\n2. Babouche RAIN – Ekskluzīvi zamšādas ziemas puszābaki ar siltu oderi\n3. Babouche SAAR – Stilīgi ziemas puszābaki ar teksturētu rakstu un siltu oderi\n\nЭто названия из каталога. Актуальное наличие и пригодность для конкретного случая ещё не проверены. Для какого сезона и случая нужна обу"
+          },
+          {
+            "role": "user",
+            "text": "А у третьих ботинок какая подкладка?"
+          },
+          {
+            "role": "assistant",
+            "text": "По этому запросу не удалось надёжно подобрать товары. Это не означает, что их нет в магазине. Уточните название, модель или пришлите ссылку."
+          }
+        ]
+      },
+      "httpStatus": 200,
+      "elapsedMs": 13734,
+      "answer": {
+        "locale": "ru",
+        "text": "Aaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju\n\nНе все запрошенные характеристики удалось надёжно подтвердить. Проверьте подробности на странице товара по ссылке ниже.\n\nAndres Machado AM6002 – Kovboju stila zābaki ar sudraba kniedēm (Ražots Spānijā)\n\nНе все запрошенные характеристики удалось надёжно подтвердить. Проверьте подробности на странице товара по ссылке ниже.",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "Aaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju",
+            "url": "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+            "kind": "product"
+          },
+          {
+            "title": "Andres Machado AM6002 – Kovboju stila zābaki ar sudraba kniedēm (Ražots Spānijā)",
+            "url": "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": true,
+        "fallbackReason": "answer_validation",
+        "validationReason": "catalog_evidence_quote",
+        "catalogRevision": "buyer-v4",
+        "productRead": true,
+        "catalogURLs": [
+          "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+          "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija"
+        ],
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": false,
+        "catalogSnapshot": false,
+        "checked": "2026-10-19T18:38:13.614Z"
+      },
+      "assessment": {
+        "contractFlags": [
+          "fallback:answer_validation",
+          "wrong_locale_field"
+        ],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "v4-rotallieta-1",
+      "tenant": "rotallieta",
+      "goal": "natural-product-selection",
+      "question": "Meklēju puzli dāvanai. Ko piedāvājat?",
+      "expectedLocale": "lv",
+      "expect": {
+        "selection": true
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v4",
+      "state": "complete",
+      "startedAt": "2026-10-19T18:38:18.326932+00:00",
+      "requestBodySha256": "58a0d9bce2802963f0923df8e857dcc2dec8304ac5b279aa585a5870769e3f3d",
+      "inputContext": {
+        "locale": "ru",
+        "previousTopic": null,
+        "productURL": null,
+        "catalogURLs": [],
+        "history": []
+      },
+      "httpStatus": 200,
+      "elapsedMs": 9311,
+      "answer": {
+        "locale": "lv",
+        "text": "Katalogā atradu šādus variantus:\n1. 3d puzle globuss 49 pcs\n2. attistosa spele creative shape puzzle 180 pcs\n3. attistosa spele mozaika genius art krasaina podzinu puzle\n\nTie ir katalogā atrodamie nosaukumi. Aktuālais atlikums un piemērotība konkrētam gadījumam vēl nav pārbaudīti. Kāds ir bērna vecums un intereses?",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "3d puzle globuss 49 pcs",
+            "url": "https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/",
+            "kind": "product"
+          },
+          {
+            "title": "attistosa spele creative shape puzzle 180 pcs",
+            "url": "https://rotallieta.lv/prece/attistosa-spele-creative-shape-puzzle-180-pcs/",
+            "kind": "product"
+          },
+          {
+            "title": "attistosa spele mozaika genius art krasaina podzinu puzle",
+            "url": "https://rotallieta.lv/prece/attistosa-spele-mozaika-genius-art-krasaina-podzinu-puzle/",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": false,
+        "catalogRevision": "buyer-v4",
+        "productRead": false,
+        "catalogURLs": [
+          "https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/",
+          "https://rotallieta.lv/prece/attistosa-spele-creative-shape-puzzle-180-pcs/",
+          "https://rotallieta.lv/prece/attistosa-spele-mozaika-genius-art-krasaina-podzinu-puzle/"
+        ],
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": true,
+        "catalogSnapshot": false,
+        "checked": "2026-10-18T09:03:58.618Z"
+      },
+      "assessment": {
+        "contractFlags": [],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "v4-rotallieta-2",
+      "tenant": "rotallieta",
+      "goal": "chosen-product-detail",
+      "question": "Ребёнку 8 лет. Для какого возраста этот пазл? https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/",
+      "expectedLocale": "ru",
+      "expect": {
+        "productQuestion": true
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v4",
+      "state": "complete",
+      "startedAt": "2026-10-19T18:38:27.647098+00:00",
+      "requestBodySha256": "c911fd46efee2d93fa4d44ce5fffd8d27dc62e976728428b0d089ba17962ab46",
+      "inputContext": {
+        "locale": "lv",
+        "previousTopic": "product-clarify",
+        "productURL": null,
+        "catalogURLs": [],
+        "history": [
+          {
+            "role": "user",
+            "text": "Meklēju puzli dāvanai. Ko piedāvājat?"
+          },
+          {
+            "role": "assistant",
+            "text": "Katalogā atradu šādus variantus:\n1. 3d puzle globuss 49 pcs\n2. attistosa spele creative shape puzzle 180 pcs\n3. attistosa spele mozaika genius art krasaina podzinu puzle\n\nTie ir katalogā atrodamie nosaukumi. Aktuālais atlikums un piemērotība konkrētam gadījumam vēl nav pārbaudīti. Kāds ir bērna vecums un intereses?"
+          }
+        ]
+      },
+      "httpStatus": 200,
+      "elapsedMs": 16982,
+      "answer": {
+        "locale": "ru",
+        "text": "3D puzzle globuss 49 pcs\n\nНе все запрошенные характеристики удалось надёжно подтвердить. Проверьте подробности на странице товара по ссылке ниже.",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "3D puzzle globuss 49 pcs",
+            "url": "https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": true,
+        "fallbackReason": "answer_validation",
+        "validationReason": "unsupported_number",
+        "catalogRevision": "buyer-v4",
+        "productRead": true,
+        "catalogURLs": [
+          "https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/"
+        ],
+        "productURL": "https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/",
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": false,
+        "catalogSnapshot": false,
+        "checked": "2026-10-19T18:38:42.116Z"
+      },
+      "assessment": {
+        "contractFlags": [
+          "fallback:answer_validation"
+        ],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "v4-rotallieta-3",
+      "tenant": "rotallieta",
+      "goal": "corrected-infant-age-over-history",
+      "question": "Ошибся, ему 8 месяцев",
+      "expectedLocale": "ru",
+      "expect": {
+        "handoff": true,
+        "noProvider": true
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v4",
+      "state": "complete",
+      "startedAt": "2026-10-19T18:38:44.639853+00:00",
+      "requestBodySha256": "8ee36f05c283176e11ba559013f53ece619220363dfc5d98925319be60fddc59",
+      "inputContext": {
+        "locale": "ru",
+        "previousTopic": "product-clarify",
+        "productURL": "https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/",
+        "catalogURLs": [
+          "https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/"
+        ],
+        "history": [
+          {
+            "role": "user",
+            "text": "Meklēju puzli dāvanai. Ko piedāvājat?"
+          },
+          {
+            "role": "assistant",
+            "text": "Katalogā atradu šādus variantus:\n1. 3d puzle globuss 49 pcs\n2. attistosa spele creative shape puzzle 180 pcs\n3. attistosa spele mozaika genius art krasaina podzinu puzle\n\nTie ir katalogā atrodamie nosaukumi. Aktuālais atlikums un piemērotība konkrētam gadījumam vēl nav pārbaudīti. Kāds ir bērna vecums un intereses?"
+          },
+          {
+            "role": "user",
+            "text": "Ребёнку 8 лет. Для какого возраста этот пазл? https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/"
+          },
+          {
+            "role": "assistant",
+            "text": "3D puzzle globuss 49 pcs\n\nНе все запрошенные характеристики удалось надёжно подтвердить. Проверьте подробности на странице товара по ссылке ниже."
+          }
+        ]
+      },
+      "httpStatus": 200,
+      "elapsedMs": 7922,
+      "answer": {
+        "locale": "ru",
+        "text": "Не могу подтвердить безопасность, лечебный эффект или пригодность в конкретных условиях. Нужны точная модель и проверка специалиста; по свойствам товара можно обратиться в магазин.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.",
+        "cardIds": [],
+        "sources": [],
+        "handoff": true,
+        "mode": "reference",
+        "topic": null,
+        "providerUsed": false,
+        "checked": "2026-10-15"
+      },
+      "assessment": {
+        "contractFlags": [],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "v4-celotajs-1",
+      "tenant": "celotajs",
+      "goal": "natural-product-selection",
+      "question": "I’m looking for a hiking backpack. What can you suggest?",
+      "expectedLocale": "en",
+      "expect": {
+        "selection": true
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v4",
+      "state": "complete",
+      "startedAt": "2026-10-19T18:38:52.569345+00:00",
+      "requestBodySha256": "9e7e1206a0b90c9d439f4ea15a7e595b7d9e80022fbb6303e2f324973a686cac",
+      "inputContext": {
+        "locale": "ru",
+        "previousTopic": null,
+        "productURL": null,
+        "catalogURLs": [],
+        "history": []
+      },
+      "httpStatus": 200,
+      "elapsedMs": 8182,
+      "answer": {
+        "locale": "en",
+        "text": "I found these catalogue matches:\n1. Mammut pārgājienu mugursoma Lithium 15\n2. Mammut pārgājienu mugursoma Lithium 15 sieviešu\n3. Mammut pārgājienu mugursoma Lithium 20\n\nThese are catalogue names. Current stock and suitability for your situation have not yet been checked. For how many people and which season are you choosing equipment?",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "Mammut pārgājienu mugursoma Lithium 15",
+            "url": "https://veikalscelotajs.lv/products/mammut-pargajienu-mugursoma-lithium-15",
+            "kind": "product"
+          },
+          {
+            "title": "Mammut pārgājienu mugursoma Lithium 15 sieviešu",
+            "url": "https://veikalscelotajs.lv/products/mammut-pargajienu-mugursoma-lithium-15-women",
+            "kind": "product"
+          },
+          {
+            "title": "Mammut pārgājienu mugursoma Lithium 20",
+            "url": "https://veikalscelotajs.lv/products/mammut-pargajienu-mugursoma-lithium-20",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": false,
+        "catalogRevision": "buyer-v4",
+        "productRead": false,
+        "catalogURLs": [
+          "https://veikalscelotajs.lv/products/mammut-pargajienu-mugursoma-lithium-15",
+          "https://veikalscelotajs.lv/products/mammut-pargajienu-mugursoma-lithium-15-women",
+          "https://veikalscelotajs.lv/products/mammut-pargajienu-mugursoma-lithium-20"
+        ],
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": true,
+        "catalogSnapshot": false,
+        "checked": "2026-10-18T09:03:42.451Z"
+      },
+      "assessment": {
+        "contractFlags": [],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "v4-celotajs-2",
+      "tenant": "celotajs",
+      "goal": "chosen-product-detail",
+      "question": "А у второго рюкзака какой объём и вес?",
+      "expectedLocale": "ru",
+      "expect": {
+        "productQuestion": true
+      },
+      "branch": "second_choice_from_actual_list",
+      "serverCatalogRevision": "buyer-v4",
+      "state": "complete",
+      "startedAt": "2026-10-19T18:39:00.756553+00:00",
+      "requestBodySha256": "7bccb22728f19cea209924861325af5229452bc61561473ca1e845a9baca82f0",
+      "inputContext": {
+        "locale": "en",
+        "previousTopic": "product-clarify",
+        "productURL": null,
+        "catalogURLs": [
+          "https://veikalscelotajs.lv/products/mammut-pargajienu-mugursoma-lithium-15",
+          "https://veikalscelotajs.lv/products/mammut-pargajienu-mugursoma-lithium-15-women",
+          "https://veikalscelotajs.lv/products/mammut-pargajienu-mugursoma-lithium-20"
+        ],
+        "history": [
+          {
+            "role": "user",
+            "text": "I’m looking for a hiking backpack. What can you suggest?"
+          },
+          {
+            "role": "assistant",
+            "text": "I found these catalogue matches:\n1. Mammut pārgājienu mugursoma Lithium 15\n2. Mammut pārgājienu mugursoma Lithium 15 sieviešu\n3. Mammut pārgājienu mugursoma Lithium 20\n\nThese are catalogue names. Current stock and suitability for your situation have not yet been checked. For how many people and which season are you choosing equipment?"
+          }
+        ]
+      },
+      "httpStatus": 200,
+      "elapsedMs": 11842,
+      "answer": {
+        "locale": "ru",
+        "text": "К сожалению, в предоставленных данных о втором рюкзаке отсутствуют сведения об объёме и весе.",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "Mammut pārgājienu mugursoma Lithium 15 sieviešu",
+            "url": "https://veikalscelotajs.lv/products/mammut-pargajienu-mugursoma-lithium-15-women",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": true,
+        "conversational": true,
+        "catalogRevision": "buyer-v4",
+        "productRead": true,
+        "catalogURLs": [
+          "https://veikalscelotajs.lv/products/mammut-pargajienu-mugursoma-lithium-15-women"
+        ],
+        "productURL": "https://veikalscelotajs.lv/products/mammut-pargajienu-mugursoma-lithium-15-women",
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": false,
+        "catalogSnapshot": false,
+        "checked": "2026-10-19T18:39:10.486Z"
+      },
+      "assessment": {
+        "contractFlags": [],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "v4-celotajs-3",
+      "tenant": "celotajs",
+      "goal": "damaged-parcel-human-request",
+      "question": "Посылка пришла повреждённой, внутри сломанный товар. Дайте сотрудника, пожалуйста.",
+      "expectedLocale": "ru",
+      "expect": {
+        "handoff": true,
+        "noCompletedAction": true
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v4",
+      "state": "complete",
+      "startedAt": "2026-10-19T18:39:12.609147+00:00",
+      "requestBodySha256": "43fc54ae93304c41870e8fc441ab4435835ebd1908ef39290fc1a3c6e69e91dc",
+      "inputContext": {
+        "locale": "ru",
+        "previousTopic": "product-clarify",
+        "productURL": "https://veikalscelotajs.lv/products/mammut-pargajienu-mugursoma-lithium-15-women",
+        "catalogURLs": [
+          "https://veikalscelotajs.lv/products/mammut-pargajienu-mugursoma-lithium-15",
+          "https://veikalscelotajs.lv/products/mammut-pargajienu-mugursoma-lithium-15-women",
+          "https://veikalscelotajs.lv/products/mammut-pargajienu-mugursoma-lithium-20"
+        ],
+        "history": [
+          {
+            "role": "user",
+            "text": "I’m looking for a hiking backpack. What can you suggest?"
+          },
+          {
+            "role": "assistant",
+            "text": "I found these catalogue matches:\n1. Mammut pārgājienu mugursoma Lithium 15\n2. Mammut pārgājienu mugursoma Lithium 15 sieviešu\n3. Mammut pārgājienu mugursoma Lithium 20\n\nThese are catalogue names. Current stock and suitability for your situation have not yet been checked. For how many people and which season are you choosing equipment?"
+          },
+          {
+            "role": "user",
+            "text": "А у второго рюкзака какой объём и вес?"
+          },
+          {
+            "role": "assistant",
+            "text": "К сожалению, в предоставленных данных о втором рюкзаке отсутствуют сведения об объёме и весе."
+          }
+        ]
+      },
+      "httpStatus": 200,
+      "elapsedMs": 5788,
+      "answer": {
+        "locale": "ru",
+        "text": "Контакты Veikals Ceļotājs: celotajs@veikalscelotajs.lv, +37127267207. Демо сообщения не отправляет.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.",
+        "cardIds": [
+          "contact"
+        ],
+        "sources": [
+          {
+            "title": "Kontakti",
+            "url": "https://veikalscelotajs.lv/pages/kontakti"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "topic": "contact",
+        "providerUsed": false,
+        "checked": "2026-10-15"
+      },
+      "assessment": {
+        "contractFlags": [],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    }
+  ],
+  "stoppedReason": "Local request allowance reached",
+  "finishedAt": "2026-10-19T18:39:18.403442+00:00",
+  "summary": {
+    "chatRequestsSent": 15,
+    "providerAttemptsReported": 4,
+    "ambiguous": 0,
+    "contractFlagged": 3,
+    "accuracy": "requires_source_and_human_review"
+  }
+}

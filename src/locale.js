@@ -4,6 +4,7 @@ const words={
  lv:new Set('labdien sveiki labi skaidrs sapratu ata atā labvakar labrīt labrit paldies lūdzu ludzu kā ka kad kur vai cik kas es man mans mana jūs jus jūsu jusu ir var varu vēlos velos gribu par un bet ja preci prece preces atdot atgriezt atgriešana atgriesana atgriešanu piegāde piegade piegādi piegadi piegādes garantija garantiju apmaksa maksāt maksat pasūtījums pasutijums pasūtījumu nopirku salūza saluza pārdomāju pardomaju latvijā latvija dienas'.split(' '))
 };
 for(const word of 'size chart sizing insole leather material battery batteries ingredients food dog cat puppy adult grain gluten paint brush watercolour watercolor beginner tent sleeping bag weight stock availability'.split(' '))words.en.add(word);
+for(const word of 'compare these products differences lining upper capacity volume backpack boots'.split(' '))words.en.add(word);
 for(const word of 'izmērs izmēri izmēru tabula pēda platums iekšzole sastāvs barība kucēns pieaugušiem bērns vecums baterijas krāsa ota papīrs telts guļammaiss noliktavā'.split(' '))words.lv.add(word);
 export function detectLocale(message,fallback='ru'){
  const instruction=message.toLowerCase();
