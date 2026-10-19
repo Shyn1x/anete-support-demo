@@ -22,6 +22,6 @@ export async function buildSearchIndex(id){
  const root='public/catalog-data/'+id;await mkdir(root+'/rows',{recursive:true});await mkdir(root+'/terms',{recursive:true});
  for(let i=0;i<all.products.length;i+=150)await writeFile(root+'/rows/'+String(i/150).padStart(3,'0')+'.json',JSON.stringify(all.products.slice(i,i+150))+'\n');
  for(const [key,value]of buckets)await writeFile(root+'/terms/'+key+'.json',JSON.stringify(value)+'\n');
- const safeGroups={};for(const [key,q]of [['kitten','котят'],['puppy','щенок'],['paint','краски'],['food','корм'],['tent','палатка'],['boot','ботинки'],['shoe','обувь'],['backpack','рюкзак']])safeGroups[key]=groups[key].filter(i=>searchProducts({tenant:id,products:[all.products[i]]},q,{limit:1}).length);
+ const safeGroups={};for(const [key,q]of [['adult','adult'],['kitten','котят'],['puppy','щенок'],['paint','краски'],['food','корм'],['tent','палатка'],['boot','ботинки'],['shoe','обувь'],['backpack','рюкзак']])safeGroups[key]=groups[key].filter(i=>searchProducts({tenant:id,products:[all.products[i]]},q,{limit:1}).length);
  const {products,shards,...meta}=all;await writeFile('public/catalog-'+id+'.json',JSON.stringify({...meta,schema:'shop-catalog-search-v1',groups,safeGroups})+'\n');
 }

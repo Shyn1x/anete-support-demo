@@ -27,3 +27,10 @@ export function timingConditionReason(reply,result,tenant,locale){
  if(conditional.test(source)&&duration.test(reply)&&!/для доступных|если.{0,15}доступ|при условии.{0,20}доступ|for available|if.{0,15}available|pieejam\p{L}* prec|ja prece.{0,10}pieejam/iu.test(reply))return 'timing_condition_omitted';
  return null;
 }
+// Additional unsupported fit/date assurances observed in adversarial fixtures.
+// A refusal to guarantee is allowed; it is not an affirmative promise.
+export function additionalPromiseReason(reply){
+ const assurance=/\b(?:will|would)\s+(?:definitely|certainly)\s+fit|\bperfect fit for (?:you|your)\b|(?:обязательно|несомненно)\s+(?:вам\s+)?подойд(?:[её]т|ут)|подойд(?:[её]т|ут)\s+(?:вам\s+)?точно|(?:noteikti|garantēti|droši)\s+derēs|\bwill\s+(?:definitely\s+|certainly\s+)?(?:arrive|be delivered)\s+(?:by|on|before)\s+(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b|(?:доставим|привез[её]м|доставят|приедет|прид[её]т)\s+(?:точно\s+)?(?:к|в|до)\s+(?:понедельник|вторник|сред[уеы]|четверг|пятниц[уеы]|суббот[уеы]|воскресень)/iu;
+ const denial=/не (?:могу|можем|буду) (?:обещать|гарантировать)|нельзя гарантировать|(?:cannot|can't|do not|don't) (?:confirm|guarantee|promise)|nevar.{0,12}(?:garantēt|apsolīt)/iu;
+ return reply.split(/[.!?;\n]|\s+(?:but|но|tomēr)\s+/iu).some(s=>assurance.test(s)&&!denial.test(s))?'unverified_promise':null;
+}

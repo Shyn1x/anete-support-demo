@@ -11,6 +11,7 @@ const vocabulary=[
  'shipping','instalments','packaging','damaged','broken','contact','cancel'
 ];
 const fold=s=>s.normalize('NFD').replace(/(\p{Script=Latin})\p{M}+/gu,'$1').normalize('NFC').toLowerCase();
+const policyAliases={dostavka:'доставка',vozvrat:'возврат',oplata:'оплата',samovyvoz:'самовывоз'};
 const entries=vocabulary.map(word=>({word,folded:fold(word)}));
 function oneEdit(a,b){
  if(Math.abs(a.length-b.length)>1)return false;
@@ -22,6 +23,7 @@ function oneEdit(a,b){
 }
 export function correctTypos(text){
  return text.replace(/\p{L}+/gu,token=>{
+  if(Object.hasOwn(policyAliases,token.toLowerCase()))return policyAliases[token.toLowerCase()];
   if(token.length<5||token.length>24)return token;
   const value=fold(token),exact=entries.find(e=>e.folded===value);
   if(exact)return exact.word;

@@ -17,7 +17,7 @@ export function productSafetyRoute(s,tenant){
   bariba:/аллерг|болезн|лечит|лечени|лечеб|ветеринар|veterinar|allerg|alerģ|alerg|disease|treat|ārst|slim|рв[её]т|рвот|понос|диаре|vomit|diarrh|vemj|vemšan|caurej/iu,
   hobbyset:/на теле|на коже|(?:рисова|нанес|наноси|красить|раскрас).{0,35}(?:лиц|губ|глаз)|(?:лицо|лице|губы).{0,30}(?:реб[её]н|краск)|безопас.{0,20}реб[её]н|реб[её]н.{0,20}безопас|skin|body paint|(?:paint|apply).{0,25}(?:on (?:a |the |my |their )?(?:child.s )?face|face painting)|face paint|(?:krās|uzklā).{0,25}(?<!\p{L})(?:sej|ād)|droš.{0,15}bērn/iu,
   apavi40plus:/ортопед|болезн|диабет|нейропат|medical|orthop|diab[eē]t|neuropath|ārst/iu,
-  rotallieta:/безопас|младен|новорожд|safe|newborn|droš|jaundzim|(?:реб[её]н|малыш).{0,30}(?:месяц|месяцев)|(?:baby|infant|months? old)|(?:bērn|zīdai).{0,30}mēneš/iu,
+  rotallieta:/(?:(?:ему|ей|малышу|реб[её]нку|viņam|viņai|bērnam).{0,24}(?:месяц|месяцев|mēneš)|^(?:ошибся[, ]*|ошиблась[, ]*|sorry[, ]*)?(?:\d{1,2}|восемь|eight|astoņi)\s*(?:месяц\p{L}*|months? old|mēneš\p{L}*)[.!? ]*$)|безопас|младен|новорожд|safe|newborn|droš|jaundzim|(?:реб[её]н|малыш).{0,30}(?:месяц|месяцев)|(?:baby|infant|months? old)|(?:bērn|zīdai).{0,30}mēneš/iu,
   celotajs:/безопас|safe|droš|[−-]\s*\d+.{0,20}(спать|спаль|sleep)|спаль.{0,30}[−-]\s*\d+|горелк|баллон|страхов|burner|gas canister|belay|gas stove|gāzes degl/iu,
   anete:/пораж.{0,15}ток|бь[её]т ток|дымит|задым|искрит|перегрев|electric shock|sparking|overheat|smoke|dūmo|dzirksteļ|pārkar/iu
  };

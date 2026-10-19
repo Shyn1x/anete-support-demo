@@ -14,10 +14,11 @@ export async function loadCatalogIndex(env,tenant){
 }
 export const concepts=[
  ['puppy',/щен|pupp|kuc[eē]n/iu,/pupp|kucen/],['kitten',/кот[её]н|котят|kitten|kaķ[eē]n/iu,/kitten|kaken/],
- ['cat',/кош|кот(?:а|у|ов|ам)?\b|\bcat[s]?\b|kaķ|kak/iu,/cat|kak/],['dog',/собак|\bdogs?\b|suņ|sunu/iu,/dog|sun/],
- ['food',/корм|\bfood\b|bar[iī]b/iu,/food|barib|recipe|necon|cooking/],
+ ['cat',/кош|кот(?:а|у|ов|ам)?(?!\p{L})|\bcat[s]?\b|kaķ|kak/iu,/cat|kak/],['dog',/собак|\bdogs?\b|suņ|sunu/iu,/dog|sun/],
+ ['adult',/взросл|\badult\b|pieauguš/iu,/adult|pieaugus/],
+ ['food',/корм|\bfood\b|bar[iī]b/iu,/food|barib|recipe|necon|cooking|konserv/],
  ['hiking',/\bhiking\b|походн|pārgājien/iu,/hiking|pargaj/],
- ['winter',/зимн|\bwinter\b|ziemas/iu,/winter|ziemas|ziema/],
+ ['winter',/зимн|\bwinter\b|ziemas|\bzimnie\b/iu,/winter|ziemas|ziema/],
  ['dry',/сух|\bdry\b|saus/iu,/dry|saus/],['wet',/влажн|консерв|\bwet\b|mitr|konserv/iu,/wet|mitr|konserv/],
  ['watercolour',/акварел|watercolou?r|akvarel/iu,/akvarel|watercol/],
  ['acrylic',/акрил|acrylic|akril/iu,/akril|acryl/],
@@ -25,25 +26,50 @@ export const concepts=[
  ['brush',/кист|\bbrush|\botas?\b/iu,/ot[au]|brush/],['toy',/игруш|\btoys?\b|rotaļ/iu,/rotal|toy|sp[eē]l|board|lelle|lego|figurin/],
  ['doll',/кукл|\bdolls?\b|lell/iu,/lell|doll/],['puzzle',/пазл|puzzl|puzl/iu,/puzzl|puzl/],
  ['shoe',/обув|туфл|\bshoes?\b|apav/iu,/apav|kurp|sand|boot|shoe|slipper|zabak|seibel|rieker|lloyd/],
- ['boot',/ботин|сапог|\bboots?\b|zābak/iu,/boot|zabak/],['insole',/стельк|insole|iekšzol/iu,/insole|iekszol/],
+ ['boot',/ботин|сапог|\bboots?\b|zābak|\bbotinki\b/iu,/boot|zabak/],['insole',/стельк|insole|iekšzol/iu,/insole|iekszol/],
  ['tent',/палат|\btents?\b|telt/iu,/tent|telt/],['sleep',/спальн|sleeping bag|guļammais/iu,/sleep|gulammais/],
  ['backpack',/рюкзак|backpack|mugursom/iu,/backpack|mugursom/],['vacuum',/пылесос|vacuum|putekļsūc/iu,/vacuum|puteklsuc/],
  ['fridge',/холодиль|fridge|refrigerator|ledusskap/iu,/fridge|refrigerator|ledusskap/]
 ];
-const stop=new Set(fold('какой какая какое какие лучше лучший подойдет подходит выбрать выбери подбери подбор посоветуй посоветуйте нужен нужна нужно нужны для у в на из с и или мне меня мой этого этой этот товар товары модель модели есть ли цена сколько стоит состав материал какие характеристики размер вес ширина батарейки комплект входит чем отличается сравни сравнить сравнение разница между а как что пожалуйста хочу щенка щенков щенкам собак кошек кота котов корм корма щенок котенок сухой влажный ребёнка ребенка девочки мальчика похода прогулок ткани рисования options any looking suggest offer можете предложить var apskatīt meklēju dāvanai piedāvājat what which how made from listed list is are the a an for to of with in my i me you can could please want need should would best better recommend choose compare comparison difference between does do has have it its this that these price cost available availability stock size weight material ingredients contents included battery batteries width puppy puppies kitten kittens cat cats dog dogs food dry wet paint paints brush brushes toy toys doll dolls shoe shoes boot boots tent tents sleeping bag backpack vacuum fridge what kind kādu kāds kāda kādi ko kā cik ir vai man es gribu lūdzu izvēlēties izvēleties labāk labak piemērota piemerota piemērots ieteikt salīdzini salidzināt atšķiras ar un par no uz cena maksā pieejams izmērs svars sastāvs materiāls baterijas komplekts kucēniem kucēnam kaķim sunim barību barība sauso sausā mitro rotaļlietu rotaļlietas bērnam bērnu krāsas audumam apavus pastaigām telti teltis pārgājienam putekļsūcēju ledusskapja modelim').split(/\s+/));
-export function queryParts(message){ const query=fold(message),groups=concepts.filter(([,re])=>re.test(message)||re.test(query));
+const stop=new Set(fold('nuzhni vajag kaut pieaugušam коту котом какой какая какое какие лучше лучший подойдет подходит выбрать выбери подбери подбор посоветуй посоветуйте нужен нужна нужно нужны для у в на из с и или мне меня мой этого этой этот товар товары модель модели есть ли цена сколько стоит состав материал какие характеристики размер вес ширина батарейки комплект входит чем отличается сравни сравнить сравнение разница между а как что пожалуйста хочу щенка щенков щенкам собак кошек кота котов корм корма щенок котенок сухой влажный ребёнка ребенка девочки мальчика похода прогулок ткани рисования options any looking suggest offer можете предложить var apskatīt meklēju dāvanai piedāvājat what which how made from listed list is are the a an for to of with in my i me you can could please want need should would best better recommend choose compare comparison difference between does do has have it its this that these price cost available availability stock size weight material ingredients contents included battery batteries width puppy puppies kitten kittens cat cats dog dogs food dry wet paint paints brush brushes toy toys doll dolls shoe shoes boot boots tent tents sleeping bag backpack vacuum fridge what kind kādu kāds kāda kādi ko kā cik ir vai man es gribu lūdzu izvēlēties izvēleties labāk labak piemērota piemerota piemērots ieteikt salīdzini salidzināt atšķiras ar un par no uz cena maksā pieejams izmērs svars sastāvs materiāls baterijas komplekts kucēniem kucēnam kaķim sunim barību barība sauso sausā mitro rotaļlietu rotaļlietas bērnam bērnu krāsas audumam apavus pastaigām telti teltis pārgājienam putekļsūcēju ledusskapja modelim').split(/\s+/));
+// Limited negative category clauses: reject the excluded category rather than
+// treating “not kitten food” as a positive kitten search. Unknown constraints
+// remain in the query; they are never silently dropped or certified as safe.
+function categoryClauses(message){
+ const positive=[],excluded=[];let impliedFood=false;
+ for(const clause of message.split(/(?<!\d)[,;](?!\d)|\s+(?:а|но|but|bet)\s+/iu)){
+  const m=clause.trim().match(/^(?:(?:мне|нам|я)\s+)?не\s+(?:(?:нужен|нужна|нужно|нужны|хочу)\s+)?(.+)$/iu)
+   ||clause.trim().match(/^(?:(?:i|we)\s+)?(?:do not|don't|don’t)\s+(?:want|need)\s+(.+)$/iu)
+   ||clause.trim().match(/^not\s+(?:(?:a|an|for)\s+)?(.+)$/iu)
+   ||clause.trim().match(/^(?:man\s+)?(?:nevajag|negribu|nevis)\s+(.+)$/iu);
+  if(m){
+   const groups=concepts.filter(([,re])=>re.test(m[1])||re.test(fold(m[1])));
+   const residual=(fold(m[1]).match(/[\p{L}\p{N}]+/gu)||[]).filter(t=>!stop.has(t)&&!concepts.some(([,re])=>re.test(t)));
+   const leaves=groups.filter(([id])=>['kitten','puppy','adult','winter','dry','wet','acrylic','watercolour'].includes(id));
+   if(leaves.length&&!residual.length){excluded.push(...leaves);impliedFood ||= groups.some(([id])=>id==='food');continue;}
+  }
+  positive.push(clause);
+ }
+ const text=positive.join(' ');const anotherCategory=concepts.some(([id,re])=>['toy','doll','puzzle','paint','brush','shoe','boot','tent','sleep','backpack','vacuum','fridge'].includes(id)&&re.test(text));
+ return {positive:text+(impliedFood&&concepts.some(([,re])=>re.test(text))&&!anotherCategory?' food':''),excluded};
+}
+// English negative 'no' must not disappear as Latvian filler. Unknown
+// exclusions remain restrictive instead of finding the excluded ingredient.
+stop.delete('no');
+export function queryParts(message){ const {positive,excluded}=categoryClauses(message),query=fold(positive),groups=concepts.filter(([,re])=>re.test(positive)||re.test(query));
  // Puppy/kitten already identify species, so do not require a redundant dog/cat label.
  const required=groups.filter(([id])=>!(id==='dog'&&groups.some(g=>g[0]==='puppy')||id==='cat'&&groups.some(g=>g[0]==='kitten')));
  const raw=(query.match(/[\p{L}\p{N}]+/gu)||[]).filter(t=>t.length>1&&!stop.has(t)&&!/^(?:kads|kada|kadas|kadu|kadi|kadus|kadam|kadiem)$/u.test(t)&&!/^ребенк[ауе]$/u.test(t)&&!/^как(?:ой|ая|ое|ие|ую|их|ого|ому|им|ими|ом)$/u.test(t));
  const terms=raw.filter(t=>!concepts.some(([,re])=>re.test(t))&&!/^\d{1,2}$/.test(t)).slice(0,10);
- return {required,terms};
+ return {required,terms,excluded,conflict:required.some(([id])=>excluded.some(([other])=>id===other))};
 }
 export function searchProducts(index,message,{limit=3}={}){
- const {required,terms}=queryParts(message);if(!required.length&&!terms.length)return [];
+ const {required,terms,excluded,conflict}=queryParts(message);if(conflict||!required.length&&!terms.length)return [];
  const scored=[];for(const p of index.products){const text=fold(p.t+' '+decodeURIComponent(new URL(p.u).pathname));
   if(required.some(([, ,match])=>!match.test(text)))continue;
+  if(excluded.some(([,,match])=>match.test(fold(p.t))))continue;
   // Old SEO paths can contradict the current title (kitten URL, adult food title).
-  if(required.some(([key,,match])=>['kitten','puppy'].includes(key)&&!match.test(fold(p.t))))continue;
+  if(required.some(([key,,match])=>['kitten','puppy','adult'].includes(key)&&!match.test(fold(p.t))))continue;
   if(index.tenant==='hobbyset'&&required.some(g=>g[0]==='paint')&&!/kras|paints?\b/iu.test(fold(p.c||p.t)))continue;
   if(index.tenant==='hobbyset'&&required.some(g=>g[0]==='paint')&&/lidzek|palig|medium|medij|lak/iu.test(fold(p.c||'')))continue;
   if(required.some(g=>g[0]==='paint')&&/paper|papir|brush|sponge|palett|easel|\botas?\b/iu.test(text))continue;
@@ -89,7 +115,7 @@ export async function searchIndexedProducts(env,tenant,index,message,limit=3){
  if(Array.isArray(index.products))return searchProducts(index,message,{limit});
  const root=env.TENANT_ID?'/catalog-data':'/catalog-data/'+tenant.id;
  const read=async (path,optional=false)=>{const response=await env.ASSETS.fetch(new Request('https://catalog-assets.invalid'+root+'/'+path));if(response.status===404&&optional)return {};if(!response.ok)throw Error('catalog_index');const text=await response.text();if(text.length>350000)throw Error('catalog_index');return JSON.parse(text);};
- const {required,terms}=queryParts(message),lists=required.map(([key])=>(!/survival|emergency|экстр|авар|ārkārt|repair|pole|ремонт|miet|remont/iu.test(message)&&index.safeGroups?.[key])||index.groups[key]||[]);
+ const {required,terms,conflict}=queryParts(message);if(conflict)return [];const lists=required.map(([key])=>(!/survival|emergency|экстр|авар|ārkārt|repair|pole|ремонт|miet|remont/iu.test(message)&&index.safeGroups?.[key])||index.groups[key]||[]);
  const buckets=new Map();for(const word of terms){const bucket=prefixBucket(word);if(!buckets.has(bucket))buckets.set(bucket,await read('terms/'+bucket+'.json',true));const ids=buckets.get(bucket)?.[word.slice(0,4)]||[];if(!Array.isArray(ids)||ids.some(i=>!Number.isInteger(i)||i<0||i>=index.entries))throw Error('catalog_index');lists.push(ids);}
  if(!lists.length||lists.some(l=>!l.length))return [];lists.sort((a,b)=>a.length-b.length);
  let possible=[...new Set(lists[0])];for(const list of lists.slice(1)){const set=new Set(list);possible=possible.filter(id=>set.has(id));}

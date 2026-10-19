@@ -11,9 +11,9 @@ export function detectLocale(message,fallback='ru'){
  if(/^(?:отвечай(?:те)?|перейди|говори(?:те)?).{0,15}латышск|^(?:can you |could you |please )?(?:reply|respond|speak|answer).{0,15}latvian|^atbild(?:i|iet) latviski/.test(instruction))return 'lv';
  if(/^(?:отвечай(?:те)?|перейди|говори(?:те)?).{0,15}русск|^(?:can you |could you |please )?(?:reply|respond|speak|answer).{0,15}russian|^atbild(?:i|iet) krieviski/.test(instruction))return 'ru';
  const tokens=message.normalize('NFKC').toLowerCase().match(/\p{L}+/gu)||[];
- const counts={ru:0,lv:0,en:0};
+ const counts={ru:0,lv:0,en:0};const translitRU=new Set(['dostavka','vozvrat','oplata','samovyvoz','nuzhni','zimnie','botinki']);
  for(const word of tokens){
-  if(/[а-яё]/u.test(word))counts.ru++;
+  if(/[а-яё]/u.test(word)||translitRU.has(word))counts.ru++;
   if(words.en.has(word))counts.en++;
   if(words.lv.has(word)||/[āčēģīķļņšūž]/u.test(word))counts.lv++;
  }

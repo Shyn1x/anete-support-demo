@@ -1,3 +1,4 @@
+import {ordinalSelection} from './product-context.js';
 import {loadCatalogIndex,searchProducts,searchIndexedProducts,searchFallback,searchCopy,fold,queryParts} from './catalog-index.js';
 import {fetchProduct,productURL,plain,readText,catalogDiagnostics,canContinueProduct} from './catalog.js';import {catalogReplyRequest} from './catalog-reply.js';
 import {reviewedCatalogSnapshot} from './catalog-snapshots.js';
@@ -14,8 +15,7 @@ export function explicitProductPlan(linked,tenant){
 export function contextSelection(message,urls){
  if(!urls.length)return [];
  if(urls.length===1&&canContinueProduct(message))return urls;
- if(/^(?:а )?(?:у |про |в )?(?:втор(?:ого|ой|ом|ую)|second|the second|otraj\p{L}*|otra\p{L}*)/iu.test(message))return urls[1]?[urls[1]]:[];
- if(/^(?:а )?(?:у |про |в )?(?:перв(?:ого|ой|ом|ую)|first|the first|pirmaj\p{L}*|pirma\p{L}*)/iu.test(message))return [urls[0]];
+ const ordinals=ordinalSelection(message,urls.length);if(ordinals.length)return ordinals.map(i=>urls[i]);
  if(/^(?:сравни(?:те)? (?:их|эти(?: варианты| товары)?)|compare (?:these|them)|salīdzini (?:tos|šos))[?.! ]*$/iu.test(message))return urls;
  return [];
 }
@@ -23,7 +23,7 @@ function comparison(index,message){const stripped=message.replace(/^(?:срав�
 export async function retrievalPlan(env,tenant,message,reference,context){
  if(reference.handoff||reference.social||reference.ids.some(id=>tenant.cards.find(c=>c.id===id)?.topic!=='product'))return null;
  const remembered=contextSelection(message,catalogueContext(context,tenant));
- if(remembered.length){const requireAll=/сравн|compare|salīdzin/iu.test(message);return {explicitContext:true,requireAll,index:{tenant:tenant.id,importedAt:null},candidates:requireAll&&remembered.length!==2?[]:remembered.map(u=>({u,t:''}))};}
+ if(remembered.length){const requireAll=remembered.length>1||/сравн|compare|salīdzin/iu.test(message);return {explicitContext:true,requireAll,index:{tenant:tenant.id,importedAt:null},candidates:requireAll&&remembered.length!==2?[]:remembered.map(u=>({u,t:''}))};}
  if(tenant.id==='anete')return {native:true,index:{tenant:'anete',importedAt:null},candidates:[]};
  const index=await loadCatalogIndex(env,tenant);const stripped=message.replace(/^(?:сравни(?:те)?|compare|salīdzini)\s+/iu,'');const parts=stripped.split(/\s+(?:и|vs\.?|versus|and|un)\s+/iu);let candidates=[];if(parts.length===2){const both=await Promise.all(parts.map(p=>searchIndexedProducts(env,tenant,index,p,1)));if(both.every(x=>x.length)&&both[0][0].u!==both[1][0].u)candidates=both.flat();}if(!candidates.length)candidates=await searchIndexedProducts(env,tenant,index,message);return {index,candidates};
 }

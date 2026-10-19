@@ -1,4 +1,4 @@
-import {deliveryConditionReason,timingConditionReason} from './policy-evidence.js';
+import {deliveryConditionReason,timingConditionReason,additionalPromiseReason} from './policy-evidence.js';
 // One bounded provider request: interpret the question AND phrase a grounded reply.
 // History is browser-local, untrusted context; it can never be policy evidence.
 import {aiRoute,preflight,referenceRoute,followupRoute,prioritySupportRoute} from './core.js';
@@ -37,6 +37,7 @@ export function replyValidationReason(reply,result,tenant,locale){
  if(preflight(replySafetyText(reply,result,tenant,locale),tenant.id))return 'unsafe_content';
  // No generated stock/fit guarantees or concrete delivery promises in a policy demo.
  if(/в наличии|есть на складе|точно подойд[её]т|гарантированно|доставим завтра|in stock|available now|guaranteed fit|will arrive tomorrow|noliktavā|noteikti derēs|piegādāsim rīt/iu.test(reply))return 'unverified_promise';
+ const extraPromise=additionalPromiseReason(reply);if(extraPromise)return extraPromise;
  // A demo cannot offer future dispatch either: no ticket/chat integration exists.
  if(/(?:я|мы)\s+(?:(?:могу|можем|помогу|поможем|готов|готовы)\s+)?(?:помочь\s+)?(?:переда(?:ть|м|дим)|отправ(?:ить|лю|им)|направ(?:ить|лю|им)|соедин(?:ить|ю|им)|свя(?:зать|жу|жем)|подключ(?:ить|у|им))|\b(?:i|we)\s+(?:(?:can|could|will|shall|would)\s+|(?:am|are)\s+(?:able|going)\s+to\s+)(?:help\s+(?:you\s+)?(?:to\s+)?)?(?:forward|send|submit|connect|transfer|pass|create|raise|open)\b|\b(?:es|mēs)\s+(?:(?:varu|varam|varētu)\s+)?(?:palīdzēt\s+)?(?:nodot|nodošu|nodosim|nosūtīt|nosūtīšu|nosūtīsim|pārsūtīt|pārsūtīšu|pārsūtīsim|savienot|savienošu|savienosim|izveidot|izveidošu|izveidosim)/iu.test(reply))return 'unsupported_handoff_action';
  if(/(?:я|мы).{0,18}(?:оформил|отменил|отправил|вернул|соединил|подключил)|(?:i|we)(?:'ve| have)? (?:submitted|cancelled|refunded|connected|created|sent)|(?:es|mēs).{0,15}(?:nosūtīj|atcēl|atmaksāj|savienoj)/iu.test(reply))return 'pretended_action';

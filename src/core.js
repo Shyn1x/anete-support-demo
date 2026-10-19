@@ -61,6 +61,8 @@ export function prioritySupportRoute(text,tenantId='anete'){
  const wantsHuman=/(?:мне |дай(?:те)? |нужен |позови(?:те)? |соедини(?:те)?|хочу).{0,22}(?:оператор|сотрудник|человек|менеджер|консультант)|^(?:оператор|сотрудник|человек)[!.? ]*$|(?:need|want|speak to|talk to|connect me|contact).{0,22}(?:human|agent|person|staff)|(?:vajag|vēlos|gribu|savieno).{0,22}(?:darbiniek|cilvēk|operator|konsultant)/iu.test(s);
  const humanNegated=/(?<!\p{L})(?:не нужен|не хочу|no (?:human|agent)|don.t (?:need|want)|nevajag|nevēlos)(?!\p{L})/iu.test(s);
  const damage=/поврежд|порван|разбит|слом|не работает|дефект|broken|faulty|damaged|doesn.t work|bojā|salūz|nestrād|saplēst/iu.test(s)||/(?:посылк|товар|упаковк|обув).{0,35}(?:мокр|порв|тресну)|(?:parcel|item|package|shoe).{0,35}(?:torn|wet|cracked)/iu.test(s);
+ const conflict=/(?:на (?:упаковке|этикетке|коробке).{0,25}(?:написано|указано).{0,20}(?:другое|иначе|не то)|(?:label|packaging|box).{0,20}(?:says|states|indicates).{0,20}(?:different|otherwise|contradict)|(?:uz )?(?:iepakojuma|etiķetes).{0,20}(?:rakstīts|norādīts).{0,20}(?:citādi|cits|atšķir))/iu.test(s);
+ if(conflict&&tenant.cards.some(c=>c.id==='contact'))return {ids:['contact'],kind:'answer',handoff:true,reason:'source_conflict'};
  const id=wantsHuman&&!humanNegated?'contact':damage?'defect':null;
  return id&&tenant.cards.some(c=>c.id===id)?{ids:[id],kind:'answer',handoff:true}:productSafetyRoute(s,tenantId);
 }
@@ -76,12 +78,12 @@ export function safeFallbackRoute(tenant,reference,candidate=null){
  return reference.ids.length||!ids.length?reference:{ids,kind:'answer',handoff:false};
 }
 export function referenceRoute(text, previous=null, tenantId='anete'){
- const linked=shopLinks(text,getTenant(tenantId));if(linked.rejected)return {ids:[],kind:'link-unsupported',handoff:false};
+ const linked=shopLinks(text,getTenant(tenantId));linked.clean=correctTypos(normalize(linked.clean));if(linked.rejected)return {ids:[],kind:'link-unsupported',handoff:false};
  // URL anchors and previous sizing context must not hide an explicit support request.
  const priority=prioritySupportRoute(correctTypos(normalize(linked.clean)),tenantId);if(priority)return priority;
  if(linked.links.length){
   if(linked.known&&!linked.clean)return {ids:[],kind:'shop-link',handoff:false};
-  if(!linked.known&&previous==='product-sizing'&&tenantId==='apavi40plus')return {ids:[],kind:'product-linked-size-chart',handoff:false};
+  if(!linked.known&&previous==='product-sizing'&&tenantId==='apavi40plus'&&!/достав|оплат|вернуть|возврат|гарант|delivery|shipping|pay|return|warranty|piegād|apmaks|atgrie|garant/iu.test(linked.clean))return {ids:[],kind:'product-linked-size-chart',handoff:false};
   if(!linked.known&&!/достав|оплат|вернуть|возврат|гарант|человек|сотрудник|слом|брак|поврежд|delivery|shipping|pay|return|warranty|human|broken|damag|piegād|apmaks|atgrie|garant|darbiniek|bojāt/iu.test(linked.clean))return {ids:[],kind:tenantId==='apavi40plus'&&/размер|size|izm[eē]r/iu.test(linked.clean)?'product-linked-size':'product-linked',handoff:false};
   text=linked.query||linked.clean;
  }
@@ -161,6 +163,7 @@ export function render(tenantId,locale,result,mode){
  if(result.clarificationKind==='product-help')parts.push(buyerCopy[locale].help[tenantId]);
  else if(result.clarificationKind&&t[result.clarificationKind])parts.push(t[result.clarificationKind]);
  if(!parts.length)parts.push(linkCopy[locale][result.kind]|| (result.kind==='product-sizing'&&result.knownModel?t['product-sizing-known']:['unknown','clarify'].includes(result.kind)&&tenantId!=='anete'?genericClarify[locale]:result.kind==='product-help'?(result.productIntent==='selection'?productSelectionCopy[locale][tenantId]:result.productIntent==='compare'?productCompareCopy[locale]:buyerCopy[locale].help[tenantId]):result.kind==='product-safety'?buyerCopy[locale].productSafety:result.kind==='language'?buyerCopy[locale].language:(result.social?socialText[locale][result.kind]:null)||t[result.kind]||t.unknown));
+ if(result.reason==='source_conflict')parts.unshift({ru:'Вы сообщили о расхождении с упаковкой. Не буду считать прежний ответ подтверждённым; информацию по конкретному товару нужно сверить с магазином.',lv:'Jūs norādāt uz neatbilstību iepakojumam. Iepriekšējo atbildi neuzskatīšu par apstiprinātu; konkrētās preces informācija jāpārbauda veikalā.',en:'You have reported a difference from the packaging. I will not treat the earlier answer as confirmed; the shop needs to check the information for this product.'}[locale]);
  if(result.handoff)parts.push(t.handoff);
  for(let i=0;i<parts.length;i++)parts[i]=parts[i].replaceAll('Anete.lv',tenant.name);
  const keys=[...new Set(selected.map(c=>c.source))];
