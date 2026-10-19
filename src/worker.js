@@ -1,6 +1,6 @@
 import {catalogReplyRequest} from './catalog-reply.js';
 import {catalogueQuery} from './catalog-index.js';
-import {retrievalPlan,readCandidates,retrievalFallback,generateCatalogReply,catalogReason} from './catalog-service.js';
+import {retrievalPlan,explicitProductPlan,contextSelection,catalogueContext,readCandidates,retrievalFallback,generateCatalogReply,catalogReason} from './catalog-service.js';
 import {studioChat} from './studio.js';
 import {conversationRequest,cleanHistory,MAX_CHAT_BODY,AUDIT_REVISION} from './conversation.js';
 import {productURL,fetchProduct,catalogAnswer,catalogError,catalogDiagnostics,canContinueProduct,isSizingQuestion} from './catalog.js';
@@ -72,7 +72,7 @@ export function createWorker(fetcher=fetch){return {
     const tenant=getTenant(url.searchParams.get('tenant')||locked||'anete');if(!tenant)return reply({error:'unknown_tenant'},404);
     const error=configError(env);
     if(!locked&&env.DEMO_PASSWORD&&tenant.id!=='anete'&&!await authenticated(request,env))return reply({tenant:tenant.id,name:'Private demo',sources:[],contact:null,mode:'reference',locked:true,authenticated:false,ready:!error,error});
-    return reply({perCallMicroUSD:RESERVE_MICRO_USD,dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:tenant.id,name:tenant.name,sources:Object.values(tenant.sources),contact:tenant.contact,checked:tenant.checked,mode:env.AI_ENABLED==='true'?'ai':'reference',conversationEnabled:env.AI_CONVERSATIONAL==='true',conversationRevision:env.AI_CONVERSATIONAL==='true'?'context-v2':null,auditRevision:AUDIT_REVISION,catalogEnabled:env.CATALOG_ENABLED==='true',catalogRevision:env.CATALOG_ENABLED==='true'?'fidelity-v2':null,authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
+    return reply({perCallMicroUSD:RESERVE_MICRO_USD,dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:tenant.id,name:tenant.name,sources:Object.values(tenant.sources),contact:tenant.contact,checked:tenant.checked,mode:env.AI_ENABLED==='true'?'ai':'reference',conversationEnabled:env.AI_CONVERSATIONAL==='true',conversationRevision:env.AI_CONVERSATIONAL==='true'?'context-v2':null,auditRevision:AUDIT_REVISION,catalogEnabled:env.CATALOG_ENABLED==='true',catalogRevision:env.CATALOG_ENABLED==='true'?'buyer-v3':null,authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
    }
    if(url.pathname==='/api/usage'&&request.method==='GET'){
     const error=configError(env);if(error||!env.DEMO_PASSWORD)return reply({error:'server_not_configured'},503);
@@ -130,25 +130,28 @@ export function createWorker(fetcher=fetch){return {
     if(!previous)previous=historyTopic(history,tenant.id);
     const blocked=preflight(data.message,tenant.id);
     const ref=referenceRoute(data.message,previous,tenant.id);
+    const choiceContext=!linked.links.length?contextSelection(linked.clean,catalogueContext(data.catalogURLs,tenant)):[];
     const contextURL=typeof data.productURL==='string'&&canContinueProduct(linked.clean)?productURL(data.productURL,tenant):null;
-    const productLink=linked.links.length===1?productURL(linked.links[0].url,tenant):!linked.links.length?contextURL:null;
+    const productLink=linked.links.length===1?productURL(linked.links[0].url,tenant):!linked.links.length?(choiceContext.length===1?choiceContext[0]:choiceContext.length?null:contextURL):null;
+    const linkedPair=!ref.handoff&&!ref.social&&!ref.ids.some(id=>tenant.cards.find(c=>c.id===id)?.topic!=='product')?explicitProductPlan(linked,tenant):null;
     const productQuery=!!linked.links.length||!!contextURL&&canContinueProduct(linked.clean)||/размер|сетк|стельк|состав|материал|вес|батар|налич|цен|сколько|size|chart|insole|ingredient|material|weight|batter|availab|stock|price|izmēr|sastāv|materiāl|svars|bater|pieejam/iu.test(linked.clean);
     if(env.CATALOG_ENABLED==='true'&&!(env.AI_ENABLED==='true'&&env.AI_CONVERSATIONAL==='true')&&!blocked&&productLink&&productQuery&&!ref.handoff&&!ref.social&&!/достав|оплат|возврат|гарант|delivery|shipping|payment|return|warranty|piegād|apmaks|atgrie|garant/iu.test(linked.clean)){
      const denied=await gate(request,env,'chat',false);if(denied)return denied;
      const base=render(tenant.id,data.locale,{ids:[],kind:'product-clarify',handoff:false},'reference');
      try{const product=await fetchProduct(productLink,tenant,fetcher,typeof caches!=='undefined'?caches.default:null);return reply({...base,text:catalogAnswer(product,linked.clean,data.locale,previous),sources:[{title:product.title,url:product.url,kind:'product'}],checked:product.checkedAt,topic:isSizingQuestion(linked.clean,previous)?'product-sizing':null,productURL:product.url,productRead:true,cached:product.cached,catalogFormat:product.format||'html',providerUsed:false,mode:'catalog'});}catch(error){return reply({...base,text:catalogError(data.locale),productURL:productLink,productRead:false,catalogDiagnostics:catalogDiagnostics(error),providerUsed:false,mode:'catalog'});}
     }
-    if(env.CATALOG_ENABLED==='true'&&!blocked&&(!productLink||env.AI_ENABLED==='true'&&env.AI_CONVERSATIONAL==='true')&&(productLink&&productQuery&&!ref.handoff&&!ref.social||catalogueQuery(linked.clean,ref,tenant)||Array.isArray(data.catalogURLs)&&data.catalogURLs.length&&!ref.handoff&&!ref.social&&/втор|перв|сравни|second|first|compare|otraj|pirmaj|salīdzini/iu.test(linked.clean))){
-     let plan;try{plan=productLink?{explicitContext:true,index:{tenant:tenant.id,importedAt:null},candidates:[{u:productLink,t:''}]}:await retrievalPlan(env,tenant,linked.clean,ref,data.catalogURLs);}catch{}
+    if(env.CATALOG_ENABLED==='true'&&!blocked&&(!productLink||env.AI_ENABLED==='true'&&env.AI_CONVERSATIONAL==='true')&&(!!linkedPair||productLink&&productQuery&&!ref.handoff&&!ref.social||catalogueQuery(linked.clean,ref,tenant)||Array.isArray(data.catalogURLs)&&data.catalogURLs.length&&!ref.handoff&&!ref.social&&/втор|перв|сравни|second|first|compare|otraj|pirmaj|salīdzini/iu.test(linked.clean))){
+     let plan;try{plan=linkedPair||(productLink?{explicitContext:true,index:{tenant:tenant.id,importedAt:null},candidates:[{u:productLink,t:''}]}:await retrievalPlan(env,tenant,linked.clean,ref,data.catalogURLs));}catch{}
      if(plan){
       const nonce=crypto.randomUUID().replaceAll('-','');
       const denied=await gate(request,env,'chat',false,nonce);if(denied)return denied;
       let loaded;try{loaded=await readCandidates(plan,tenant,linked.clean,fetcher);}catch{loaded={candidates:plan.candidates,products:[],readFailures:1};}
+      const activeProductLink=productLink||!plan.requireAll&&plan.explicitContext&&loaded.products.length===1&&loaded.products[0].url;
       const base=render(tenant.id,data.locale,{ids:[],kind:'product-clarify',handoff:false},'reference');
-      const out={...base,mode:'catalog',text:retrievalFallback(loaded,plan,linked.clean,data.locale),sources:loaded.metadataOnly?loaded.candidates.map(p=>({title:p.t,url:p.u,kind:'product'})):loaded.products.map(p=>({title:p.title,url:p.url,kind:'product'})),catalogURLs:loaded.metadataOnly?loaded.candidates.map(p=>p.u):loaded.products.map(p=>p.url),...(productLink?{productURL:productLink,catalogDiagnostics:loaded.diagnostics?.[0]?{attempts:loaded.diagnostics[0].attempts}:undefined}:{}),catalogSearch:true,catalogMetadataOnly:!!loaded.metadataOnly,catalogRevision:'fidelity-v2',catalogIndexDate:plan.index.importedAt,checked:loaded.products[0]?.checkedAt||plan.index.importedAt||tenant.checked,productRead:loaded.products.some(p=>!p.reviewedSnapshot),catalogSnapshot:loaded.products.some(p=>p.reviewedSnapshot),readFailures:loaded.readFailures,catalogReadDiagnostics:loaded.diagnostics||[],providerUsed:false};
+      const out={...base,mode:'catalog',text:retrievalFallback(loaded,plan,linked.clean,data.locale),sources:loaded.metadataOnly?loaded.candidates.map(p=>({title:p.t,url:p.u,kind:'product'})):loaded.products.map(p=>({title:p.title,url:p.url,kind:'product'})),catalogURLs:loaded.metadataOnly?loaded.candidates.map(p=>p.u):loaded.products.map(p=>p.url),...(activeProductLink?{productURL:activeProductLink,catalogDiagnostics:loaded.diagnostics?.[0]?{attempts:loaded.diagnostics[0].attempts}:undefined}:{}),catalogSearch:true,catalogMetadataOnly:!!loaded.metadataOnly,catalogRevision:'buyer-v3',catalogIndexDate:plan.index.importedAt,checked:loaded.products[0]?.checkedAt||plan.index.importedAt||tenant.checked,productRead:loaded.products.some(p=>!p.reviewedSnapshot),catalogSnapshot:loaded.products.some(p=>p.reviewedSnapshot),readFailures:loaded.readFailures,catalogReadDiagnostics:loaded.diagnostics||[],providerUsed:false};
       // No API reserve on a failed lookup, and no second message-rate charge.
-      if(loaded.products.length&&!loaded.products.some(p=>p.reviewedSnapshot)&&!(loaded.readFailures&&/сравн|compare|salīdzin/iu.test(linked.clean))&&env.AI_ENABLED==='true'&&env.AI_CONVERSATIONAL==='true'){
-       let prepared;try{prepared=catalogReplyRequest(tenant,loaded.products,linked.clean,data.locale);}catch(error){out.fallbackReason='answer_validation';out.validationReason=catalogReason(error);return reply(out);}
+      if(loaded.products.length&&!loaded.products.some(p=>p.reviewedSnapshot)&&(!plan.requireAll||loaded.products.length===2&&!loaded.readFailures)&&!(loaded.readFailures&&/сравн|compare|salīdzin/iu.test(linked.clean))&&env.AI_ENABLED==='true'&&env.AI_CONVERSATIONAL==='true'){
+       let prepared;try{prepared=catalogReplyRequest(tenant,loaded.products,linked.clean,data.locale,{requireAll:!!plan.requireAll});}catch(error){out.fallbackReason='answer_validation';out.validationReason=catalogReason(error);return reply(out);}
        const reserve=await gate(request,env,'catalog-reserve',true,nonce);
        if(reserve){const reason=await reserve.clone().json();out.fallbackReason=reason.reason||'catalog_reservation_unavailable';return reply(out);}
        try{out.providerUsed=true;const generated=await generateCatalogReply(tenant,loaded.products,linked.clean,data.locale,env,fetcher,prepared);out.text=generated.text;out.conversational=true;}catch(error){out.fallbackReason='answer_validation';out.validationReason=catalogReason(error);}

@@ -1,5 +1,5 @@
 import {shopLinks,linkCopy} from './shop-links.js';
-import {buyerControl,buyerProduct,buyerCopy,productSelectionCopy,productCompareCopy} from './buyer-intents.js';
+import {buyerControl,buyerProduct,productSafetyRoute,buyerCopy,productSelectionCopy,productCompareCopy} from './buyer-intents.js';
 import {productSelectionRoute,selectionQuestion} from './product-selection.js';
 import {nicheRoute} from './niche-route.js';
 import {socialRoute,socialText,dialogueIntents} from './social.js';
@@ -41,6 +41,10 @@ export function followupRoute(text,previous,tenantId='anete'){
  const review=id=>['contact','status','business-warranty','payment-problem','unclaimed','defect','opened','shipping-cost'].includes(id)||!!tenant.cards.find(c=>c.id===id)?.requiresReview;
  if(rephrase){if(previous&&has(previous))return {ids:[previous],kind:'answer',handoff:review(previous),continuation:true};return {ids:[],kind:'notHelpful',social:true,handoff:false,continuation:true};}
  if(!['delivery','timing','pickup','order','shipping-cost'].includes(previous))return null;
+ // A delivery guarantee is about a deadline, not a product warranty.
+ const deadline=/успеет|успеют|к (?:понедельник|вторник|среде|четверг|пятниц|суббот|воскресень)|by (?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)|līdz (?:pirmdien|otrdien|trešdien|ceturtdien|piektdien|sestdien|svētdien)/iu.test(s);
+ const elapsed=/сколько.{0,25}(?:занима|займ|ждать)|как долго|how long|cik ilgi/iu.test(s);
+ if((deadline||elapsed)&&has('timing')&&!/срок гарантии|гарантийн|warranty period|garantijas termiņ/iu.test(s))return {ids:['timing'],kind:'answer',handoff:deadline||review('timing'),continuation:true};
  const duration=/^(?:а )?(?:сколько (?:это )?(?:займ[её]т|ждать)|как долго(?: ждать)?|когда (?:привезут|доставят))$/iu.test(s)||/^(?:and )?(?:how long(?: (?:will|does) (?:it|that|this) take| (?:to wait|is that))?|when (?:will it arrive|is it delivered))$/iu.test(s)||/^(?:un )?(?:cik ilgi(?: (?:tas aizņems|jāgaida))?|kad piegādās)$/iu.test(s);
  const cost=/^(?:а )?сколько (?:это )?(?:стоит|будет стоить)$/iu.test(s)||/^(?:and )?how much(?: (?:is|does|will) (?:it|that|this)(?: cost)?)?$/iu.test(s)||/^(?:un )?cik (?:tas )?maksā$/iu.test(s);
  const id=duration&&has('timing')?'timing':cost&&has('shipping-cost')?'shipping-cost':null;
@@ -58,7 +62,7 @@ export function prioritySupportRoute(text,tenantId='anete'){
  const humanNegated=/(?<!\p{L})(?:не нужен|не хочу|no (?:human|agent)|don.t (?:need|want)|nevajag|nevēlos)(?!\p{L})/iu.test(s);
  const damage=/поврежд|порван|разбит|слом|не работает|дефект|broken|faulty|damaged|doesn.t work|bojā|salūz|nestrād|saplēst/iu.test(s)||/(?:посылк|товар|упаковк|обув).{0,35}(?:мокр|порв|тресну)|(?:parcel|item|package|shoe).{0,35}(?:torn|wet|cracked)/iu.test(s);
  const id=wantsHuman&&!humanNegated?'contact':damage?'defect':null;
- return id&&tenant.cards.some(c=>c.id===id)?{ids:[id],kind:'answer',handoff:true}:null;
+ return id&&tenant.cards.some(c=>c.id===id)?{ids:[id],kind:'answer',handoff:true}:productSafetyRoute(s,tenantId);
 }
 // Candidate is the schema-checked route, never rejected model-authored prose.
 export function safeFallbackRoute(tenant,reference,candidate=null){

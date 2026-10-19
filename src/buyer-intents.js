@@ -10,6 +10,19 @@ export function productHelpIntent(s){
  return 'details';
 }
 const helpResult=s=>({...result('product-help'),productIntent:productHelpIntent(s)});
+// Safety has priority even when the customer supplies a valid product URL.
+// These signals select a specialist review; they never diagnose or certify fit.
+export function productSafetyRoute(s,tenant){
+ const signals={
+  bariba:/аллерг|болезн|лечит|лечени|лечеб|ветеринар|veterinar|allerg|alerģ|alerg|disease|treat|ārst|slim|рв[её]т|рвот|понос|диаре|vomit|diarrh|vemj|vemšan|caurej/iu,
+  hobbyset:/на теле|на коже|(?:рисова|нанес|наноси|красить|раскрас).{0,35}(?:лиц|губ|глаз)|(?:лицо|лице|губы).{0,30}(?:реб[её]н|краск)|безопас.{0,20}реб[её]н|реб[её]н.{0,20}безопас|skin|body paint|(?:paint|apply).{0,25}(?:on (?:a |the |my |their )?(?:child.s )?face|face painting)|face paint|(?:krās|uzklā).{0,25}(?<!\p{L})(?:sej|ād)|droš.{0,15}bērn/iu,
+  apavi40plus:/ортопед|болезн|диабет|нейропат|medical|orthop|diab[eē]t|neuropath|ārst/iu,
+  rotallieta:/безопас|младен|новорожд|safe|newborn|droš|jaundzim|(?:реб[её]н|малыш).{0,30}(?:месяц|месяцев)|(?:baby|infant|months? old)|(?:bērn|zīdai).{0,30}mēneš/iu,
+  celotajs:/безопас|safe|droš|[−-]\s*\d+.{0,20}(спать|спаль|sleep)|спаль.{0,30}[−-]\s*\d+|горелк|баллон|страхов|burner|gas canister|belay|gas stove|gāzes degl/iu,
+  anete:/пораж.{0,15}ток|бь[её]т ток|дымит|задым|искрит|перегрев|electric shock|sparking|overheat|smoke|dūmo|dzirksteļ|pārkar/iu
+ };
+ return signals[tenant]?.test(s)?result('product-safety',true):null;
+}
 export function buyerControl(s,tenant){
  if(/^(?:can you |could you |please )?(?:reply|respond|speak|answer) (?:to me )?in (?:english|russian|latvian)[?.! ]*$|^(?:отвечай(?:те)?|перейди|говори(?:те)?) (?:мне )?(?:на|по)[ -]?(?:английск|русск|латышск)\p{L}*[?.! ]*$|^atbild(?:i|iet) (?:angliski|krieviski|latviski)[?.! ]*$/iu.test(s))return {...result('language'),social:true};
  if(/^(?:мне )?(?:ничего не понял|не помог(?:ло)?(?: ответ)?|непонятно|не понял(?: ответ)?|это не то|не это)|^(?:that.s not helpful|not helpful|i don.t understand|nesapratu|nepalīdz)/iu.test(s)&&!policy.test(s))return {...result('notHelpful'),social:true};
@@ -17,11 +30,13 @@ export function buyerControl(s,tenant){
  if(/поменять.{0,10}(адрес|заказ)|change.{0,15}(address|order)/iu.test(s))return {ids:['status'],kind:'answer',handoff:true};
  if(/не работает.{0,15}(?:оплат|карта)|(?:оплат|карта).{0,15}не работает/iu.test(s))return {ids:['payment-problem'],kind:'answer',handoff:true};
  if(/не работает|не включается|не запускается|не заряжается|слом(?:ан|алась|алось)|broken|damaged|faulty|doesn.t work|nestrād|bojāt/iu.test(s))return {ids:['defect'],kind:'answer',handoff:true};
+ if(/срок гарантии|гарантийн.{0,10}срок|warranty period|garantijas termiņ/iu.test(s))return {ids:['warranty'],kind:'answer',handoff:false};
  const returnIntent=/вернуть|верн[её]те.{0,8}деньг|возврат|обмен|поменять.{0,10}размер|return|exchange|atgrie|mainīt.{0,10}izmēr/iu.test(s);
  const opened=/открыл|открыт|упаковк|использ|натира|opened|packaging|used|atvērt|iepakojum|lietot/iu.test(s);
  if(returnIntent&&opened)return {ids:['return'],kind:'answer',handoff:true};
  if(returnIntent&&/обмен|поменять.{0,10}размер|exchange|mainīt.{0,10}izmēr/iu.test(s))return {ids:['return-process'],kind:'answer',handoff:tenant==='hobbyset'};
  if(/пахнет странно|необычн.{0,8}запах|молнию заело|молния заела|smells (?:strange|bad)|zipper.{0,8}(stuck|jammed)|rāvējslēdz.{0,8}iestrē/iu.test(s))return {ids:['defect'],kind:'answer',handoff:true};
+ if(/(?:вариант|способ).{0,20}получени|как (?:можно )?получить (?:мой |свой |этот )?заказ|(?:receiv|collection).{0,15}options|ways to (?:receive|collect)|how can i (?:receive|get) (?:my|the) order|saņemšanas (?:veid|iespēj)|kā (?:varu |var )?saņemt pasūtījumu/iu.test(s)&&!/не получил|не приш|missing|not received|nav saņem|спис|refund|вернуть|слом|damage/iu.test(s))return {ids:['delivery'],kind:'answer',handoff:false};
  if(/побыстрее|поскорее|побыстрей|as soon as possible|faster delivery|ātrāk/iu.test(s))return {ids:['timing'],kind:'answer',handoff:false};
  const delivery=/достав|pieg[aā]d|delivery|shipping/iu.test(s),pay=/оплат|платить|apmaks|maksāt|payment|pay(?:ment)? methods/iu.test(s);
  if(delivery&&pay&&!/спис|слом|damage|charge|refund|atmaks|вернут/iu.test(s))return {ids:[/стоим|стоить|цен|бесплат|cost|price|free|pieg[aā]d.{0,15}(?:cen|izmaks)|bezmaksas pieg/iu.test(s)?'shipping-cost':'delivery','payment'],kind:'answer',handoff:/стоим|стоить|цен|бесплат|cost|price|free|pieg[aā]d.{0,15}(?:cen|izmaks)|bezmaksas pieg/iu.test(s)};
@@ -35,8 +50,7 @@ export function buyerProduct(s,tenant,previous){
  if(anchors[previous]&&/^(а(?=\s|[?.!]|$)|and\b|what about|un\b|bet\b)/iu.test(s)&&s.length<100&&canContinueProduct(s)&&!switching&&!/(?:[a-z]{1,5}\d{3,}|\b\d{4,}\b)/iu.test(s)){
   const match=nicheRoute(anchors[previous]+' '+s,tenant);if(match?.ids.length)return match;
  }
- const safety=tenant==='bariba'?/аллерг|болезн|лечит|лечени|лечеб|ветеринар|veterinar|allerg|alerģ|alerg|disease|treat|ārst|slim/iu:tenant==='rotallieta'?/безопас|младен|новорожд|safe|newborn|droš|jaundzim/iu:tenant==='hobbyset'?/на теле|на коже|безопас.{0,20}реб[её]н|реб[её]н.{0,20}безопас|skin|body paint|droš.{0,15}bērn/iu:tenant==='celotajs'?/безопас|safe|droš|[−-]\s*\d+.{0,20}(спать|спаль|sleep)|спаль.{0,30}[−-]\s*\d+|горелк|баллон|страхов|burner|gas canister|belay/iu:/ортопед|болезн|medical|orthop|ārst/iu;
- if(safety.test(s))return result('product-safety',true);
+ const safety=productSafetyRoute(s,tenant);if(safety)return safety;
  const sizing=tenant==='apavi40plus'&&/размер|рамзер|разме|сетк|таблиц|\bsize|sizing|izm[eē]r|п[её]с?т.{0,5}стоп|\d+\s*см/iu.test(s);
  if(sizing&&!/налич|есть|available|stock|noliktav|pieejam/iu.test(s))return result('product-sizing');
  const live=/налич|сейчас|сегодня|цен[аыуе]|стоим|срок.{0,8}годност|годност.{0,8}парт|\bstock\b|in stock|availab|price|today|expir|pieejam|noliktav|šodien|derīg/iu.test(s)||/^(?:а )?есть\b/iu.test(s)||/есть.{0,35}(?:ботин|оттен|акв[а-я]*рел|пробник|корм|туф)/iu.test(s)||/(?:без куриц|без мелк).{0,8}есть/iu.test(s);

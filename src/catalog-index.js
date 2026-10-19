@@ -13,9 +13,11 @@ export async function loadCatalogIndex(env,tenant){
  const text=await response.text();if(text.length>12000000)throw Error('catalog_index');const parsed=JSON.parse(text),value=parsed.schema==='shop-catalog-search-v1'?validateSearchIndex(parsed,tenant):validateIndex(parsed,tenant);memo.set(key,{assets:env.ASSETS,at:Date.now(),value});return value;
 }
 export const concepts=[
- ['puppy',/щен|pupp|kuc[eē]n/iu,/pupp|kucen/],['kitten',/кот[её]н|kitten|kaķ[eē]n/iu,/kitten|kaken/],
+ ['puppy',/щен|pupp|kuc[eē]n/iu,/pupp|kucen/],['kitten',/кот[её]н|котят|kitten|kaķ[eē]n/iu,/kitten|kaken/],
  ['cat',/кош|кот(?:а|у|ов|ам)?\b|\bcat[s]?\b|kaķ|kak/iu,/cat|kak/],['dog',/собак|\bdogs?\b|suņ|sunu/iu,/dog|sun/],
  ['food',/корм|\bfood\b|bar[iī]b/iu,/food|barib|recipe|necon|cooking/],
+ ['hiking',/\bhiking\b|походн|pārgājien/iu,/hiking|pargaj/],
+ ['winter',/зимн|\bwinter\b|ziemas/iu,/winter|ziemas|ziema/],
  ['dry',/сух|\bdry\b|saus/iu,/dry|saus/],['wet',/влажн|консерв|\bwet\b|mitr|konserv/iu,/wet|mitr|konserv/],
  ['watercolour',/акварел|watercolou?r|akvarel/iu,/akvarel|watercol/],
  ['acrylic',/акрил|acrylic|akril/iu,/akril|acryl/],
@@ -28,7 +30,7 @@ export const concepts=[
  ['backpack',/рюкзак|backpack|mugursom/iu,/backpack|mugursom/],['vacuum',/пылесос|vacuum|putekļsūc/iu,/vacuum|puteklsuc/],
  ['fridge',/холодиль|fridge|refrigerator|ledusskap/iu,/fridge|refrigerator|ledusskap/]
 ];
-const stop=new Set(fold('какой какая какое какие лучше лучший подойдет подходит выбрать выбери подбери подбор посоветуй посоветуйте нужен нужна нужно нужны для у в на из с и или мне меня мой этого этой этот товар товары модель модели есть ли цена сколько стоит состав материал какие характеристики размер вес ширина батарейки комплект входит чем отличается сравни сравнить сравнение разница между а как что пожалуйста хочу щенка щенков щенкам собак кошек кота котов корм корма щенок котенок сухой влажный ребёнка ребенка девочки мальчика похода прогулок ткани рисования what which how made from listed list is are the a an for to of with in my i me you can could please want need should would best better recommend choose compare comparison difference between does do has have it its this that these price cost available availability stock size weight material ingredients contents included battery batteries width puppy puppies kitten kittens cat cats dog dogs food dry wet paint paints brush brushes toy toys doll dolls shoe shoes boot boots tent tents sleeping bag backpack vacuum fridge what kind kādu kāds kāda kādi ko kā cik ir vai man es gribu lūdzu izvēlēties izvēleties labāk labak piemērota piemerota piemērots ieteikt salīdzini salidzināt atšķiras ar un par no uz cena maksā pieejams izmērs svars sastāvs materiāls baterijas komplekts kucēniem kucēnam kaķim sunim barību barība sauso sausā mitro rotaļlietu rotaļlietas bērnam bērnu krāsas audumam apavus pastaigām telti teltis pārgājienam putekļsūcēju ledusskapja modelim').split(/\s+/));
+const stop=new Set(fold('какой какая какое какие лучше лучший подойдет подходит выбрать выбери подбери подбор посоветуй посоветуйте нужен нужна нужно нужны для у в на из с и или мне меня мой этого этой этот товар товары модель модели есть ли цена сколько стоит состав материал какие характеристики размер вес ширина батарейки комплект входит чем отличается сравни сравнить сравнение разница между а как что пожалуйста хочу щенка щенков щенкам собак кошек кота котов корм корма щенок котенок сухой влажный ребёнка ребенка девочки мальчика похода прогулок ткани рисования options any looking suggest offer можете предложить var apskatīt meklēju dāvanai piedāvājat what which how made from listed list is are the a an for to of with in my i me you can could please want need should would best better recommend choose compare comparison difference between does do has have it its this that these price cost available availability stock size weight material ingredients contents included battery batteries width puppy puppies kitten kittens cat cats dog dogs food dry wet paint paints brush brushes toy toys doll dolls shoe shoes boot boots tent tents sleeping bag backpack vacuum fridge what kind kādu kāds kāda kādi ko kā cik ir vai man es gribu lūdzu izvēlēties izvēleties labāk labak piemērota piemerota piemērots ieteikt salīdzini salidzināt atšķiras ar un par no uz cena maksā pieejams izmērs svars sastāvs materiāls baterijas komplekts kucēniem kucēnam kaķim sunim barību barība sauso sausā mitro rotaļlietu rotaļlietas bērnam bērnu krāsas audumam apavus pastaigām telti teltis pārgājienam putekļsūcēju ledusskapja modelim').split(/\s+/));
 export function queryParts(message){ const query=fold(message),groups=concepts.filter(([,re])=>re.test(message)||re.test(query));
  // Puppy/kitten already identify species, so do not require a redundant dog/cat label.
  const required=groups.filter(([id])=>!(id==='dog'&&groups.some(g=>g[0]==='puppy')||id==='cat'&&groups.some(g=>g[0]==='kitten')));
@@ -40,11 +42,15 @@ export function searchProducts(index,message,{limit=3}={}){
  const {required,terms}=queryParts(message);if(!required.length&&!terms.length)return [];
  const scored=[];for(const p of index.products){const text=fold(p.t+' '+decodeURIComponent(new URL(p.u).pathname));
   if(required.some(([, ,match])=>!match.test(text)))continue;
+  // Old SEO paths can contradict the current title (kitten URL, adult food title).
+  if(required.some(([key,,match])=>['kitten','puppy'].includes(key)&&!match.test(fold(p.t))))continue;
   if(index.tenant==='hobbyset'&&required.some(g=>g[0]==='paint')&&!/kras|paints?\b/iu.test(fold(p.c||p.t)))continue;
   if(index.tenant==='hobbyset'&&required.some(g=>g[0]==='paint')&&/lidzek|palig|medium|medij|lak/iu.test(fold(p.c||'')))continue;
   if(required.some(g=>g[0]==='paint')&&/paper|papir|brush|sponge|palett|easel|\botas?\b/iu.test(text))continue;
   if(required.some(g=>g[0]==='tent')&&!/survival|emergency|экстр|авар|ārkārt|repair|pole|ремонт|miet|remont/iu.test(message)&&/survival|shelter|arkartas|repair|pole|pegs|footprint|groundsheet|remont|mietin/iu.test(text))continue;
   if(required.some(g=>g[0]==='food')&&/papildbar|vitamin|preparat|piedev|supplement|dietiska|лечеб/iu.test(text))continue;
+  if(required.some(g=>['boot','shoe'].includes(g[0]))&&/laces|aukl|šn[oō]r|shoe.?care|apavu.kop/iu.test(text))continue;
+  if(required.some(g=>g[0]==='backpack')&&!/cover|rain.?cover|pārvalk|чехол/iu.test(message)&&/cover|parvalk/iu.test(text))continue;
   if(terms.some(t=>!text.includes(t)))continue;
   const score=terms.reduce((n,t)=>n+(text.includes(t)?t.length:0),0)+required.length*5;
   scored.push({...p,score});

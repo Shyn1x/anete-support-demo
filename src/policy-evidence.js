@@ -1,0 +1,29 @@
+// Preserve monetary eligibility conditions when paraphrasing free shipping.
+// This supplements numeric allowlists; it is not a semantic proof of prose.
+const freeDelivery=/бесплат\p{L}*.{0,20}достав|достав\p{L}*.{0,20}бесплат|free (?:shipping|delivery)|(?:shipping|delivery).{0,15}(?:is |are )?free|bezmaksas piegād|piegād\p{L}*.{0,15}bezmaksas/iu;
+const negative=/не (?:могу|можем|удалось) подтверд|не подтвержд|cannot confirm|can't confirm|not confirmed|nevar.{0,12}apstiprin|nav apstiprin/iu;
+function thresholds(text){
+ const re=/(свыше|более|от|не менее|above|over|from|at least|virs|no|vismaz)\s*(?:€\s*)?(\d+(?:[.,]\d+)?)\s*(€|eur|евро)?/giu;
+ return [...text.matchAll(re)].filter(m=>m[3]||m[0].includes('€')).map(m=>({amount:m[2].replace(',','.'),bound:/^(?:свыше|более|above|over|virs)$/iu.test(m[1])?'exclusive':'inclusive'}));
+}
+export function deliveryConditionReason(reply,result,tenant,locale){
+ const cards=tenant.cards.filter(c=>result.ids.includes(c.id)&&['delivery','shipping-cost'].includes(c.id));
+ if(!cards.length)return null;
+ const affirmative=reply.split(/[.!?\n]/u).some(s=>freeDelivery.test(s)&&!negative.test(s));
+ if(!affirmative)return null;
+ const source=cards.map(c=>c[locale]).join('\n');if(!freeDelivery.test(source))return null;
+ const needed=thresholds(source),actual=thresholds(reply);
+ for(const condition of needed){
+  if(!actual.some(c=>c.amount===condition.amount))return 'delivery_condition_omitted';
+  if(!actual.some(c=>c.amount===condition.amount&&c.bound===condition.bound))return 'delivery_condition_changed';
+ }
+ if(/маршрут|route|maršrut/iu.test(source)&&!/маршрут|route|maršrut/iu.test(reply))return 'delivery_scope_omitted';
+ return null;
+}
+export function timingConditionReason(reply,result,tenant,locale){
+ const source=tenant.cards.filter(c=>result.ids.includes(c.id)&&c.id==='timing').map(c=>c[locale]).join('\n');
+ const conditional=/для доступных товаров|for available goods|pieejamām precēm/iu;
+ const duration=/\d[\d\s–—-]*.{0,15}(?:рабоч\p{L}* д|working days|darba dien)/iu;
+ if(conditional.test(source)&&duration.test(reply)&&!/для доступных|если.{0,15}доступ|при условии.{0,20}доступ|for available|if.{0,15}available|pieejam\p{L}* prec|ja prece.{0,10}pieejam/iu.test(reply))return 'timing_condition_omitted';
+ return null;
+}

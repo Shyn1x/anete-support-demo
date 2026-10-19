@@ -1,7 +1,7 @@
 // One grounded generation from retrieved public product pages, never from memory.
 import {MODEL} from './core.js';import {replyValidationReason} from './conversation.js';
 import {selectCatalogLines,catalogFidelityReason,catalogMaterialReason,productMaterialFields} from './catalog-evidence.js';
-export function catalogReplyRequest(tenant,products,message,locale){
+export function catalogReplyRequest(tenant,products,message,locale,{requireAll=false}={}){
  if(products.some(p=>p.reviewedSnapshot))throw Error('catalog_snapshot_generation');
  const cards=products.map((p,i)=>{const text=p.title+'\n'+selectCatalogLines(p,message).join('\n')+'\n'+JSON.stringify({variants:p.variants.slice(0,20),summary:p.summary,chart:p.chart.slice(0,20),measure:p.measure});return {id:'catalog:'+i,topic:'product',source:'catalog-read',ru:text,lv:text,en:text};});
  const virtual={...tenant,cards},ids=cards.map(c=>c.id);
@@ -11,7 +11,7 @@ export function catalogReplyRequest(tenant,products,message,locale){
  return {body,parse(data){
   if(data.status!=='completed')throw Error('incomplete');const blocks=(data.output||[]).flatMap(o=>o.content||[]);if(blocks.some(x=>x.type==='refusal'))throw Error('refusal');const out=JSON.parse(blocks.filter(x=>x.type==='output_text').map(x=>x.text).join(''));
   if(Object.keys(out).sort().join(',')!=='evidence,ids,reply'||!Array.isArray(out.ids)||!out.ids.length||out.ids.length>3||new Set(out.ids).size!==out.ids.length||out.ids.some(id=>!ids.includes(id))||!Array.isArray(out.evidence)||out.evidence.length>3)throw Error('schema');
-  if(/сравн|compare|difference|salīdzin/iu.test(message)&&out.ids.length!==ids.length)throw Error('catalog_comparison_omitted');
+  if((requireAll||/сравн|compare|difference|salīdzin/iu.test(message))&&out.ids.length!==ids.length)throw Error('catalog_comparison_omitted');
   if(out.evidence.some(e=>!out.ids.includes(e.id)||typeof e.quote!=='string'||e.quote.length<10||e.quote.length>350||!cards.find(c=>c.id===e.id)?.[locale].includes(e.quote))||out.ids.some(id=>!out.evidence.some(e=>e.id===id)))throw Error('catalog_evidence_quote');
   const reason=replyValidationReason(out.reply,{ids:out.ids,handoff:false},virtual,locale);if(reason)throw Error(reason);
   const fidelity=catalogFidelityReason(out.reply,cards.filter(c=>out.ids.includes(c.id)));if(fidelity)throw Error(fidelity);

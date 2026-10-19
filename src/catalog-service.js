@@ -3,6 +3,14 @@ import {fetchProduct,productURL,plain,readText,catalogDiagnostics,canContinuePro
 import {reviewedCatalogSnapshot} from './catalog-snapshots.js';
 const failureReasons=new Set(['incomplete','refusal','schema','catalog_comparison_omitted','catalog_evidence_quote','catalog_quantity_binding','catalog_quantity_qualifier','catalog_unsupported_detail','catalog_material_qualification','catalog_snapshot_generation','unsupported_number','wrong_language','unsafe_content','unsupported_handoff_action','unverified_promise','pretended_action','links_contacts_or_internal_text','catalog_prompt_size','empty_or_long']);
 export function catalogueContext(value,tenant){return Array.isArray(value)&&value.length<=3&&value.every(u=>typeof u==='string'&&productURL(u,tenant))?[...new Set(value)]:[];}
+// Explicit links are already host-checked by shopLinks; validate product paths
+// again and never silently drop the second item of a requested pair.
+export function explicitProductPlan(linked,tenant){
+ if(linked.rejected||linked.links.length!==2)return null;
+ const urls=linked.links.map(l=>productURL(l.url,tenant));
+ const candidates=urls.every(Boolean)&&urls[0]!==urls[1]?urls.map(u=>({u,t:''})):[];
+ return {explicitContext:true,requireAll:true,index:{tenant:tenant.id,importedAt:null},candidates};
+}
 export function contextSelection(message,urls){
  if(!urls.length)return [];
  if(urls.length===1&&canContinueProduct(message))return urls;
@@ -15,7 +23,7 @@ function comparison(index,message){const stripped=message.replace(/^(?:срав�
 export async function retrievalPlan(env,tenant,message,reference,context){
  if(reference.handoff||reference.social||reference.ids.some(id=>tenant.cards.find(c=>c.id===id)?.topic!=='product'))return null;
  const remembered=contextSelection(message,catalogueContext(context,tenant));
- if(remembered.length)return {explicitContext:true,index:{tenant:tenant.id,importedAt:null},candidates:remembered.map(u=>({u,t:''}))};
+ if(remembered.length){const requireAll=/сравн|compare|salīdzin/iu.test(message);return {explicitContext:true,requireAll,index:{tenant:tenant.id,importedAt:null},candidates:requireAll&&remembered.length!==2?[]:remembered.map(u=>({u,t:''}))};}
  if(tenant.id==='anete')return {native:true,index:{tenant:'anete',importedAt:null},candidates:[]};
  const index=await loadCatalogIndex(env,tenant);const stripped=message.replace(/^(?:сравни(?:те)?|compare|salīdzini)\s+/iu,'');const parts=stripped.split(/\s+(?:и|vs\.?|versus|and|un)\s+/iu);let candidates=[];if(parts.length===2){const both=await Promise.all(parts.map(p=>searchIndexedProducts(env,tenant,index,p,1)));if(both.every(x=>x.length)&&both[0][0].u!==both[1][0].u)candidates=both.flat();}if(!candidates.length)candidates=await searchIndexedProducts(env,tenant,index,message);return {index,candidates};
 }
@@ -48,5 +56,5 @@ export async function generateCatalogReply(tenant,products,message,locale,env,fe
  const res=await fetcher('https://api.openai.com/v1/responses',{method:'POST',headers:{Authorization:'Bearer '+env.OPENAI_API_KEY,'Content-Type':'application/json'},body:JSON.stringify(route.body),signal:AbortSignal.timeout(8000),redirect:'manual'});
  if(!res.ok||res.status>=300)throw Error('catalog_provider');return route.parse(await res.json());
 }
-export function retrievalFallback(loaded,plan,message,locale){if(loaded.metadataOnly&&loaded.candidates.length){const t=searchCopy[locale];const caveat={ru:'Это названия из каталога. Актуальное наличие и пригодность для конкретного случая ещё не проверены.',lv:'Tie ir katalogā atrodamie nosaukumi. Aktuālais atlikums un piemērotība konkrētam gadījumam vēl nav pārbaudīti.',en:'These are catalogue names. Current stock and suitability for your situation have not yet been checked.'}[locale];return t.matches+'\n'+loaded.candidates.map((p,i)=>(i+1)+'. '+p.t).join('\n')+'\n\n'+caveat+' '+listingQuestion[locale][plan.index.tenant];}const text=loaded.products.length?searchFallback(loaded.products,message,locale,plan.index):loaded.candidates.length||loaded.readFailures?searchCopy[locale].unavailable:searchCopy[locale].none;return text+(loaded.products.length&&loaded.readFailures>loaded.products.filter(p=>p.reviewedSnapshot).length?'\n\n'+searchCopy[locale].unavailable:'');}
+export function retrievalFallback(loaded,plan,message,locale){if(plan.requireAll&&(!plan.candidates.length||loaded.readFailures||loaded.products.length!==2))return {ru:'Для сравнения нужны две разные ссылки на товары этого магазина и доступные описания обоих товаров. Сейчас оба описания не подтверждены; сравнивать по одному не буду.',lv:'Salīdzinājumam vajadzīgas divas atšķirīgas šī veikala preču saites un abu preču apraksti. Pašlaik abi apraksti nav apstiprināti; pēc vienas preces nesalīdzināšu.',en:'A comparison needs two distinct product links from this shop and both descriptions. Both descriptions could not be confirmed; I will not compare using just one.'}[locale];if(loaded.metadataOnly&&loaded.candidates.length){const t=searchCopy[locale];const caveat={ru:'Это названия из каталога. Актуальное наличие и пригодность для конкретного случая ещё не проверены.',lv:'Tie ir katalogā atrodamie nosaukumi. Aktuālais atlikums un piemērotība konkrētam gadījumam vēl nav pārbaudīti.',en:'These are catalogue names. Current stock and suitability for your situation have not yet been checked.'}[locale];return t.matches+'\n'+loaded.candidates.map((p,i)=>(i+1)+'. '+p.t).join('\n')+'\n\n'+caveat+' '+listingQuestion[locale][plan.index.tenant];}const text=loaded.products.length?searchFallback(loaded.products,message,locale,plan.index):loaded.candidates.length||loaded.readFailures?searchCopy[locale].unavailable:searchCopy[locale].none;return text+(loaded.products.length&&loaded.readFailures>loaded.products.filter(p=>p.reviewedSnapshot).length?'\n\n'+searchCopy[locale].unavailable:'');}
 export const catalogReason=error=>failureReasons.has(error?.message)?error.message:error instanceof SyntaxError?'invalid_json':'catalog_unavailable';

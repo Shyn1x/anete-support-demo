@@ -20,3 +20,5 @@ reports/
 public/catalog-*.json
 
 public/catalog-data/
+
+__pycache__/
