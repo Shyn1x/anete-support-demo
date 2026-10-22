@@ -106,7 +106,7 @@ def run(args, credentials=None, transport=None, wait=time.sleep, clock=time.mono
             else:incoming=[]
             if data.get('mode')!='social':
                 # Match the revised browser only on the explicitly versioned server.
-                preserve=s['catalogRevision'] in ('buyer-v3','buyer-v4','buyer-v5','buyer-v6','buyer-v7') and not data.get('catalogMetadataOnly') and len(incoming)==1 and len(old_choices)>1 and incoming[0] in old_choices
+                preserve=s['catalogRevision'] in ('buyer-v3','buyer-v4','buyer-v5','buyer-v6','buyer-v7','buyer-v8') and not data.get('catalogMetadataOnly') and len(incoming)==1 and len(old_choices)>1 and incoming[0] in old_choices
                 s['catalogURLs']=old_choices if preserve else incoming
             if data.get('mode')=='catalog' and data.get('productURL'):s['productURL']=data['productURL']
             elif data.get('mode')!='social':s['productURL']=None

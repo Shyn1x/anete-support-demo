@@ -15,12 +15,12 @@ for(const locale of ['ru','lv','en'])test('captured failed pair: literal evidenc
  const r=catalogReplyRequest(tenant,products,queries[locale],locale,{requireAll:true}),schema=r.body.text.format.schema;
  assert.equal(r.body.store,false);assert.equal(r.body.max_output_tokens,450);assert.equal(r.body.text.format.strict,true);
  assert.equal(schema.type,'object');assert.equal(schema.additionalProperties,false);
- const evidence=schema.properties.evidence;assert.equal(evidence.type,'object');assert.equal(evidence.additionalProperties,false);assert.deepEqual(evidence.required,ids);
- for(const [i,id]of ids.entries()){
-  const b=evidence.properties[id];assert.deepEqual(b.type,['string','null']);
-  assert(b.enum.includes(products[i].lines[0]));assert(!b.enum.includes(products[1-i].lines[0]));
+ const evidence=schema.properties.evidence;assert.equal(evidence.type,'array');assert.equal(evidence.items.type,'string');
+ const facts=JSON.parse(r.body.instructions.split('Retrieved facts: ')[1]);
+ for(const [i,f]of facts.entries()){
+  assert.equal(f.id,ids[i]);assert(f.evidenceChoices.some(c=>c.quote===products[i].lines[0]));
   const source=products[i].title+'\n'+selectCatalogLines(products[i],queries[locale]).join('\n');
-  for(const q of b.enum.filter(q=>q!==null)){assert(source.includes(q));assert(q.length>=10&&q.length<=160);}
+  for(const {ref,quote}of f.evidenceChoices){assert(evidence.items.enum.includes(ref));assert(source.includes(quote));assert(quote.length>=10&&quote.length<=160);assert(ref.startsWith('evidence_'+i+'_'));}
  }
  assert(new TextEncoder().encode(JSON.stringify(r.body)).length<=22000);
  assert.equal(r.parse(response(answer(locale))).text,replies[locale]);
@@ -73,9 +73,10 @@ async function session({locale='en',badQuote=false,budget='10000',partial=false,
   calls.push(url);if(url==='https://api.openai.com/v1/responses'){
    if(providerStatus!==200)return new Response(providerBody??JSON.stringify({error:{code:providerCode,message:'SECRET PROVIDER BODY MUST NOT LEAK'}}),{status:providerStatus,headers:{'Content-Type':'application/json'}});
    const body=JSON.parse(options.body),evidence=body.text.format.schema.properties.evidence;
-   assert.equal(body.store,false);assert.equal(evidence.type,'object');
-   const out=answer(locale,{evidence:Object.fromEntries(Object.entries(evidence.properties).map(([id,b])=>[id,b.enum[0]]))});
-   if(badQuote)out.evidence['catalog:0']='INVENTED REJECTED QUOTE';return Response.json(response(out));
+   assert.equal(body.store,false);assert.equal(evidence.type,'array');
+   const facts=JSON.parse(body.instructions.split('Retrieved facts: ')[1]);
+   const out=answer(locale,{evidence:facts.map(f=>f.evidenceChoices[0].ref)});
+   if(badQuote)out.evidence=products.map((p,i)=>({id:ids[i],quote:i? p.lines[0]:'INVENTED REJECTED QUOTE'}));return Response.json(response(out));
   }
   const p=products.find(p=>p.url===url||p.url+'.js'===url);assert(p,'No cross-shop or extra merchant reads');
   if(partial&&p===products[1])return new Response('missing',{status:404});
@@ -131,4 +132,20 @@ test('provider diagnostics do not accept arbitrary error text',()=>{
 for(const name of ['TimeoutError','AbortError','TypeError'])test('transport error is classified without raw text or retry: '+name,async()=>{
  let count=0;await assert.rejects(()=>generateCatalogReply(tenant,products,queries.en,'en',{OPENAI_API_KEY:'fake'},async()=>{count++;const e=Error('SECRET transport details');e.name=name;throw e;}),e=>catalogReason(e)===(name==='TypeError'?'catalog_provider_network':'catalog_provider_timeout')&&!e.message.includes('SECRET'));
  assert.equal(count,1);
+});
+
+for(const locale of ['ru','lv','en'])test('reference protocol resolves exact owned excerpts in '+locale,()=>{
+ const request=catalogReplyRequest(tenant,products,queries[locale],locale,{requireAll:true});
+ assert.equal(request.parse(response(answer(locale,{evidence:['evidence_0_0','evidence_1_0']}))).text,replies[locale]);
+ const schema=request.body.text.format.schema;const allowed=new Set(['type','properties','required','additionalProperties','items','enum']);
+ const visit=n=>{assert(!Array.isArray(n.type),'No union types');for(const k of Object.keys(n))assert(allowed.has(k),'Conservative schema keyword '+k);if(n.properties)for(const v of Object.values(n.properties))visit(v);if(n.items)visit(n.items);if(n.enum)assert(n.enum.every(x=>typeof x==='string'));};visit(schema);
+});
+for(const [evidence,reason]of [[['evidence_999_0','evidence_1_0'],'unknown_reference'],[['catalog:0','evidence_1_0'],'unknown_reference'],[['evidence_0_0','evidence_0_0'],'duplicate_reference'],[['evidence_0_0'],'missing_for_product'],[['evidence_0_0',{id:'catalog:1',quote:products[1].lines[0]}],'unknown_reference']])test('invalid references cannot bypass source ownership '+reason,()=>{
+ const request=catalogReplyRequest(tenant,products,queries.en,'en',{requireAll:true});assert.throws(()=>request.parse(response(answer('en',{evidence}))),e=>e.message==='catalog_evidence_quote'&&catalogEvidenceReason(e)===reason);
+});
+test('valid source references never excuse unsupported numerical claims',()=>{
+ const request=catalogReplyRequest(tenant,products,queries.en,'en');assert.throws(()=>request.parse(response(answer('en',{reply:'The first costs 999 euros.',evidence:['evidence_0_0','evidence_1_0']}))),/unsupported_number/);
+});
+test('a valid ref belonging to an unselected product cannot substantiate the selected product',()=>{
+ const request=catalogReplyRequest(tenant,products,'What material is the first model?','en');assert.throws(()=>request.parse(response(answer('en',{ids:['catalog:0'],evidence:['evidence_1_0']}))),e=>e.message==='catalog_evidence_quote'&&catalogEvidenceReason(e)==='wrong_product');
 });

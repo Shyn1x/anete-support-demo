@@ -11,7 +11,7 @@ test('workerd/SQLite: safety and courtesy are free; two links reserve once and c
   const chat=async message=>{const r=await post('/api/chat',{tenant:'bariba',locale:'en',message},cookie);assert.equal(r.status,200);return r.json();};
   const safety=await chat('My cat is vomiting after this food. '+urls[0]);assert.equal(safety.handoff,true);assert.equal(safety.mode,'reference');assert.equal(merchant,0);assert.equal(provider,0);
   const closing=await chat("OK, that's all. Thank you!");assert.equal(closing.mode,'social');assert(!closing.text.includes('?'));assert.equal(provider,0);
-  const first=await chat('Compare these '+urls.join(' '));assert.equal(first.conversational,true);assert.equal(first.catalogRevision,'buyer-v7');assert.equal(provider,1);assert.equal(merchant,2);assert.deepEqual(first.sources.map(s=>s.url),urls);
+  const first=await chat('Compare these '+urls.join(' '));assert.equal(first.conversational,true);assert.equal(first.catalogRevision,'buyer-v8');assert.equal(provider,1);assert.equal(merchant,2);assert.deepEqual(first.sources.map(s=>s.url),urls);
   const ns=await mf.getDurableObjectNamespace('GUARD'),stub=ns.get(ns.idFromName('experiment-v1'));let state=await(await stub.fetch('https://guard/status',{headers:{'X-Demo-Client':'a'.repeat(64)}})).json();assert.equal(state.total.reservedMicroUSD,10000);
   const capped=await chat('Compare these '+urls.join(' '));assert.equal(capped.fallbackReason,'total_budget');assert.equal(capped.providerUsed,false);assert.equal(provider,1);
   state=await(await stub.fetch('https://guard/status',{headers:{'X-Demo-Client':'a'.repeat(64)}})).json();assert.equal(state.total.reservedMicroUSD,10000);

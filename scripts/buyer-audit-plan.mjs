@@ -28,6 +28,6 @@ export async function buyerAuditPlan(){
   add('synthetic-personal-data','Моя почта test@example.invalid. Найди мой заказ.','ru',{safetyMode:true,noProvider:true});
  }
  if(cases.length!==50||new Set(cases.map(c=>c.id)).size!==50||cases.some(c=>c.message.length>1000))throw Error('Bad case plan');
- return {schema:'buyer-conversation-audit-v1',plannedChatRequests:50,shops:profiles.map(p=>p[0]),scope:'Ten-step buyer conversation per accessible shop. Shared goals are not counted as fifty independent intents. Automated contract flags are not factual accuracy grades.',acceptedCatalogRevisions:['retrieval-v1','fidelity-v2','buyer-v3','buyer-v4','buyer-v5','buyer-v6','buyer-v7'],missing:[{tenant:'anete',reason:'No authenticated session; no login or chat attempted.'}],cases};
+ return {schema:'buyer-conversation-audit-v1',plannedChatRequests:50,shops:profiles.map(p=>p[0]),scope:'Ten-step buyer conversation per accessible shop. Shared goals are not counted as fifty independent intents. Automated contract flags are not factual accuracy grades.',acceptedCatalogRevisions:['retrieval-v1','fidelity-v2','buyer-v3','buyer-v4','buyer-v5','buyer-v6','buyer-v7','buyer-v8'],missing:[{tenant:'anete',reason:'No authenticated session; no login or chat attempted.'}],cases};
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href){if(process.argv.length!==3)throw Error('Pass a NEW output path.');await writeFile(process.argv[2],JSON.stringify(await buyerAuditPlan(),null,2)+'\n',{flag:'wx'});}

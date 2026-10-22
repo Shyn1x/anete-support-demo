@@ -1,0 +1,22 @@
+{
+  "revision": "buyer-v8",
+  "providerCalls": 0,
+  "origin": "Fresh preserved 2026-10-22 merchant descriptions; schema construction only, not OpenAI validation.",
+  "rows": [
+    {
+      "locale": "ru",
+      "requestBytes": 10518,
+      "evidenceRefCount": 12
+    },
+    {
+      "locale": "lv",
+      "requestBytes": 10487,
+      "evidenceRefCount": 12
+    },
+    {
+      "locale": "en",
+      "requestBytes": 10477,
+      "evidenceRefCount": 12
+    }
+  ]
+}

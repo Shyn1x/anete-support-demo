@@ -1,0 +1,278 @@
+{
+  "schema": "buyer-conversation-audit-v1",
+  "startedAt": "2026-10-22T16:56:35.594495+00:00",
+  "planSha256": "a52ea6091003620509d77ee99e789eb6f4719ae92419f5db9ac5079224b3cc37",
+  "authorization": {
+    "maxChatRequests": 3,
+    "maxReservationMicroUSD": 30000,
+    "retries": false,
+    "budgetChanges": false
+  },
+  "scope": "Post-publication buyer-v7 comparison verification, three explicit two-product questions in RU/LV/EN. Only first three cases are authorized. Remaining 47 retained solely for existing runner schema; NOT authorized or executed. Cap 3 chat requests, USD0.03 reservation, no retries or budget changes. Separate from all historic reports and legacy live-50.",
+  "missing": [
+    {
+      "tenant": "anete",
+      "reason": "Outside this three-request comparison check; no chat attempted."
+    },
+    {
+      "tenant": "bariba",
+      "reason": "Outside this three-request comparison check; no chat attempted."
+    },
+    {
+      "tenant": "hobbyset",
+      "reason": "Outside this three-request comparison check; no chat attempted."
+    },
+    {
+      "tenant": "rotallieta",
+      "reason": "Outside this three-request comparison check; no chat attempted."
+    },
+    {
+      "tenant": "celotajs",
+      "reason": "Outside this three-request comparison check; no chat attempted."
+    }
+  ],
+  "configs": [
+    {
+      "tenant": "apavi40plus",
+      "catalogRevision": "buyer-v7",
+      "conversationRevision": "context-v2",
+      "perCallMicroUSD": 10000,
+      "auditRevision": "safe-resume-v1"
+    }
+  ],
+  "rows": [
+    {
+      "id": "v7-apavi-comparison-ru",
+      "tenant": "apavi40plus",
+      "goal": "two-explicit-product-links",
+      "question": "Ответь по-русски. Сравни эти две модели обуви. Укажи только подтверждённые различия: https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija",
+      "expectedLocale": "ru",
+      "expect": {
+        "twoProductSources": true
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v7",
+      "state": "complete",
+      "startedAt": "2026-10-22T16:56:46.420435+00:00",
+      "requestBodySha256": "2db3c5cd85564fafa13ba0fbb08093b7d921df2e16b8ee0a43e5489353ec3a17",
+      "inputContext": {
+        "locale": "ru",
+        "previousTopic": null,
+        "productURL": null,
+        "catalogURLs": [],
+        "history": []
+      },
+      "httpStatus": 200,
+      "elapsedMs": 6375,
+      "answer": {
+        "locale": "ru",
+        "text": "По прочитанным описаниям:\n\nAaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju\nМатериал: натуральная замша.\n\nAndres Machado AM6002 – Kovboju stila zābaki ar sudraba kniedēm (Ražots Spānijā)\nМатериал: искусственная замша.\n\nСравнение включает только перечисленные подтверждённые сведения.",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "Aaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju",
+            "url": "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+            "kind": "product"
+          },
+          {
+            "title": "Andres Machado AM6002 – Kovboju stila zābaki ar sudraba kniedēm (Ražots Spānijā)",
+            "url": "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": true,
+        "fallbackReason": "answer_validation",
+        "validationReason": "catalog_provider",
+        "validationDetail": "http_400_invalid_json_schema",
+        "catalogRevision": "buyer-v7",
+        "productRead": true,
+        "catalogURLs": [
+          "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+          "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija"
+        ],
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": false,
+        "catalogSnapshot": false,
+        "checked": "2026-10-22T16:56:52.268Z"
+      },
+      "assessment": {
+        "contractFlags": [
+          "fallback:answer_validation"
+        ],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "v7-apavi-comparison-lv",
+      "tenant": "apavi40plus",
+      "goal": "two-explicit-product-links",
+      "question": "Atbildi latviski. Salīdzini šos divus apavu modeļus. Norādi tikai apstiprinātās atšķirības: https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija",
+      "expectedLocale": "lv",
+      "expect": {
+        "twoProductSources": true
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v7",
+      "state": "complete",
+      "startedAt": "2026-10-22T16:56:53.421266+00:00",
+      "requestBodySha256": "47fcb011bd33640fd3be600abff48ca73098cbed3c46216a8506cea797ba93bf",
+      "inputContext": {
+        "locale": "ru",
+        "previousTopic": "product-clarify",
+        "productURL": null,
+        "catalogURLs": [],
+        "history": [
+          {
+            "role": "user",
+            "text": "Ответь по-русски. Сравни эти две модели обуви. Укажи только подтверждённые различия: https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija"
+          },
+          {
+            "role": "assistant",
+            "text": "По прочитанным описаниям:\n\nAaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju\nМатериал: натуральная замша.\n\nAndres Machado AM6002 – Kovboju stila zābaki ar sudraba kniedēm (Ražots Spānijā)\nМатериал: искусственная замша.\n\nСравнение включает только перечисленные подтверждённые сведения."
+          }
+        ]
+      },
+      "httpStatus": 200,
+      "elapsedMs": 5948,
+      "answer": {
+        "locale": "lv",
+        "text": "Pēc nolasītajiem aprakstiem:\n\nAaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju\nMateriāls: dabīgā zamšāda.\n\nAndres Machado AM6002 – Kovboju stila zābaki ar sudraba kniedēm (Ražots Spānijā)\nMateriāls: mākslīgā zamšāda.\n\nSalīdzinājumā ietverta tikai norādītā apstiprinātā informācija.",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "Aaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju",
+            "url": "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+            "kind": "product"
+          },
+          {
+            "title": "Andres Machado AM6002 – Kovboju stila zābaki ar sudraba kniedēm (Ražots Spānijā)",
+            "url": "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": true,
+        "fallbackReason": "answer_validation",
+        "validationReason": "catalog_provider",
+        "validationDetail": "http_400_invalid_json_schema",
+        "catalogRevision": "buyer-v7",
+        "productRead": true,
+        "catalogURLs": [
+          "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+          "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija"
+        ],
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": false,
+        "catalogSnapshot": false,
+        "checked": "2026-10-22T16:56:52.268Z"
+      },
+      "assessment": {
+        "contractFlags": [
+          "fallback:answer_validation"
+        ],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "v7-apavi-comparison-en",
+      "tenant": "apavi40plus",
+      "goal": "two-explicit-product-links",
+      "question": "Please answer in English. Compare these two products. Only use confirmed differences. https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija",
+      "expectedLocale": "en",
+      "expect": {
+        "twoProductSources": true
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v7",
+      "state": "complete",
+      "startedAt": "2026-10-22T16:57:00.422512+00:00",
+      "requestBodySha256": "48d07a3a8894e01a5cab0d31a792dbee3abb95e7ef5a10d15a6a340d78f07b60",
+      "inputContext": {
+        "locale": "lv",
+        "previousTopic": "product-clarify",
+        "productURL": null,
+        "catalogURLs": [],
+        "history": [
+          {
+            "role": "user",
+            "text": "Ответь по-русски. Сравни эти две модели обуви. Укажи только подтверждённые различия: https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija"
+          },
+          {
+            "role": "assistant",
+            "text": "По прочитанным описаниям:\n\nAaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju\nМатериал: натуральная замша.\n\nAndres Machado AM6002 – Kovboju stila zābaki ar sudraba kniedēm (Ražots Spānijā)\nМатериал: искусственная замша.\n\nСравнение включает только перечисленные подтверждённые сведения."
+          },
+          {
+            "role": "user",
+            "text": "Atbildi latviski. Salīdzini šos divus apavu modeļus. Norādi tikai apstiprinātās atšķirības: https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija"
+          },
+          {
+            "role": "assistant",
+            "text": "Pēc nolasītajiem aprakstiem:\n\nAaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju\nMateriāls: dabīgā zamšāda.\n\nAndres Machado AM6002 – Kovboju stila zābaki ar sudraba kniedēm (Ražots Spānijā)\nMateriāls: mākslīgā zamšāda.\n\nSalīdzinājumā ietverta tikai norādītā apstiprinātā informācija."
+          }
+        ]
+      },
+      "httpStatus": 200,
+      "elapsedMs": 5772,
+      "answer": {
+        "locale": "en",
+        "text": "From the descriptions read:\n\nAaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju\nMaterial: natural suede.\n\nAndres Machado AM6002 – Kovboju stila zābaki ar sudraba kniedēm (Ražots Spānijā)\nMaterial: artificial suede.\n\nThis compares only the listed confirmed details.",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "Aaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju",
+            "url": "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+            "kind": "product"
+          },
+          {
+            "title": "Andres Machado AM6002 – Kovboju stila zābaki ar sudraba kniedēm (Ražots Spānijā)",
+            "url": "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": true,
+        "fallbackReason": "answer_validation",
+        "validationReason": "catalog_provider",
+        "validationDetail": "http_400_invalid_json_schema",
+        "catalogRevision": "buyer-v7",
+        "productRead": true,
+        "catalogURLs": [
+          "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+          "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija"
+        ],
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": false,
+        "catalogSnapshot": false,
+        "checked": "2026-10-22T16:56:52.268Z"
+      },
+      "assessment": {
+        "contractFlags": [
+          "fallback:answer_validation"
+        ],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    }
+  ],
+  "stoppedReason": "Local request allowance reached",
+  "finishedAt": "2026-10-22T16:57:06.196614+00:00",
+  "summary": {
+    "chatRequestsSent": 3,
+    "providerAttemptsReported": 3,
+    "ambiguous": 0,
+    "contractFlagged": 3,
+    "accuracy": "requires_source_and_human_review"
+  }
+}
