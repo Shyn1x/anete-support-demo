@@ -23,7 +23,21 @@ export function selectCatalogLines(product,message){
  }
  return selected.sort((a,b)=>a.index-b.index).map(r=>r.text);
 }
+// Literal, bounded choices for constrained decoding. Never translate, join
+// separate passages, or add ellipses. The full selected facts remain available.
+export function selectCatalogQuotes(product,message){
+ const lines=selectCatalogLines(product,message),out=[];
+ for(const line of [...lines.filter(s=>technical.test(s)),...lines,product.title]){
+  let quote=String(line).slice(0,160);
+  if(/[\uD800-\uDBFF]$/u.test(quote))quote=quote.slice(0,-1);
+  if(line.length>160){const boundary=quote.lastIndexOf(' ');if(boundary>=10)quote=quote.slice(0,boundary);}
+  quote=quote.trim();if(quote.length<10||out.includes(quote))continue;
+  out.push(quote);if(out.length===6)break;
+ }return out;
+}
 const materialValues=[
+ [/^dabiga zamsada$/u,{ru:'натуральная замша',lv:'dabīgā zamšāda',en:'natural suede'}],
+ [/^maksliga zamsada$/u,{ru:'искусственная замша',lv:'mākslīgā zamšāda',en:'artificial suede'}],
  [/^(?:dabiga gludada|natural smooth leather)$/u,{ru:'натуральная гладкая кожа',lv:'dabīgā gludāda',en:'natural smooth leather'}],
  [/^(?:miksta ada|soft leather)$/u,{ru:'мягкая кожа',lv:'mīksta āda',en:'soft leather'}],
  [/^(?:dabiga ada|natural leather)$/u,{ru:'натуральная кожа',lv:'dabīgā āda',en:'natural leather'}],
@@ -66,6 +80,13 @@ export function knownCatalogDetails(product,message,locale){
   const m=product.title.match(/(?:^|[^\d])([1-9]\d{0,2})\s*(?:krāsas|krāsu|colou?rs|цветов|цвета)(?!\p{L})/iu);
   if(m)out.push({field:'colours',text:{ru:`В наборе ${m[1]} цветов.`,lv:`Komplektā ir ${m[1]} krāsas.`,en:`The set contains ${m[1]} colours.`}[locale]});
  }return out;
+}
+export function confirmedCatalogComparison(products,message,locale){
+ if(products.length!==2||products.some(p=>p.reviewedSnapshot))return null;
+ const wanted=requestedCatalogFields(message),query=wanted.length?message:'material ingredients age colours';
+ const details=products.map(p=>knownCatalogDetails(p,query,locale));if(!details.some(ds=>ds.length))return null;
+ const copy={ru:{intro:'По прочитанным описаниям:',missing:'Эти характеристики в прочитанных данных не подтверждены.',partial:'Не все запрошенные характеристики удалось подтвердить.',end:'Сравнение включает только перечисленные подтверждённые сведения.'},lv:{intro:'Pēc nolasītajiem aprakstiem:',missing:'Šīs īpašības nolasītajos datos nav apstiprinātas.',partial:'Ne visas pieprasītās īpašības varēju apstiprināt.',end:'Salīdzinājumā ietverta tikai norādītā apstiprinātā informācija.'},en:{intro:'From the descriptions read:',missing:'These specifications are not confirmed in the read data.',partial:'Not all requested specifications could be confirmed.',end:'This compares only the listed confirmed details.'}}[locale];
+ return copy.intro+'\n\n'+products.map((p,i)=>p.title+'\n'+(details[i].length?details[i].map(d=>d.text).join(' '):copy.missing)+(details[i].length&&wanted.some(k=>!details[i].some(d=>d.field===k))?' '+copy.partial:'')).join('\n\n')+'\n\n'+copy.end;
 }
 const bounds=[['min',/(?:at least|minimum|min\.?|no less than|vismaz|ne maz[aā]k k[aā]|не менее|минимум|не меньше)\s*$/iu],['max',/(?:at most|maximum|max\.?|up to|no more than|ne vair[aā]k k[aā]|l[iī]dz|не более|максимум|до)\s*$/iu],['approx',/(?:about|around|approximately|approx\.?|apm[eē]ram|aptuveni|около|примерно|приблизительно)\s*$/iu]];
 const percentageSubjects=[['poultry',/птиц\p{L}*|poultry|putnu/giu],['chicken',/курин\p{L}*|куриц\p{L}*|chicken|vist\p{L}*/giu],['protein',/белк\p{L}*|protein\p{L}*|olbaltum\p{L}*/giu],['fat',/жир\p{L}*|\bfats?\b|tauki\p{L}*/giu],['fibre',/клетчат\p{L}*|\bfib(?:re|er)\b|šķiedr\p{L}*/giu],['moisture',/влажност\p{L}*|moisture|mitrums/giu]];

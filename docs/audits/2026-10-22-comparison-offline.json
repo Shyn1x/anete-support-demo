@@ -1,0 +1,59 @@
+{
+  "revision": "buyer-v6",
+  "liveChatRequests": 0,
+  "providerCalls": 0,
+  "sourceOrigin": "Preserved historical product reads from 2026-10-19, not current merchant reads or stock evidence.",
+  "rows": [
+    {
+      "locale": "ru",
+      "modelProseOrigin": "synthetic offline test response, not OpenAI",
+      "parsed": {
+        "text": "У первой модели указана натуральная замша, у второй — искусственная замша.",
+        "ids": [
+          "catalog:0",
+          "catalog:1"
+        ]
+      },
+      "fallback": "По прочитанным описаниям:\n\nAaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju\nМатериал: натуральная замша.\n\nAndres Machado AM6002 – Kovboju stila zābaki ar sudraba kniedēm (Ražots Spānijā)\nМатериал: искусственная замша.\n\nСравнение включает только перечисленные подтверждённые сведения.",
+      "requestBytes": 10249,
+      "quoteChoicesPerProduct": [
+        6,
+        6
+      ]
+    },
+    {
+      "locale": "lv",
+      "modelProseOrigin": "synthetic offline test response, not OpenAI",
+      "parsed": {
+        "text": "Pirmajam modelim norādīta dabīgā zamšāda, otrajam — mākslīgā zamšāda.",
+        "ids": [
+          "catalog:0",
+          "catalog:1"
+        ]
+      },
+      "fallback": "Pēc nolasītajiem aprakstiem:\n\nAaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju\nMateriāls: dabīgā zamšāda.\n\nAndres Machado AM6002 – Kovboju stila zābaki ar sudraba kniedēm (Ražots Spānijā)\nMateriāls: mākslīgā zamšāda.\n\nSalīdzinājumā ietverta tikai norādītā apstiprinātā informācija.",
+      "requestBytes": 10218,
+      "quoteChoicesPerProduct": [
+        6,
+        6
+      ]
+    },
+    {
+      "locale": "en",
+      "modelProseOrigin": "synthetic offline test response, not OpenAI",
+      "parsed": {
+        "text": "The first model lists natural suede; the second lists artificial suede.",
+        "ids": [
+          "catalog:0",
+          "catalog:1"
+        ]
+      },
+      "fallback": "From the descriptions read:\n\nAaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju\nMaterial: natural suede.\n\nAndres Machado AM6002 – Kovboju stila zābaki ar sudraba kniedēm (Ražots Spānijā)\nMaterial: artificial suede.\n\nThis compares only the listed confirmed details.",
+      "requestBytes": 10208,
+      "quoteChoicesPerProduct": [
+        6,
+        6
+      ]
+    }
+  ]
+}

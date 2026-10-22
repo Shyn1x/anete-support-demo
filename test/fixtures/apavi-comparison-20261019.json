@@ -1,0 +1,97 @@
+{
+  "origin": "Historical public product reads from the preserved 2026-10-19 audit; minimal literal technical facts only, not current stock or price evidence.",
+  "products": [
+    {
+      "title": "Aaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju",
+      "url": "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+      "variants": [
+        {
+          "label": "40",
+          "state": "in_stock",
+          "price": null
+        },
+        {
+          "label": "41",
+          "state": "in_stock",
+          "price": null
+        },
+        {
+          "label": "42",
+          "state": "in_stock",
+          "price": null
+        },
+        {
+          "label": "43",
+          "state": "in_stock",
+          "price": null
+        }
+      ],
+      "summary": {
+        "state": "in_stock",
+        "price": null
+      },
+      "chart": [],
+      "measure": "unspecified",
+      "checkedAt": "2026-10-19T18:40:42.704Z",
+      "lines": [
+        "Materiāls: Dabīgā zamšāda"
+      ]
+    },
+    {
+      "title": "Andres Machado AM6002 – Kovboju stila zābaki ar sudraba kniedēm (Ražots Spānijā)",
+      "url": "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija",
+      "variants": [
+        {
+          "label": "Black / 42",
+          "state": "in_stock",
+          "price": null
+        },
+        {
+          "label": "Black / 43",
+          "state": "in_stock",
+          "price": null
+        },
+        {
+          "label": "Black / 44",
+          "state": "in_stock",
+          "price": null
+        },
+        {
+          "label": "Black / 45",
+          "state": "out_of_stock",
+          "price": null
+        },
+        {
+          "label": "Gray / 42",
+          "state": "out_of_stock",
+          "price": null
+        },
+        {
+          "label": "Gray / 43",
+          "state": "in_stock",
+          "price": null
+        },
+        {
+          "label": "Gray / 44",
+          "state": "out_of_stock",
+          "price": null
+        },
+        {
+          "label": "Gray / 45",
+          "state": "in_stock",
+          "price": null
+        }
+      ],
+      "summary": {
+        "state": "in_stock",
+        "price": null
+      },
+      "chart": [],
+      "measure": "unspecified",
+      "checkedAt": "2026-10-19T18:40:42.718Z",
+      "lines": [
+        "Materiāls: Mākslīgā zamšāda"
+      ]
+    }
+  ]
+}

@@ -79,7 +79,7 @@ test('quote rejection still rejects, but material fallback answers the original 
 });
 test('HobbySet refusal gives dated reviewed fact, still reports failed live read, never calls or reserves AI',async()=>{
  const original=Date.now;Date.now=()=>at;try{
- const s=await workerSession({tenant:'hobbyset',url:hobbyURL,http:403});const {status,data}=await s.send('Cik krāsu ir komplektā un kāds ir sastāvs?','lv');assert.equal(status,200);assert.equal(data.productRead,false);assert.equal(data.catalogSnapshot,true);assert.equal(data.providerUsed,false);assert.equal(data.readFailures,1);assert.equal(data.catalogRevision,'buyer-v5');assert(data.text.includes('12 krāsas'));assert(data.text.includes('2026-10-18'));assert(data.text.includes('Ne visas pieprasītās īpašības'));assert.equal(data.sources[0].url,hobbyURL);assert.equal(data.checked,'2026-10-18T16:04:30.397Z');assert.equal(s.calls.length,1);assert.equal(s.storage.records.get('state').total,0);
+ const s=await workerSession({tenant:'hobbyset',url:hobbyURL,http:403});const {status,data}=await s.send('Cik krāsu ir komplektā un kāds ir sastāvs?','lv');assert.equal(status,200);assert.equal(data.productRead,false);assert.equal(data.catalogSnapshot,true);assert.equal(data.providerUsed,false);assert.equal(data.readFailures,1);assert.equal(data.catalogRevision,'buyer-v6');assert(data.text.includes('12 krāsas'));assert(data.text.includes('2026-10-18'));assert(data.text.includes('Ne visas pieprasītās īpašības'));assert.equal(data.sources[0].url,hobbyURL);assert.equal(data.checked,'2026-10-18T16:04:30.397Z');assert.equal(s.calls.length,1);assert.equal(s.storage.records.get('state').total,0);
  }finally{Date.now=original;}
 });
 test('another blocked HobbySet product has no invented snapshot',async()=>{
