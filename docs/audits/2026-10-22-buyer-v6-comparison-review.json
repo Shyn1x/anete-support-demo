@@ -1,0 +1,30 @@
+{
+  "schema": "buyer-v6-comparison-source-review-v1",
+  "liveReportSha256": "77d668618210f6e684be27718d773f7be77b65f98eae7fe8e4bf7d88aaac3c69",
+  "manualReview": {
+    "allThreeResponseLanguages": "correct",
+    "fallbackFacts": "Confirmed against fresh merchant JSON: natural suede for Aaltonen56480, artificial suede for AndresMachadoAM6002. No preference, fit, stock or price claims in the three replies.",
+    "acceptedGeneratedAnswers": 0,
+    "fallbackResponses": 3,
+    "diagnosis": "All three returned answer_validation/catalog_unavailable, no validationDetail. The old diagnostic loses provider HTTP/network/timeout distinctions; exact cause cannot be established from this report. Schema compatibility is a hypothesis, not a confirmed HTTP400.",
+    "historicResults": "Unchanged; no failed scenario relabeled successful."
+  },
+  "sources": [
+    {
+      "url": "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju.js",
+      "checkedAt": "2026-10-22T16:30:51.023466+00:00",
+      "httpStatus": 200,
+      "sha256": "b23d396a7ccf77fbc51e91c7f3d634d7446aa103e2d329d17eab2aa4732039dc",
+      "title": "Aaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju",
+      "verifiedLiteralTechnicalFact": "Materiāls: Dabīgā zamšāda"
+    },
+    {
+      "url": "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija.js",
+      "checkedAt": "2026-10-22T16:30:51.031889+00:00",
+      "httpStatus": 200,
+      "sha256": "d14335b2ab77dba117b00f3f3f48c8b65ce669e2b8dd3fa954754b9d3e44ba42",
+      "title": "Andres Machado AM6002 – Kovboju stila zābaki ar sudraba kniedēm (Ražots Spānijā)",
+      "verifiedLiteralTechnicalFact": "Materiāls: Mākslīgā zamšāda"
+    }
+  ]
+}

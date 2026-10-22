@@ -9,7 +9,7 @@ test('workerd/SQLite rejects a semantically changed percentage, counts one attem
  try{
   const login=await post('/api/login',{password:'synthetic-runtime-password'}),cookie=login.headers.get('Set-Cookie').split(';')[0];
   const query={tenant:'bariba',locale:'ru',message:'Какой состав корма? '+url};
-  let response=await post('/api/chat',query,cookie);assert.equal(response.status,200);let data=await response.json();assert.equal(data.validationReason,'catalog_quantity_qualifier');assert.equal(data.conversational,undefined);assert.equal(data.catalogRevision,'buyer-v6');assert(!data.text.includes('грудка'));assert(!data.text.includes('около 25'));assert.equal(providerCalls,1);
+  let response=await post('/api/chat',query,cookie);assert.equal(response.status,200);let data=await response.json();assert.equal(data.validationReason,'catalog_quantity_qualifier');assert.equal(data.conversational,undefined);assert.equal(data.catalogRevision,'buyer-v7');assert(!data.text.includes('грудка'));assert(!data.text.includes('около 25'));assert.equal(providerCalls,1);
   response=await post('/api/chat',query,cookie);data=await response.json();assert.equal(data.fallbackReason,'total_budget');assert.equal(data.providerUsed,false);assert.equal(providerCalls,1);
   const ns=await mf.getDurableObjectNamespace('GUARD'),stub=ns.get(ns.idFromName('experiment-v1')),status=await(await stub.fetch('https://guard/status',{headers:{'X-Demo-Client':'b'.repeat(64)}})).json();assert.equal(status.total.reservedMicroUSD,10000);assert.equal(status.total.limitMicroUSD,10000);
  }finally{await mf.dispose();}
