@@ -44,3 +44,23 @@ test('workerd/SQLite: reference protocol accepts three languages and stops at th
   const capped=await(await post('/api/chat',{tenant:'apavi40plus',locale:'en',message:'Compare '+products.map(p=>p.url).join(' ')},cookie)).json();assert.equal(capped.fallbackReason,'total_budget');assert.equal(capped.providerUsed,false);assert.equal(provider,3);
  }finally{await mf.dispose();}
 });
+
+test('workerd/SQLite: precision guard rejects wool-to-hide inference without retry, preserves cap and accepts qualified prose',async()=>{
+ const {products:old}=JSON.parse(await readFile(new URL('../test/fixtures/apavi-comparison-20261019.json',import.meta.url),'utf8'));let provider=0;
+ const products=[{...old[0],lines:[...old[0].lines,'Lining: natural sheep wool']},{...old[1],lines:[...old[1].lines,'Decoration: silver-coloured rivets']}];
+ const mf=new Miniflare(convertV4MiniflareOptions({name:'comparison-precision-runtime',modules:true,scriptPath:'worker-build/worker.js',compatibilityDate:'2026-10-01',durableObjects:{GUARD:{className:'BudgetGuard',useSQLite:true}},bindings:{TENANT_ID:'apavi40plus',DEMO_PASSWORD:'synthetic-runtime-password',SESSION_SECRET:'runtime-test-secret-at-least-32-characters',CATALOG_ENABLED:'true',AI_ENABLED:'true',AI_CONVERSATIONAL:'true',OPENAI_API_KEY:'fake-test-key',TOTAL_BUDGET_MICRO_USD:'20000'},serviceBindings:{ASSETS:async()=>{throw Error('No search');}},outboundService:async req=>{
+  if(req.url==='https://api.openai.com/v1/responses'){
+   provider++;return Response.json({status:'completed',output:[{content:[{type:'output_text',text:JSON.stringify({ids:['catalog:0','catalog:1'],reply:provider===1?'Aaltonen 56480 has sheepskin lining. Andres Machado AM6002 has silver rivets.':'Aaltonen 56480 has sheep-wool lining. Andres Machado AM6002 has silver-coloured rivets.',evidence:['evidence_0_0','evidence_1_0']})}]}]});
+  }
+  const p=products.find(p=>p.url===req.url||p.url+'.js'===req.url);assert(p);
+  return Response.json({title:p.title,handle:new URL(p.url).pathname.split('/').at(-1),description:p.lines.join('\n'),variants:[]});
+ }}));
+ const post=(path,body,cookie)=>mf.dispatchFetch('https://demo.example'+path,{method:'POST',headers:{Origin:'https://demo.example','Content-Type':'application/json','CF-Connecting-IP':'192.0.2.24',...(cookie?{Cookie:cookie}:{})},body:JSON.stringify(body)});
+ try{
+  const cfg=await(await mf.dispatchFetch('https://demo.example/api/config')).json();assert.equal(cfg.catalogRevision,'buyer-v8');assert.equal(cfg.catalogPrecisionRevision,'terms-v1');
+  const login=await post('/api/login',{password:'synthetic-runtime-password'}),cookie=login.headers.get('Set-Cookie').split(';')[0];const chat=async()=>{const res=await post('/api/chat',{tenant:'apavi40plus',locale:'en',message:'Compare these two products. '+products.map(p=>p.url).join(' ')},cookie);assert.equal(res.status,200);return res.json();};
+  const rejected=await chat();assert.equal(rejected.validationReason,'catalog_material_qualification');assert.equal(rejected.conversational,undefined);assert.equal(rejected.catalogPrecisionRevision,'terms-v1');assert(!rejected.text.includes('sheepskin'));assert(rejected.text.includes('artificial suede'));assert.equal(provider,1);
+  const accepted=await chat();assert.equal(accepted.conversational,true);assert(accepted.text.includes('sheep-wool'));assert(accepted.text.includes('silver-coloured'));assert.equal(provider,2);
+  const capped=await chat();assert.equal(capped.fallbackReason,'total_budget');assert.equal(capped.providerUsed,false);assert.equal(provider,2);
+ }finally{await mf.dispose();}
+});

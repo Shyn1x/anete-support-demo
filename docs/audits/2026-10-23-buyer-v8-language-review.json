@@ -1,0 +1,57 @@
+{
+  "schema": "buyer-v8-language-review-v1",
+  "reportSha256": "0e5cf42b829d5364f9f553a3a137a771c64fd72bc902d8f2271ac8bff5cd4850",
+  "authorizedRequests": 2,
+  "providerAttempts": 2,
+  "reservationMicroUSD": 20000,
+  "actualProviderBill": "not available; reserve is not actual billing",
+  "technicalAccepted": 2,
+  "ambiguous": 0,
+  "manualFullAccuracyPass": 0,
+  "rows": [
+    {
+      "id": "v8-language-apavi-comparison-ru",
+      "locale": "ru",
+      "elapsedMs": 8240,
+      "conversational": true,
+      "flagsUnchanged": []
+    },
+    {
+      "id": "v8-language-apavi-comparison-lv",
+      "locale": "lv",
+      "elapsedMs": 8323,
+      "conversational": true,
+      "flagsUnchanged": []
+    }
+  ],
+  "manualFindings": [
+    {
+      "locale": "ru",
+      "modelPhrase": "серебряными заклёпками",
+      "sourceQualification": "silver-coloured rivets, no precious-metal composition confirmed",
+      "reason": "colour_qualification_lost"
+    },
+    {
+      "locale": "ru",
+      "modelPhrase": "без специальных зимних функций",
+      "sourceQualification": "The second product description does not establish absence of winter functions.",
+      "reason": "missing_information_treated_as_absence"
+    },
+    {
+      "locale": "lv",
+      "modelPhrase": "sudraba kniedēm",
+      "sourceQualification": "The descriptive source specifies a silver colour.",
+      "reason": "colour_qualification_lost"
+    },
+    {
+      "locale": "lv",
+      "modelPhrase": "dekoratīvu rāvējslēdzēju",
+      "sourceQualification": "The heel strap is decorative; the zipper is described as a fastening for convenient wear.",
+      "reason": "attribute_moved_to_other_component"
+    }
+  ],
+  "supportedWoolTranslation": "RU and LV correctly stated sheep wool, unlike earlier English sheepskin.",
+  "sourcesReviewedAgainst": "2026-10-23-buyer-v8-smoke-review.json; same two merchant descriptions preserved and read at 06:43UTC on 2026-10-23. No stock/price inference.",
+  "patchStatus": "Offline-only terms-v1 guard and prompt prepared, retains buyer-v8 source-reference wire schema. Not published or live-tested.",
+  "historicResults": "All prior raw reports preserved. No previous failures relabeled; no legacy50 completion."
+}

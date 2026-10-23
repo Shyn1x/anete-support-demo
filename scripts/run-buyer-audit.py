@@ -1,7 +1,7 @@
 """Bounded owner-authorized audit, Python stdlib only. No deployment or limit changes."""
 import argparse, datetime, getpass, hashlib, json, os, pathlib, time, urllib.error, urllib.parse, urllib.request
 
-ANSWER_KEYS = ('locale','text','cardIds','sources','handoff','mode','topic','providerUsed','conversational','fallbackReason','validationReason','validationDetail','catalogRevision','productRead','catalogURLs','productURL','readFailures','catalogReadDiagnostics','catalogMetadataOnly','catalogSnapshot','checked','error','reason')
+ANSWER_KEYS = ('locale','text','cardIds','sources','handoff','mode','topic','providerUsed','conversational','fallbackReason','validationReason','validationDetail','catalogRevision','catalogPrecisionRevision','productRead','catalogURLs','productURL','readFailures','catalogReadDiagnostics','catalogMetadataOnly','catalogSnapshot','checked','error','reason')
 def utc(): return datetime.datetime.now(datetime.timezone.utc).isoformat()
 def body_bytes(body): return json.dumps(body, ensure_ascii=False, separators=(',',':')).encode('utf-8')
 def safe_answer(data): return {k:data[k] for k in ANSWER_KEYS if k in data}

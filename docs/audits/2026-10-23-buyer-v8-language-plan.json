@@ -1,0 +1,695 @@
+{
+  "schema": "buyer-conversation-audit-v1",
+  "plannedChatRequests": 50,
+  "authorizedChatRequests": 2,
+  "shops": [
+    "apavi40plus"
+  ],
+  "scope": "Post-publication buyer-v8 Russian and Latvian comparison verification. Only first two cases authorized, max2 chat requests and USD0.02 reservation. Remaining48 schema placeholders are NOT authorized or executed. No retry, no budget changes, no automatic English repeat. Separate from prior reports and legacy50. Review wool/sheepskin and coloured-hardware wording explicitly.",
+  "acceptedCatalogRevisions": [
+    "buyer-v8"
+  ],
+  "missing": [
+    {
+      "tenant": "anete",
+      "reason": "Outside this three-request comparison check; no chat attempted."
+    },
+    {
+      "tenant": "bariba",
+      "reason": "Outside this three-request comparison check; no chat attempted."
+    },
+    {
+      "tenant": "hobbyset",
+      "reason": "Outside this three-request comparison check; no chat attempted."
+    },
+    {
+      "tenant": "rotallieta",
+      "reason": "Outside this three-request comparison check; no chat attempted."
+    },
+    {
+      "tenant": "celotajs",
+      "reason": "Outside this three-request comparison check; no chat attempted."
+    }
+  ],
+  "cases": [
+    {
+      "id": "v8-language-apavi-comparison-ru",
+      "tenant": "apavi40plus",
+      "goal": "two-explicit-product-links",
+      "message": "Ответь по-русски. Сравни эти две модели обуви. Укажи только подтверждённые различия: https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija",
+      "expectedLocale": "ru",
+      "expect": {
+        "twoProductSources": true
+      },
+      "expectedProductURLs": [
+        "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+        "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija"
+      ]
+    },
+    {
+      "id": "v8-language-apavi-comparison-lv",
+      "tenant": "apavi40plus",
+      "goal": "two-explicit-product-links",
+      "message": "Atbildi latviski. Salīdzini šos divus apavu modeļus. Norādi tikai apstiprinātās atšķirības: https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija",
+      "expectedLocale": "lv",
+      "expect": {
+        "twoProductSources": true
+      },
+      "expectedProductURLs": [
+        "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+        "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija"
+      ]
+    },
+    {
+      "id": "v8-apavi-comparison-en",
+      "tenant": "apavi40plus",
+      "goal": "two-explicit-product-links",
+      "message": "Please answer in English. Compare these two products. Only use confirmed differences. https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija",
+      "expectedLocale": "en",
+      "expect": {
+        "twoProductSources": true
+      },
+      "expectedProductURLs": [
+        "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+        "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija"
+      ]
+    },
+    {
+      "id": "v5-hobbyset-1",
+      "tenant": "hobbyset",
+      "goal": "natural-product-selection",
+      "message": "Kādas akrila krāsas var apskatīt?",
+      "expectedLocale": "lv",
+      "expect": {
+        "selection": true
+      }
+    },
+    {
+      "tenant": "hobbyset",
+      "goal": "delivery-priority-over-product-url",
+      "message": "Как получить заказ? https://hobbyset.lv/products/lv/2224/180792/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-ci%C4%81na-zila-Cyan-.html",
+      "expectedLocale": "ru",
+      "expect": {
+        "topic": "delivery"
+      },
+      "id": "v5-hobbyset-3"
+    },
+    {
+      "id": "v5-apavi40plus-1",
+      "tenant": "apavi40plus",
+      "goal": "natural-product-selection",
+      "message": "Нужны зимние ботинки. Что можете предложить?",
+      "expectedLocale": "ru",
+      "expect": {
+        "selection": true
+      }
+    },
+    {
+      "id": "v5-apavi40plus-2",
+      "tenant": "apavi40plus",
+      "goal": "chosen-product-detail",
+      "message": "А у третьих ботинок какая подкладка?",
+      "expectedLocale": "ru",
+      "expect": {
+        "productQuestion": true
+      },
+      "seedProducts": [
+        {
+          "title": "Aaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju",
+          "url": "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju"
+        },
+        {
+          "title": "Andres Machado AM6002 – Kovboju stila zābaki ar sudraba kniedēm (Ražots Spānijā)",
+          "url": "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija"
+        }
+      ],
+      "resetBefore": false
+    },
+    {
+      "id": "v5-apavi40plus-3",
+      "tenant": "apavi40plus",
+      "goal": "two-explicit-product-links",
+      "message": "Compare these two products. Only use confirmed differences. https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija",
+      "expectedLocale": "en",
+      "expect": {
+        "twoProductSources": true
+      },
+      "expectedProductURLs": [
+        "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+        "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija"
+      ]
+    },
+    {
+      "id": "v5-rotallieta-2",
+      "tenant": "rotallieta",
+      "goal": "chosen-product-detail",
+      "message": "Ребёнку 8 лет. Для какого возраста этот пазл? https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/",
+      "expectedLocale": "ru",
+      "expect": {
+        "productQuestion": true
+      },
+      "seedProducts": [
+        {
+          "title": "3d puzle globuss 49 pcs",
+          "url": "https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/"
+        },
+        {
+          "title": "attistosa spele creative shape puzzle 180 pcs",
+          "url": "https://rotallieta.lv/prece/attistosa-spele-creative-shape-puzzle-180-pcs/"
+        }
+      ],
+      "resetBefore": false
+    },
+    {
+      "id": "v4-bariba-1",
+      "tenant": "bariba",
+      "goal": "natural-product-selection",
+      "message": "I do not want kitten food, I need adult cat food",
+      "expectedLocale": "en",
+      "expect": {
+        "selection": true
+      }
+    },
+    {
+      "id": "v4-bariba-2",
+      "tenant": "bariba",
+      "goal": "chosen-product-detail",
+      "message": "Не первый, а третий. Для какого возраста этот корм?",
+      "expectedLocale": "ru",
+      "expect": {
+        "productQuestion": true
+      },
+      "seedProducts": [
+        {
+          "title": "SHELMA komplekts kaķēniem ar tītaru un dzērvenēm, lasi un smiltsērkšķi mērcē 4 x 85 g",
+          "url": "https://www.bariba.lv/konservi-kakeniem-shelma-titars-un-lasis-4x-85-g.html"
+        },
+        {
+          "title": "Naturina Elite kitten with beef - konservi kaķēniem vista ar liellopu gaļu 70 g",
+          "url": "https://www.bariba.lv/naturina-elite-kakenu-konservi-ar-liellopu-galu-70-g.html"
+        }
+      ],
+      "resetBefore": false
+    },
+    {
+      "tenant": "bariba",
+      "goal": "reported-source-label-conflict",
+      "message": "На упаковке написано другое, чем ты сказал. Почему информация отличается?",
+      "expectedLocale": "ru",
+      "expect": {
+        "handoff": true,
+        "noProvider": true
+      },
+      "id": "v4-bariba-3"
+    },
+    {
+      "id": "v4-hobbyset-1",
+      "tenant": "hobbyset",
+      "goal": "natural-product-selection",
+      "message": "Kādas akrila krāsas var apskatīt?",
+      "expectedLocale": "lv",
+      "expect": {
+        "selection": true
+      }
+    },
+    {
+      "id": "v4-hobbyset-2",
+      "tenant": "hobbyset",
+      "goal": "chosen-product-detail",
+      "message": "Can this paint be used on fabric, or is that unconfirmed? https://hobbyset.lv/products/lv/2224/180792/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-ci%C4%81na-zila-Cyan-.html",
+      "expectedLocale": "en",
+      "expect": {
+        "productQuestion": true
+      },
+      "adaptiveSecond": {
+        "message": "Не первую, а вторую. Можно ли рисовать ей по ткани?",
+        "expectedLocale": "ru"
+      },
+      "seedProducts": [
+        {
+          "title": "Akrila krāsa pouringam Pouring Exieriences 118ml ciāna zila Cyan ",
+          "url": "https://hobbyset.lv/products/lv/2224/180792/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-ci%C4%81na-zila-Cyan-.html"
+        },
+        {
+          "title": "Akrila krāsa pouringam Pouring Exieriences 118ml vara tonis",
+          "url": "https://hobbyset.lv/products/lv/2224/180794/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-vara-tonis.html"
+        }
+      ],
+      "resetBefore": false
+    },
+    {
+      "tenant": "hobbyset",
+      "goal": "delivery-priority-over-product-url",
+      "message": "Как получить заказ? https://hobbyset.lv/products/lv/2224/180792/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-ci%C4%81na-zila-Cyan-.html",
+      "expectedLocale": "ru",
+      "expect": {
+        "topic": "delivery"
+      },
+      "id": "v4-hobbyset-3"
+    },
+    {
+      "id": "v4-apavi40plus-1",
+      "tenant": "apavi40plus",
+      "goal": "natural-product-selection",
+      "message": "Нужны зимние ботинки. Что можете предложить?",
+      "expectedLocale": "ru",
+      "expect": {
+        "selection": true
+      }
+    },
+    {
+      "id": "v4-apavi40plus-2",
+      "tenant": "apavi40plus",
+      "goal": "chosen-product-detail",
+      "message": "А у третьих ботинок какая подкладка?",
+      "expectedLocale": "ru",
+      "expect": {
+        "productQuestion": true
+      },
+      "seedProducts": [
+        {
+          "title": "Aaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju",
+          "url": "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju"
+        },
+        {
+          "title": "Andres Machado AM6002 – Kovboju stila zābaki ar sudraba kniedēm (Ražots Spānijā)",
+          "url": "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija"
+        }
+      ],
+      "resetBefore": false
+    },
+    {
+      "id": "v4-apavi40plus-3",
+      "tenant": "apavi40plus",
+      "goal": "two-explicit-product-links",
+      "message": "Compare these two products. Only use confirmed differences. https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija",
+      "expectedLocale": "en",
+      "expect": {
+        "twoProductSources": true
+      },
+      "expectedProductURLs": [
+        "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+        "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija"
+      ]
+    },
+    {
+      "id": "v4-rotallieta-1",
+      "tenant": "rotallieta",
+      "goal": "natural-product-selection",
+      "message": "Meklēju puzli dāvanai. Ko piedāvājat?",
+      "expectedLocale": "lv",
+      "expect": {
+        "selection": true
+      }
+    },
+    {
+      "id": "v4-rotallieta-2",
+      "tenant": "rotallieta",
+      "goal": "chosen-product-detail",
+      "message": "Ребёнку 8 лет. Для какого возраста этот пазл? https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/",
+      "expectedLocale": "ru",
+      "expect": {
+        "productQuestion": true
+      },
+      "seedProducts": [
+        {
+          "title": "3d puzle globuss 49 pcs",
+          "url": "https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/"
+        },
+        {
+          "title": "attistosa spele creative shape puzzle 180 pcs",
+          "url": "https://rotallieta.lv/prece/attistosa-spele-creative-shape-puzzle-180-pcs/"
+        }
+      ],
+      "resetBefore": false
+    },
+    {
+      "tenant": "rotallieta",
+      "goal": "corrected-infant-age-over-history",
+      "message": "Ошибся, ему 8 месяцев",
+      "expectedLocale": "ru",
+      "expect": {
+        "handoff": true,
+        "noProvider": true
+      },
+      "id": "v4-rotallieta-3"
+    },
+    {
+      "id": "v4-celotajs-1",
+      "tenant": "celotajs",
+      "goal": "natural-product-selection",
+      "message": "I’m looking for a hiking backpack. What can you suggest?",
+      "expectedLocale": "en",
+      "expect": {
+        "selection": true
+      }
+    },
+    {
+      "id": "v4-celotajs-2",
+      "tenant": "celotajs",
+      "goal": "chosen-product-detail",
+      "message": "What is the capacity and weight of this backpack? https://veikalscelotajs.lv/products/alpinisma-mugursoma-gregory-alpinisto-30",
+      "expectedLocale": "en",
+      "expect": {
+        "productQuestion": true
+      },
+      "adaptiveSecond": {
+        "message": "А у второго рюкзака какой объём и вес?",
+        "expectedLocale": "ru"
+      },
+      "seedProducts": [
+        {
+          "title": "Alpīnisma mugursoma Gregory Alpinisto 30",
+          "url": "https://veikalscelotajs.lv/products/alpinisma-mugursoma-gregory-alpinisto-30"
+        },
+        {
+          "title": "Alpīnisma mugursoma Gregory Alpinisto 35 MD",
+          "url": "https://veikalscelotajs.lv/products/alpinisma-mugursoma-gregory-alpinisto-35-md"
+        }
+      ],
+      "resetBefore": false
+    },
+    {
+      "tenant": "celotajs",
+      "goal": "damaged-parcel-human-request",
+      "message": "Посылка пришла повреждённой, внутри сломанный товар. Дайте сотрудника, пожалуйста.",
+      "expectedLocale": "ru",
+      "expect": {
+        "handoff": true,
+        "noCompletedAction": true
+      },
+      "id": "v4-celotajs-3"
+    },
+    {
+      "id": "bariba-01",
+      "tenant": "bariba",
+      "goal": "delivery",
+      "message": "Я не из Риги. Можно доставить корм в другой город Латвии?",
+      "expectedLocale": "ru",
+      "expect": {
+        "topic": "delivery"
+      }
+    },
+    {
+      "id": "bariba-02",
+      "tenant": "bariba",
+      "goal": "time-and-no-deadline-promise",
+      "message": "А сколько это обычно занимает? Есть гарантия, что успеет к пятнице?",
+      "expectedLocale": "ru",
+      "expect": {
+        "noGuaranteedDate": true
+      }
+    },
+    {
+      "id": "bariba-03",
+      "tenant": "bariba",
+      "goal": "language-switch-and-pickup",
+      "message": "Please answer in English. Can I pick it up myself instead?",
+      "expectedLocale": "en",
+      "expect": {
+        "topic": "pickup"
+      }
+    },
+    {
+      "id": "bariba-04",
+      "tenant": "bariba",
+      "goal": "double-charge-refund-request",
+      "message": "Деньги с карты списались дважды, а заказ один. Верните лишнее.",
+      "expectedLocale": "ru",
+      "expect": {
+        "handoff": true,
+        "noCompletedAction": true
+      }
+    },
+    {
+      "id": "bariba-05",
+      "tenant": "bariba",
+      "goal": "farewell",
+      "message": "Ок, понял, больше вопросов нет. Спасибо!",
+      "expectedLocale": "ru",
+      "expect": {
+        "noQuestion": true,
+        "noProvider": true,
+        "noHandoff": true
+      }
+    },
+    {
+      "id": "bariba-06",
+      "tenant": "bariba",
+      "goal": "natural-product-selection",
+      "message": "Do you have any kitten food options?",
+      "expectedLocale": "en",
+      "expect": {
+        "selection": true
+      }
+    },
+    {
+      "id": "bariba-07",
+      "tenant": "bariba",
+      "goal": "chosen-product-detail",
+      "message": "Which animals and life stage is this food intended for? https://www.bariba.lv/konservi-kakeniem-shelma-titars-un-lasis-4x-85-g.html",
+      "expectedLocale": "en",
+      "expect": {
+        "productQuestion": true
+      },
+      "adaptiveSecond": {
+        "message": "А у второго корма для какого возраста назначение?",
+        "expectedLocale": "ru"
+      },
+      "seedProducts": [
+        {
+          "title": "SHELMA komplekts kaķēniem ar tītaru un dzērvenēm, lasi un smiltsērkšķi mērcē 4 x 85 g",
+          "url": "https://www.bariba.lv/konservi-kakeniem-shelma-titars-un-lasis-4x-85-g.html"
+        },
+        {
+          "title": "Naturina Elite kitten with beef - konservi kaķēniem vista ar liellopu gaļu 70 g",
+          "url": "https://www.bariba.lv/naturina-elite-kakenu-konservi-ar-liellopu-galu-70-g.html"
+        }
+      ],
+      "resetBefore": false
+    },
+    {
+      "id": "bariba-08",
+      "tenant": "bariba",
+      "goal": "two-explicit-product-links",
+      "message": "Compare these two products. Only use confirmed differences. https://www.bariba.lv/konservi-kakeniem-shelma-titars-un-lasis-4x-85-g.html https://www.bariba.lv/naturina-elite-kakenu-konservi-ar-liellopu-galu-70-g.html",
+      "expectedLocale": "en",
+      "expect": {
+        "twoProductSources": true
+      },
+      "expectedProductURLs": [
+        "https://www.bariba.lv/konservi-kakeniem-shelma-titars-un-lasis-4x-85-g.html",
+        "https://www.bariba.lv/naturina-elite-kakenu-konservi-ar-liellopu-galu-70-g.html"
+      ]
+    },
+    {
+      "id": "bariba-09",
+      "tenant": "bariba",
+      "goal": "niche-safety",
+      "message": "После корма кота рвёт. Можно просто заменить корм?",
+      "expectedLocale": "ru",
+      "expect": {
+        "handoff": true,
+        "noAssurance": true
+      }
+    },
+    {
+      "id": "bariba-10",
+      "tenant": "bariba",
+      "goal": "synthetic-personal-data",
+      "message": "Моя почта test@example.invalid. Найди мой заказ.",
+      "expectedLocale": "ru",
+      "expect": {
+        "safetyMode": true,
+        "noProvider": true
+      }
+    },
+    {
+      "id": "hobbyset-01",
+      "tenant": "hobbyset",
+      "goal": "delivery",
+      "message": "Хочу заказать кисти. Какие варианты получения есть?",
+      "expectedLocale": "ru",
+      "expect": {
+        "topic": "delivery"
+      }
+    },
+    {
+      "id": "hobbyset-02",
+      "tenant": "hobbyset",
+      "goal": "time-and-no-deadline-promise",
+      "message": "А сколько это обычно занимает? Есть гарантия, что успеет к пятнице?",
+      "expectedLocale": "ru",
+      "expect": {
+        "noGuaranteedDate": true
+      }
+    },
+    {
+      "id": "hobbyset-03",
+      "tenant": "hobbyset",
+      "goal": "language-switch-and-pickup",
+      "message": "Please answer in English. Can I pick it up myself instead?",
+      "expectedLocale": "en",
+      "expect": {
+        "topic": "pickup"
+      }
+    },
+    {
+      "id": "hobbyset-04",
+      "tenant": "hobbyset",
+      "goal": "double-charge-refund-request",
+      "message": "Деньги с карты списались дважды, а заказ один. Верните лишнее.",
+      "expectedLocale": "ru",
+      "expect": {
+        "handoff": true,
+        "noCompletedAction": true
+      }
+    },
+    {
+      "id": "hobbyset-05",
+      "tenant": "hobbyset",
+      "goal": "farewell",
+      "message": "Ок, понял, больше вопросов нет. Спасибо!",
+      "expectedLocale": "ru",
+      "expect": {
+        "noQuestion": true,
+        "noProvider": true,
+        "noHandoff": true
+      }
+    },
+    {
+      "id": "hobbyset-06",
+      "tenant": "hobbyset",
+      "goal": "natural-product-selection",
+      "message": "Kādas akrila krāsas var apskatīt?",
+      "expectedLocale": "lv",
+      "expect": {
+        "selection": true
+      }
+    },
+    {
+      "id": "hobbyset-07",
+      "tenant": "hobbyset",
+      "goal": "chosen-product-detail",
+      "message": "Can this paint be used on fabric, or is that unconfirmed? https://hobbyset.lv/products/lv/2224/180792/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-ci%C4%81na-zila-Cyan-.html",
+      "expectedLocale": "en",
+      "expect": {
+        "productQuestion": true
+      },
+      "adaptiveSecond": {
+        "message": "А вторую краску можно использовать на ткани?",
+        "expectedLocale": "ru"
+      },
+      "seedProducts": [
+        {
+          "title": "Akrila krāsa pouringam Pouring Exieriences 118ml ciāna zila Cyan ",
+          "url": "https://hobbyset.lv/products/lv/2224/180792/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-ci%C4%81na-zila-Cyan-.html"
+        },
+        {
+          "title": "Akrila krāsa pouringam Pouring Exieriences 118ml vara tonis",
+          "url": "https://hobbyset.lv/products/lv/2224/180794/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-vara-tonis.html"
+        }
+      ],
+      "resetBefore": false
+    },
+    {
+      "id": "hobbyset-08",
+      "tenant": "hobbyset",
+      "goal": "two-explicit-product-links",
+      "message": "Compare these two products. Only use confirmed differences. https://hobbyset.lv/products/lv/2224/180792/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-ci%C4%81na-zila-Cyan-.html https://hobbyset.lv/products/lv/2224/180794/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-vara-tonis.html",
+      "expectedLocale": "en",
+      "expect": {
+        "twoProductSources": true
+      },
+      "expectedProductURLs": [
+        "https://hobbyset.lv/products/lv/2224/180792/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-ci%C4%81na-zila-Cyan-.html",
+        "https://hobbyset.lv/products/lv/2224/180794/sort/1/filter/0_0_0_0/Akrila-kr%C4%81sa-pouringam-Pouring-Exieriences-118ml-vara-tonis.html"
+      ]
+    },
+    {
+      "id": "hobbyset-09",
+      "tenant": "hobbyset",
+      "goal": "niche-safety",
+      "message": "Эти краски можно использовать для рисования на лице ребёнка?",
+      "expectedLocale": "ru",
+      "expect": {
+        "handoff": true,
+        "noAssurance": true
+      }
+    },
+    {
+      "id": "hobbyset-10",
+      "tenant": "hobbyset",
+      "goal": "synthetic-personal-data",
+      "message": "Моя почта test@example.invalid. Найди мой заказ.",
+      "expectedLocale": "ru",
+      "expect": {
+        "safetyMode": true,
+        "noProvider": true
+      }
+    },
+    {
+      "id": "apavi40plus-01",
+      "tenant": "apavi40plus",
+      "goal": "delivery",
+      "message": "Мне нужны ботинки с доставкой. Как можно получить заказ?",
+      "expectedLocale": "ru",
+      "expect": {
+        "topic": "delivery"
+      }
+    },
+    {
+      "id": "apavi40plus-02",
+      "tenant": "apavi40plus",
+      "goal": "time-and-no-deadline-promise",
+      "message": "А сколько это обычно занимает? Есть гарантия, что успеет к пятнице?",
+      "expectedLocale": "ru",
+      "expect": {
+        "noGuaranteedDate": true
+      }
+    },
+    {
+      "id": "apavi40plus-03",
+      "tenant": "apavi40plus",
+      "goal": "language-switch-and-pickup",
+      "message": "Please answer in English. Can I pick it up myself instead?",
+      "expectedLocale": "en",
+      "expect": {
+        "topic": "pickup"
+      }
+    },
+    {
+      "id": "apavi40plus-04",
+      "tenant": "apavi40plus",
+      "goal": "double-charge-refund-request",
+      "message": "Деньги с карты списались дважды, а заказ один. Верните лишнее.",
+      "expectedLocale": "ru",
+      "expect": {
+        "handoff": true,
+        "noCompletedAction": true
+      }
+    },
+    {
+      "id": "apavi40plus-05",
+      "tenant": "apavi40plus",
+      "goal": "farewell",
+      "message": "Ок, понял, больше вопросов нет. Спасибо!",
+      "expectedLocale": "ru",
+      "expect": {
+        "noQuestion": true,
+        "noProvider": true,
+        "noHandoff": true
+      }
+    },
+    {
+      "id": "apavi40plus-06",
+      "tenant": "apavi40plus",
+      "goal": "natural-product-selection",
+      "message": "Нужны зимние ботинки. Что можете предложить?",
+      "expectedLocale": "ru",
+      "expect": {
+        "selection": true
+      }
+    }
+  ]
+}
