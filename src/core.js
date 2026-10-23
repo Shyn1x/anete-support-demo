@@ -5,6 +5,7 @@ import {nicheRoute} from './niche-route.js';
 import {socialRoute,socialText,dialogueIntents} from './social.js';
 import {getTenant} from './kb.js';
 import {correctTypos} from './typos.js';
+import {policyNextStep} from './policy-next-step.js';
 export const clarificationTopics=['product-sizing','product-help','product-clarify'];
 export const MODEL='gpt-4.1-mini';
 export const RESERVE_MICRO_USD=10000; // $0.01 retained per attempted AI call, no refunds/retries.
@@ -165,6 +166,7 @@ export function render(tenantId,locale,result,mode){
  const selected=tenant.cards.filter(c=>result.ids.includes(c.id));
  result={...result,handoff:!!result.handoff||selected.some(c=>c.requiresReview)};
  const parts=selected.map(c=>c[locale]);
+ const nextStep=policyNextStep(tenant,locale,result);if(nextStep)parts.push(nextStep);
  if(result.selectionNeeds)parts.push(selectionQuestion[locale]);
  if(result.clarificationKind==='product-help')parts.push(buyerCopy[locale].help[tenantId]);
  else if(result.clarificationKind&&t[result.clarificationKind])parts.push(t[result.clarificationKind]);

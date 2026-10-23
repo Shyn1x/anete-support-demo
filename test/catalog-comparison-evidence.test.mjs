@@ -19,6 +19,7 @@ for(const locale of ['ru','lv','en'])test('captured failed pair: literal evidenc
  const facts=JSON.parse(r.body.instructions.split('Retrieved facts: ')[1]);
  for(const [i,f]of facts.entries()){
   assert.equal(f.id,ids[i]);assert(f.evidenceChoices.some(c=>c.quote===products[i].lines[0]));
+  assert.equal(Object.hasOwn(f,'evidenceQuotes'),false,'literal excerpts must not be sent twice');
   const source=products[i].title+'\n'+selectCatalogLines(products[i],queries[locale]).join('\n');
   for(const {ref,quote}of f.evidenceChoices){assert(evidence.items.enum.includes(ref));assert(source.includes(quote));assert(quote.length>=10&&quote.length<=160);assert(ref.startsWith('evidence_'+i+'_'));}
  }

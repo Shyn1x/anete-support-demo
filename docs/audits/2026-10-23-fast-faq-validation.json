@@ -1,0 +1,88 @@
+{
+  "schema": "fast-faq-offline-validation-v1",
+  "basePublishedCode": "ffa4bccc804ab0dc120d6d77b05f860306577d15",
+  "remoteParentAudit": "4973bc77cf08e13d40fc85d3c3221237255f6640",
+  "branch": "fix/fast-faq-and-return-steps-20261023",
+  "validation": {
+    "node": {
+      "passed": 2469,
+      "failed": 0
+    },
+    "workerdSQLite": {
+      "passed": 29,
+      "failed": 0
+    },
+    "pythonRunner": {
+      "passed": 7,
+      "failed": 0
+    },
+    "builds": "owner and five isolated clients",
+    "deploymentDryRuns": "owner and all five clients; no deployment"
+  },
+  "fastPathProof": {
+    "providerCalls": 0,
+    "reservationIncreaseMicroUSD": 0,
+    "scenarios": "Explicit delivery/payment/pickup FAQ for all six stores in RU/LV/EN; complex/context-dependent questions retain existing path. SQLite tests also exhaust only an ephemeral test budget and confirm normal message rate limiting."
+  },
+  "catalogPrompt": [
+    {
+      "locale": "ru",
+      "currentBytes": 5672,
+      "previousBytes": 5964,
+      "savedBytes": 292
+    },
+    {
+      "locale": "lv",
+      "currentBytes": 5641,
+      "previousBytes": 5933,
+      "savedBytes": 292
+    },
+    {
+      "locale": "en",
+      "currentBytes": 5631,
+      "previousBytes": 5923,
+      "savedBytes": 292
+    }
+  ],
+  "scope": {
+    "paidCalls": 0,
+    "liveDeployments": 0,
+    "budgetChanges": false,
+    "credentialsChanged": false,
+    "historicalReportsChanged": false,
+    "uiChanges": false
+  },
+  "limitations": [
+    "Network latency after deployment is unmeasured; no promise of one-second responses.",
+    "Only whole-message high-confidence FAQ matches use the fast path.",
+    "The catalog prompt retains the same facts, literal excerpts, reference schema and validators. Only a duplicate quote array is omitted.",
+    "Earlier LV/EN Apavi generation rejections are not marked resolved.",
+    "User Windows ZIP files are not modified by this workspace."
+  ],
+  "localLogProofs": {
+    "fast-faq-node-verified-20261023.log": {
+      "sha256": "701674cbc0d55cc6a35d1ca8ad178b059edd4c00cd4cc9613fb2c4c2527b8d88",
+      "bytes": 203841
+    },
+    "fast-faq-runtime-final-20261023.log": {
+      "sha256": "24215123bc502f87ff2bcfd65f08ac6726c05001c2c08a6edcd4e91be4fccc87",
+      "bytes": 3321
+    },
+    "fast-faq-python-final-20261023.log": {
+      "sha256": "2b8a5c7e7bfdde85bf100dde94d4f0d07df6f886aca0c69849d08d8bb7a0973a",
+      "bytes": 105
+    },
+    "fast-faq-build-20261023.log": {
+      "sha256": "dfebb8201d61cda1f6c5605702bfd003dbaa09796585e52181be81c68db33223",
+      "bytes": 164
+    },
+    "fast-faq-dryrun-final-20261023.log": {
+      "sha256": "03443052eb4fab552e9da1f244141e06002ce7a9cbe994e973f10338f2e77e2d",
+      "bytes": 962
+    },
+    "fast-faq-client-dryruns-20261023.log": {
+      "sha256": "bb901bad65fdda8da9167e24fe9b0a4ed1ba4f46d1806bdfebcf7ebdee03d4ad",
+      "bytes": 4593
+    }
+  }
+}

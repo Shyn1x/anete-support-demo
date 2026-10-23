@@ -1,7 +1,7 @@
 """Bounded owner-authorized audit, Python stdlib only. No deployment or limit changes."""
 import argparse, datetime, getpass, hashlib, json, os, pathlib, time, urllib.error, urllib.parse, urllib.request
 
-ANSWER_KEYS = ('locale','text','cardIds','sources','handoff','mode','topic','providerUsed','conversational','fallbackReason','validationReason','validationDetail','catalogRevision','catalogPrecisionRevision','productRead','catalogURLs','productURL','readFailures','catalogReadDiagnostics','catalogMetadataOnly','catalogSnapshot','checked','error','reason')
+ANSWER_KEYS = ('locale','text','cardIds','sources','handoff','mode','topic','providerUsed','conversational','fastReply','fastFaqRevision','fallbackReason','validationReason','validationDetail','catalogRevision','catalogPrecisionRevision','productRead','catalogURLs','productURL','readFailures','catalogReadDiagnostics','catalogMetadataOnly','catalogSnapshot','checked','error','reason')
 def utc(): return datetime.datetime.now(datetime.timezone.utc).isoformat()
 def body_bytes(body): return json.dumps(body, ensure_ascii=False, separators=(',',':')).encode('utf-8')
 def safe_answer(data): return {k:data[k] for k in ANSWER_KEYS if k in data}
@@ -72,7 +72,7 @@ def run(args, credentials=None, transport=None, wait=time.sleep, clock=time.mono
             base='https://support-demo-'+tenant+'.fshyn1x.workers.dev'
             status,cfg,_=transport.request(base,'/api/config')
             if status!=200 or not compatible(cfg,tenant,plan): raise RuntimeError(tenant+': server settings/version mismatch; no chat sent')
-            report['configs'].append({k:cfg.get(k) for k in ('tenant','catalogRevision','conversationRevision','perCallMicroUSD','auditRevision')});save()
+            report['configs'].append({k:cfg.get(k) for k in ('tenant','catalogRevision','catalogPrecisionRevision','fastFaqRevision','conversationRevision','perCallMicroUSD','auditRevision')});save()
             secret=credentials[tenant] if credentials is not None else getpass.getpass('Demo password '+tenant+': ')
             status,data,headers=transport.request(base,'/api/login',{'password':secret});secret=None
             cookie=headers.get('Set-Cookie','').split(';')[0]

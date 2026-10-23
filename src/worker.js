@@ -2,6 +2,8 @@ import {catalogReplyRequest,catalogEvidenceReason} from './catalog-reply.js';
 import {catalogueQuery} from './catalog-index.js';
 import {retrievalPlan,explicitProductPlan,contextSelection,catalogueContext,readCandidates,retrievalFallback,generateCatalogReply,catalogReason} from './catalog-service.js';
 import {studioChat} from './studio.js';
+import {fastFaqRoute,FAST_FAQ_REVISION} from './fast-faq.js';
+import {policyNextStep} from './policy-next-step.js';
 import {conversationRequest,cleanHistory,MAX_CHAT_BODY,AUDIT_REVISION} from './conversation.js';
 import {productURL,fetchProduct,catalogAnswer,catalogError,catalogDiagnostics,canContinueProduct,isSizingQuestion} from './catalog.js';
 import {shopLinks} from './shop-links.js';
@@ -72,7 +74,7 @@ export function createWorker(fetcher=fetch){return {
     const tenant=getTenant(url.searchParams.get('tenant')||locked||'anete');if(!tenant)return reply({error:'unknown_tenant'},404);
     const error=configError(env);
     if(!locked&&env.DEMO_PASSWORD&&tenant.id!=='anete'&&!await authenticated(request,env))return reply({tenant:tenant.id,name:'Private demo',sources:[],contact:null,mode:'reference',locked:true,authenticated:false,ready:!error,error});
-    return reply({perCallMicroUSD:RESERVE_MICRO_USD,dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:tenant.id,name:tenant.name,sources:Object.values(tenant.sources),contact:tenant.contact,checked:tenant.checked,mode:env.AI_ENABLED==='true'?'ai':'reference',conversationEnabled:env.AI_CONVERSATIONAL==='true',conversationRevision:env.AI_CONVERSATIONAL==='true'?'context-v2':null,auditRevision:AUDIT_REVISION,catalogEnabled:env.CATALOG_ENABLED==='true',catalogRevision:env.CATALOG_ENABLED==='true'?'buyer-v8':null,catalogPrecisionRevision:env.CATALOG_ENABLED==='true'?'terms-v1':null,authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
+    return reply({perCallMicroUSD:RESERVE_MICRO_USD,dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:tenant.id,name:tenant.name,sources:Object.values(tenant.sources),contact:tenant.contact,checked:tenant.checked,mode:env.AI_ENABLED==='true'?'ai':'reference',conversationEnabled:env.AI_CONVERSATIONAL==='true',conversationRevision:env.AI_CONVERSATIONAL==='true'?'context-v2':null,auditRevision:AUDIT_REVISION,fastFaqRevision:FAST_FAQ_REVISION,catalogEnabled:env.CATALOG_ENABLED==='true',catalogRevision:env.CATALOG_ENABLED==='true'?'buyer-v8':null,catalogPrecisionRevision:env.CATALOG_ENABLED==='true'?'terms-v1':null,authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
    }
    if(url.pathname==='/api/usage'&&request.method==='GET'){
     const error=configError(env);if(error||!env.DEMO_PASSWORD)return reply({error:'server_not_configured'},503);
@@ -130,6 +132,10 @@ export function createWorker(fetcher=fetch){return {
     if(!previous)previous=historyTopic(history,tenant.id);
     const blocked=preflight(data.message,tenant.id);
     const ref=referenceRoute(data.message,previous,tenant.id);
+    // Authentication, tenant binding, UTF-8/history validation and preflight all
+    // precede this shortcut. It still consumes one normal message-rate slot.
+    const fast=!blocked&&!linked.links.length&&!linked.rejected&&fastFaqRoute(data.message,tenant,ref);
+    if(fast){const denied=await gate(request,env,'chat',false);if(denied)return denied;return reply({...render(tenant.id,data.locale,fast,'reference'),fastReply:true,fastFaqRevision:FAST_FAQ_REVISION});}
     const productRouteAllowed=!ref.handoff&&!ref.social&&!ref.ids.some(id=>tenant.cards.find(c=>c.id===id)?.topic!=='product');
     const choiceContext=!linked.links.length?contextSelection(linked.clean,catalogueContext(data.catalogURLs,tenant)):[];
     const contextURL=typeof data.productURL==='string'&&canContinueProduct(linked.clean)?productURL(data.productURL,tenant):null;
@@ -185,7 +191,8 @@ export function createWorker(fetcher=fetch){return {
      if(conversational){
       if(!result.reply)return reply({...render(data.tenant,data.locale,safeFallbackRoute(tenant,ref,result),'reference'),providerUsed:true,fallbackReason:'answer_validation',validationReason:result.validationReason||'rejected_reply'});
       const notice=result.handoff?render(data.tenant,data.locale,{ids:[],kind:'unknown',handoff:true},'reference').text.split('\n\n').slice(1).join('\n\n'):'';
-      answer.text=result.reply+(notice?'\n\n'+notice:'');answer.conversational=true;
+      const nextStep=policyNextStep(tenant,data.locale,result);
+      answer.text=[result.reply,nextStep,notice].filter(Boolean).join('\n\n');answer.conversational=true;
      }
      return reply({...answer,providerUsed:true});
     }catch(error){if(!conversational)throw error;const validationReason=['incomplete','refusal','schema'].includes(error?.message)?error.message:error instanceof SyntaxError?'invalid_json':'provider_or_parse_error';return reply({...render(data.tenant,data.locale,ref,'reference'),providerUsed:true,fallbackReason:'answer_validation',validationReason});}
