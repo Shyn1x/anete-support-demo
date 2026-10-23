@@ -1,0 +1,75 @@
+{
+  "schema": "terms-v1-trilingual-review-v1",
+  "reportSha256": "5208aa8f88c476dc741ab44221ab3e00ff05ce3624fc7aceb510eeb9b6713db0",
+  "scope": "Three RU/LV/EN explicit comparisons of one Apavi40plus pair; no chats in other shops.",
+  "counts": {
+    "chatRequests": 3,
+    "providerAttempts": 3,
+    "acceptedGeneratedReplies": 1,
+    "rejectedWithSafeFallback": 2,
+    "ambiguous": 0,
+    "automatedContractFlags": 2,
+    "manuallyReviewedVisibleReplies": 3
+  },
+  "financial": {
+    "reservationMicroUSD": 30000,
+    "actualProviderBill": "not exposed; reservation is not the invoiced cost",
+    "retries": 0,
+    "budgetChanges": false
+  },
+  "rows": [
+    {
+      "id": "terms-v1-apavi-comparison-ru",
+      "locale": "ru",
+      "elapsedMs": 10633,
+      "generatedAccepted": true,
+      "validationReason": null,
+      "automaticFlagsUnchanged": []
+    },
+    {
+      "id": "terms-v1-apavi-comparison-lv",
+      "locale": "lv",
+      "elapsedMs": 9246,
+      "generatedAccepted": false,
+      "validationReason": "catalog_material_qualification",
+      "automaticFlagsUnchanged": [
+        "fallback:answer_validation"
+      ]
+    },
+    {
+      "id": "terms-v1-apavi-comparison-en",
+      "locale": "en",
+      "elapsedMs": 6043,
+      "generatedAccepted": false,
+      "validationReason": "catalog_material_qualification",
+      "automaticFlagsUnchanged": [
+        "fallback:answer_validation"
+      ]
+    }
+  ],
+  "manualFindings": {
+    "ru": "Generated reply preserves sheep wool and silver-coloured rivets. Missing winter specifications of AM6002 are described as not mentioned, rather than nonexistent. Other discussed characteristics are present in the same product descriptions. Anti-slip wording reflects merchant marketing, not independent testing or a fit/safety guarantee.",
+    "lv": "Generated prose rejected with catalog_material_qualification. Raw rejected prose is deliberately unavailable, so the exact phrase or a false positive cannot be diagnosed. Visible fallback accurately states natural vs artificial suede, with both sources.",
+    "en": "Generated prose rejected with catalog_material_qualification. Raw rejected prose is deliberately unavailable, so the exact phrase or a false positive cannot be diagnosed. Visible fallback accurately states natural vs artificial suede, with both sources."
+  },
+  "accuracyBoundary": "No earlier material/absence error was found in the three visible replies, but this is not three successful AI generations or proof of all-shop readiness.",
+  "sourceChecks": [
+    {
+      "url": "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju.js",
+      "httpStatus": 200,
+      "checkedAt": "2026-10-23T17:27:32.031260+00:00",
+      "sha256": "b23d396a7ccf77fbc51e91c7f3d634d7446aa103e2d329d17eab2aa4732039dc",
+      "title": "Aaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju"
+    },
+    {
+      "url": "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija.js",
+      "httpStatus": 200,
+      "checkedAt": "2026-10-23T17:27:32.143879+00:00",
+      "sha256": "d14335b2ab77dba117b00f3f3f48c8b65ce669e2b8dd3fa954754b9d3e44ba42",
+      "title": "Andres Machado AM6002 – Kovboju stila zābaki ar sudraba kniedēm (Ražots Spānijā)"
+    }
+  ],
+  "codeChanges": false,
+  "deployments": 0,
+  "nextBoundary": "All three authorized requests consumed. No automatic repeats, no hidden rerating of old results, no completion of legacy50."
+}
