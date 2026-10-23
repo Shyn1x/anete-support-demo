@@ -1,0 +1,275 @@
+{
+  "schema": "buyer-conversation-audit-v1",
+  "startedAt": "2026-10-23T17:56:27.119541+00:00",
+  "planSha256": "c17022902ebd1f38153735436039688eb95e7bd4052ae2fbf1dd00f4819551b2",
+  "authorization": {
+    "maxChatRequests": 4,
+    "maxReservationMicroUSD": 40000,
+    "retries": false,
+    "budgetChanges": false
+  },
+  "scope": "One ordinary buyer question in each of Bariba, HobbySet, Rotallieta and Celotajs after the user requested checking the remaining shops. Announced cap4 requests and USD0.04 reservation, no retries or budget changes. Only first4 cases authorized; remaining46 compatibility placeholders NOT authorized or executed. Separate from all prior reports and legacy50.",
+  "missing": [
+    {
+      "tenant": "anete",
+      "reason": "No authenticated session; no chat attempted."
+    },
+    {
+      "tenant": "apavi40plus",
+      "reason": "Not repeated: prior trilingual comparison reports preserved separately."
+    }
+  ],
+  "configs": [
+    {
+      "tenant": "bariba",
+      "catalogRevision": "buyer-v8",
+      "conversationRevision": "context-v2",
+      "perCallMicroUSD": 10000,
+      "auditRevision": "safe-resume-v1"
+    },
+    {
+      "tenant": "hobbyset",
+      "catalogRevision": "buyer-v8",
+      "conversationRevision": "context-v2",
+      "perCallMicroUSD": 10000,
+      "auditRevision": "safe-resume-v1"
+    },
+    {
+      "tenant": "rotallieta",
+      "catalogRevision": "buyer-v8",
+      "conversationRevision": "context-v2",
+      "perCallMicroUSD": 10000,
+      "auditRevision": "safe-resume-v1"
+    },
+    {
+      "tenant": "celotajs",
+      "catalogRevision": "buyer-v8",
+      "conversationRevision": "context-v2",
+      "perCallMicroUSD": 10000,
+      "auditRevision": "safe-resume-v1"
+    }
+  ],
+  "rows": [
+    {
+      "id": "other-shops-bariba-product",
+      "tenant": "bariba",
+      "goal": "kitten-vs-adult-product-facts",
+      "question": "Этот корм для котят или для взрослых кошек? https://www.bariba.lv/konservi-kakeniem-shelma-titars-un-lasis-4x-85-g.html",
+      "expectedLocale": "ru",
+      "expect": {
+        "productQuestion": true
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v8",
+      "state": "complete",
+      "startedAt": "2026-10-23T17:57:11.169227+00:00",
+      "requestBodySha256": "cd883b388307d282dcaec72410844b120904929c50b5ecec9103ca8c03a6f059",
+      "inputContext": {
+        "locale": "ru",
+        "previousTopic": null,
+        "productURL": null,
+        "catalogURLs": [],
+        "history": []
+      },
+      "httpStatus": 200,
+      "elapsedMs": 11186,
+      "answer": {
+        "locale": "ru",
+        "text": "Этот корм SHELMA специально разработан для котят, чтобы поддерживать их здоровье и разнообразить рацион. В комплекте есть вкусовые варианты с индейкой и клюквой, а также с лососем и облепихой.",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "SHELMA komplekts kaķēniem ar tītaru un dzērvenēm, lasi un smiltsērkšķi mērcē 4 x 85 g",
+            "url": "https://www.bariba.lv/konservi-kakeniem-shelma-titars-un-lasis-4x-85-g.html",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": true,
+        "conversational": true,
+        "catalogRevision": "buyer-v8",
+        "catalogPrecisionRevision": "terms-v1",
+        "productRead": true,
+        "catalogURLs": [
+          "https://www.bariba.lv/konservi-kakeniem-shelma-titars-un-lasis-4x-85-g.html"
+        ],
+        "productURL": "https://www.bariba.lv/konservi-kakeniem-shelma-titars-un-lasis-4x-85-g.html",
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": false,
+        "catalogSnapshot": false,
+        "checked": "2026-10-23T17:57:20.007Z"
+      },
+      "assessment": {
+        "contractFlags": [],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "other-shops-hobbyset-pickup",
+      "tenant": "hobbyset",
+      "goal": "ordinary-pickup-address",
+      "question": "Vai pasūtījumu var saņemt uz vietas, un kur?",
+      "expectedLocale": "lv",
+      "expect": {
+        "topic": "pickup"
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v8",
+      "state": "complete",
+      "startedAt": "2026-10-23T17:57:22.357972+00:00",
+      "requestBodySha256": "fd2740e6ab397f2ea7144ca37af97951052d5d9f552893e80ee0fc5ab780110d",
+      "inputContext": {
+        "locale": "ru",
+        "previousTopic": null,
+        "productURL": null,
+        "catalogURLs": [],
+        "history": []
+      },
+      "httpStatus": 200,
+      "elapsedMs": 6853,
+      "answer": {
+        "locale": "lv",
+        "text": "Jā, pasūtījumu var saņemt arī uz vietas Dzirnavu ielā 100, Rīgā. Saņemšana ir bez maksas, taču jāapstiprina pasūtījuma gatavība.",
+        "cardIds": [
+          "pickup"
+        ],
+        "sources": [
+          {
+            "title": "Piegāde",
+            "url": "https://hobbyset.lv/site/content/lv/276/Pieg%C4%81des-veidi.html"
+          }
+        ],
+        "handoff": false,
+        "mode": "ai",
+        "topic": "pickup",
+        "providerUsed": true,
+        "conversational": true,
+        "checked": "2026-10-15"
+      },
+      "assessment": {
+        "contractFlags": [],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "other-shops-rotallieta-age",
+      "tenant": "rotallieta",
+      "goal": "ordinary-product-age",
+      "question": "What age is this puzzle intended for? https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/",
+      "expectedLocale": "en",
+      "expect": {
+        "productQuestion": true
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v8",
+      "state": "complete",
+      "startedAt": "2026-10-23T17:57:29.358848+00:00",
+      "requestBodySha256": "d5e1f07813da598b83c45e06b1ec15b1b564d08e46256456ec29e115fe2763df",
+      "inputContext": {
+        "locale": "ru",
+        "previousTopic": null,
+        "productURL": null,
+        "catalogURLs": [],
+        "history": []
+      },
+      "httpStatus": 200,
+      "elapsedMs": 8391,
+      "answer": {
+        "locale": "en",
+        "text": "This 3D puzzle globe is intended for children aged 3 years and older.",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "3D puzzle globuss 49 pcs",
+            "url": "https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": true,
+        "conversational": true,
+        "catalogRevision": "buyer-v8",
+        "catalogPrecisionRevision": "terms-v1",
+        "productRead": true,
+        "catalogURLs": [
+          "https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/"
+        ],
+        "productURL": "https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/",
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": false,
+        "catalogSnapshot": false,
+        "checked": "2026-10-23T17:57:36.193Z"
+      },
+      "assessment": {
+        "contractFlags": [],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    },
+    {
+      "id": "other-shops-celotajs-return",
+      "tenant": "celotajs",
+      "goal": "ordinary-unused-return",
+      "question": "Как вернуть купленный в интернет-магазине товар, если он не подошёл и я им не пользовался?",
+      "expectedLocale": "ru",
+      "expect": {
+        "topic": "returns"
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v8",
+      "state": "complete",
+      "startedAt": "2026-10-23T17:57:37.753609+00:00",
+      "requestBodySha256": "7f4dfc2848448cc3886259efce6e52f280e229c8ae90a6b2c3c2f160ad2e88bb",
+      "inputContext": {
+        "locale": "ru",
+        "previousTopic": null,
+        "productURL": null,
+        "catalogURLs": [],
+        "history": []
+      },
+      "httpStatus": 200,
+      "elapsedMs": 6659,
+      "answer": {
+        "locale": "ru",
+        "text": "Если товар, купленный в интернет-магазине Veikals Ceļotājs, вам не подошёл и не был в употреблении, вы можете отказаться от него, уведомив магазин по электронной почте в течение 14 календарных дней с момента получения товара. После уведомления товар нужно вернуть в течение следующих 14 дней.",
+        "cardIds": [
+          "return"
+        ],
+        "sources": [
+          {
+            "title": "Atgriešana",
+            "url": "https://veikalscelotajs.lv/policies/refund-policy"
+          }
+        ],
+        "handoff": false,
+        "mode": "ai",
+        "topic": "return",
+        "providerUsed": true,
+        "conversational": true,
+        "checked": "2026-10-15"
+      },
+      "assessment": {
+        "contractFlags": [],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    }
+  ],
+  "stoppedReason": "Local request allowance reached",
+  "finishedAt": "2026-10-23T17:57:44.413766+00:00",
+  "summary": {
+    "chatRequestsSent": 4,
+    "providerAttemptsReported": 4,
+    "ambiguous": 0,
+    "contractFlagged": 0,
+    "accuracy": "requires_source_and_human_review"
+  }
+}

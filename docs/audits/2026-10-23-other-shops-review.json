@@ -1,0 +1,91 @@
+{
+  "schema": "other-shops-live-review-v1",
+  "reportSha256": "8925c0249a540bb2aa09659190cfdc0937125e3f9dcff6e33a0a9fd73255019c",
+  "counts": {
+    "chatRequests": 4,
+    "providerAttempts": 4,
+    "acceptedGeneratedReplies": 4,
+    "fallbacks": 0,
+    "automatedContractFlags": 0,
+    "ambiguous": 0,
+    "manuallyReviewedVisibleReplies": 4
+  },
+  "financial": {
+    "maximumReservationUSD": 0.04,
+    "actualProviderBill": "not exposed; reservation is not invoiced cost",
+    "retries": 0,
+    "budgetChanges": false
+  },
+  "sourceChecks": [
+    {
+      "id": "bariba-product",
+      "url": "https://www.bariba.lv/konservi-kakeniem-shelma-titars-un-lasis-4x-85-g.html",
+      "checkedAt": "2026-10-23T17:57:10.531587+00:00",
+      "httpStatus": 200,
+      "finalURL": "https://www.bariba.lv/konservi-kakeniem-shelma-titars-un-lasis-4x-85-g.html",
+      "sha256": "d23d3f0d95599f6174302cf21581fae2a5007a41fc5a2299ff96d9084e77c965",
+      "bytes": 161846
+    },
+    {
+      "id": "hobbyset-pickup",
+      "url": "https://hobbyset.lv/site/content/lv/276/Pieg%C4%81des-veidi.html",
+      "checkedAt": "2026-10-23T17:57:10.532405+00:00",
+      "httpStatus": 200,
+      "finalURL": "https://hobbyset.lv/site/content/lv/276/Pieg%C4%81des-veidi.html",
+      "sha256": "3565a14569c2de81bcbd32a0fcf620e5fe29f473f34e7caa5a19aac7b721284d",
+      "bytes": 516910
+    },
+    {
+      "id": "rotallieta-product",
+      "url": "https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/",
+      "checkedAt": "2026-10-23T17:57:10.533658+00:00",
+      "httpStatus": 200,
+      "finalURL": "https://rotallieta.lv/prece/3d-puzle-globuss-49-pcs/",
+      "sha256": "1abfaa7295ede199a688d873aff9b31238f591d8dde39312d6d3eea20c349103",
+      "bytes": 223382
+    },
+    {
+      "id": "celotajs-return",
+      "url": "https://veikalscelotajs.lv/policies/refund-policy",
+      "checkedAt": "2026-10-23T17:57:10.534514+00:00",
+      "httpStatus": 200,
+      "finalURL": "https://veikalscelotajs.lv/policies/refund-policy",
+      "sha256": "642265c26c92915c3dba52e275978df9579959bf8ef4d8158db7dd3ffe59ef0a",
+      "bytes": 260827
+    }
+  ],
+  "manualFindings": [
+    {
+      "id": "other-shops-bariba-product",
+      "verdict": "supported_for_narrow_question",
+      "finding": "Kitten life stage and turkey/cranberry plus salmon/sea-buckthorn flavours are present in the fetched product description. Health support is merchant marketing, not an independent nutritional/medical assessment. The source has inconsistencies in its detailed ingredient subsections; no ingredient-subsection guarantee was tested."
+    },
+    {
+      "id": "other-shops-hobbyset-pickup",
+      "verdict": "core_facts_supported",
+      "finding": "The live delivery page confirms free collection at Dzirnavu iela 100, Riga. Confirming order readiness is cautious existing KB guidance; this fetch does not establish a separately documented mandatory confirmation procedure. No immediate-ready promise was made."
+    },
+    {
+      "id": "other-shops-rotallieta-age",
+      "verdict": "supported_for_narrow_question",
+      "finding": "The exact product description says Vecums: 3+ gadi. Reply says ages 3 and older and does not claim suitability for every child or certify safety."
+    },
+    {
+      "id": "other-shops-celotajs-return",
+      "verdict": "deadlines_supported_actionability_incomplete",
+      "finding": "Merchant policy sections 1 and 2 confirm notification within 14 calendar days of receipt and return within 14 calendar days of notification. Reply omits the actual email, order-number instruction and return method, so it is not a full how-to answer. Product-specific exceptions are not discussed. This review verifies merchant-page consistency, not legal validity of the policy."
+    }
+  ],
+  "limits": [
+    "One fresh isolated question per shop, not multi-turn coverage.",
+    "Previous Apavi LV/EN comparison fallbacks remain unresolved.",
+    "No Anete chat tested.",
+    "Legacy Windows 27/50 report unchanged.",
+    "No code edits, deployments, or email sends."
+  ],
+  "nextSteps": [
+    "Improve actionable return instructions and check them offline before publication.",
+    "Measure and optimize latency without weakening validation.",
+    "Demo outreach must describe an independent prototype rather than a production-ready integration."
+  ]
+}
