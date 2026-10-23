@@ -1,0 +1,116 @@
+{
+  "schema": "buyer-conversation-audit-v1",
+  "startedAt": "2026-10-23T06:42:27.838826+00:00",
+  "planSha256": "15383e0e9d764512c4c591ad409b9b616c9e2db7a81c51919f7882cfab74594f",
+  "authorization": {
+    "maxChatRequests": 1,
+    "maxReservationMicroUSD": 10000,
+    "retries": false,
+    "budgetChanges": false
+  },
+  "scope": "Post-publication buyer-v8 single English comparison smoke check. Only first case authorized, max one chat request and USD0.01 reservation. Remaining49 schema-compatibility placeholders are NOT authorized or executed. No retry, no budget change. Stop after this request regardless of outcome; no automatic RU/LV followup. Separate from all older reports and the legacy 50.",
+  "missing": [
+    {
+      "tenant": "anete",
+      "reason": "Outside this three-request comparison check; no chat attempted."
+    },
+    {
+      "tenant": "bariba",
+      "reason": "Outside this three-request comparison check; no chat attempted."
+    },
+    {
+      "tenant": "hobbyset",
+      "reason": "Outside this three-request comparison check; no chat attempted."
+    },
+    {
+      "tenant": "rotallieta",
+      "reason": "Outside this three-request comparison check; no chat attempted."
+    },
+    {
+      "tenant": "celotajs",
+      "reason": "Outside this three-request comparison check; no chat attempted."
+    }
+  ],
+  "configs": [
+    {
+      "tenant": "apavi40plus",
+      "catalogRevision": "buyer-v8",
+      "conversationRevision": "context-v2",
+      "perCallMicroUSD": 10000,
+      "auditRevision": "safe-resume-v1"
+    }
+  ],
+  "rows": [
+    {
+      "id": "v8-apavi-comparison-en",
+      "tenant": "apavi40plus",
+      "goal": "two-explicit-product-links",
+      "question": "Please answer in English. Compare these two products. Only use confirmed differences. https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija",
+      "expectedLocale": "en",
+      "expect": {
+        "twoProductSources": true
+      },
+      "branch": null,
+      "serverCatalogRevision": "buyer-v8",
+      "state": "complete",
+      "startedAt": "2026-10-23T06:42:41.157705+00:00",
+      "requestBodySha256": "01aa0ffdc075e4ecb21df27d9dc55c467ea957153070ef2306011a90d5f711f4",
+      "inputContext": {
+        "locale": "ru",
+        "previousTopic": null,
+        "productURL": null,
+        "catalogURLs": [],
+        "history": []
+      },
+      "httpStatus": 200,
+      "elapsedMs": 9364,
+      "answer": {
+        "locale": "en",
+        "text": "The Aaltonen 56480 winter boots are made of natural suede and feature genuine sheepskin lining for warm insulation and breathability, designed especially for wider feet with robust anti-slip AALTONEN GRIP soles inspired by winter tires. In contrast, the Andres Machado AM6002 cowboy-style boots are crafted from artificial suede, decorated with silver rivets, featuring a Western design, and are made in Spain, focusing more on style with a zipper for convenience.",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "Aaltonen 56480 – Somu kvalitātes ziemas zābaki ar AALTONEN GRIP tehnoloģiju",
+            "url": "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+            "kind": "product"
+          },
+          {
+            "title": "Andres Machado AM6002 – Kovboju stila zābaki ar sudraba kniedēm (Ražots Spānijā)",
+            "url": "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": true,
+        "conversational": true,
+        "catalogRevision": "buyer-v8",
+        "productRead": true,
+        "catalogURLs": [
+          "https://apavi40plus.com/products/aaltonen-56480-somu-kvalitates-ziemas-zabaki-ar-aaltonen-grip-tehnologiju",
+          "https://apavi40plus.com/products/andres-machado-am6002-kovboju-stila-zabaki-ar-sudraba-kniedem-razots-spanija"
+        ],
+        "readFailures": 0,
+        "catalogReadDiagnostics": [],
+        "catalogMetadataOnly": false,
+        "catalogSnapshot": false,
+        "checked": "2026-10-23T06:42:47.303Z"
+      },
+      "assessment": {
+        "contractFlags": [],
+        "manualReview": "pending",
+        "factualAccuracy": "not_automatically_scored"
+      }
+    }
+  ],
+  "stoppedReason": "Local request allowance reached",
+  "finishedAt": "2026-10-23T06:42:50.523681+00:00",
+  "summary": {
+    "chatRequestsSent": 1,
+    "providerAttemptsReported": 1,
+    "ambiguous": 0,
+    "contractFlagged": 0,
+    "accuracy": "requires_source_and_human_review"
+  }
+}
