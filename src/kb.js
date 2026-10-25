@@ -1,4 +1,5 @@
 import {prospectTenants} from './prospects.js';
+import {pilotTenants} from './pilots.js';
 // Public policy summaries checked 2026-10-15. These are not a legal assessment.
 export const sources = {
  delivery: {title:'Piegāde',url:'https://anete.lv/piegades-informacija/6/1/i'},
@@ -60,4 +61,4 @@ export const cards = [
  c('status','order','contact','Демо не подключено к заказам магазина. Я не могу проверить статус, изменить адрес, отменить заказ или назначить компенсацию. Это нужно решить с сотрудником.','Demonstrācija nav savienota ar veikala pasūtījumiem. Nevaru pārbaudīt statusu, mainīt adresi, atcelt pasūtījumu vai piešķirt kompensāciju. Tas jārisina ar darbinieku.')
 ];
 export const tenants = Object.freeze({...prospectTenants,anete:{id:'anete',name:'Anete.lv',checked:'2026-10-15',contact:{email:'info@anete.lv',phone:'+37120013727',hours:{ru:'Пн–пт 09:00–17:00 (Латвия)',lv:'P.–Pk. 09:00–17:00 (Latvija)',en:'Mon–Fri 09:00–17:00 (Latvia)'},source:'https://anete.lv/kontakti'},cards,sources}});
-export const getTenant=id=>Object.hasOwn(tenants,id)?tenants[id]:null;
+export const getTenant=id=>Object.hasOwn(tenants,id)?tenants[id]:Object.hasOwn(pilotTenants,id)?pilotTenants[id]:null;

@@ -1,5 +1,6 @@
 // One grounded generation from retrieved public product pages, never from memory.
 import {catalogPrecisionReason} from './catalog-precision.js';
+import {catalogMeasurementReason,catalogFibreReason} from './catalog-measurements.js';
 import {MODEL} from './core.js';import {replyValidationReason} from './conversation.js';
 import {selectCatalogLines,selectCatalogQuotes,catalogFidelityReason,catalogMaterialReason,productMaterialFields} from './catalog-evidence.js';
 function evidenceError(detail){const error=Error('catalog_evidence_quote');error.evidenceReason=detail;return error;}
@@ -49,6 +50,10 @@ export function catalogReplyRequest(tenant,products,message,locale,{requireAll=f
   const fidelity=catalogFidelityReason(out.reply,cards.filter(c=>out.ids.includes(c.id)));if(fidelity)throw Error(fidelity);
   const precision=catalogPrecisionReason(out.reply,products.filter((p,i)=>out.ids.includes('catalog:'+i)));if(precision)throw Error(precision);
   const material=catalogMaterialReason(out.reply,products.filter((p,i)=>out.ids.includes('catalog:'+i)));if(material)throw Error(material);
+  if(tenant.release==='preview'){
+   const measurement=catalogMeasurementReason(out.reply,products.filter((p,i)=>out.ids.includes('catalog:'+i)));if(measurement)throw Error(measurement);
+   const fibre=catalogFibreReason(out.reply,products.filter((p,i)=>out.ids.includes('catalog:'+i)));if(fibre)throw Error(fibre);
+  }
   return {text:out.reply.trim(),ids:out.ids};
  }};
 }

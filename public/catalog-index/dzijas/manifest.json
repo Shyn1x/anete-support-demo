@@ -1,0 +1,10 @@
+{
+  "schema": "shop-catalog-index-v1",
+  "tenant": "dzijas",
+  "importedAt": "2026-10-25T19:37:35.128519+00:00",
+  "entries": 8,
+  "shards": [
+    "000.json"
+  ],
+  "scope": "initial reviewed sample, not an exhaustive shop catalogue"
+}

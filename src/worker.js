@@ -6,14 +6,19 @@ import {fastFaqRoute,FAST_FAQ_REVISION} from './fast-faq.js';
 import {policyNextStep} from './policy-next-step.js';
 import {conversationRequest,cleanHistory,MAX_CHAT_BODY,AUDIT_REVISION} from './conversation.js';
 import {productURL,fetchProduct,catalogAnswer,catalogError,catalogDiagnostics,canContinueProduct,isSizingQuestion} from './catalog.js';
-import {shopLinks} from './shop-links.js';
+import {shopLinks,canonicalChatText} from './shop-links.js';
 import {validateMedia,visionRoute,mediaCopy,MEDIA_BODY_LIMIT} from './media.js';
 import {dailyReservationLimit} from './guard.js';
 import {detectLocale} from './locale.js';
 import {getTenant} from './kb.js';
+import {pilotAvailable} from './pilots.js';
 import {preflight,referenceRoute,render,aiRoute,RESERVE_MICRO_USD,clarificationTopics,historyTopic,safeFallbackRoute} from './core.js';
 export {BudgetGuard} from './guard.js';
 const encoder=new TextEncoder();
+// New shops are inaccessible on owner/existing deployments, even when their
+// profiles are compiled. A separate explicitly enabled, tenant-pinned preview
+// must still pass the normal password, origin and shared budget checks.
+function availableTenant(id,env){const t=getTenant(id);return t?.release==='preview'&&!pilotAvailable(id,env)?null:t;}
 export const security={
  'Content-Security-Policy':"default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; object-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'",
  'X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer','Permissions-Policy':'camera=(), microphone=(), geolocation=()','Cache-Control':'no-store','X-Robots-Tag':'noindex, nofollow',
@@ -52,7 +57,7 @@ async function gate(req,env,kind,reserve,catalogNonce){
  return null;
 }
 function configError(env){
- if(env.TENANT_ID&&(!getTenant(env.TENANT_ID)||!env.DEMO_PASSWORD))return 'server_not_configured';
+ if(env.TENANT_ID&&(!availableTenant(env.TENANT_ID,env)||!env.DEMO_PASSWORD))return 'server_not_configured';
  if(!env.SESSION_SECRET||env.SESSION_SECRET.length<32)return 'server_not_configured';
  if(env.DEMO_PASSWORD&&env.DEMO_PASSWORD.length<12)return 'server_not_configured';
  if(env.AI_ENABLED==='true'&&(!env.OPENAI_API_KEY||!env.DEMO_PASSWORD))return 'ai_not_configured';
@@ -71,7 +76,7 @@ export function createWorker(fetcher=fetch){return {
     if(url.searchParams.getAll('shop').some(id=>id!==locked)||url.searchParams.getAll('tenant').some(id=>id!==locked))return reply({error:'not_found'},404);
    }
    if(url.pathname==='/api/config'&&request.method==='GET'){
-    const tenant=getTenant(url.searchParams.get('tenant')||locked||'anete');if(!tenant)return reply({error:'unknown_tenant'},404);
+    const tenant=availableTenant(url.searchParams.get('tenant')||locked||'anete',env);if(!tenant)return reply({error:'unknown_tenant'},404);
     const error=configError(env);
     if(!locked&&env.DEMO_PASSWORD&&tenant.id!=='anete'&&!await authenticated(request,env))return reply({tenant:tenant.id,name:'Private demo',sources:[],contact:null,mode:'reference',locked:true,authenticated:false,ready:!error,error});
     return reply({perCallMicroUSD:RESERVE_MICRO_USD,dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:tenant.id,name:tenant.name,sources:Object.values(tenant.sources),contact:tenant.contact,checked:tenant.checked,mode:env.AI_ENABLED==='true'?'ai':'reference',conversationEnabled:env.AI_CONVERSATIONAL==='true',conversationRevision:env.AI_CONVERSATIONAL==='true'?'context-v2':null,auditRevision:AUDIT_REVISION,fastFaqRevision:FAST_FAQ_REVISION,catalogEnabled:env.CATALOG_ENABLED==='true',catalogRevision:env.CATALOG_ENABLED==='true'?'buyer-v8':null,catalogPrecisionRevision:env.CATALOG_ENABLED==='true'?'terms-v1':null,authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
@@ -105,7 +110,7 @@ export function createWorker(fetcher=fetch){return {
     if(url.pathname==='/api/media'){
      const data=await readLimited(request,MEDIA_BODY_LIMIT);
      if(!data||typeof data!=='object'||typeof data.tenant!=='string'||locked&&data.tenant!==locked)return reply({error:'unknown_tenant'},404);
-     const tenant=getTenant(data.tenant);if(!tenant)return reply({error:'unknown_tenant'},404);
+     const tenant=availableTenant(data.tenant,env);if(!tenant)return reply({error:'unknown_tenant'},404);
      if(!['ru','lv','en'].includes(data.locale)||typeof data.message!=='string'||data.message.length>1000)return reply({error:'invalid_input'},400);
      const media=validateMedia(data.media),locale=detectLocale(data.message,data.locale),copy=mediaCopy[locale];
      const blocked=preflight(data.message,tenant.id),enabled=env.AI_ENABLED==='true'&&!blocked;
@@ -113,7 +118,7 @@ export function createWorker(fetcher=fetch){return {
      if(denied){const reason=await denied.clone().json();if(enabled&&reason.error==='budget_exhausted'){const rateDenied=await gate(request,env,'chat',false);if(rateDenied)return rateDenied;return reply({...render(tenant.id,locale,{ids:[],kind:'product-clarify',handoff:false},'reference'),text:copy.budget,providerUsed:false,mediaAnalysed:false});}return denied;}
      if(blocked)return reply({...render(tenant.id,locale,{ids:[],kind:blocked,handoff:false},'safety'),mediaAnalysed:false});
      if(!enabled)return reply({...render(tenant.id,locale,{ids:[],kind:'product-clarify',handoff:false},'reference'),text:copy.disabled,providerUsed:false,mediaAnalysed:false});
-     const route=visionRoute(tenant,data.message,media);
+     const route=visionRoute(tenant,canonicalChatText(data.message,tenant),media);
      const response=await fetcher('https://api.openai.com/v1/responses',{method:'POST',headers:{'Authorization':`Bearer ${env.OPENAI_API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify(route.body),signal:AbortSignal.timeout(15000)});
      if(!response.ok)return reply({error:'ai_unavailable'},502);
      const result=route.parse(await response.json()),out=render(tenant.id,locale,{ids:result.intent==='damage'?['defect']:[],kind:'product-clarify',handoff:result.intent==='damage'},'ai');
@@ -124,7 +129,7 @@ export function createWorker(fetcher=fetch){return {
     const data=await readLimited(request,MAX_CHAT_BODY);
     if(!data||typeof data!=='object'||Array.isArray(data)||typeof data.message!=='string'||!data.message.trim()||data.message.length>1000||!['ru','lv','en'].includes(data.locale)||typeof data.tenant!=='string')return reply({error:'invalid_input'},400);
     if(locked&&data.tenant!==locked)return reply({error:'unknown_tenant'},404);
-    const tenant=getTenant(data.tenant);if(!tenant)return reply({error:'unknown_tenant'},404);
+    const tenant=availableTenant(data.tenant,env);if(!tenant)return reply({error:'unknown_tenant'},404);
     const history=cleanHistory(data.history,tenant.id);
     const linked=shopLinks(data.message,tenant);
     data.locale=detectLocale(linked.clean,data.locale);

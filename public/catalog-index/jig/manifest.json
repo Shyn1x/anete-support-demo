@@ -1,0 +1,10 @@
+{
+  "schema": "shop-catalog-index-v1",
+  "tenant": "jig",
+  "importedAt": "2026-10-25T19:43:46.234775+00:00",
+  "entries": 9,
+  "shards": [
+    "000.json"
+  ],
+  "scope": "initial reviewed sample, not an exhaustive shop catalogue"
+}

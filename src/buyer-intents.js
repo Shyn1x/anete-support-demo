@@ -1,5 +1,6 @@
 // Clarification and control intents. No unverified catalog facts or stock claims.
 import {nicheRoute} from './niche-route.js';
+import {pilotDomains,pilotHelp} from './pilots.js';
 import {canContinueProduct} from './catalog.js';
 const policy=/достав|пакомат|курьер|возврат|вернуть|оплат|гарант|самовывоз|посылк|pieg[aā]d|pakom[aā]t|kurjer|atgrie|apmaks|garant|delivery|shipping|return|payment|warranty|courier/iu;
 const anchors={'toy-age':'HE0545','toy-batteries':'HE0545','toy-dimensions':'HE0545','food-composition':'CooKing Lamb','food-stage':'CooKing Lamb','food-pack':'CooKing Lamb','art-beginner':'POP ART','art-pack':'POP ART','art-colours':'POP ART','shoe-width':'42801','shoe-material':'42801','shoe-insole':'42801','sleep-ratings':'sleeping bag','sleep-factors':'sleeping bag','sleep-guide':'sleeping bag'};
@@ -13,6 +14,7 @@ const helpResult=s=>({...result('product-help'),productIntent:productHelpIntent(
 // Safety has priority even when the customer supplies a valid product URL.
 // These signals select a specialist review; they never diagnose or certify fit.
 export function productSafetyRoute(s,tenant){
+ if(Object.hasOwn(pilotDomains,tenant)&&/аллерг|allerg|alerģ|безопас|\bsafe\b|droš|бь[её]т ток|искрит|пахнет гарью|electric shock|sparking|smoke|dzirksteļ/iu.test(s))return result('product-safety',true);
  const signals={
   bariba:/аллерг|болезн|лечит|лечени|лечеб|ветеринар|veterinar|allerg|alerģ|alerg|disease|treat|ārst|slim|рв[её]т|рвот|понос|диаре|vomit|diarrh|vemj|vemšan|caurej/iu,
   hobbyset:/на теле|на коже|(?:рисова|нанес|наноси|красить|раскрас).{0,35}(?:лиц|губ|глаз)|(?:лицо|лице|губы).{0,30}(?:реб[её]н|краск)|безопас.{0,20}реб[её]н|реб[её]н.{0,20}безопас|skin|body paint|(?:paint|apply).{0,25}(?:on (?:a |the |my |their )?(?:child.s )?face|face painting)|face paint|(?:krās|uzklā).{0,25}(?<!\p{L})(?:sej|ād)|droš.{0,15}bērn/iu,
@@ -43,7 +45,7 @@ export function buyerControl(s,tenant){
  return null;
 }
 export function buyerProduct(s,tenant,previous){
- if(!['anete','rotallieta','bariba','hobbyset','apavi40plus','celotajs'].includes(tenant)||policy.test(s))return null;
+ if(!['anete','rotallieta','bariba','hobbyset','apavi40plus','celotajs'].includes(tenant)&&!Object.hasOwn(pilotDomains,tenant)||policy.test(s))return null;
  if(tenant==='anete'&&!/модел|пылесос|холодиль|телевиз|микроволн|стираль|product|model|vacuum|fridge|refrigerator|television|microwave|washing machine|modelis|putekļsūc|ledusskap|televizor/iu.test(s))return null;
  const switching=/друг(?:ая|ой|ие|ого|ую)|другой|another|other|citu|cits|cita|теперь|now about/iu.test(s);
  // Only short follow-ups with a referent may reuse a verified model. A new model cancels this.
@@ -55,7 +57,7 @@ export function buyerProduct(s,tenant,previous){
  if(sizing&&!/налич|есть|available|stock|noliktav|pieejam/iu.test(s))return result('product-sizing');
  const live=/налич|сейчас|сегодня|цен[аыуе]|стоим|срок.{0,8}годност|годност.{0,8}парт|\bstock\b|in stock|availab|price|today|expir|pieejam|noliktav|šodien|derīg/iu.test(s)||/^(?:а )?есть\b/iu.test(s)||/есть.{0,35}(?:ботин|оттен|акв[а-я]*рел|пробник|корм|туф)/iu.test(s)||/(?:без куриц|без мелк).{0,8}есть/iu.test(s);
  if(live)return /без куриц/iu.test(s)?helpResult(s):result('product-live');
- const domains={
+ const domains={...pilotDomains,
  anete:/товар|модел|пылесос|холодиль|телевиз|микроволн|стираль|product|model|vacuum|fridge|refrigerator|television|microwave|washing machine|prece|modelis|putekļsūc|ledusskap|televizor/iu,
  rotallieta:/игруш|реб[её]н|малыш|дочк|сын|подар|детал|бат[а-я]*рей|батре|аккумулятор|комплект|коробк|мыть|toy|child|toddler|gift|batter|parts|box|bērn|vecum|bater|rotaļ|dāvan/iu,
  bariba:/корм|собак|кот[ау]?\b|куриц|с[ао]став|ингреди|грамм|меш(?:ок|ка|ки|ков)|беззерн|безглют|пробник|food|dog|cat\b|ingredient|grain|gluten|chicken|barīb|barib|sastāv|sastav|kucēn|vist/iu,
@@ -77,3 +79,6 @@ export const buyerCopy={
  lv:{language:'Protams. Kā varu palīdzēt?',productSafety:'Nevaru apstiprināt drošību, ārstniecisku iedarbību vai piemērotību konkrētiem apstākļiem. Vajadzīgs precīzs modelis un speciālista izvērtējums; par preces īpašībām var jautāt veikalam.',help:{anete:'Norādiet precīzu preces nosaukumu vai saiti un jautājumu. Nezināma modeļa īpašības neapstiprinu; pilns katalogs vēl nav pieslēgts.',rotallieta:'Kuru rotaļlietu apsverat? Uzrakstiet nosaukumu vai artikulu un bērna vecumu. Pārbaudīšu tikai datubāzē esošo informāciju; pilns katalogs vēl nav pieslēgts.',bariba:'Precizējiet barības nosaukumu un jautājumu: sastāvs, dzīvnieka vecums, iepakojums vai glabāšana. Vajadzīgs pārbaudīts preces apraksts; pilns katalogs vēl nav pieslēgts.',hobbyset:'Kādam darbam un materiālam vajadzīga prece? Norādiet nosaukumu vai artikulu, ja tas zināms. Bez konkrētā apraksta saderību un lietošanu neapstiprinu.',apavi40plus:'Norādiet apavu modeli un interesējošo parametru: izmērs, platums, materiāls, iekšzole vai kopšana. Modeļu īpašības atšķiras; pilns katalogs vēl nav pieslēgts.',celotajs:'Kādu ekipējumu un kādiem apstākļiem apsverat? Uzrakstiet modeli un vajadzīgo parametru. Bez pārbaudīta apraksta svaru, saderību vai piemērotus apstākļus neapstiprinu.'}},
  en:{language:'Of course. How can I help?',productSafety:'I cannot confirm safety, therapeutic effects or suitability for specific conditions. The exact model and a specialist’s assessment are needed; ask the shop about product specifications.',help:{anete:'Please give the exact product name or link and your question. I cannot confirm an unknown model’s specifications; the full catalogue is not connected yet.',rotallieta:'Which toy are you considering? Please give its name or code and the child’s age. I can check only verified information in the knowledge base; the full catalogue is not connected yet.',bariba:'Please clarify which food you mean and what you want to check: ingredients, pet age, pack size or storage. A verified product description is needed; the full catalogue is not connected yet.',hobbyset:'What task and material is the product for? Please give its name or code if known. I cannot confirm compatibility or use without that product’s verified description.',apavi40plus:'Please give the shoe model and the detail you need: size, width, material, insole or care. Specifications vary by model; the full catalogue is not connected yet.',celotajs:'Which equipment and conditions are you considering? Please give the model and the detail you need. I cannot confirm weight, compatibility or suitable conditions without a verified description.'}}
 };
+
+// Shared engine copy for the opt-in preview shops.
+for(const locale of ['ru','lv','en']){Object.assign(buyerCopy[locale].help,pilotHelp[locale]);Object.assign(productSelectionCopy[locale],pilotHelp[locale]);}

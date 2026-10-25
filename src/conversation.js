@@ -3,6 +3,8 @@ import {deliveryConditionReason,timingConditionReason,additionalPromiseReason} f
 // History is browser-local, untrusted context; it can never be policy evidence.
 import {aiRoute,preflight,referenceRoute,followupRoute,prioritySupportRoute} from './core.js';
 import {detectLocale} from './locale.js';
+import {canonicalChatText} from './shop-links.js';
+import {getTenant} from './kb.js';
 export const AUDIT_REVISION='safe-resume-v1';
 export const MAX_CHAT_BODY=12000;
 export const CONVERSATION_BYTES=22000;
@@ -15,7 +17,8 @@ export function cleanHistory(value,tenantId){
   if(!item||!['user','assistant'].includes(item.role)||typeof item.text!=='string'||item.text.length>400)throw Error('body');
   const text=item.text.trim();if(!text)continue;
   const blocked=preflight(text,tenantId);if(blocked)continue;
-  clean.push({role:item.role,text});
+  const publicText=canonicalChatText(text,getTenant(tenantId));
+  if(publicText&&publicText.length<=400)clean.push({role:item.role,text:publicText});
  }
  return clean;
 }
@@ -36,7 +39,12 @@ export function replyValidationReason(reply,result,tenant,locale){
  if(/https?:|www\.|@|<[^>]*>|\[[^\]]*\]\(|\b(?:cardIds|dialogue:|system prompt|API key)\b|баз[аеуы] знаний|карточк[аиу] ответ/iu.test(reply))return 'links_contacts_or_internal_text';
  if(preflight(replySafetyText(reply,result,tenant,locale),tenant.id))return 'unsafe_content';
  // No generated stock/fit guarantees or concrete delivery promises in a policy demo.
- if(/в наличии|есть на складе|точно подойд[её]т|гарантированно|доставим завтра|in stock|available now|guaranteed fit|will arrive tomorrow|noliktavā|noteikti derēs|piegādāsim rīt/iu.test(reply))return 'unverified_promise';
+ // An exact approved conditional clause is a delivery qualification, not a
+ // claim that the customer’s item is currently in stock. Never exempt product
+ // generation, other cards or a separate affirmative stock statement.
+ const approvedStockCondition=locale==='lv'&&tenant.cards.some(c=>result.ids.includes(c.id)&&c.topic==='delivery'&&c.source!=='catalog-read'&&c.lv.includes('ja prece ir noliktavā'));
+ const stockSafetyText=approvedStockCondition?reply.replace(/(?<!\p{L})ja prece ir noliktavā(?!\p{L})/giu,'approved conditional availability'):reply;
+ if(/в наличии|есть на складе|точно подойд[её]т|гарантированно|доставим завтра|in stock|available now|guaranteed fit|will arrive tomorrow|noliktavā|noteikti derēs|piegādāsim rīt/iu.test(stockSafetyText))return 'unverified_promise';
  const extraPromise=additionalPromiseReason(reply);if(extraPromise)return extraPromise;
  // A demo cannot offer future dispatch either: no ticket/chat integration exists.
  if(/(?:я|мы)\s+(?:(?:могу|можем|помогу|поможем|готов|готовы)\s+)?(?:помочь\s+)?(?:переда(?:ть|м|дим)|отправ(?:ить|лю|им)|направ(?:ить|лю|им)|соедин(?:ить|ю|им)|свя(?:зать|жу|жем)|подключ(?:ить|у|им))|\b(?:i|we)\s+(?:(?:can|could|will|shall|would)\s+|(?:am|are)\s+(?:able|going)\s+to\s+)(?:help\s+(?:you\s+)?(?:to\s+)?)?(?:forward|send|submit|connect|transfer|pass|create|raise|open)\b|\b(?:es|mēs)\s+(?:(?:varu|varam|varētu)\s+)?(?:palīdzēt\s+)?(?:nodot|nodošu|nodosim|nosūtīt|nosūtīšu|nosūtīsim|pārsūtīt|pārsūtīšu|pārsūtīsim|savienot|savienošu|savienosim|izveidot|izveidošu|izveidosim)/iu.test(reply))return 'unsupported_handoff_action';

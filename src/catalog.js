@@ -1,8 +1,8 @@
 // Read-only product pages. No arbitrary origins, scripts, account data, AI prose or stock guarantees.
 import {shopLinks} from './shop-links.js';
 export const CATALOG_TTL=300,CATALOG_MAX_BYTES=800000;
-const shopifyTenants=new Set(['apavi40plus','celotajs']);
-const patterns={anete:/^\/(?:[\p{L}\p{N}_.&%-]+\/){1,8}\d+\/\d+\/p$/iu,apavi40plus:/^\/(?:ru\/|lv\/|en\/|et\/|de\/)?products\/[\p{L}\p{N}-]+\/?$/iu,celotajs:/^\/(?:en\/|lv\/)?products\/[\p{L}\p{N}-]+\/?$/iu,rotallieta:/^\/prece\/[\p{L}\p{N}-]+\/?$/iu,bariba:/^\/[\p{L}\p{N}_.-]+\.html$/iu,hobbyset:/^\/products\/(?:lv|ru|en)\/\d+\/\d+\/[\p{L}\p{N}_.,%/×“”„–— -]+\.html$/iu};
+const shopifyTenants=new Set(['apavi40plus','celotajs','dzijas']);
+const patterns={dzijas:/^\/products\/[\p{L}\p{N}-]+\/?$/iu,etextile:/^\/product\/\d+\/[\p{L}\p{N}-]+\/?$/iu,zummers:/^\/product-page\/[\p{L}\p{N}-]+\/?$/iu,musiclab:/^\/produkts\/[\p{L}\p{N}-]+\/?$/iu,jig:/^\/products\/(?:lv|ru|en)\/\d+\/\d+\/[\p{L}\p{N}_.,%/×“”„–— -]+\.html$/iu,anete:/^\/(?:[\p{L}\p{N}_.&%-]+\/){1,8}\d+\/\d+\/p$/iu,apavi40plus:/^\/(?:ru\/|lv\/|en\/|et\/|de\/)?products\/[\p{L}\p{N}-]+\/?$/iu,celotajs:/^\/(?:en\/|lv\/)?products\/[\p{L}\p{N}-]+\/?$/iu,rotallieta:/^\/prece\/[\p{L}\p{N}-]+\/?$/iu,bariba:/^\/[\p{L}\p{N}_.-]+\.html$/iu,hobbyset:/^\/products\/(?:lv|ru|en)\/\d+\/\d+\/[\p{L}\p{N}_.,%/×“”„–— -]+\.html$/iu};
 export function productURL(value,tenant){
  if(typeof value!=='string'||value.length>1500||/[\s\\]/u.test(value))return null;
  const parsed=shopLinks(value,tenant);if(parsed.rejected||parsed.links.length!==1||parsed.clean)return null;
@@ -10,12 +10,18 @@ export function productURL(value,tenant){
  if(!patterns[tenant.id]?.test(path)||path.includes('..')||/\/\//.test(path))return null;
  return u.href;
 }
-const entities={amp:'&',lt:'<',gt:'>',quot:'"',apos:"'",nbsp:' ',times:'×',ndash:'–',mdash:'—'};
+const entities={amp:'&',lt:'<',gt:'>',quot:'"',apos:"'",nbsp:' ',times:'×',ndash:'–',mdash:'—',scaron:'š',zcaron:'ž'};
 export function plain(html){return String(html||'').slice(0,150000).replace(/<!--[\s\S]*?-->|<(script|style|noscript|template)\b[^>]*>[\s\S]*?<\/\1\s*>/giu,'').replace(/<\/?(?:p|li|h[1-6]|tr|div|br)\b[^>]*>/giu,'\n').replace(/<[^>]*>/gu,' ').replace(/\\n|\\r/gu,'\n').replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/giu,(all,key)=>{if(key[0]!=='#')return entities[key.toLowerCase()]??all;const n=key[1].toLowerCase()==='x'?parseInt(key.slice(2),16):parseInt(key.slice(1),10);return n>0&&n<=1114111?String.fromCodePoint(n):'';}).replace(/[ \t]+/g,' ').replace(/ *\n */g,'\n').replace(/\n{3,}/g,'\n\n').trim();}
 function block(html,pattern){const match=pattern.exec(html);if(!match)return '';const start=match.index,tag=match[1]||'div';const re=new RegExp('<(/?)'+tag+'\\b[^>]*>','gi');re.lastIndex=start;let depth=0,m;while((m=re.exec(html))){depth+=m[1]?-1:1;if(depth===0)return html.slice(start,re.lastIndex);if(re.lastIndex-start>100000)return '';}return '';}
 function productNodes(html,url){const nodes=[];const walk=(x,depth=0)=>{if(depth>6||!x||typeof x!=='object'||nodes.length>100)return;if(Array.isArray(x)){for(const v of x.slice(0,300))walk(v,depth+1);return;}const types=Array.isArray(x['@type'])?x['@type']:[x['@type']];if(types.some(t=>['Product','ProductGroup'].includes(t)))nodes.push(x);if(x['@graph'])walk(x['@graph'],depth+1);};for(const m of html.matchAll(/<script\b[^>]*\btype\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/giu)){if(m[1].length>250000)continue;try{walk(JSON.parse(m[1]));}catch{}}
  const normalized=v=>{try{const u=new URL(v,url);u.search='';u.hash='';u.pathname=u.pathname.replace(/^\/(ru|lv|en|et|de)(?=\/)/,'');return u.href.replace(/\/$/,'');}catch{return null;}};
- return nodes.find(x=>normalized(x.url||x['@id'])===normalized(url))||null;
+ return nodes.find(x=>{
+  if(x.url||x['@id'])return normalized(x.url||x['@id'])===normalized(url);
+  // Wix exposes identity on Offer.url. Require every such URL to identify this
+  // exact product; never accept the first unrelated Product node on a page.
+  const offers=Array.isArray(x.offers)?x.offers:[x.offers];
+  return offers.length>0&&offers.every(o=>o?.url&&normalized(o.url)===normalized(url));
+ })||null;
 }
 const arr=x=>Array.isArray(x)?x:x?[x]:[];
 function offer(raw){const o=arr(raw)[0];if(!o||typeof o!=='object')return {state:'unknown'};const p=arr(o.priceSpecification)[0]||o;const rawPrice=o.price??p.price,n=Number(rawPrice);const currency=o.priceCurrency||p.priceCurrency;const price=rawPrice!==null&&rawPrice!==undefined&&String(rawPrice).trim()!==''&&Number.isFinite(n)&&n>=0&&n<100000&&/^[A-Z]{3}$/.test(currency||'')?{amount:n,currency}:null;const status=String(o.availability||'').split('/').at(-1);return {state:status==='InStock'?'in_stock':status==='OutOfStock'?'out_of_stock':/PreOrder|BackOrder/.test(status)?'preorder':'unknown',price};}
@@ -27,6 +33,28 @@ export function parseProduct(html,url,tenant){
  else if(tenant.id==='anete'){title=plain(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/iu)?.[1]);description=plain(block(html,/<(div)\b[^>]*\bid=["']tab-description["'][^>]*>/iu));}
  else if(tenant.id==='bariba'){title=plain(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/iu)?.[1]);description=plain(block(html,/<(div)\b[^>]*\bid=["']tab-description["'][^>]*>/iu));}
  else if(tenant.id==='hobbyset'){title=plain(block(html,/<(div)\b[^>]*class=["'][^"']*inner_product_name[^"']*["'][^>]*>/iu));description=plain(block(html,/<(div)\b[^>]*class=["'][^"']*inner_product_description[^"']*["'][^>]*>/iu));}
+ else if(tenant.id==='jig'){
+  title=plain(html.match(/<td\b[^>]*class=["']products_name["'][^>]*>([\s\S]*?)<\/td>/iu)?.[1]);
+  const primary=block(html,/<(form)\b[^>]*name=["']add_cart_form["'][^>]*>/iu);
+  description=[...primary.matchAll(/<td\b[^>]*colspan=["']2["'][^>]*>([\s\S]*?)<\/td>/giu)].map(m=>plain(m[1]).split('\n').filter(l=>!/^Cena (?:ar|:)/iu.test(l)).join('\n')).filter(s=>s.length>5).join('\n');
+ }
+ else if(tenant.id==='etextile'){title=plain(html.match(/<h1\b[^>]*itemprop=["']name["'][^>]*>([\s\S]*?)<\/h1>/iu)?.[1]);description=plain(block(html,/<(div)\b[^>]*class=["'][^"']*product-page__description[^"']*["'][^>]*>/iu));}
+ if(node&&tenant.id==='dzijas'){
+  const rich=plain(block(html,/<(div)\b[^>]*class=["'][^"']*product__description\s[^"']*["'][^>]*>/iu));
+  if(rich)description=rich;
+  // Colour offers can disagree on price and stock. A first variant is not a
+  // universal offer; the existing Shopify reader exposes labelled variants.
+  if(Array.isArray(node.offers)&&node.offers.length>1)summary={state:'unknown',price:null};
+ }
+ if(node&&tenant.id==='musiclab'){
+  const primary=block(html,/<(div)\b[^>]*id=["']tab-additional_information["'][^>]*>/iu);
+  const rows=[...primary.matchAll(/<tr\b[^>]*>([\s\S]*?)<\/tr>/giu)].slice(0,30).flatMap(m=>{
+   const key=plain(m[1].match(/<th\b[^>]*>([\s\S]*?)<\/th>/iu)?.[1]),value=plain(m[1].match(/<td\b[^>]*>([\s\S]*?)<\/td>/iu)?.[1]);
+   return key&&value?[key+': '+value]:[];
+  });
+  const content=plain(block(html,/<(div)\b[^>]*id=["']tab-description["'][^>]*>/iu));
+  description=[description,content,...rows].filter(Boolean).join('\n');
+ }
  return productFacts(title,description,variants,summary,url,'html');
 }
 function productFacts(title,description,variants,summary,url,format){
@@ -68,7 +96,7 @@ export async function fetchProduct(url,tenant,fetcher=fetch,cache=null,preferJso
    if(res.status>=300&&res.status<400){const next=new URL(res.headers.get('Location')||'',target).href;target=productURL(next,tenant);if(!target||attempt===1||productIdentity(target)!==productIdentity(original))throw Error('catalog_redirect');continue;}
    if(!res.ok)throw Error('catalog_http_'+res.status);
    if(!/^text\/html\b/i.test(res.headers.get('Content-Type')||''))throw Error('catalog_mime');
-   return await success(parseProduct(await readText(res,tenant.id==='anete'?3000000:['bariba','hobbyset'].includes(tenant.id)?2000000:CATALOG_MAX_BYTES),target,tenant));
+   return await success(parseProduct(await readText(res,tenant.id==='anete'?3000000:['bariba','hobbyset','zummers'].includes(tenant.id)?2000000:CATALOG_MAX_BYTES),target,tenant));
   }
  }catch(error){attempts.push({format,error:failureReason(error)});if(error.message==='catalog_redirect')throw catalogFailure(attempts);}}
  throw catalogFailure(attempts);
@@ -98,7 +126,7 @@ export const catalogError=locale=>words[locale].error;
 // Follow-ups may reuse a page only when they contain no new product name or article code.
 export function canContinueProduct(message){
  const tokens=message.normalize('NFKC').toLowerCase().match(/\p{L}+/gu)||[];
- const allowed=new Set(('нём нем ней тюбиков от коврика зависит а и у него нее этой это этого там есть нет какой какая какие как сколько размер размера размеры сетка сетке таблица таблице см сантиметров стелька стельки длина стопа стопы наличие наличии доступен цена цене стоит материал материалы вес состав курица батарейки комплект входит съемная съёмная ширина ширины цвет и что по для в на and what about it its this that which how many much size sizes chart table cm insole length foot available availability stock price cost material weight ingredients batteries included contents removable width colour color is are does the of for in at un bet kā kāds kāda cik tas tā šī izmērs izmēri tabula cm iekšzole garums pēda pieejams pieejamība cena materiāls svars sastāvs baterijas komplekts krāsa').split(' '));
+ const allowed=new Set(('метраж метров мотке мотка нити спицы входов выходов мощность питание metre metres meter meters yarn ball needles inputs outputs power phantom gauge metrāža kamolā adatas ieejas izejas jauda нём нем ней тюбиков от коврика зависит а и у него нее этой это этого там есть нет какой какая какие как сколько размер размера размеры сетка сетке таблица таблице см сантиметров стелька стельки длина стопа стопы наличие наличии доступен цена цене стоит материал материалы вес состав курица батарейки комплект входит съемная съёмная ширина ширины цвет и что по для в на and what about it its this that which how many much size sizes chart table cm insole length foot available availability stock price cost material weight ingredients batteries included contents removable width colour color is are does the of for in at un bet kā kāds kāda cik tas tā šī izmērs izmēri tabula cm iekšzole garums pēda pieejams pieejamība cena materiāls svars sastāvs baterijas komplekts krāsa').split(' '));
  return message.length<=180&&tokens.every(t=>allowed.has(t))&&tokens.length<=20;
 }
 export function isSizingQuestion(message,previous){return /сетк|таблиц|длин.{0,10}(?:стоп|стельк)|сантим|\bcm\b|\bсм\b|size chart|sizing|insole length|foot length|izm[eē]ru tabul|pēdas garum/iu.test(message)||previous==='product-sizing'&&!/налич|доступ|есть|цен|стоим|stock|availab|price|cost|cena|pieejam|материал|material/iu.test(message);}

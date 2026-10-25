@@ -1,0 +1,10 @@
+{
+  "schema": "shop-catalog-index-v1",
+  "tenant": "musiclab",
+  "importedAt": "2026-10-25T19:38:23.226857+00:00",
+  "entries": 10,
+  "shards": [
+    "000.json"
+  ],
+  "scope": "initial reviewed sample, not an exhaustive shop catalogue"
+}

@@ -13,7 +13,9 @@
     "test:worker": "wrangler deploy --dry-run --outdir worker-build && node --test test-runtime/*.test.mjs",
     "prestart": "npm run build",
     "build:clients": "node scripts/build-clients.mjs",
-    "deploy:clients": "node scripts/deploy-clients.mjs"
+    "deploy:clients": "node scripts/deploy-clients.mjs",
+    "build:pilots": "node scripts/build-pilot-clients.mjs",
+    "test:pilots": "node --test test/pilot-integration.test.mjs"
   },
   "engines": {
     "node": ">=22"
