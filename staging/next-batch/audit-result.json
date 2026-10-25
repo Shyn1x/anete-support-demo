@@ -1,0 +1,49 @@
+{
+  "schema": "next-batch-offline-comparison-v2",
+  "baseCommit": "8c8a13062e8387bdc991d08d43066b8a55c9be35",
+  "fixtureSha256": "bbfba987e33ed9b16eb4f549551d50d54b5e70ddf8ce43ffec0dc0b425d8d762",
+  "total": 1530,
+  "beforePassed": 981,
+  "afterPassed": 1530,
+  "regressions": [],
+  "providerCalls": 0,
+  "apiCostUsd": 0,
+  "checkedOn": "2026-10-25",
+  "scope": "Offline contracts only; shared probes and text variants are repeated checks. Not live AI conversations.",
+  "byGroup": {
+    "text-variants": {
+      "total": 750,
+      "beforePassed": 597,
+      "afterPassed": 750
+    },
+    "shopper-probes": {
+      "total": 570,
+      "beforePassed": 260,
+      "afterPassed": 570
+    },
+    "niche-probes": {
+      "total": 50,
+      "beforePassed": 44,
+      "afterPassed": 50
+    },
+    "url-probes": {
+      "total": 160,
+      "beforePassed": 80,
+      "afterPassed": 160
+    }
+  },
+  "draftNodeTests": 1826,
+  "allNodeTests": 4295,
+  "workerdTests": 29,
+  "pythonTests": 7,
+  "browserMobileStatus": "not-run:file-protocol-blocked",
+  "liveAIStatus": "not-connected",
+  "moduleSha256": {
+    "staging/next-batch/dialogue.mjs": "d1842d0ea6b071fa4d22ad4d591cf3798baa88a95e7c756a45e6fa2d3a2bc635",
+    "staging/next-batch/conversation.mjs": "2b958dc0eb3f4f9e9854fb62a4c26883f1f11c346ae539b48870e1ba8818f07c",
+    "staging/next-batch/profiles.mjs": "318f51d3914e4c3d648705c4d49140ec54e10dce9ffe4f72d68b06ea613afca8",
+    "staging/next-batch/audit-cases.mjs": "d28e2e32ac16c744d74a8a2c089f32bd988b112726cb20dcdc1fe170fc67eeb9",
+    "scripts/audit-next-batch.mjs": "8e47065c7f26cfad4752c60f54a68f17a6d5364ba3e04ea3ae2a52b7450af21b"
+  },
+  "rawComparisonSha256": "dd55da80fe7bf559b6822195787a586c109d699a9d2167b9a47d62f13ad71079"
+}
