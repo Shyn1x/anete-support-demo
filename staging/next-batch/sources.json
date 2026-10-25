@@ -1,0 +1,208 @@
+{
+  "scope": "Public pages only; snapshot hashes are provenance, not freshness guarantees. No product catalogue imported.",
+  "sources": [
+    {
+      "id": "dzijas-home",
+      "url": "https://dzijas.lv/",
+      "httpStatus": 200,
+      "sha256": "c772ff8b924151ea20a9ffeae669f2dcc7b1d5aa7a0e7259887ce86cfb377707",
+      "checkedAt": "2026-10-25T06:56:26.369919+00:00"
+    },
+    {
+      "id": "audumunams-home",
+      "url": "https://www.audumunams.lv/",
+      "httpStatus": 200,
+      "sha256": "279c40912bbe4ba29ba5a13681c663ed81b6d5cb3cab8140ee6347ecb087b9ac",
+      "checkedAt": "2026-10-25T06:56:28.113252+00:00"
+    },
+    {
+      "id": "etextile-home",
+      "url": "https://www.etextile.lv/",
+      "httpStatus": 200,
+      "sha256": "0572d772a00ca2482bd6f323131a8daffe642d70c21fdb625a2b8ee4adc63232",
+      "checkedAt": "2026-10-25T06:56:26.559722+00:00"
+    },
+    {
+      "id": "zummers-home",
+      "url": "https://www.zummers.lv/",
+      "httpStatus": 200,
+      "sha256": "9e469d52b8ab64f7c683d0eabf846b11bb12b8f566b5dfc3a26205dfb0f8aa13",
+      "checkedAt": "2026-10-25T06:56:25.298576+00:00"
+    },
+    {
+      "id": "musiclab-home",
+      "url": "https://musiclab.lv/",
+      "httpStatus": 200,
+      "sha256": "38ff8e902c22eca69977b7e278aacfab871b08cc2f4cc52f3571af33c3e7d90e",
+      "checkedAt": "2026-10-25T06:56:28.955034+00:00"
+    },
+    {
+      "id": "jig-home",
+      "url": "https://www.jig.lv/",
+      "httpStatus": 200,
+      "sha256": "e3d43aee01ec28f752a81ee82ea2f6251786b817474306647bcba6bb0228aa20",
+      "checkedAt": "2026-10-25T06:56:29.800694+00:00"
+    },
+    {
+      "id": "sedumi-home",
+      "url": "https://www.sedumi.lv/",
+      "httpStatus": 200,
+      "sha256": "f85cd4755d174315c298a22a3db5d7d15ed914c02930ba1d239371d0cebc2ecb",
+      "checkedAt": "2026-10-25T06:56:30.664349+00:00"
+    },
+    {
+      "id": "kurzemesvelo-home",
+      "url": "https://kurzemesvelo.lv/",
+      "httpStatus": 200,
+      "sha256": "edc15d30d3b1cc793ed97181c180ab80b5247a8340b33987e99b21ed7dd68c2e",
+      "checkedAt": "2026-10-25T06:56:31.934323+00:00"
+    },
+    {
+      "id": "pulkstenuoutlets-home",
+      "url": "https://pulkstenu-outlets.lv/",
+      "httpStatus": 200,
+      "sha256": "4842804e84d6276762c0b4f4653f657aff7e0e23c04e57fce87b82e2b165cc96",
+      "checkedAt": "2026-10-25T06:56:31.096538+00:00"
+    },
+    {
+      "id": "dzijas-terms",
+      "url": "https://dzijas.lv/pages/lietosanas-noteikumi",
+      "httpStatus": 200,
+      "sha256": "5e354ddf9aebd85ed4913ff7f72099013b957e9929dc525589682c4175d283af",
+      "checkedAt": "2026-10-25T06:57:31.637537+00:00"
+    },
+    {
+      "id": "dzijas-delivery",
+      "url": "https://dzijas.lv/pages/piegade",
+      "httpStatus": 200,
+      "sha256": "e57b0da48a2ed51cfb56e84909b2c4b083af52b8280878a7be887b8cc5866c19",
+      "checkedAt": "2026-10-25T06:57:31.901521+00:00"
+    },
+    {
+      "id": "audumunams-delivery",
+      "url": "https://www.audumunams.lv/piegade",
+      "httpStatus": 200,
+      "sha256": "22c98e1471812fd185b86fe0e3da869b5f851b6a563aa27607d78baf2d92cd85",
+      "checkedAt": "2026-10-25T06:57:31.016725+00:00"
+    },
+    {
+      "id": "audumunams-returns",
+      "url": "https://www.audumunams.lv/atgriesana",
+      "httpStatus": 200,
+      "sha256": "316e926477124550ccddcc7ca8e263838ea06906b10cfb64f9dfb7798cf70483",
+      "checkedAt": "2026-10-25T06:57:30.952003+00:00"
+    },
+    {
+      "id": "etextile-terms",
+      "url": "https://www.etextile.lv/lietosanas-noteikumi",
+      "httpStatus": 200,
+      "sha256": "18cd5d564c7a8287c6e611abdd1bf58f0128c48e795e7c9f5650118bd2a60804",
+      "checkedAt": "2026-10-25T06:57:31.571689+00:00"
+    },
+    {
+      "id": "etextile-contact",
+      "url": "https://www.etextile.lv/kontakti",
+      "httpStatus": 200,
+      "sha256": "f4ca53ffc3df817234045d0fe6af7a4714a77d77556dcbb77628154587ae0a56",
+      "checkedAt": "2026-10-25T06:57:34.000070+00:00"
+    },
+    {
+      "id": "zummers-terms",
+      "url": "https://www.zummers.lv/iepirk%C5%A1an%C4%81s-noteikumi",
+      "httpStatus": 200,
+      "sha256": "da8cfb0f8533de7eb198f67b3daa86f4e24b515754c9b4f178c3f859b27a7359",
+      "checkedAt": "2026-10-25T06:57:34.569477+00:00"
+    },
+    {
+      "id": "zummers-contact",
+      "url": "https://www.zummers.lv/kontakti",
+      "httpStatus": 200,
+      "sha256": "abb433b59bbe0838640c878fb24e5a5d52843b140fc30abbd9134a894d51b4f4",
+      "checkedAt": "2026-10-25T06:57:35.634023+00:00"
+    },
+    {
+      "id": "musiclab-delivery",
+      "url": "https://musiclab.lv/piegades-informacija/",
+      "httpStatus": 200,
+      "sha256": "a2ee48c5008a054a768ce2fece9434ada59a75eb415669bd8f428c8d440da628",
+      "checkedAt": "2026-10-25T06:57:37.517534+00:00"
+    },
+    {
+      "id": "musiclab-returns",
+      "url": "https://musiclab.lv/atgriesana-un-garantija/",
+      "httpStatus": 200,
+      "sha256": "346c3174fee98cc44ad2214dcdd0ddd0a6ea7f66fb50c5e1b0082702aa021890",
+      "checkedAt": "2026-10-25T06:57:37.775603+00:00"
+    },
+    {
+      "id": "musiclab-contact",
+      "url": "https://musiclab.lv/musiclab-kontakti/",
+      "httpStatus": 200,
+      "sha256": "59aa54d85e91699923bc3eb96482eb8dc25bf32e60992f3812c958b6ac9fd751",
+      "checkedAt": "2026-10-25T06:57:37.700887+00:00"
+    },
+    {
+      "id": "jig-delivery",
+      "url": "https://www.jig.lv/delivery/lv/",
+      "httpStatus": 200,
+      "sha256": "a76b73390f921ce204dead754e1c04a7a4f5cf152e8e765158d0cf6a5537f02c",
+      "checkedAt": "2026-10-25T06:57:39.231088+00:00"
+    },
+    {
+      "id": "jig-contact",
+      "url": "https://www.jig.lv/contacts/lv/",
+      "httpStatus": 200,
+      "sha256": "72c7aa45c54470a56276eaeb52e8fa8803462d11577587ec8aba9cae30767c72",
+      "checkedAt": "2026-10-25T06:57:39.472970+00:00"
+    },
+    {
+      "id": "sedumi-delivery",
+      "url": "https://www.sedumi.lv/piegade-un-apmaksa/",
+      "httpStatus": 200,
+      "sha256": "fddff572d8519092e36971d3a410d303087bc3f0ea3630b053008e4f3810b4b5",
+      "checkedAt": "2026-10-25T06:57:43.210264+00:00"
+    },
+    {
+      "id": "sedumi-service",
+      "url": "https://www.sedumi.lv/serviss-un-tehnikas-garantijas-remonts/",
+      "httpStatus": 200,
+      "sha256": "14947f3b7af6e3e4c61bb156280b07ca72f61d3211378bbca427c221705e8bdd",
+      "checkedAt": "2026-10-25T06:57:43.957683+00:00"
+    },
+    {
+      "id": "kurzemesvelo-delivery",
+      "url": "https://kurzemesvelo.lv/shops",
+      "httpStatus": 200,
+      "sha256": "bfb405294aad947f3670ed4e66c8099cbd8c2c9f06eb02eb7cb67265b6c2ac8b",
+      "checkedAt": "2026-10-25T06:57:41.210264+00:00"
+    },
+    {
+      "id": "pulkstenuoutlets-delivery",
+      "url": "https://pulkstenu-outlets.lv/delivery",
+      "httpStatus": 200,
+      "sha256": "4a520db06e244863bee2e5e9f46ba9cafc64b372efbdce6fd88f5050a8a5df72",
+      "checkedAt": "2026-10-25T06:57:42.964726+00:00"
+    },
+    {
+      "id": "pulkstenuoutlets-instructions",
+      "url": "https://pulkstenu-outlets.lv/ekspluat%C4%81cijas-instrukcija",
+      "httpStatus": 200,
+      "sha256": "3728ce3e21f7f0ddde6e31c264f4b599d07a913d19fed9efe43f58f992ec3551",
+      "checkedAt": "2026-10-25T06:57:43.082867+00:00"
+    },
+    {
+      "id": "darzniece-home",
+      "url": "https://darzniece.lv/",
+      "httpStatus": 200,
+      "sha256": "895ba1938212f2ab388039850e81dd93cf090f08ea172be15ff33cd3af9a270f",
+      "checkedAt": "2026-10-25T07:04:15.243525+00:00"
+    },
+    {
+      "id": "darzniece-delivery",
+      "url": "https://darzniece.lv/pages/piegade-un-atgriesana",
+      "httpStatus": 200,
+      "sha256": "024a6471aa9e45d0e66799ab94e3f265e512d60ef39721538801bd5fdd74e805",
+      "checkedAt": "2026-10-25T07:04:21.386674+00:00"
+    }
+  ]
+}
