@@ -4,11 +4,19 @@ import {readFile,writeFile,mkdir,rename,open,unlink} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {dirname,resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
+import {homedir} from 'node:os';
 import {PILOT_IDS,pilotBuyerCases,assessPilotBuyer} from './audit-pilot-buyers.mjs';
 import {PILOT_BUYER_REVISION} from '../src/pilot-routing.js';
 import {getTenant} from '../src/kb.js';
 const sha=s=>createHash('sha256').update(s).digest('hex');
 export const MAX_REQUESTS=50,MAX_RESERVATION_MICRO_USD=500000;
+// Stable across fresh ZIP copies: downloading again cannot restart this batch.
+export const PILOT_STATE_DIRECTORY=resolve(homedir(),'Lomenti-private','pilot-batch-20261026');
+export function validatePilotPasswords(value){
+ if(value?.schema!=='pilot-passwords-v1'||!Array.isArray(value.clients)||value.clients.length!==5)throw Error('Invalid local private file');
+ const result=new Map();for(const c of value.clients){if(!PILOT_IDS.includes(c.id)||result.has(c.id)||c.url!==`https://support-demo-${c.id}.fshyn1x.workers.dev`||typeof c.password!=='string'||c.password.length<20||c.password.length>128)throw Error('Invalid local client credential');result.set(c.id,c.password);}
+ if(new Set(result.values()).size!==5)throw Error('Client passwords must differ');return result;
+}
 const field={dzijas:'Какой вес мотка?',jig:'Какой материал указан?',musiclab:'Какой вес указан?',etextile:'Для чего предназначен этот пресс?',zummers:'Какая ширина верхнего порожка?'};
 export async function pilotLivePlan(){
  const products=JSON.parse(await readFile(new URL('../test/fixtures/pilot-products-20261025.json',import.meta.url),'utf8'));
@@ -77,17 +85,19 @@ async function main(){
  if(args.length===1&&args[0]==='--preflight'){console.log(JSON.stringify(preflight,null,2));if(!preflight.ready)process.exitCode=1;return;}
  if(args.join(' ')!=='--run --allow-paid --max-requests 50')throw Error('Use --preflight, or explicitly approve --run --allow-paid --max-requests 50');
  if(!preflight.ready)throw Error('New five demos are not published, enabled, password-protected or on the expected revision. No chat request sent');
- const base=resolve('reports'),lockPath=resolve(base,'.live-50.lock'),marker=resolve(base,'.pilot-live-50-20261026.json');await mkdir(base,{recursive:true});
+ const base=PILOT_STATE_DIRECTORY,lockPath=resolve(base,'.live-50.lock'),marker=resolve(base,'.pilot-live-50-20261026.json');await mkdir(base,{recursive:true});
  const lock=await open(lockPath,'wx');let output;
  try{
   output=resolve(base,'pilot-live-50-'+new Date().toISOString().replace(/[:.]/g,'-')+'.json');
   const claim=await open(marker,'wx');await claim.writeFile(JSON.stringify({output,planSha256:sha(JSON.stringify(plan)),maximumRequests:50,maximumReservationUSD:0.50}));await claim.close();
   const report={schema:'pilot-live-buyer-v1',createdAt:new Date().toISOString(),plan,preflight,maximumRequests:50,maximumReservationUSD:0.50,rows:[],requiresHumanReview:true};
   await writeFile(output,JSON.stringify(report,null,2)+'\n',{flag:'wx'});
-  const checkpoint=async(rows,event)=>{report.rows=rows;report.updatedAt=new Date().toISOString();if(event)(report.events??=[]).push({...event,at:report.updatedAt});report.summary={attempted:rows.length,completed:rows.filter(r=>r.state==='complete').length,autoAccepted:rows.filter(r=>r.assessment?.pass).length,providerReported:rows.filter(r=>r.answer?.providerUsed===true).length,ambiguous:rows.filter(r=>['pending','ambiguous'].includes(r.state)).length};await writeFile(output+'.tmp',JSON.stringify(report,null,2)+'\n',{flag:'wx'});await rename(output+'.tmp',output);};
+  let shown=0;
+  const checkpoint=async(rows,event)=>{report.rows=rows;report.updatedAt=new Date().toISOString();if(event)(report.events??=[]).push({...event,at:report.updatedAt});report.summary={attempted:rows.length,completed:rows.filter(r=>r.state==='complete').length,autoAccepted:rows.filter(r=>r.assessment?.pass).length,providerReported:rows.filter(r=>r.answer?.providerUsed===true).length,ambiguous:rows.filter(r=>['pending','ambiguous'].includes(r.state)).length};await writeFile(output+'.tmp',JSON.stringify(report,null,2)+'\n',{flag:'wx'});await rename(output+'.tmp',output);if(rows.length>shown&&rows.at(-1)?.state!=='pending'){shown=rows.length;console.log(`${shown}/50 ${rows.at(-1).tenant}: ${rows.at(-1).assessment?.pass?'OK':'REVIEW'}`);}};
+  const saved=process.env.LOMENTI_PILOT_AUTO_CREDENTIALS==='1'?validatePilotPasswords(JSON.parse(await readFile(resolve(base,'demo-passwords.json'),'utf8'))):null;
   const cookies=new Map();
-  for(const id of PILOT_IDS){const url=`https://support-demo-${id}.fshyn1x.workers.dev`,secret=await password('Local demo password '+getTenant(id).name+': ');const r=await fetch(url+'/api/login',{method:'POST',headers:{Origin:url,'Content-Type':'application/json'},body:JSON.stringify({password:secret}),redirect:'error',signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('Login failed');const cookie=(r.headers.get('set-cookie')||'').split(';')[0];if(!cookie.startsWith('demo_session='))throw Error('Session unavailable');cookies.set(id,cookie);}
-  await executePilotCases({plan,cookies,checkpoint});console.log(JSON.stringify({report:output,summary:report.summary,events:report.events},null,2));
+  for(const id of PILOT_IDS){const url=`https://support-demo-${id}.fshyn1x.workers.dev`,secret=saved?saved.get(id):await password('Local demo password '+getTenant(id).name+': ');const r=await fetch(url+'/api/login',{method:'POST',headers:{Origin:url,'Content-Type':'application/json'},body:JSON.stringify({password:secret}),redirect:'error',signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('Login failed');const cookie=(r.headers.get('set-cookie')||'').split(';')[0];if(!cookie.startsWith('demo_session='))throw Error('Session unavailable');cookies.set(id,cookie);}
+  await executePilotCases({plan,cookies,checkpoint});console.log(JSON.stringify({report:output,summary:report.summary,events:report.events},null,2));if(report.summary?.completed!==50)process.exitCode=2;
  }finally{await lock.close();await unlink(lockPath);if(output)console.log('Separate report: '+output);}
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href)main().catch(()=>{console.error('Stopped without retries. Keep the batch marker/report for inspection. No credentials were logged.');process.exitCode=1;});
