@@ -2,7 +2,7 @@
 // modifies historical live-50 reports, deploys code or changes server budgets.
 import {readFile,writeFile,mkdir,rename,open,unlink} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
-import {dirname,resolve} from 'node:path';
+import {dirname,resolve,basename} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {homedir} from 'node:os';
 import {PILOT_IDS,pilotBuyerCases,assessPilotBuyer} from './audit-pilot-buyers.mjs';
@@ -16,6 +16,19 @@ export function validatePilotPasswords(value){
  if(value?.schema!=='pilot-passwords-v1'||!Array.isArray(value.clients)||value.clients.length!==5)throw Error('Invalid local private file');
  const result=new Map();for(const c of value.clients){if(!PILOT_IDS.includes(c.id)||result.has(c.id)||c.url!==`https://support-demo-${c.id}.fshyn1x.workers.dev`||typeof c.password!=='string'||c.password.length<20||c.password.length>128)throw Error('Invalid local client credential');result.set(c.id,c.password);}
  if(new Set(result.values()).size!==5)throw Error('Client passwords must differ');return result;
+}
+export function validateZeroRequestResume(marker,report,plan,root=PILOT_STATE_DIRECTORY){
+ if(typeof marker?.output!=='string'||dirname(resolve(marker.output))!==resolve(root)||!/^pilot-live-50-[\dTZ.-]+\.json$/.test(basename(marker.output)))throw Error('Unexpected prior report path');
+ if(marker.planSha256!==sha(JSON.stringify(plan))||marker.maximumRequests!==50||marker.maximumReservationUSD!==0.50||report?.schema!=='pilot-live-buyer-v1'||report.maximumRequests!==50||report.maximumReservationUSD!==0.50||sha(JSON.stringify(report.plan))!==sha(JSON.stringify(plan)))throw Error('Prior batch identity does not match');
+ if(!Array.isArray(report.rows)||report.rows.length!==0||!['attempted','completed','autoAccepted','providerReported','ambiguous'].every(k=>report.summary?.[k]===0)||report.events?.length!==1||report.events[0].stop!=='server-budget-or-rate-unavailable')throw Error('Only a proven zero-request preflight stop can continue');
+ return true;
+}
+export async function zeroRequestProof(plan){
+ const markerPath=resolve(PILOT_STATE_DIRECTORY,'.pilot-live-50-20261026.json'),markerText=await readFile(markerPath,'utf8'),marker=JSON.parse(markerText);
+ // Validate the path before reading a file chosen by local state.
+ if(typeof marker.output!=='string'||dirname(resolve(marker.output))!==PILOT_STATE_DIRECTORY||!/^pilot-live-50-[\dTZ.-]+\.json$/.test(basename(marker.output)))throw Error('Unexpected prior report path');
+ const reportText=await readFile(marker.output,'utf8');validateZeroRequestResume(marker,JSON.parse(reportText),plan);
+ return {priorReport:{path:marker.output,sha256:sha(reportText)},priorMarker:{path:markerPath,sha256:sha(markerText)}};
 }
 const field={dzijas:'Какой вес мотка?',jig:'Какой материал указан?',musiclab:'Какой вес указан?',etextile:'Для чего предназначен этот пресс?',zummers:'Какая ширина верхнего порожка?'};
 export async function pilotLivePlan(){
@@ -56,8 +69,9 @@ export async function executePilotCases({plan,cookies,fetcher=fetch,checkpoint,w
   const url=`https://support-demo-${c.tenant}.fshyn1x.workers.dev`,cookie=cookies.get(c.tenant);if(!cookie)throw Error('Missing private session');
   if(!c.thread||thread!==c.tenant+':'+c.thread){history=[];previousTopic=null;productURL=null;}thread=c.tenant+':'+c.thread;
   await wait(7000);
-  const usage=await fetcher(url+'/api/usage',{headers:{Cookie:cookie},redirect:'error',signal:AbortSignal.timeout(15000)});let budget;try{budget=await usage.json();}catch{}
-  if(!usage.ok||budget?.kind!=='reservation_estimate_not_invoice'||budget.scope!=='all_shops'||budget.perCallMicroUSD!==10000||!Number.isInteger(budget.callsAvailableNow)||budget.callsAvailableNow<1){await checkpoint(rows,{stop:'server-budget-or-rate-unavailable'});return rows;}
+  // /api/usage is owner-only and intentionally 404 on pinned client Workers.
+  // Every POST still passes the server's shared BudgetGuard BEFORE any model
+  // call. A refused reservation is authoritative and stops this batch below.
   const body=JSON.stringify({tenant:c.tenant,locale:c.locale,message:c.message,history,previousTopic,...(productURL?{productURL}:{})});
   const row={id:c.id,tenant:c.tenant,question:c.message,expectedLocale:c.locale,requestSha256:sha(body),state:'pending',startedAt:new Date().toISOString()};rows.push(row);await checkpoint(rows);
   let response,answer;
@@ -65,7 +79,7 @@ export async function executePilotCases({plan,cookies,fetcher=fetch,checkpoint,w
   catch{row.state='ambiguous';row.note='Request may have consumed a reservation. No automatic retry.';await checkpoint(rows,{stop:'ambiguous-response'});return rows;}
   row.httpStatus=response.status;row.answer=Object.fromEntries(['locale','text','cardIds','sources','handoff','mode','topic','providerUsed','conversational','fallbackReason','validationReason','validationDetail','productRead','productURL','catalogURLs','readFailures'].filter(k=>answer[k]!==undefined).map(k=>[k,answer[k]]));
   row.state=response.ok?'complete':'blocked';row.assessment=assessPilotLive(c,answer,response.status);await checkpoint(rows);
-  if(!response.ok||answer.fallbackReason&&/budget|rate|reservation/iu.test(answer.fallbackReason)){await checkpoint(rows,{stop:'server-denied-request'});return rows;}
+  if(!response.ok||answer.fallbackReason&&/budget|rate|reservation/iu.test(answer.fallbackReason)){const reason=['total_budget','daily_budget','minute_rate','day_rate','budget_exhausted'].includes(answer.fallbackReason||answer.reason||answer.error)?answer.fallbackReason||answer.reason||answer.error:'server_denied';await checkpoint(rows,{stop:'server-denied-request',httpStatus:response.status,reason});return rows;}
   // Validation failures remain failures and are never retried or reclassified.
   history=[...history,{role:'user',text:c.message.slice(0,400)},{role:'assistant',text:(answer.text||'').slice(0,400)}].slice(-4);previousTopic=answer.topic||null;productURL=answer.productURL||null;
  }
@@ -81,23 +95,26 @@ function password(label){
 async function main(){
  const args=process.argv.slice(2),plan=await pilotLivePlan();
  if(!args.length){console.log(JSON.stringify({scope:'NEW five-shop batch only',planned:50,maximumReservationUSD:0.50,paidCalls:0,plan},null,2));return;}
+ if(args.join(' ')==='--check-zero-request-resume'){console.log(JSON.stringify({safeToContinue:true,...await zeroRequestProof(plan)},null,2));return;}
+ const resuming=args.join(' ')==='--run --allow-paid --max-requests 50 --resume-before-first-request';
+ const resume=resuming?await zeroRequestProof(plan):null;
  const preflight=await pilotPreflight();
  if(args.length===1&&args[0]==='--preflight'){console.log(JSON.stringify(preflight,null,2));if(!preflight.ready)process.exitCode=1;return;}
- if(args.join(' ')!=='--run --allow-paid --max-requests 50')throw Error('Use --preflight, or explicitly approve --run --allow-paid --max-requests 50');
+ if(!resuming&&args.join(' ')!=='--run --allow-paid --max-requests 50')throw Error('Use --preflight, or explicitly approve --run --allow-paid --max-requests 50');
  if(!preflight.ready)throw Error('New five demos are not published, enabled, password-protected or on the expected revision. No chat request sent');
  const base=PILOT_STATE_DIRECTORY,lockPath=resolve(base,'.live-50.lock'),marker=resolve(base,'.pilot-live-50-20261026.json');await mkdir(base,{recursive:true});
  const lock=await open(lockPath,'wx');let output;
  try{
   output=resolve(base,'pilot-live-50-'+new Date().toISOString().replace(/[:.]/g,'-')+'.json');
-  const claim=await open(marker,'wx');await claim.writeFile(JSON.stringify({output,planSha256:sha(JSON.stringify(plan)),maximumRequests:50,maximumReservationUSD:0.50}));await claim.close();
-  const report={schema:'pilot-live-buyer-v1',createdAt:new Date().toISOString(),plan,preflight,maximumRequests:50,maximumReservationUSD:0.50,rows:[],requiresHumanReview:true};
+  const claim=await open(resuming?resolve(base,'.pilot-zero-request-resume-20261026.json'):marker,'wx');await claim.writeFile(JSON.stringify({output,planSha256:sha(JSON.stringify(plan)),maximumRequests:50,maximumReservationUSD:0.50,...(resume?{resume}:{})}));await claim.close();
+  const report={schema:'pilot-live-buyer-v1',createdAt:new Date().toISOString(),plan,preflight,maximumRequests:50,maximumReservationUSD:0.50,rows:[],requiresHumanReview:true,...(resume?{resume}:{})};
   await writeFile(output,JSON.stringify(report,null,2)+'\n',{flag:'wx'});
   let shown=0;
   const checkpoint=async(rows,event)=>{report.rows=rows;report.updatedAt=new Date().toISOString();if(event)(report.events??=[]).push({...event,at:report.updatedAt});report.summary={attempted:rows.length,completed:rows.filter(r=>r.state==='complete').length,autoAccepted:rows.filter(r=>r.assessment?.pass).length,providerReported:rows.filter(r=>r.answer?.providerUsed===true).length,ambiguous:rows.filter(r=>['pending','ambiguous'].includes(r.state)).length};await writeFile(output+'.tmp',JSON.stringify(report,null,2)+'\n',{flag:'wx'});await rename(output+'.tmp',output);if(rows.length>shown&&rows.at(-1)?.state!=='pending'){shown=rows.length;console.log(`${shown}/50 ${rows.at(-1).tenant}: ${rows.at(-1).assessment?.pass?'OK':'REVIEW'}`);}};
   const saved=process.env.LOMENTI_PILOT_AUTO_CREDENTIALS==='1'?validatePilotPasswords(JSON.parse(await readFile(resolve(base,'demo-passwords.json'),'utf8'))):null;
   const cookies=new Map();
   for(const id of PILOT_IDS){const url=`https://support-demo-${id}.fshyn1x.workers.dev`,secret=saved?saved.get(id):await password('Local demo password '+getTenant(id).name+': ');const r=await fetch(url+'/api/login',{method:'POST',headers:{Origin:url,'Content-Type':'application/json'},body:JSON.stringify({password:secret}),redirect:'error',signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('Login failed');const cookie=(r.headers.get('set-cookie')||'').split(';')[0];if(!cookie.startsWith('demo_session='))throw Error('Session unavailable');cookies.set(id,cookie);}
-  await executePilotCases({plan,cookies,checkpoint});console.log(JSON.stringify({report:output,summary:report.summary,events:report.events},null,2));if(report.summary?.completed!==50)process.exitCode=2;
+  await executePilotCases({plan,cookies,checkpoint});if(resume&&(sha(await readFile(resume.priorReport.path,'utf8'))!==resume.priorReport.sha256||sha(await readFile(resume.priorMarker.path,'utf8'))!==resume.priorMarker.sha256))throw Error('Prior zero-request evidence changed concurrently');console.log(JSON.stringify({report:output,summary:report.summary,events:report.events},null,2));if(report.summary?.completed!==50)process.exitCode=2;
  }finally{await lock.close();await unlink(lockPath);if(output)console.log('Separate report: '+output);}
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(resolve(process.argv[1])).href)main().catch(()=>{console.error('Stopped without retries. Keep the batch marker/report for inspection. No credentials were logged.');process.exitCode=1;});
