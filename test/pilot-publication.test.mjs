@@ -3,7 +3,12 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {homedir} from 'node:os';
-import {checkedAccount,checkedPilotConfig,checkNewTargets,publishNewPilots} from '../scripts/publish-pilots.mjs';
+import {tmpdir} from 'node:os';
+import {mkdir,mkdtemp,readdir,rm} from 'node:fs/promises';
+import {createRequire} from 'node:module';
+import {execFile} from 'node:child_process';
+import {promisify} from 'node:util';
+import {checkedAccount,checkedPilotConfig,checkNewTargets,publishNewPilots,pilotCliEnvironment} from '../scripts/publish-pilots.mjs';
 import {PILOT_STATE_DIRECTORY,validatePilotPasswords} from '../scripts/run-pilot-live.mjs';
 import {PILOT_IDS} from '../scripts/audit-pilot-buyers.mjs';
 const account='a'.repeat(32),credentials={type:'oauth',token:'synthetic-test-token'};
@@ -52,4 +57,19 @@ test('failed secret upload leaves the current demo disabled and stops without a 
  const commands=[],steps=[];
  await assert.rejects(()=>publishNewPilots({passwords:localPasswords(),apiKey:'sk-synthetic-unit-test',onShop:()=>{},save:async(id,step)=>steps.push({id,step}),run:async args=>{commands.push(args);if(args[0]==='secret')throw Error('synthetic failure');}}));
  assert.equal(commands.length,2);assert.ok(!commands.some(c=>c.includes('AI_ENABLED:true')));assert.equal(steps.at(-1).step,'disabled-published');assert.ok(steps.every(s=>s.id===PILOT_IDS[0]));
+});
+test('captured Wrangler auth JSON is enabled while credential disk logs stay disabled even under inherited debug flags',()=>{
+ for(const capture of [true,false]){const env=pilotCliEnvironment(capture,{WRANGLER_LOG:'debug',WRANGLER_WRITE_LOGS:'true',WRANGLER_SEND_METRICS:'true'});assert.equal(env.WRANGLER_LOG,capture?'log':'error');assert.equal(env.WRANGLER_WRITE_LOGS,'false');assert.equal(env.WRANGLER_SEND_METRICS,'false');}
+});
+test('real pinned Wrangler reads synthetic auth locally as JSON without network or credential log files',async()=>{
+ const area=await mkdtemp(resolve(tmpdir(),'pilot-cli-auth-')),logs=resolve(area,'logs');await mkdir(logs);
+ const cli=resolve(createRequire(import.meta.url).resolve('wrangler/package.json'),'../bin/wrangler.js');
+ try{
+  const env=pilotCliEnvironment(true,{CLOUDFLARE_API_TOKEN:'synthetic-local-token-not-a-real-credential',WRANGLER_LOG_PATH:logs});
+  const {stdout}=await promisify(execFile)(process.execPath,[cli,'auth','token','--json'],{env,timeout:20000,maxBuffer:1048576});
+  const result=JSON.parse(stdout);assert.equal(result.type,'api_token');assert.equal(result.token,env.CLOUDFLARE_API_TOKEN);assert.deepEqual(await readdir(logs),[]);
+ }finally{await rm(area,{recursive:true,force:true});}
+});
+test('auth recovery targets only the original publisher before any publication/paid marker and preserves downloaded bytes',async()=>{
+ const ps=await readFile(new URL('../scripts/continue-pilots-auth.ps1',import.meta.url),'utf8');assert.ok(/^[\x00-\x7f]*$/.test(ps));assert.ok(ps.includes('Lomenti-pilots-4cdf77d9a70a'));assert.ok(ps.includes('publication.json'));assert.ok(ps.includes('.pilot-live-50-20261026.json'));assert.ok(ps.includes('b974c0a5908a44f48f164eb68bee731c84717a4aaa4c8623f21357ba0b2aefcf'));assert.ok(ps.includes('$PublisherSha256'));assert.ok(ps.includes('publisher-before-auth-fix.mjs'));assert.ok(ps.includes('Move-Item -LiteralPath $temporary -Destination $target -Force'));assert.ok(!/npm\.cmd|npm ci|Set-Content|Out-File|Set-ExecutionPolicy|Remove-Item.*(?:marker|report)/iu.test(ps));
 });

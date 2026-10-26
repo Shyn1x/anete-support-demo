@@ -29,8 +29,13 @@ export async function checkNewTargets(account,credentials,fetcher=fetch){
  if(!owner.ok||!owner.data.result?.bindings?.some(b=>b.name==='GUARD'&&b.type==='durable_object_namespace'&&b.class_name==='BudgetGuard'&&b.namespace_id))throw Error('Existing shared BudgetGuard was not verified');
  for(const id of PILOT_IDS){const r=await get('/workers/scripts/support-demo-'+id+'/settings');if(r.status!==404)throw Error('A pilot Worker already exists or access is uncertain; stop without changing it');}
 }
+export function pilotCliEnvironment(capture,extraEnv={}){
+ // Wrangler auth token --json uses logger.log (whoami uses logger.json).
+ // Keep machine-readable output in a private pipe, never the terminal/disk.
+ return {...process.env,...extraEnv,WRANGLER_SEND_METRICS:'false',WRANGLER_WRITE_LOGS:'false',WRANGLER_LOG:capture?'log':'error'};
+}
 function cli(args,{input,capture=false,extraEnv={}}={}){
- return new Promise((ok,fail)=>{let output='';const child=spawn(process.execPath,[resolve('node_modules/wrangler/bin/wrangler.js'),...args],{stdio:[input?'pipe':'inherit',capture?'pipe':'inherit',capture?'pipe':'inherit'],env:{...process.env,WRANGLER_SEND_METRICS:'false',WRANGLER_LOG:'error',...extraEnv}});
+ return new Promise((ok,fail)=>{let output='';const child=spawn(process.execPath,[resolve('node_modules/wrangler/bin/wrangler.js'),...args],{stdio:[input?'pipe':'inherit',capture?'pipe':'inherit',capture?'pipe':'inherit'],env:pilotCliEnvironment(capture,extraEnv)});
   if(capture){child.stdout.setEncoding('utf8');child.stdout.on('data',s=>{output+=s;if(output.length>1048576)child.kill();});child.stderr.resume();}
   child.once('error',()=>fail(Error('Wrangler could not start')));child.once('exit',code=>code===0?ok(output):fail(Error('Wrangler '+args[0]+' failed; no automatic retry')));if(input){child.stdin.on('error',()=>{});child.stdin.end(input);}
  });
