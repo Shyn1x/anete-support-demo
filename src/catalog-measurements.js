@@ -5,7 +5,15 @@ const canonical=value=>{const s=value.toLowerCase();if(/^(?:millimet|милли�
 const role=text=>/casting|lure weight|тест|приманк/iu.test(text)?'casting':/weight|weigh|\bmass\b|вес|svars|sver/iu.test(text)?'weight':/width|ширин|platums/iu.test(text)?'width':/length|\blong\b|длин|garums/iu.test(text)?'length':/dimension|габарит|dimensij/iu.test(text)?'dimensions':null;
 function measures(text){
  const re=new RegExp('(?<![\\p{L}\\p{N}.,])([0-9]+(?:[.,][0-9]+)?)\\s*('+unitPattern+')(?![\\p{L}\\p{N}])','giu');
- return [...text.matchAll(re)].map(m=>({value:m[1].replace(',','.'),unit:canonical(m[2]),role:role(text)}));
+ const matches=[...text.matchAll(re)];
+ return matches.map((m,i)=>{
+  // Bind each measurement to its own clause. A whole sentence may contain
+  // both weight and length; the first property must not relabel every number.
+  const previous=matches[i-1],next=matches[i+1];
+  const before=text.slice(previous?previous.index+previous[0].length:0,m.index).split(/[,;]|\band\b|\bun\b|(?<!\p{L})и(?!\p{L})/iu).at(-1);
+  const after=text.slice(m.index+m[0].length,next?.index??text.length).split(/[,;]|\band\b|\bun\b|(?<!\p{L})и(?!\p{L})/iu)[0];
+  return {value:m[1].replace(',','.'),unit:canonical(m[2]),role:role(before)||role(after)};
+ });
 }
 const normalize=s=>s.normalize('NFKC').toLowerCase();
 function activeSentences(reply,products){

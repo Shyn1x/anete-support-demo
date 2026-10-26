@@ -1,0 +1,4113 @@
+{
+  "schema": "pilot-worker-buyer-audit-v1",
+  "createdAt": "2026-10-26T17:40:31.903Z",
+  "scope": "100 shopper requests through the real Worker, local synthetic auth and clock, reference answers; NOT live-model quality",
+  "providerCalls": 0,
+  "apiCostUsd": 0,
+  "forbiddenNetworkAttempts": 0,
+  "total": 100,
+  "passed": 100,
+  "rows": [
+    {
+      "id": "dzijas-01",
+      "group": "policy",
+      "tenant": "dzijas",
+      "question": "Сколько стоит доставка мотков?",
+      "expected": {
+        "locale": "ru",
+        "kind": "fact",
+        "cards": [
+          "delivery"
+        ]
+      },
+      "requestSha256": "5c8194325d4ef85fdbc138ac8489c09d0bc2376b699f54ecc4fdced1c0f5913f",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "dzijas@dzijas.lv",
+          "source": "https://dzijas.lv/"
+        },
+        "locale": "ru",
+        "text": "Есть Omniva и Latvijas Pasts. На странице доставки указана бесплатная доставка по Латвии при сумме товаров больше 50 €.",
+        "cardIds": [
+          "delivery"
+        ],
+        "sources": [
+          {
+            "url": "https://dzijas.lv/pages/piegade",
+            "title": "delivery"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "delivery"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-02",
+      "group": "policy",
+      "tenant": "dzijas",
+      "question": "Can I collect my yarn in Valmiera?",
+      "expected": {
+        "locale": "en",
+        "kind": "fact",
+        "cards": [
+          "pickup"
+        ]
+      },
+      "requestSha256": "5a43e8b0b215cd962636ea4c7546b826c77b02f85444756a6fd7dc81583343f5",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "dzijas@dzijas.lv",
+          "source": "https://dzijas.lv/"
+        },
+        "locale": "en",
+        "text": "Collection in Valmiera is available by arrangement. Agree a time with the shop first.",
+        "cardIds": [
+          "pickup"
+        ],
+        "sources": [
+          {
+            "url": "https://dzijas.lv/pages/piegade",
+            "title": "delivery"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pickup"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-03",
+      "group": "policy",
+      "tenant": "dzijas",
+      "question": "Vai vienāds krāsas kods dažādās partijās būs vienāds?",
+      "expected": {
+        "locale": "lv",
+        "kind": "fact",
+        "cards": [
+          "batch"
+        ]
+      },
+      "requestSha256": "cf16b9039a014704c39e5080ddee7cdea3f8b3940f44adee1edac2c3527048ef",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "dzijas@dzijas.lv",
+          "source": "https://dzijas.lv/"
+        },
+        "locale": "lv",
+        "text": "Vienāds krāsas kods negarantē vienādu toni dažādās partijās. Iesāktam darbam saskaņojiet partijas numuru ar veikalu.",
+        "cardIds": [
+          "batch"
+        ],
+        "sources": [
+          {
+            "url": "https://dzijas.lv/pages/lietosanas-noteikumi",
+            "title": "terms"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "batch"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-04",
+      "group": "niche",
+      "tenant": "dzijas",
+      "question": "Сколько мотков заказать на большой кардиган?",
+      "expected": {
+        "locale": "ru",
+        "kind": "clarify",
+        "cards": [
+          "pilot-quantity"
+        ]
+      },
+      "requestSha256": "ce04ba1eccfedba52a0c77cb8494cd0a6acc78200e3b10c657443f4457f51b5b",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "dzijas@dzijas.lv",
+          "source": "https://dzijas.lv/"
+        },
+        "locale": "ru",
+        "text": "Для расчёта пряжи нужны модель изделия, размер, плотность и метраж мотка. Есть описание вязания?",
+        "cardIds": [
+          "pilot-quantity"
+        ],
+        "sources": [
+          {
+            "title": "Dzijas.lv",
+            "url": "https://dzijas.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-quantity"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-05",
+      "group": "niche",
+      "tenant": "dzijas",
+      "question": "Can I wash this mohair in the machine?",
+      "expected": {
+        "locale": "en",
+        "kind": "clarify",
+        "cards": [
+          "pilot-care"
+        ]
+      },
+      "requestSha256": "4902453efbf2ad0d2184dc260171f22d6b071fdfa799e11fe03051ada2cd16e9",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "dzijas@dzijas.lv",
+          "source": "https://dzijas.lv/"
+        },
+        "locale": "en",
+        "text": "Share the yarn link or label text. I need its composition and care instructions before suggesting washing settings.",
+        "cardIds": [
+          "pilot-care"
+        ],
+        "sources": [
+          {
+            "title": "Dzijas.lv",
+            "url": "https://dzijas.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-care"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-06",
+      "group": "niche",
+      "tenant": "dzijas",
+      "question": "Ar ko aizstāt šo dziju, ja tā ir beigusies?",
+      "expected": {
+        "locale": "lv",
+        "kind": "clarify",
+        "cards": [
+          "pilot-substitute"
+        ]
+      },
+      "requestSha256": "a27f9b1ffe3abb7d9858c985c3fe0b1f651295689542af24e27870f6c8dc193a",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "dzijas@dzijas.lv",
+          "source": "https://dzijas.lv/"
+        },
+        "locale": "lv",
+        "text": "Aizstāšanai jāsalīdzina sastāvs, metrāža un blīvums. Kuras divas dzijas apsverat?",
+        "cardIds": [
+          "pilot-substitute"
+        ],
+        "sources": [
+          {
+            "title": "Dzijas.lv",
+            "url": "https://dzijas.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-substitute"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-07",
+      "group": "niche",
+      "tenant": "dzijas",
+      "question": "Пряжа для ребёнка точно не колется?",
+      "expected": {
+        "locale": "ru",
+        "kind": "clarify",
+        "cards": [
+          "pilot-sensitivity"
+        ]
+      },
+      "requestSha256": "2c4a0d1f7e484d501a8dd50ec7ca2c7c2b5c4d16abab11b83fa3dade3932bfdd",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "dzijas@dzijas.lv",
+          "source": "https://dzijas.lv/"
+        },
+        "locale": "ru",
+        "text": "Мягкость и переносимость индивидуальны. Пришлите состав выбранной пряжи. Отсутствие аллергии обещать нельзя.",
+        "cardIds": [
+          "pilot-sensitivity"
+        ],
+        "sources": [
+          {
+            "title": "Dzijas.lv",
+            "url": "https://dzijas.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-sensitivity"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-08",
+      "group": "niche",
+      "tenant": "dzijas",
+      "question": "What needle size should I use for this yarn?",
+      "expected": {
+        "locale": "en",
+        "kind": "clarify",
+        "cards": [
+          "pilot-needles"
+        ]
+      },
+      "requestSha256": "1a06cc06572fae8fc512b7c94907474d1b111952d42d8b3524c0c581e21df595",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "dzijas@dzijas.lv",
+          "source": "https://dzijas.lv/"
+        },
+        "locale": "en",
+        "text": "Needle size depends on the yarn, pattern and your gauge. Which yarn and project are you using?",
+        "cardIds": [
+          "pilot-needles"
+        ],
+        "sources": [
+          {
+            "title": "Dzijas.lv",
+            "url": "https://dzijas.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-needles"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-09",
+      "group": "combined",
+      "tenant": "dzijas",
+      "question": "Хочу забрать и узнать расход: сколько мотков? ",
+      "expected": {
+        "locale": "ru",
+        "kind": "clarify",
+        "cards": [
+          "pickup",
+          "pilot-quantity"
+        ]
+      },
+      "requestSha256": "c81f0db15a5db090da0f0dd76b9381bdff5be7cab9f1f8b3cec5dea6061fc1e1",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "dzijas@dzijas.lv",
+          "source": "https://dzijas.lv/"
+        },
+        "locale": "ru",
+        "text": "В Валмиере можно договориться о получении заказа. Сначала согласуйте время с магазином.\n\nДля расчёта пряжи нужны модель изделия, размер, плотность и метраж мотка. Есть описание вязания?",
+        "cardIds": [
+          "pickup",
+          "pilot-quantity"
+        ],
+        "sources": [
+          {
+            "url": "https://dzijas.lv/pages/piegade",
+            "title": "delivery"
+          },
+          {
+            "title": "Dzijas.lv",
+            "url": "https://dzijas.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-quantity"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-10",
+      "group": "combined",
+      "tenant": "dzijas",
+      "question": "Cik kamolu vajag un cik maksā piegāde?",
+      "expected": {
+        "locale": "lv",
+        "kind": "clarify",
+        "cards": [
+          "delivery",
+          "pilot-quantity"
+        ]
+      },
+      "requestSha256": "cf73896395cd8319b91d845767c0f5ab8e246b8d1980bfc1f74dcd137df02032",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "dzijas@dzijas.lv",
+          "source": "https://dzijas.lv/"
+        },
+        "locale": "lv",
+        "text": "Pieejama Omniva un Latvijas Pasts. Piegādes lapā norādīta bezmaksas piegāde Latvijā, ja preču summa pārsniedz 50 €.\n\nDzijas daudzumam vajadzīgs izstrādājums, izmērs, blīvums un kamola metrāža. Vai ir adīšanas apraksts?",
+        "cardIds": [
+          "delivery",
+          "pilot-quantity"
+        ],
+        "sources": [
+          {
+            "url": "https://dzijas.lv/pages/piegade",
+            "title": "delivery"
+          },
+          {
+            "title": "Dzijas.lv",
+            "url": "https://dzijas.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-quantity"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-11",
+      "group": "support-safety-social",
+      "tenant": "dzijas",
+      "question": "Посылка с пряжей повреждена, что делать?",
+      "expected": {
+        "locale": "ru",
+        "kind": "handoff",
+        "cards": []
+      },
+      "requestSha256": "685c520293bf1d4a10c41400a603d85c89b37beb2fda919abd648517bdf63960",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "dzijas@dzijas.lv",
+          "source": "https://dzijas.lv/"
+        },
+        "locale": "ru",
+        "text": "По повреждению или неисправности обратитесь в магазин. Случай требует проверки, демо не подтверждает компенсацию.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.",
+        "cardIds": [
+          "defect"
+        ],
+        "sources": [
+          {
+            "title": "Dzijas.lv",
+            "url": "https://dzijas.lv/"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "defect"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-12",
+      "group": "support-safety-social",
+      "tenant": "dzijas",
+      "question": "I want an employee to help with this order",
+      "expected": {
+        "locale": "en",
+        "kind": "handoff",
+        "cards": []
+      },
+      "requestSha256": "ac3bb7281d813782670ca3fa228d446e1850984e030d7014eb08ede990aff411",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "dzijas@dzijas.lv",
+          "source": "https://dzijas.lv/"
+        },
+        "locale": "en",
+        "text": "Dzijas.lv: dzijas@dzijas.lv. The demo cannot see or change orders or issue refunds. Contact the shop without sending personal details in this chat.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself.",
+        "cardIds": [
+          "contact"
+        ],
+        "sources": [
+          {
+            "title": "Dzijas.lv",
+            "url": "https://dzijas.lv/"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "contact"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-13",
+      "group": "support-safety-social",
+      "tenant": "dzijas",
+      "question": "Kur ir mans pasūtījums ar dziju?",
+      "expected": {
+        "locale": "lv",
+        "kind": "handoff",
+        "cards": []
+      },
+      "requestSha256": "002d0396d8e3240f928efa3e9ff8c227466c04e714b83816b3bb9e26b50c108e",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "dzijas@dzijas.lv",
+          "source": "https://dzijas.lv/"
+        },
+        "locale": "lv",
+        "text": "Demonstrācija neredz pasūtījumus, tos nemaina un naudu neatmaksā. Sazinieties ar veikalu, nesūtot personas datus šajā čatā.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu.",
+        "cardIds": [
+          "status"
+        ],
+        "sources": [
+          {
+            "title": "Dzijas.lv",
+            "url": "https://dzijas.lv/"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "status"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-14",
+      "group": "support-safety-social",
+      "tenant": "dzijas",
+      "question": "Спасибо, хорошего дня!",
+      "expected": {
+        "locale": "ru",
+        "kind": "social",
+        "cards": []
+      },
+      "requestSha256": "016c236e739693be1f3b0b099777a6c3ba8e8d9d2754e08a4a37eed408b5cb4a",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "dzijas@dzijas.lv",
+          "source": "https://dzijas.lv/"
+        },
+        "locale": "ru",
+        "text": "Пожалуйста, и вам хорошего дня! 🙂",
+        "cardIds": [],
+        "sources": [],
+        "handoff": false,
+        "mode": "social",
+        "checked": "2026-10-25",
+        "topic": null
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-15",
+      "group": "support-safety-social",
+      "tenant": "dzijas",
+      "question": "My email is buyer@example.test",
+      "expected": {
+        "locale": "en",
+        "kind": "privacy",
+        "cards": []
+      },
+      "requestSha256": "2ae165cffec30ce98bebfc4090fbb303993877c27f12928e264ae877c8ea39c4",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "dzijas@dzijas.lv",
+          "source": "https://dzijas.lv/"
+        },
+        "locale": "en",
+        "text": "Do not enter real personal or payment details. Use a fictional example without names, addresses, phone numbers or order numbers.",
+        "cardIds": [],
+        "sources": [],
+        "handoff": false,
+        "mode": "safety",
+        "checked": "2026-10-25",
+        "topic": null
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-thread-1",
+      "group": "thread",
+      "tenant": "dzijas",
+      "question": "Какие способы доставки есть?",
+      "expected": {
+        "locale": "ru",
+        "kind": "fact",
+        "cards": [
+          "delivery"
+        ]
+      },
+      "requestSha256": "6c3ecc2f17160f4347976694b778d2dfbd77e0e0b38587eda6b5b461543e7e9f",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "dzijas@dzijas.lv",
+          "source": "https://dzijas.lv/"
+        },
+        "locale": "ru",
+        "text": "Есть Omniva и Latvijas Pasts. На странице доставки указана бесплатная доставка по Латвии при сумме товаров больше 50 €.",
+        "cardIds": [
+          "delivery"
+        ],
+        "sources": [
+          {
+            "url": "https://dzijas.lv/pages/piegade",
+            "title": "delivery"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "delivery",
+        "fastReply": true,
+        "fastFaqRevision": "fast-faq-v1"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-thread-2",
+      "group": "thread",
+      "tenant": "dzijas",
+      "question": "А сколько это стоит?",
+      "expected": {
+        "locale": "ru",
+        "kind": "fact",
+        "cards": [
+          "shipping-cost"
+        ]
+      },
+      "requestSha256": "3cbe978d59ad4315d8ee8ac25ac07dbfac5e02aaf5dacddebfd4f19c242a4eff",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "dzijas@dzijas.lv",
+          "source": "https://dzijas.lv/"
+        },
+        "locale": "ru",
+        "text": "Есть Omniva и Latvijas Pasts. На странице доставки указана бесплатная доставка по Латвии при сумме товаров больше 50 €.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.",
+        "cardIds": [
+          "shipping-cost"
+        ],
+        "sources": [
+          {
+            "url": "https://dzijas.lv/pages/piegade",
+            "title": "delivery"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "shipping-cost"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-thread-3",
+      "group": "thread",
+      "tenant": "dzijas",
+      "question": "Please explain it more simply",
+      "expected": {
+        "locale": "en",
+        "kind": "fact",
+        "cards": [
+          "shipping-cost"
+        ]
+      },
+      "requestSha256": "64ba447312f8c6e3c8bea9c28fabd66db4fc5c20c5c763ef67cf88fbb23fa6c7",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "dzijas@dzijas.lv",
+          "source": "https://dzijas.lv/"
+        },
+        "locale": "en",
+        "text": "Omniva and Latvijas Pasts are available. The delivery page lists free Latvian shipping for goods over €50.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself.",
+        "cardIds": [
+          "shipping-cost"
+        ],
+        "sources": [
+          {
+            "url": "https://dzijas.lv/pages/piegade",
+            "title": "delivery"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "shipping-cost"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-thread-4",
+      "group": "thread",
+      "tenant": "dzijas",
+      "question": "Paldies, jauku dienu!",
+      "expected": {
+        "locale": "lv",
+        "kind": "social",
+        "cards": []
+      },
+      "requestSha256": "3505e71a552d15ad66c5ca32d964c9ed123053fa4376486cf150b490ac8671ed",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "dzijas@dzijas.lv",
+          "source": "https://dzijas.lv/"
+        },
+        "locale": "lv",
+        "text": "Lūdzu, arī jums jauku dienu! 🙂",
+        "cardIds": [],
+        "sources": [],
+        "handoff": false,
+        "mode": "social",
+        "checked": "2026-10-25",
+        "topic": null
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-thread-5",
+      "group": "thread",
+      "tenant": "dzijas",
+      "question": "Спасибо, но посылка пришла сломанной. Что делать?",
+      "expected": {
+        "locale": "ru",
+        "kind": "handoff",
+        "cards": [
+          "defect"
+        ]
+      },
+      "requestSha256": "ca8fcb5858a49fdd4df48952266be93b04627ecf0407e9c85fffb3384a0cb8b3",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "dzijas@dzijas.lv",
+          "source": "https://dzijas.lv/"
+        },
+        "locale": "ru",
+        "text": "По повреждению или неисправности обратитесь в магазин. Случай требует проверки, демо не подтверждает компенсацию.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.",
+        "cardIds": [
+          "defect"
+        ],
+        "sources": [
+          {
+            "title": "Dzijas.lv",
+            "url": "https://dzijas.lv/"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "defect"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-01",
+      "group": "policy",
+      "tenant": "jig",
+      "question": "Как отправите длинный спиннинг через Omniva?",
+      "expected": {
+        "locale": "ru",
+        "kind": "fact",
+        "cards": [
+          "delivery"
+        ]
+      },
+      "requestSha256": "93ed3e0edf3754e3b40b20de78867561c8b0346464cfbb3527397875f2876bc4",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@jig.lv",
+          "source": "https://www.jig.lv/"
+        },
+        "locale": "ru",
+        "text": "Omniva стоит 4 € независимо от суммы. Предметы с транспортной длиной больше 60 см в пакомат не отправляют.",
+        "cardIds": [
+          "delivery"
+        ],
+        "sources": [
+          {
+            "url": "https://www.jig.lv/delivery/lv/",
+            "title": "delivery"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "delivery"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-02",
+      "group": "policy",
+      "tenant": "jig",
+      "question": "Should I pay the first automatic invoice email?",
+      "expected": {
+        "locale": "en",
+        "kind": "fact",
+        "cards": [
+          "payment"
+        ]
+      },
+      "requestSha256": "9f792a589a15eec856d81578119e54870672e65f02e42a9bb2e2f3c2d0ac2447",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@jig.lv",
+          "source": "https://www.jig.lv/"
+        },
+        "locale": "en",
+        "text": "Do not pay based on the first automatic email. The terms ask you to wait for the second confirmation or invoice.",
+        "cardIds": [
+          "payment"
+        ],
+        "sources": [
+          {
+            "url": "https://www.jig.lv/delivery/lv/",
+            "title": "delivery"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "payment"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-03",
+      "group": "policy",
+      "tenant": "jig",
+      "question": "Kur varu saņemt pasūtījumu veikalā?",
+      "expected": {
+        "locale": "lv",
+        "kind": "fact",
+        "cards": [
+          "pickup"
+        ]
+      },
+      "requestSha256": "2c853c71e346b7a1c6e7466cdc194128f4f3670f0fb6fc4c7fb7c3fb9fcb4a78",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@jig.lv",
+          "source": "https://www.jig.lv/"
+        },
+        "locale": "lv",
+        "text": "Kontaktos norādīta Avotu iela 17, Rīga, ieeja no pagalma. Iepriekš precizējiet pasūtījuma gatavību.",
+        "cardIds": [
+          "pickup"
+        ],
+        "sources": [
+          {
+            "url": "https://www.jig.lv/contacts/lv/",
+            "title": "contact"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pickup"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-04",
+      "group": "niche",
+      "tenant": "jig",
+      "question": "Какое удилище взять под тяжёлую оснастку?",
+      "expected": {
+        "locale": "ru",
+        "kind": "clarify",
+        "cards": [
+          "pilot-rod"
+        ]
+      },
+      "requestSha256": "2b34265aaf8f39e5cb8a5a5b1ebde6035192781bab729c70f1326a19c3912cb2",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@jig.lv",
+          "source": "https://www.jig.lv/"
+        },
+        "locale": "ru",
+        "text": "Для подбора удилища нужны способ ловли, вес приманки и выбранная модель. Как и где собираетесь ловить?",
+        "cardIds": [
+          "pilot-rod"
+        ],
+        "sources": [
+          {
+            "title": "JIG.lv",
+            "url": "https://www.jig.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-rod"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-05",
+      "group": "niche",
+      "tenant": "jig",
+      "question": "Does braid diameter tell me its breaking strain?",
+      "expected": {
+        "locale": "en",
+        "kind": "clarify",
+        "cards": [
+          "pilot-line"
+        ]
+      },
+      "requestSha256": "61047995e2c14a31f280beb5b3a75878314cfd9ad9f87c3d2e170a1cbabf734b",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@jig.lv",
+          "source": "https://www.jig.lv/"
+        },
+        "locale": "en",
+        "text": "Line diameter and breaking strain are different properties. I need the exact products and labels for comparison.",
+        "cardIds": [
+          "pilot-line"
+        ],
+        "sources": [
+          {
+            "title": "JIG.lv",
+            "url": "https://www.jig.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-line"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-06",
+      "group": "niche",
+      "tenant": "jig",
+      "question": "Vai šī spole der manam kātam?",
+      "expected": {
+        "locale": "lv",
+        "kind": "clarify",
+        "cards": [
+          "pilot-reel"
+        ]
+      },
+      "requestSha256": "87b4400c646a3310019c13775a8484696491b55ee4f9eb6b6f8aa519e050eaba",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@jig.lv",
+          "source": "https://www.jig.lv/"
+        },
+        "locale": "lv",
+        "text": "Spoles un kāta saderība atkarīga no abiem modeļiem un aprīkojuma. Kuras preces izvēlējāties?",
+        "cardIds": [
+          "pilot-reel"
+        ],
+        "sources": [
+          {
+            "title": "JIG.lv",
+            "url": "https://www.jig.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-reel"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-07",
+      "group": "niche",
+      "tenant": "jig",
+      "question": "Какую приманку подобрать для глубокой воды?",
+      "expected": {
+        "locale": "ru",
+        "kind": "clarify",
+        "cards": [
+          "pilot-lure"
+        ]
+      },
+      "requestSha256": "726e0af4bfd462337e9df4ab14cb4b1c6dec03f62ddc33b78619b3c2568b2945",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@jig.lv",
+          "source": "https://www.jig.lv/"
+        },
+        "locale": "ru",
+        "text": "Приманка зависит от рыбы, глубины и условий. Этих данных и ссылки на товар пока недостаточно для точного выбора.",
+        "cardIds": [
+          "pilot-lure"
+        ],
+        "sources": [
+          {
+            "title": "JIG.lv",
+            "url": "https://www.jig.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-lure"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-08",
+      "group": "niche",
+      "tenant": "jig",
+      "question": "Will waders fit if I use my normal shoe size?",
+      "expected": {
+        "locale": "en",
+        "kind": "clarify",
+        "cards": [
+          "pilot-waders"
+        ]
+      },
+      "requestSha256": "a635ce80f8d517b7ea37c71eb3bc54e451feed61bc0a0f3bb5c8f4defbbee19a",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@jig.lv",
+          "source": "https://www.jig.lv/"
+        },
+        "locale": "en",
+        "text": "Waders need the exact model and maker’s size chart. Your normal shoe size cannot confirm the fit.",
+        "cardIds": [
+          "pilot-waders"
+        ],
+        "sources": [
+          {
+            "title": "JIG.lv",
+            "url": "https://www.jig.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-waders"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-09",
+      "group": "combined",
+      "tenant": "jig",
+      "question": "Какую катушку взять и сколько доставка?",
+      "expected": {
+        "locale": "ru",
+        "kind": "clarify",
+        "cards": [
+          "delivery",
+          "pilot-reel"
+        ]
+      },
+      "requestSha256": "c9bc167849077cc41d835dc3bba4b06ef05454cd116bb49c1b60b5a3e110e565",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@jig.lv",
+          "source": "https://www.jig.lv/"
+        },
+        "locale": "ru",
+        "text": "Omniva стоит 4 € независимо от суммы. Предметы с транспортной длиной больше 60 см в пакомат не отправляют.\n\nСовместимость катушки и удилища зависит от обеих моделей и оснастки. Какие товары вы выбрали?",
+        "cardIds": [
+          "delivery",
+          "pilot-reel"
+        ],
+        "sources": [
+          {
+            "url": "https://www.jig.lv/delivery/lv/",
+            "title": "delivery"
+          },
+          {
+            "title": "JIG.lv",
+            "url": "https://www.jig.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-reel"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-10",
+      "group": "combined",
+      "tenant": "jig",
+      "question": "Kāda aukla derēs un kur ir veikala adrese?",
+      "expected": {
+        "locale": "lv",
+        "kind": "clarify",
+        "cards": [
+          "pickup",
+          "pilot-line"
+        ]
+      },
+      "requestSha256": "c7a6497c33fb510a63515791d51bd9e7ee0ad8a11efbf02b45dbd7540914162f",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@jig.lv",
+          "source": "https://www.jig.lv/"
+        },
+        "locale": "lv",
+        "text": "Kontaktos norādīta Avotu iela 17, Rīga, ieeja no pagalma. Iepriekš precizējiet pasūtījuma gatavību.\n\nAuklas diametrs un pārraušanas slodze ir dažādi rādītāji. Salīdzināšanai vajadzīgi modeļi un marķējums.",
+        "cardIds": [
+          "pickup",
+          "pilot-line"
+        ],
+        "sources": [
+          {
+            "url": "https://www.jig.lv/contacts/lv/",
+            "title": "contact"
+          },
+          {
+            "title": "JIG.lv",
+            "url": "https://www.jig.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-line"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-11",
+      "group": "support-safety-social",
+      "tenant": "jig",
+      "question": "Спиннинг сломан при доставке",
+      "expected": {
+        "locale": "ru",
+        "kind": "handoff",
+        "cards": []
+      },
+      "requestSha256": "303a32e070973b44d5c3db2eb1355624b6c81845292bbeedfa92f99bc1f688ce",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@jig.lv",
+          "source": "https://www.jig.lv/"
+        },
+        "locale": "ru",
+        "text": "По повреждению или неисправности обратитесь в магазин. Случай требует проверки, демо не подтверждает компенсацию.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.",
+        "cardIds": [
+          "defect"
+        ],
+        "sources": [
+          {
+            "title": "JIG.lv",
+            "url": "https://www.jig.lv/"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "defect"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-12",
+      "group": "support-safety-social",
+      "tenant": "jig",
+      "question": "I need a human to discuss my fishing order",
+      "expected": {
+        "locale": "en",
+        "kind": "handoff",
+        "cards": []
+      },
+      "requestSha256": "e5beab216bed1532c3108c87a2859dca4cc8ad5285be3951ed45bc6f6558d39f",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@jig.lv",
+          "source": "https://www.jig.lv/"
+        },
+        "locale": "en",
+        "text": "JIG.lv: info@jig.lv. The demo cannot see or change orders or issue refunds. Contact the shop without sending personal details in this chat.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself.",
+        "cardIds": [
+          "contact"
+        ],
+        "sources": [
+          {
+            "title": "JIG.lv",
+            "url": "https://www.jig.lv/"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "contact"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-13",
+      "group": "support-safety-social",
+      "tenant": "jig",
+      "question": "Kur ir mans pasūtījums ar mānekļiem?",
+      "expected": {
+        "locale": "lv",
+        "kind": "handoff",
+        "cards": []
+      },
+      "requestSha256": "7eb42b35f035253e96d403a438059e48d508c98608b7a55f1d6d688697b95e76",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@jig.lv",
+          "source": "https://www.jig.lv/"
+        },
+        "locale": "lv",
+        "text": "Demonstrācija neredz pasūtījumus, tos nemaina un naudu neatmaksā. Sazinieties ar veikalu, nesūtot personas datus šajā čatā.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu.",
+        "cardIds": [
+          "status"
+        ],
+        "sources": [
+          {
+            "title": "JIG.lv",
+            "url": "https://www.jig.lv/"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "status"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-14",
+      "group": "support-safety-social",
+      "tenant": "jig",
+      "question": "Paldies, uz redzēšanos!",
+      "expected": {
+        "locale": "lv",
+        "kind": "social",
+        "cards": []
+      },
+      "requestSha256": "88aad495fcc57cd6da710dd6a8a4427734c4034663026f225a26a33ca3942128",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@jig.lv",
+          "source": "https://www.jig.lv/"
+        },
+        "locale": "lv",
+        "text": "Lūdzu, arī jums jauku dienu! 🙂",
+        "cardIds": [],
+        "sources": [],
+        "handoff": false,
+        "mode": "social",
+        "checked": "2026-10-25",
+        "topic": null
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-15",
+      "group": "support-safety-social",
+      "tenant": "jig",
+      "question": "Call my number +371 20000000",
+      "expected": {
+        "locale": "en",
+        "kind": "privacy",
+        "cards": []
+      },
+      "requestSha256": "791d0c210f748712add12dece0f0772bb9a8c24af01049c8112acabebc0483df",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@jig.lv",
+          "source": "https://www.jig.lv/"
+        },
+        "locale": "en",
+        "text": "Do not enter real personal or payment details. Use a fictional example without names, addresses, phone numbers or order numbers.",
+        "cardIds": [],
+        "sources": [],
+        "handoff": false,
+        "mode": "safety",
+        "checked": "2026-10-25",
+        "topic": null
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-thread-1",
+      "group": "thread",
+      "tenant": "jig",
+      "question": "Какие способы доставки есть?",
+      "expected": {
+        "locale": "ru",
+        "kind": "fact",
+        "cards": [
+          "delivery"
+        ]
+      },
+      "requestSha256": "38dde51d0b365de15fd7438cacd1de002b9fd272c6e7527f79cb60482ef8fb7f",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@jig.lv",
+          "source": "https://www.jig.lv/"
+        },
+        "locale": "ru",
+        "text": "Omniva стоит 4 € независимо от суммы. Предметы с транспортной длиной больше 60 см в пакомат не отправляют.",
+        "cardIds": [
+          "delivery"
+        ],
+        "sources": [
+          {
+            "url": "https://www.jig.lv/delivery/lv/",
+            "title": "delivery"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "delivery",
+        "fastReply": true,
+        "fastFaqRevision": "fast-faq-v1"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-thread-2",
+      "group": "thread",
+      "tenant": "jig",
+      "question": "А сколько это стоит?",
+      "expected": {
+        "locale": "ru",
+        "kind": "fact",
+        "cards": [
+          "shipping-cost"
+        ]
+      },
+      "requestSha256": "2c17d410b308ee5d74a60b3af55cedc98a4bf9096097c334301a94cfde9d3897",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@jig.lv",
+          "source": "https://www.jig.lv/"
+        },
+        "locale": "ru",
+        "text": "Omniva стоит 4 € независимо от суммы. Предметы с транспортной длиной больше 60 см в пакомат не отправляют.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.",
+        "cardIds": [
+          "shipping-cost"
+        ],
+        "sources": [
+          {
+            "url": "https://www.jig.lv/delivery/lv/",
+            "title": "delivery"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "shipping-cost"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-thread-3",
+      "group": "thread",
+      "tenant": "jig",
+      "question": "Please explain it more simply",
+      "expected": {
+        "locale": "en",
+        "kind": "fact",
+        "cards": [
+          "shipping-cost"
+        ]
+      },
+      "requestSha256": "f12392f0d5edb6f031f92e52817497e803eb0d4a524af886bac449dc0845dbaf",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@jig.lv",
+          "source": "https://www.jig.lv/"
+        },
+        "locale": "en",
+        "text": "Omniva costs €4 regardless of order value. Items over 60 cm in transport length cannot go to a locker.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself.",
+        "cardIds": [
+          "shipping-cost"
+        ],
+        "sources": [
+          {
+            "url": "https://www.jig.lv/delivery/lv/",
+            "title": "delivery"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "shipping-cost"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-thread-4",
+      "group": "thread",
+      "tenant": "jig",
+      "question": "Paldies, jauku dienu!",
+      "expected": {
+        "locale": "lv",
+        "kind": "social",
+        "cards": []
+      },
+      "requestSha256": "689ce8bd60d7689d387fe8051663330266756ad6a4e0611cfa369c289ebd7b27",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@jig.lv",
+          "source": "https://www.jig.lv/"
+        },
+        "locale": "lv",
+        "text": "Lūdzu, arī jums jauku dienu! 🙂",
+        "cardIds": [],
+        "sources": [],
+        "handoff": false,
+        "mode": "social",
+        "checked": "2026-10-25",
+        "topic": null
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-thread-5",
+      "group": "thread",
+      "tenant": "jig",
+      "question": "Спасибо, но посылка пришла сломанной. Что делать?",
+      "expected": {
+        "locale": "ru",
+        "kind": "handoff",
+        "cards": [
+          "defect"
+        ]
+      },
+      "requestSha256": "0d17d8991f7f55db07a3024301caa15871554b4381d1e05bc105e0ac8b8bc1ec",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@jig.lv",
+          "source": "https://www.jig.lv/"
+        },
+        "locale": "ru",
+        "text": "По повреждению или неисправности обратитесь в магазин. Случай требует проверки, демо не подтверждает компенсацию.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.",
+        "cardIds": [
+          "defect"
+        ],
+        "sources": [
+          {
+            "title": "JIG.lv",
+            "url": "https://www.jig.lv/"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "defect"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-01",
+      "group": "policy",
+      "tenant": "musiclab",
+      "question": "Как доставят заказ с микрофоном?",
+      "expected": {
+        "locale": "ru",
+        "kind": "fact",
+        "cards": [
+          "delivery"
+        ]
+      },
+      "requestSha256": "6ca3826b80515312372953541f4319bf452a5a0e0acdc527ffe2562c80710bef",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@musiclab.lv",
+          "source": "https://musiclab.lv/"
+        },
+        "locale": "ru",
+        "text": "Есть Omniva, DPD-пакоматы и DPD-курьер. Указан срок 1–3 рабочих дня после подтверждения при наличии товара.",
+        "cardIds": [
+          "delivery"
+        ],
+        "sources": [
+          {
+            "url": "https://musiclab.lv/piegades-informacija/",
+            "title": "delivery"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "delivery"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-02",
+      "group": "policy",
+      "tenant": "musiclab",
+      "question": "Where is the collection address?",
+      "expected": {
+        "locale": "en",
+        "kind": "fact",
+        "cards": [
+          "pickup"
+        ]
+      },
+      "requestSha256": "e70b71cac7d1588cdeec78857647519cd92e9502ddceeb2431e5c10ca492a93b",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@musiclab.lv",
+          "source": "https://musiclab.lv/"
+        },
+        "locale": "en",
+        "text": "Contact address: Brīvības iela 152, Riga. Confirm collection of your particular order before travelling.",
+        "cardIds": [
+          "pickup"
+        ],
+        "sources": [
+          {
+            "url": "https://musiclab.lv/musiclab-kontakti/",
+            "title": "contact"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pickup"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-03",
+      "group": "policy",
+      "tenant": "musiclab",
+      "question": "Kāds ir darba laiks sestdienā?",
+      "expected": {
+        "locale": "lv",
+        "kind": "fact",
+        "cards": [
+          "hours"
+        ]
+      },
+      "requestSha256": "c3f847da8f7170f240d6a0198398d74a840f1832d771c96dd570dbc8e361e29c",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@musiclab.lv",
+          "source": "https://musiclab.lv/"
+        },
+        "locale": "lv",
+        "text": "Kontaktos norādīts: P–Pk 11–18, S 11–15, Sv slēgts. Svētku darba laiku precizējiet atsevišķi.",
+        "cardIds": [
+          "hours"
+        ],
+        "sources": [
+          {
+            "url": "https://musiclab.lv/musiclab-kontakti/",
+            "title": "contact"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "hours"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-04",
+      "group": "niche",
+      "tenant": "musiclab",
+      "question": "Аудиоинтерфейс будет работать с моим ноутбуком?",
+      "expected": {
+        "locale": "ru",
+        "kind": "clarify",
+        "cards": [
+          "pilot-interface"
+        ]
+      },
+      "requestSha256": "4293a98cd3f931cd74aed4b7a42634a5511016230ce1fb7a9c6b911d8816e183",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@musiclab.lv",
+          "source": "https://musiclab.lv/"
+        },
+        "locale": "ru",
+        "text": "Для аудиоинтерфейса нужны ОС компьютера, разъём и число входов. Какой интерфейс и компьютер вы используете?",
+        "cardIds": [
+          "pilot-interface"
+        ],
+        "sources": [
+          {
+            "title": "MusicLab.lv",
+            "url": "https://musiclab.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-interface"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-05",
+      "group": "niche",
+      "tenant": "musiclab",
+      "question": "Can I turn on phantom power for this microphone?",
+      "expected": {
+        "locale": "en",
+        "kind": "clarify",
+        "cards": [
+          "pilot-phantom"
+        ]
+      },
+      "requestSha256": "87e0c26b9fbcacf360b6ce4cadaf63f09967778cba813b3b531e3b6e4e771531",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@musiclab.lv",
+          "source": "https://musiclab.lv/"
+        },
+        "locale": "en",
+        "text": "Phantom power needs the microphone and device models. I will not advise enabling it without checking their manuals.",
+        "cardIds": [
+          "pilot-phantom"
+        ],
+        "sources": [
+          {
+            "title": "MusicLab.lv",
+            "url": "https://musiclab.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-phantom"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-06",
+      "group": "niche",
+      "tenant": "musiclab",
+      "question": "Vai MIDI kontrolieris darbosies ar šo sintezatoru?",
+      "expected": {
+        "locale": "lv",
+        "kind": "clarify",
+        "cards": [
+          "pilot-midi"
+        ]
+      },
+      "requestSha256": "221c7cbcb1c61fcaa36d81935777b28ac245d65ded04a7db94f1cdd3aecb2638",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@musiclab.lv",
+          "source": "https://musiclab.lv/"
+        },
+        "locale": "lv",
+        "text": "MIDI vajadzīgi abu ierīču modeļi un pieejamie porti. USB ligzda pati par sevi saderību neapstiprina.",
+        "cardIds": [
+          "pilot-midi"
+        ],
+        "sources": [
+          {
+            "title": "MusicLab.lv",
+            "url": "https://musiclab.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-midi"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-07",
+      "group": "niche",
+      "tenant": "musiclab",
+      "question": "Эти мониторы активные или нужен усилитель?",
+      "expected": {
+        "locale": "ru",
+        "kind": "clarify",
+        "cards": [
+          "pilot-monitor"
+        ]
+      },
+      "requestSha256": "f60c1337fb1d6298c97454a5a2b041f067df0c34d4a1851eff9b3e6f2a8cd84f",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@musiclab.lv",
+          "source": "https://musiclab.lv/"
+        },
+        "locale": "ru",
+        "text": "Для мониторов нужны модели, источник сигнала и размер помещения. Активность и подключение проверяются по спецификации.",
+        "cardIds": [
+          "pilot-monitor"
+        ],
+        "sources": [
+          {
+            "title": "MusicLab.lv",
+            "url": "https://musiclab.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-monitor"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-08",
+      "group": "niche",
+      "tenant": "musiclab",
+      "question": "What do I need for recording vocals at home?",
+      "expected": {
+        "locale": "en",
+        "kind": "clarify",
+        "cards": [
+          "pilot-recording"
+        ]
+      },
+      "requestSha256": "f2554ecef828b6f4434f6221e9ec22a1bf87413230e06cab2bebf246919f61d5",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@musiclab.lv",
+          "source": "https://musiclab.lv/"
+        },
+        "locale": "en",
+        "text": "For recording, let’s clarify the sound source, room and budget. What are you recording and what equipment do you have?",
+        "cardIds": [
+          "pilot-recording"
+        ],
+        "sources": [
+          {
+            "title": "MusicLab.lv",
+            "url": "https://musiclab.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-recording"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-09",
+      "group": "combined",
+      "tenant": "musiclab",
+      "question": "Какой интерфейс взять и сколько доставка?",
+      "expected": {
+        "locale": "ru",
+        "kind": "clarify",
+        "cards": [
+          "delivery",
+          "pilot-interface"
+        ]
+      },
+      "requestSha256": "9e65a450ba8b713158541c662025724dfeae93aee38fd8de128e8b0433e430b8",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@musiclab.lv",
+          "source": "https://musiclab.lv/"
+        },
+        "locale": "ru",
+        "text": "Есть Omniva, DPD-пакоматы и DPD-курьер. Указан срок 1–3 рабочих дня после подтверждения при наличии товара.\n\nДля аудиоинтерфейса нужны ОС компьютера, разъём и число входов. Какой интерфейс и компьютер вы используете?",
+        "cardIds": [
+          "delivery",
+          "pilot-interface"
+        ],
+        "sources": [
+          {
+            "url": "https://musiclab.lv/piegades-informacija/",
+            "title": "delivery"
+          },
+          {
+            "title": "MusicLab.lv",
+            "url": "https://musiclab.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-interface"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-10",
+      "group": "combined",
+      "tenant": "musiclab",
+      "question": "Kurus monitorus izvēlēties un kur tos saņemt veikalā?",
+      "expected": {
+        "locale": "lv",
+        "kind": "clarify",
+        "cards": [
+          "pickup",
+          "pilot-monitor"
+        ]
+      },
+      "requestSha256": "a1fa0624852d9013dd8baae0aca976e3848b3430e5fc24ab1a0685786cb5280c",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@musiclab.lv",
+          "source": "https://musiclab.lv/"
+        },
+        "locale": "lv",
+        "text": "Kontaktadrese: Brīvības iela 152, Rīga. Pirms brauciena apstipriniet konkrētā pasūtījuma saņemšanu.\n\nMonitoriem vajadzīgi modeļi, signāla avots un telpas izmērs. Aktīvo darbību un pieslēgumu pārbauda specifikācijā.",
+        "cardIds": [
+          "pickup",
+          "pilot-monitor"
+        ],
+        "sources": [
+          {
+            "url": "https://musiclab.lv/musiclab-kontakti/",
+            "title": "contact"
+          },
+          {
+            "title": "MusicLab.lv",
+            "url": "https://musiclab.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-monitor"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-11",
+      "group": "support-safety-social",
+      "tenant": "musiclab",
+      "question": "Микрофон не работает после распаковки",
+      "expected": {
+        "locale": "ru",
+        "kind": "handoff",
+        "cards": []
+      },
+      "requestSha256": "9b0283f2774a52efa86804767915f9b7ab6a025d3161d84736253224bbed4c02",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@musiclab.lv",
+          "source": "https://musiclab.lv/"
+        },
+        "locale": "ru",
+        "text": "По повреждению или неисправности обратитесь в магазин. Случай требует проверки, демо не подтверждает компенсацию.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.",
+        "cardIds": [
+          "defect"
+        ],
+        "sources": [
+          {
+            "title": "MusicLab.lv",
+            "url": "https://musiclab.lv/"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "defect"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-12",
+      "group": "support-safety-social",
+      "tenant": "musiclab",
+      "question": "Please find an employee for my studio question",
+      "expected": {
+        "locale": "en",
+        "kind": "handoff",
+        "cards": []
+      },
+      "requestSha256": "e445228b3df3631b799773c0dd2de60a4ccd88aa79f323e81cd1216296930beb",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@musiclab.lv",
+          "source": "https://musiclab.lv/"
+        },
+        "locale": "en",
+        "text": "MusicLab.lv: info@musiclab.lv. The demo cannot see or change orders or issue refunds. Contact the shop without sending personal details in this chat.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself.",
+        "cardIds": [
+          "contact"
+        ],
+        "sources": [
+          {
+            "title": "MusicLab.lv",
+            "url": "https://musiclab.lv/"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "contact"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-13",
+      "group": "support-safety-social",
+      "tenant": "musiclab",
+      "question": "Kur ir mans pasūtījums ar mikrofonu?",
+      "expected": {
+        "locale": "lv",
+        "kind": "handoff",
+        "cards": []
+      },
+      "requestSha256": "582e9fe1f07784c9bc37ae147fee541c25aef006ae96c56ecbd579e9c8271641",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@musiclab.lv",
+          "source": "https://musiclab.lv/"
+        },
+        "locale": "lv",
+        "text": "Demonstrācija neredz pasūtījumus, tos nemaina un naudu neatmaksā. Sazinieties ar veikalu, nesūtot personas datus šajā čatā.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu.",
+        "cardIds": [
+          "status"
+        ],
+        "sources": [
+          {
+            "title": "MusicLab.lv",
+            "url": "https://musiclab.lv/"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "status"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-14",
+      "group": "support-safety-social",
+      "tenant": "musiclab",
+      "question": "Спасибо за помощь, до свидания!",
+      "expected": {
+        "locale": "ru",
+        "kind": "social",
+        "cards": []
+      },
+      "requestSha256": "7cc04c11dd33126fb02ba914268079dbf8bc6a6025607fb79ad09e588d93476b",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@musiclab.lv",
+          "source": "https://musiclab.lv/"
+        },
+        "locale": "ru",
+        "text": "Пожалуйста, и вам хорошего дня! 🙂",
+        "cardIds": [],
+        "sources": [],
+        "handoff": false,
+        "mode": "social",
+        "checked": "2026-10-25",
+        "topic": null
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-15",
+      "group": "support-safety-social",
+      "tenant": "musiclab",
+      "question": "password=not-a-real-password",
+      "expected": {
+        "locale": "en",
+        "kind": "privacy",
+        "cards": []
+      },
+      "requestSha256": "aa875ce63733a6f90475843599cf45fa243a0ef282a623b7515ded9eac5e778e",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@musiclab.lv",
+          "source": "https://musiclab.lv/"
+        },
+        "locale": "en",
+        "text": "Do not enter real personal or payment details. Use a fictional example without names, addresses, phone numbers or order numbers.",
+        "cardIds": [],
+        "sources": [],
+        "handoff": false,
+        "mode": "safety",
+        "checked": "2026-10-25",
+        "topic": null
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-thread-1",
+      "group": "thread",
+      "tenant": "musiclab",
+      "question": "Какие способы доставки есть?",
+      "expected": {
+        "locale": "ru",
+        "kind": "fact",
+        "cards": [
+          "delivery"
+        ]
+      },
+      "requestSha256": "c1966fe99481e262754a0a8ee67416d8822eaf2f6ca6ae5f0e0283b538b453bc",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@musiclab.lv",
+          "source": "https://musiclab.lv/"
+        },
+        "locale": "ru",
+        "text": "Есть Omniva, DPD-пакоматы и DPD-курьер. Указан срок 1–3 рабочих дня после подтверждения при наличии товара.",
+        "cardIds": [
+          "delivery"
+        ],
+        "sources": [
+          {
+            "url": "https://musiclab.lv/piegades-informacija/",
+            "title": "delivery"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "delivery",
+        "fastReply": true,
+        "fastFaqRevision": "fast-faq-v1"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-thread-2",
+      "group": "thread",
+      "tenant": "musiclab",
+      "question": "А сколько это стоит?",
+      "expected": {
+        "locale": "ru",
+        "kind": "fact",
+        "cards": [
+          "shipping-cost"
+        ]
+      },
+      "requestSha256": "df40dfc1cdf61c087ff7b772c650f1511cb7758f36e512b4b70dd1be13d8dd83",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@musiclab.lv",
+          "source": "https://musiclab.lv/"
+        },
+        "locale": "ru",
+        "text": "Есть Omniva, DPD-пакоматы и DPD-курьер. Указан срок 1–3 рабочих дня после подтверждения при наличии товара.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.",
+        "cardIds": [
+          "shipping-cost"
+        ],
+        "sources": [
+          {
+            "url": "https://musiclab.lv/piegades-informacija/",
+            "title": "delivery"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "shipping-cost"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-thread-3",
+      "group": "thread",
+      "tenant": "musiclab",
+      "question": "Please explain it more simply",
+      "expected": {
+        "locale": "en",
+        "kind": "fact",
+        "cards": [
+          "shipping-cost"
+        ]
+      },
+      "requestSha256": "7930f494e4ad207333b114bc63e0e5c296c51c80c8def87efc022cf68e379a70",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@musiclab.lv",
+          "source": "https://musiclab.lv/"
+        },
+        "locale": "en",
+        "text": "Omniva, DPD lockers and DPD courier are listed. The estimate is 1–3 working days after confirmation for in-stock goods.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself.",
+        "cardIds": [
+          "shipping-cost"
+        ],
+        "sources": [
+          {
+            "url": "https://musiclab.lv/piegades-informacija/",
+            "title": "delivery"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "shipping-cost"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-thread-4",
+      "group": "thread",
+      "tenant": "musiclab",
+      "question": "Paldies, jauku dienu!",
+      "expected": {
+        "locale": "lv",
+        "kind": "social",
+        "cards": []
+      },
+      "requestSha256": "6fc2688dbff73280064f4b07b0d3f3d1f56fb4de76d2ec2364bb7d22457a907f",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@musiclab.lv",
+          "source": "https://musiclab.lv/"
+        },
+        "locale": "lv",
+        "text": "Lūdzu, arī jums jauku dienu! 🙂",
+        "cardIds": [],
+        "sources": [],
+        "handoff": false,
+        "mode": "social",
+        "checked": "2026-10-25",
+        "topic": null
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-thread-5",
+      "group": "thread",
+      "tenant": "musiclab",
+      "question": "Спасибо, но посылка пришла сломанной. Что делать?",
+      "expected": {
+        "locale": "ru",
+        "kind": "handoff",
+        "cards": [
+          "defect"
+        ]
+      },
+      "requestSha256": "1a1e8d62a2245a785e3680541a23e90e317893aae8f1a221f5e8fd1852e507d3",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "info@musiclab.lv",
+          "source": "https://musiclab.lv/"
+        },
+        "locale": "ru",
+        "text": "По повреждению или неисправности обратитесь в магазин. Случай требует проверки, демо не подтверждает компенсацию.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.",
+        "cardIds": [
+          "defect"
+        ],
+        "sources": [
+          {
+            "title": "MusicLab.lv",
+            "url": "https://musiclab.lv/"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "defect"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-01",
+      "group": "policy",
+      "tenant": "etextile",
+      "question": "Сколько стоит курьерская доставка фурнитуры?",
+      "expected": {
+        "locale": "ru",
+        "kind": "fact",
+        "cards": [
+          "delivery"
+        ]
+      },
+      "requestSha256": "c06c151020b10a6246b33221714c2d75b699d2f0d67b18d2feec9c5bad8ebc9f",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "jurijkusman@gmail.com",
+          "source": "https://www.etextile.lv/"
+        },
+        "locale": "ru",
+        "text": "В правилах указан курьер за 5–10 € и обычный срок 2–5 рабочих дней после оплаты.",
+        "cardIds": [
+          "delivery"
+        ],
+        "sources": [
+          {
+            "url": "https://www.etextile.lv/lietosanas-noteikumi",
+            "title": "terms"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "delivery"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-02",
+      "group": "policy",
+      "tenant": "etextile",
+      "question": "Is shop collection free?",
+      "expected": {
+        "locale": "en",
+        "kind": "fact",
+        "cards": [
+          "pickup"
+        ]
+      },
+      "requestSha256": "bffc19a9045746bc6f48dfc90f78949615b3899c15c03c53e09a1c4437763dec",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "jurijkusman@gmail.com",
+          "source": "https://www.etextile.lv/"
+        },
+        "locale": "en",
+        "text": "The terms list free shop collection. Confirm the location and time with the seller.",
+        "cardIds": [
+          "pickup"
+        ],
+        "sources": [
+          {
+            "url": "https://www.etextile.lv/lietosanas-noteikumi",
+            "title": "terms"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pickup"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-03",
+      "group": "policy",
+      "tenant": "etextile",
+      "question": "Vai varu atgriezt pēc izmēra nogrieztu lenti?",
+      "expected": {
+        "locale": "lv",
+        "kind": "handoff",
+        "cards": [
+          "return"
+        ]
+      },
+      "requestSha256": "255004be5216e4b88f3b75a3a8bff4a85a16ae928556062d967ec6f47212a30e",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "jurijkusman@gmail.com",
+          "source": "https://www.etextile.lv/"
+        },
+        "locale": "lv",
+        "text": "Noteikumi atsevišķi izdala pēc individuālas metrāžas sagatavotus materiālus. Konkrētā griezuma atgriešanu jāpārbauda veikalam.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu.",
+        "cardIds": [
+          "return"
+        ],
+        "sources": [
+          {
+            "url": "https://www.etextile.lv/lietosanas-noteikumi",
+            "title": "terms"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "return"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-04",
+      "group": "niche",
+      "tenant": "etextile",
+      "question": "Какой бегунок подойдёт к этой молнии?",
+      "expected": {
+        "locale": "ru",
+        "kind": "clarify",
+        "cards": [
+          "pilot-slider"
+        ]
+      },
+      "requestSha256": "f4f5bf1f287f7166be12b4b28fcf31d987917fee273a626e2aff0d48d11bba40",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "jurijkusman@gmail.com",
+          "source": "https://www.etextile.lv/"
+        },
+        "locale": "ru",
+        "text": "Для бегунка нужны тип молнии, размер и маркировка. Один номер не подтверждает совместимость. Какая у вас молния?",
+        "cardIds": [
+          "pilot-slider"
+        ],
+        "sources": [
+          {
+            "title": "eTextile.lv · Rīgas Ādas",
+            "url": "https://www.etextile.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-slider"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-05",
+      "group": "niche",
+      "tenant": "etextile",
+      "question": "Will this snap die set fit my hand press?",
+      "expected": {
+        "locale": "en",
+        "kind": "clarify",
+        "cards": [
+          "pilot-die"
+        ]
+      },
+      "requestSha256": "3e79e8edcd239ad2100cb5d5345e4a93074e525cefc824cb3b992006d6ec848f",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "jurijkusman@gmail.com",
+          "source": "https://www.etextile.lv/"
+        },
+        "locale": "en",
+        "text": "A die needs the press model, mounting and snap size. Share the names or links for both parts.",
+        "cardIds": [
+          "pilot-die"
+        ],
+        "sources": [
+          {
+            "title": "eTextile.lv · Rīgas Ādas",
+            "url": "https://www.etextile.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-die"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-06",
+      "group": "niche",
+      "tenant": "etextile",
+      "question": "Kura āda derēs izturīgai somai?",
+      "expected": {
+        "locale": "lv",
+        "kind": "clarify",
+        "cards": [
+          "pilot-leather"
+        ]
+      },
+      "requestSha256": "2fc8dd344b0bc542344198563fb432052d5767fafefdcf3c16499d0bf2c57de2",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "jurijkusman@gmail.com",
+          "source": "https://www.etextile.lv/"
+        },
+        "locale": "lv",
+        "text": "Ādas izvēlei vajadzīgs lietojums, biezums un konkrētais materiāls. Jostai, somai vai apdarei?",
+        "cardIds": [
+          "pilot-leather"
+        ],
+        "sources": [
+          {
+            "title": "eTextile.lv · Rīgas Ādas",
+            "url": "https://www.etextile.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-leather"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-07",
+      "group": "niche",
+      "tenant": "etextile",
+      "question": "Можно этим клеем склеить ткань и металл?",
+      "expected": {
+        "locale": "ru",
+        "kind": "clarify",
+        "cards": [
+          "pilot-adhesive"
+        ]
+      },
+      "requestSha256": "3f3f7effb52e791c74b7f5031238bbbdabd15edb4c516bf81a75aede31e92be1",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "jurijkusman@gmail.com",
+          "source": "https://www.etextile.lv/"
+        },
+        "locale": "ru",
+        "text": "Нужны название клея и оба материала. Без инструкции не буду утверждать совместимость или температурную стойкость.",
+        "cardIds": [
+          "pilot-adhesive"
+        ],
+        "sources": [
+          {
+            "title": "eTextile.lv · Rīgas Ādas",
+            "url": "https://www.etextile.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-adhesive"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-08",
+      "group": "niche",
+      "tenant": "etextile",
+      "question": "Which thread works with my industrial machine?",
+      "expected": {
+        "locale": "en",
+        "kind": "clarify",
+        "cards": [
+          "pilot-thread"
+        ]
+      },
+      "requestSha256": "0f3255306a02f242116453317fd9d957849be8baf2188d72db6055c6786426c5",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "jurijkusman@gmail.com",
+          "source": "https://www.etextile.lv/"
+        },
+        "locale": "en",
+        "text": "Thread selection needs the machine model, needle and material. Share those details without personal information.",
+        "cardIds": [
+          "pilot-thread"
+        ],
+        "sources": [
+          {
+            "title": "eTextile.lv · Rīgas Ādas",
+            "url": "https://www.etextile.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-thread"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-09",
+      "group": "combined",
+      "tenant": "etextile",
+      "question": "Какая кожа и сколько стоит доставка?",
+      "expected": {
+        "locale": "ru",
+        "kind": "clarify",
+        "cards": [
+          "delivery",
+          "pilot-leather"
+        ]
+      },
+      "requestSha256": "24e06f7ed1f79ab8b32e40c85d3be104d22d67bffe8009faef92d590e9eb95a4",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "jurijkusman@gmail.com",
+          "source": "https://www.etextile.lv/"
+        },
+        "locale": "ru",
+        "text": "В правилах указан курьер за 5–10 € и обычный срок 2–5 рабочих дней после оплаты.\n\nДля выбора кожи нужны назначение, толщина и конкретный материал. Это ремень, сумка или обивка?",
+        "cardIds": [
+          "delivery",
+          "pilot-leather"
+        ],
+        "sources": [
+          {
+            "url": "https://www.etextile.lv/lietosanas-noteikumi",
+            "title": "terms"
+          },
+          {
+            "title": "eTextile.lv · Rīgas Ādas",
+            "url": "https://www.etextile.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-leather"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-10",
+      "group": "combined",
+      "tenant": "etextile",
+      "question": "Kuru līmi izvēlēties un kā veikt apmaksu?",
+      "expected": {
+        "locale": "lv",
+        "kind": "clarify",
+        "cards": [
+          "payment",
+          "pilot-adhesive"
+        ]
+      },
+      "requestSha256": "a07e73661efa280a3e47734148fea3ca51db6c1789744faf43d7b00c1fe5116d",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "jurijkusman@gmail.com",
+          "source": "https://www.etextile.lv/"
+        },
+        "locale": "lv",
+        "text": "Šis punkts sagatavotajos avotos nav apstiprināts. Precizējiet nosacījumus veikalā.\n\nVajadzīgs līmes nosaukums un abi materiāli. Bez instrukcijas nevaru apstiprināt saderību vai karstumizturību.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu.",
+        "cardIds": [
+          "payment",
+          "pilot-adhesive"
+        ],
+        "sources": [
+          {
+            "title": "eTextile.lv · Rīgas Ādas",
+            "url": "https://www.etextile.lv/"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-adhesive"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-11",
+      "group": "support-safety-social",
+      "tenant": "etextile",
+      "question": "Получила сломанный пресс вместо исправного",
+      "expected": {
+        "locale": "ru",
+        "kind": "handoff",
+        "cards": []
+      },
+      "requestSha256": "9d56875e018f522e016c4eda9e14bcd3fc4773bd9acf7c6919a58c56838e762e",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "jurijkusman@gmail.com",
+          "source": "https://www.etextile.lv/"
+        },
+        "locale": "ru",
+        "text": "По повреждению или неисправности обратитесь в магазин. Случай требует проверки, демо не подтверждает компенсацию.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.",
+        "cardIds": [
+          "defect"
+        ],
+        "sources": [
+          {
+            "title": "eTextile.lv · Rīgas Ādas",
+            "url": "https://www.etextile.lv/"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "defect"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-12",
+      "group": "support-safety-social",
+      "tenant": "etextile",
+      "question": "Please get an employee for the cut material question",
+      "expected": {
+        "locale": "en",
+        "kind": "handoff",
+        "cards": []
+      },
+      "requestSha256": "a3363d286bafd0211a7a8ee118a93e0dc9ff886c16419629bf9f2deee924a819",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "jurijkusman@gmail.com",
+          "source": "https://www.etextile.lv/"
+        },
+        "locale": "en",
+        "text": "eTextile.lv · Rīgas Ādas: jurijkusman@gmail.com. The demo cannot see or change orders or issue refunds. Contact the shop without sending personal details in this chat.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself.",
+        "cardIds": [
+          "contact"
+        ],
+        "sources": [
+          {
+            "title": "eTextile.lv · Rīgas Ādas",
+            "url": "https://www.etextile.lv/"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "contact"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-13",
+      "group": "support-safety-social",
+      "tenant": "etextile",
+      "question": "Kur ir mans pasūtījums ar furnitūru?",
+      "expected": {
+        "locale": "lv",
+        "kind": "handoff",
+        "cards": []
+      },
+      "requestSha256": "cdbf3939aae1e1d4a043924b03388e2ccf75c6af38802df5d0500239db9e22dc",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "jurijkusman@gmail.com",
+          "source": "https://www.etextile.lv/"
+        },
+        "locale": "lv",
+        "text": "Demonstrācija neredz pasūtījumus, tos nemaina un naudu neatmaksā. Sazinieties ar veikalu, nesūtot personas datus šajā čatā.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu.",
+        "cardIds": [
+          "status"
+        ],
+        "sources": [
+          {
+            "title": "eTextile.lv · Rīgas Ādas",
+            "url": "https://www.etextile.lv/"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "status"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-14",
+      "group": "support-safety-social",
+      "tenant": "etextile",
+      "question": "Liels paldies, jauku dienu!",
+      "expected": {
+        "locale": "lv",
+        "kind": "social",
+        "cards": []
+      },
+      "requestSha256": "e903477df6a4f56ceecf78fc344324ca921f45fdbf0c3e034e93637beb83b49b",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "jurijkusman@gmail.com",
+          "source": "https://www.etextile.lv/"
+        },
+        "locale": "lv",
+        "text": "Lūdzu, arī jums jauku dienu! 🙂",
+        "cardIds": [],
+        "sources": [],
+        "handoff": false,
+        "mode": "social",
+        "checked": "2026-10-25",
+        "topic": null
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-15",
+      "group": "support-safety-social",
+      "tenant": "etextile",
+      "question": "Номер карты 4111 1111 1111 1111",
+      "expected": {
+        "locale": "ru",
+        "kind": "privacy",
+        "cards": []
+      },
+      "requestSha256": "d6d3e1d7652ecf4568fc7f1a28dec02daa7bdd77940f5982d6f414b21ea8704e",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "jurijkusman@gmail.com",
+          "source": "https://www.etextile.lv/"
+        },
+        "locale": "ru",
+        "text": "Не вводите реальные персональные или платёжные данные. Используйте вымышленный пример без имён, адресов, телефонов и номеров заказов.",
+        "cardIds": [],
+        "sources": [],
+        "handoff": false,
+        "mode": "safety",
+        "checked": "2026-10-25",
+        "topic": null
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-thread-1",
+      "group": "thread",
+      "tenant": "etextile",
+      "question": "Какие способы доставки есть?",
+      "expected": {
+        "locale": "ru",
+        "kind": "fact",
+        "cards": [
+          "delivery"
+        ]
+      },
+      "requestSha256": "1ff7a9db56604da41f0d6bcf8cebece4eb45ed6c4e97b9f6392132dcda9884b3",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "jurijkusman@gmail.com",
+          "source": "https://www.etextile.lv/"
+        },
+        "locale": "ru",
+        "text": "В правилах указан курьер за 5–10 € и обычный срок 2–5 рабочих дней после оплаты.",
+        "cardIds": [
+          "delivery"
+        ],
+        "sources": [
+          {
+            "url": "https://www.etextile.lv/lietosanas-noteikumi",
+            "title": "terms"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "delivery",
+        "fastReply": true,
+        "fastFaqRevision": "fast-faq-v1"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-thread-2",
+      "group": "thread",
+      "tenant": "etextile",
+      "question": "А сколько это стоит?",
+      "expected": {
+        "locale": "ru",
+        "kind": "fact",
+        "cards": [
+          "shipping-cost"
+        ]
+      },
+      "requestSha256": "7b32c5246da9be105e30e22e2ce28bb58f72def51b4ccb96002e33971065aae7",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "jurijkusman@gmail.com",
+          "source": "https://www.etextile.lv/"
+        },
+        "locale": "ru",
+        "text": "В правилах указан курьер за 5–10 € и обычный срок 2–5 рабочих дней после оплаты.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.",
+        "cardIds": [
+          "shipping-cost"
+        ],
+        "sources": [
+          {
+            "url": "https://www.etextile.lv/lietosanas-noteikumi",
+            "title": "terms"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "shipping-cost"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-thread-3",
+      "group": "thread",
+      "tenant": "etextile",
+      "question": "Please explain it more simply",
+      "expected": {
+        "locale": "en",
+        "kind": "fact",
+        "cards": [
+          "shipping-cost"
+        ]
+      },
+      "requestSha256": "8eeaf2a77bc801a7815cb4c1a582517ea728e76ccbaf0756436d17892f2ef6a7",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "jurijkusman@gmail.com",
+          "source": "https://www.etextile.lv/"
+        },
+        "locale": "en",
+        "text": "The terms list courier delivery at €5–10, normally 2–5 working days after payment.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself.",
+        "cardIds": [
+          "shipping-cost"
+        ],
+        "sources": [
+          {
+            "url": "https://www.etextile.lv/lietosanas-noteikumi",
+            "title": "terms"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "shipping-cost"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-thread-4",
+      "group": "thread",
+      "tenant": "etextile",
+      "question": "Paldies, jauku dienu!",
+      "expected": {
+        "locale": "lv",
+        "kind": "social",
+        "cards": []
+      },
+      "requestSha256": "e7a08623c6549841f8f794b80f7ece68e4025db287c53399865d3e0b0f830b65",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "jurijkusman@gmail.com",
+          "source": "https://www.etextile.lv/"
+        },
+        "locale": "lv",
+        "text": "Lūdzu, arī jums jauku dienu! 🙂",
+        "cardIds": [],
+        "sources": [],
+        "handoff": false,
+        "mode": "social",
+        "checked": "2026-10-25",
+        "topic": null
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-thread-5",
+      "group": "thread",
+      "tenant": "etextile",
+      "question": "Спасибо, но посылка пришла сломанной. Что делать?",
+      "expected": {
+        "locale": "ru",
+        "kind": "handoff",
+        "cards": [
+          "defect"
+        ]
+      },
+      "requestSha256": "8c8fde0c91e158d3e4fceccdfcc1a26b269502b53c7fb255f7617534c55c3726",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "jurijkusman@gmail.com",
+          "source": "https://www.etextile.lv/"
+        },
+        "locale": "ru",
+        "text": "По повреждению или неисправности обратитесь в магазин. Случай требует проверки, демо не подтверждает компенсацию.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.",
+        "cardIds": [
+          "defect"
+        ],
+        "sources": [
+          {
+            "title": "eTextile.lv · Rīgas Ādas",
+            "url": "https://www.etextile.lv/"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "defect"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-01",
+      "group": "policy",
+      "tenant": "zummers",
+      "question": "Где посмотреть цену доставки синтезатора?",
+      "expected": {
+        "locale": "ru",
+        "kind": "fact",
+        "cards": [
+          "delivery"
+        ]
+      },
+      "requestSha256": "ba1f4e6b8f4fa42dca227523128781bf27faf9e949fb7ecefe5201a87e287cc7",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "zummersplus@inbox.lv",
+          "source": "https://www.zummers.lv/"
+        },
+        "locale": "ru",
+        "text": "Срок и стоимость доставки показываются при оформлении и зависят от выбранного способа.",
+        "cardIds": [
+          "delivery"
+        ],
+        "sources": [
+          {
+            "url": "https://www.zummers.lv/iepirk%C5%A1an%C4%81s-noteikumi",
+            "title": "terms"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "delivery"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-02",
+      "group": "policy",
+      "tenant": "zummers",
+      "question": "How can I pay for the electronics?",
+      "expected": {
+        "locale": "en",
+        "kind": "fact",
+        "cards": [
+          "payment"
+        ]
+      },
+      "requestSha256": "a2aa85837552124a730636f7ac925656e386fcb5cb62065725b2e0872b6476d5",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "zummersplus@inbox.lv",
+          "source": "https://www.zummers.lv/"
+        },
+        "locale": "en",
+        "text": "The terms list cards, bank transfer and online payments. Processing starts after full payment.",
+        "cardIds": [
+          "payment"
+        ],
+        "sources": [
+          {
+            "url": "https://www.zummers.lv/iepirk%C5%A1an%C4%81s-noteikumi",
+            "title": "terms"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "payment"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-03",
+      "group": "policy",
+      "tenant": "zummers",
+      "question": "Kāda ir veikala adrese Liepājā?",
+      "expected": {
+        "locale": "lv",
+        "kind": "fact",
+        "cards": [
+          "pickup"
+        ]
+      },
+      "requestSha256": "839de6563482111f96a70f5da79973fc4801baabf5228512e613282f3943f490",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "zummersplus@inbox.lv",
+          "source": "https://www.zummers.lv/"
+        },
+        "locale": "lv",
+        "text": "Kontaktos norādīts veikals Pasta ielā 22, Liepājā. Interneta pasūtījuma saņemšanu saskaņojiet atsevišķi.",
+        "cardIds": [
+          "pickup"
+        ],
+        "sources": [
+          {
+            "url": "https://www.zummers.lv/kontakti",
+            "title": "contact"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pickup"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-04",
+      "group": "niche",
+      "tenant": "zummers",
+      "question": "Какую гитару выбрать новичку без опыта?",
+      "expected": {
+        "locale": "ru",
+        "kind": "clarify",
+        "cards": [
+          "pilot-guitar"
+        ]
+      },
+      "requestSha256": "31bc655a024a2ef3d484e03cacc2b68f127806703dee913ff134e89a26d46953",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "zummersplus@inbox.lv",
+          "source": "https://www.zummers.lv/"
+        },
+        "locale": "ru",
+        "text": "Подбор гитары зависит от опыта, возраста и бюджета. Какой инструмент вы рассматриваете?",
+        "cardIds": [
+          "pilot-guitar"
+        ],
+        "sources": [
+          {
+            "title": "Zummers Plus",
+            "url": "https://www.zummers.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-guitar"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-05",
+      "group": "niche",
+      "tenant": "zummers",
+      "question": "Which cable connects this keyboard to my equipment?",
+      "expected": {
+        "locale": "en",
+        "kind": "clarify",
+        "cards": [
+          "pilot-cable"
+        ]
+      },
+      "requestSha256": "9db172cfd45060577169159cf313d078a12e87c56322c7f8ff03d530a65cebf7",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "zummersplus@inbox.lv",
+          "source": "https://www.zummers.lv/"
+        },
+        "locale": "en",
+        "text": "I need both device models and connector types. A cable that looks similar may not work.",
+        "cardIds": [
+          "pilot-cable"
+        ],
+        "sources": [
+          {
+            "title": "Zummers Plus",
+            "url": "https://www.zummers.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-cable"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-06",
+      "group": "niche",
+      "tenant": "zummers",
+      "question": "Vai šis barošanas adapters derēs ierīcei?",
+      "expected": {
+        "locale": "lv",
+        "kind": "clarify",
+        "cards": [
+          "pilot-power"
+        ]
+      },
+      "requestSha256": "837418028a9f08920d6012df83e8346863979e61bff8301928ba5ca31db5d273",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "zummersplus@inbox.lv",
+          "source": "https://www.zummers.lv/"
+        },
+        "locale": "lv",
+        "text": "Norādiet ierīces modeli un barošanas marķējumu. Spriegumu, polaritāti un jaudu nedrīkst minēt.",
+        "cardIds": [
+          "pilot-power"
+        ],
+        "sources": [
+          {
+            "title": "Zummers Plus",
+            "url": "https://www.zummers.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-power"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-07",
+      "group": "niche",
+      "tenant": "zummers",
+      "question": "Колонки совместимы с этим усилителем?",
+      "expected": {
+        "locale": "ru",
+        "kind": "clarify",
+        "cards": [
+          "pilot-sound"
+        ]
+      },
+      "requestSha256": "873191fe5b78b2dac4e60907e478a8ad8f4e99ba6ba0bcf0cc7f578f94b56bfd",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "zummersplus@inbox.lv",
+          "source": "https://www.zummers.lv/"
+        },
+        "locale": "ru",
+        "text": "Для акустики нужны модели колонок, усилителя и условия использования. Одной мощности для совместимости недостаточно.",
+        "cardIds": [
+          "pilot-sound"
+        ],
+        "sources": [
+          {
+            "title": "Zummers Plus",
+            "url": "https://www.zummers.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-sound"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-08",
+      "group": "niche",
+      "tenant": "zummers",
+      "question": "What are the installation dimensions of this appliance?",
+      "expected": {
+        "locale": "en",
+        "kind": "clarify",
+        "cards": [
+          "pilot-appliance"
+        ]
+      },
+      "requestSha256": "2952ff7a89593263491f509c516d27dc4c066a31010de9cbea22d48da8005721",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "zummersplus@inbox.lv",
+          "source": "https://www.zummers.lv/"
+        },
+        "locale": "en",
+        "text": "Dimensions and installation need the exact appliance model and manual. Do you have the product link?",
+        "cardIds": [
+          "pilot-appliance"
+        ],
+        "sources": [
+          {
+            "title": "Zummers Plus",
+            "url": "https://www.zummers.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-appliance"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-09",
+      "group": "combined",
+      "tenant": "zummers",
+      "question": "Какая гитара подойдёт и сколько доставка?",
+      "expected": {
+        "locale": "ru",
+        "kind": "clarify",
+        "cards": [
+          "delivery",
+          "pilot-guitar"
+        ]
+      },
+      "requestSha256": "df6a9439fc99ecc0d7f4a52c05f27fc2b6afb5b956b937c397210dfd3b8b41b0",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "zummersplus@inbox.lv",
+          "source": "https://www.zummers.lv/"
+        },
+        "locale": "ru",
+        "text": "Срок и стоимость доставки показываются при оформлении и зависят от выбранного способа.\n\nПодбор гитары зависит от опыта, возраста и бюджета. Какой инструмент вы рассматриваете?",
+        "cardIds": [
+          "delivery",
+          "pilot-guitar"
+        ],
+        "sources": [
+          {
+            "url": "https://www.zummers.lv/iepirk%C5%A1an%C4%81s-noteikumi",
+            "title": "terms"
+          },
+          {
+            "title": "Zummers Plus",
+            "url": "https://www.zummers.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-guitar"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-10",
+      "group": "combined",
+      "tenant": "zummers",
+      "question": "Kuru kabeli izvēlēties un kur to saņemt veikalā?",
+      "expected": {
+        "locale": "lv",
+        "kind": "clarify",
+        "cards": [
+          "pickup",
+          "pilot-cable"
+        ]
+      },
+      "requestSha256": "04bb4c85b9d29496e68f96a7894346a15ad6eac6daaa5602364ccd550434a771",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "zummersplus@inbox.lv",
+          "source": "https://www.zummers.lv/"
+        },
+        "locale": "lv",
+        "text": "Kontaktos norādīts veikals Pasta ielā 22, Liepājā. Interneta pasūtījuma saņemšanu saskaņojiet atsevišķi.\n\nVajadzīgi ierīču modeļi un abu galu savienotāji. Vizuāli līdzīgs kabelis var nederēt.",
+        "cardIds": [
+          "pickup",
+          "pilot-cable"
+        ],
+        "sources": [
+          {
+            "url": "https://www.zummers.lv/kontakti",
+            "title": "contact"
+          },
+          {
+            "title": "Zummers Plus",
+            "url": "https://www.zummers.lv/"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "pilot-cable"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-11",
+      "group": "support-safety-social",
+      "tenant": "zummers",
+      "question": "Электроника пришла разбита в коробке",
+      "expected": {
+        "locale": "ru",
+        "kind": "handoff",
+        "cards": []
+      },
+      "requestSha256": "c75c50c6f0e5d89db02aff28904ea59dca0d3863832e3291e82d9c9439fb755f",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "zummersplus@inbox.lv",
+          "source": "https://www.zummers.lv/"
+        },
+        "locale": "ru",
+        "text": "По повреждению или неисправности обратитесь в магазин. Случай требует проверки, демо не подтверждает компенсацию.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.",
+        "cardIds": [
+          "defect"
+        ],
+        "sources": [
+          {
+            "title": "Zummers Plus",
+            "url": "https://www.zummers.lv/"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "defect"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-12",
+      "group": "support-safety-social",
+      "tenant": "zummers",
+      "question": "Can I talk to a human about the instrument?",
+      "expected": {
+        "locale": "en",
+        "kind": "handoff",
+        "cards": []
+      },
+      "requestSha256": "5f88539f45a4d39645d259b33efb9210bca787dd0d52aaad176a8fd496429fb1",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "zummersplus@inbox.lv",
+          "source": "https://www.zummers.lv/"
+        },
+        "locale": "en",
+        "text": "Zummers Plus: zummersplus@inbox.lv. The demo cannot see or change orders or issue refunds. Contact the shop without sending personal details in this chat.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself.",
+        "cardIds": [
+          "contact"
+        ],
+        "sources": [
+          {
+            "title": "Zummers Plus",
+            "url": "https://www.zummers.lv/"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "contact"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-13",
+      "group": "support-safety-social",
+      "tenant": "zummers",
+      "question": "Kur ir mans pasūtījums?",
+      "expected": {
+        "locale": "lv",
+        "kind": "handoff",
+        "cards": []
+      },
+      "requestSha256": "f7a4753edfdff2a7c2af79f3102c05f9381108b0f56c09069d87ce91d7f732f2",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "zummersplus@inbox.lv",
+          "source": "https://www.zummers.lv/"
+        },
+        "locale": "lv",
+        "text": "Demonstrācija neredz pasūtījumus, tos nemaina un naudu neatmaksā. Sazinieties ar veikalu, nesūtot personas datus šajā čatā.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu.",
+        "cardIds": [
+          "status"
+        ],
+        "sources": [
+          {
+            "title": "Zummers Plus",
+            "url": "https://www.zummers.lv/"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "status"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-14",
+      "group": "support-safety-social",
+      "tenant": "zummers",
+      "question": "Good thank u, bye!",
+      "expected": {
+        "locale": "en",
+        "kind": "social",
+        "cards": []
+      },
+      "requestSha256": "b3db66accf64329cded86066455902461d19e4aaf62351e8fe293cbb63d18040",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "zummersplus@inbox.lv",
+          "source": "https://www.zummers.lv/"
+        },
+        "locale": "en",
+        "text": "You’re welcome, and have a lovely day too! 🙂",
+        "cardIds": [],
+        "sources": [],
+        "handoff": false,
+        "mode": "social",
+        "checked": "2026-10-25",
+        "topic": null
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-15",
+      "group": "support-safety-social",
+      "tenant": "zummers",
+      "question": "Мой телефон +371 20000000",
+      "expected": {
+        "locale": "ru",
+        "kind": "privacy",
+        "cards": []
+      },
+      "requestSha256": "660b2cf73c22f21ae20d079cbb74ac5d1eff6eae95bf13b6fc47f73233b1aaa0",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "zummersplus@inbox.lv",
+          "source": "https://www.zummers.lv/"
+        },
+        "locale": "ru",
+        "text": "Не вводите реальные персональные или платёжные данные. Используйте вымышленный пример без имён, адресов, телефонов и номеров заказов.",
+        "cardIds": [],
+        "sources": [],
+        "handoff": false,
+        "mode": "safety",
+        "checked": "2026-10-25",
+        "topic": null
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-thread-1",
+      "group": "thread",
+      "tenant": "zummers",
+      "question": "Какие способы доставки есть?",
+      "expected": {
+        "locale": "ru",
+        "kind": "fact",
+        "cards": [
+          "delivery"
+        ]
+      },
+      "requestSha256": "3cafc5b9ecdcb5b9dd1b9e9606932e047f81fe1771053ab27700fba214e2bed8",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "zummersplus@inbox.lv",
+          "source": "https://www.zummers.lv/"
+        },
+        "locale": "ru",
+        "text": "Срок и стоимость доставки показываются при оформлении и зависят от выбранного способа.",
+        "cardIds": [
+          "delivery"
+        ],
+        "sources": [
+          {
+            "url": "https://www.zummers.lv/iepirk%C5%A1an%C4%81s-noteikumi",
+            "title": "terms"
+          }
+        ],
+        "handoff": false,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "delivery",
+        "fastReply": true,
+        "fastFaqRevision": "fast-faq-v1"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-thread-2",
+      "group": "thread",
+      "tenant": "zummers",
+      "question": "А сколько это стоит?",
+      "expected": {
+        "locale": "ru",
+        "kind": "fact",
+        "cards": [
+          "shipping-cost"
+        ]
+      },
+      "requestSha256": "0d7ac9b14cc8c4bcc0410646f81f6a2aae47f44666285e6127de8dfc5a91a3eb",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "zummersplus@inbox.lv",
+          "source": "https://www.zummers.lv/"
+        },
+        "locale": "ru",
+        "text": "Срок и стоимость доставки показываются при оформлении и зависят от выбранного способа.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.",
+        "cardIds": [
+          "shipping-cost"
+        ],
+        "sources": [
+          {
+            "url": "https://www.zummers.lv/iepirk%C5%A1an%C4%81s-noteikumi",
+            "title": "terms"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "shipping-cost"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-thread-3",
+      "group": "thread",
+      "tenant": "zummers",
+      "question": "Please explain it more simply",
+      "expected": {
+        "locale": "en",
+        "kind": "fact",
+        "cards": [
+          "shipping-cost"
+        ]
+      },
+      "requestSha256": "dfdc265f32db1c6d6b95542c5b0e5523b48636456037a54cf08847deeb63c611",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "zummersplus@inbox.lv",
+          "source": "https://www.zummers.lv/"
+        },
+        "locale": "en",
+        "text": "Delivery time and cost depend on the chosen method and are shown at checkout.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself.",
+        "cardIds": [
+          "shipping-cost"
+        ],
+        "sources": [
+          {
+            "url": "https://www.zummers.lv/iepirk%C5%A1an%C4%81s-noteikumi",
+            "title": "terms"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "shipping-cost"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-thread-4",
+      "group": "thread",
+      "tenant": "zummers",
+      "question": "Paldies, jauku dienu!",
+      "expected": {
+        "locale": "lv",
+        "kind": "social",
+        "cards": []
+      },
+      "requestSha256": "6e52444a3ea696b8665891929bdc6519cd326362569637703d77c478c2551852",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "zummersplus@inbox.lv",
+          "source": "https://www.zummers.lv/"
+        },
+        "locale": "lv",
+        "text": "Lūdzu, arī jums jauku dienu! 🙂",
+        "cardIds": [],
+        "sources": [],
+        "handoff": false,
+        "mode": "social",
+        "checked": "2026-10-25",
+        "topic": null
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-thread-5",
+      "group": "thread",
+      "tenant": "zummers",
+      "question": "Спасибо, но посылка пришла сломанной. Что делать?",
+      "expected": {
+        "locale": "ru",
+        "kind": "handoff",
+        "cards": [
+          "defect"
+        ]
+      },
+      "requestSha256": "2373ee89f7a8a9d10fd5a40901adac710156c7f30f391a900a7da23e6668d092",
+      "httpStatus": 200,
+      "answer": {
+        "providerUsed": false,
+        "contact": {
+          "email": "zummersplus@inbox.lv",
+          "source": "https://www.zummers.lv/"
+        },
+        "locale": "ru",
+        "text": "По повреждению или неисправности обратитесь в магазин. Случай требует проверки, демо не подтверждает компенсацию.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.",
+        "cardIds": [
+          "defect"
+        ],
+        "sources": [
+          {
+            "title": "Zummers Plus",
+            "url": "https://www.zummers.lv/"
+          }
+        ],
+        "handoff": true,
+        "mode": "reference",
+        "checked": "2026-10-25",
+        "topic": "defect"
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    }
+  ]
+}

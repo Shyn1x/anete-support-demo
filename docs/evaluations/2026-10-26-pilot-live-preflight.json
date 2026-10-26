@@ -1,0 +1,47 @@
+{
+  "checkedAt": "2026-10-26T17:44:31.954Z",
+  "ready": false,
+  "providerCalls": 0,
+  "rows": [
+    {
+      "id": "dzijas",
+      "url": "https://support-demo-dzijas.fshyn1x.workers.dev",
+      "httpStatus": 404,
+      "ready": false,
+      "observedRevision": null,
+      "observedMode": null
+    },
+    {
+      "id": "jig",
+      "url": "https://support-demo-jig.fshyn1x.workers.dev",
+      "httpStatus": 404,
+      "ready": false,
+      "observedRevision": null,
+      "observedMode": null
+    },
+    {
+      "id": "musiclab",
+      "url": "https://support-demo-musiclab.fshyn1x.workers.dev",
+      "httpStatus": 404,
+      "ready": false,
+      "observedRevision": null,
+      "observedMode": null
+    },
+    {
+      "id": "etextile",
+      "url": "https://support-demo-etextile.fshyn1x.workers.dev",
+      "httpStatus": 404,
+      "ready": false,
+      "observedRevision": null,
+      "observedMode": null
+    },
+    {
+      "id": "zummers",
+      "url": "https://support-demo-zummers.fshyn1x.workers.dev",
+      "httpStatus": 404,
+      "ready": false,
+      "observedRevision": null,
+      "observedMode": null
+    }
+  ]
+}

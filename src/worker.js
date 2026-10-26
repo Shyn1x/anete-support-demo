@@ -12,6 +12,7 @@ import {dailyReservationLimit} from './guard.js';
 import {detectLocale} from './locale.js';
 import {getTenant} from './kb.js';
 import {pilotAvailable} from './pilots.js';
+import {PILOT_BUYER_REVISION} from './pilot-routing.js';
 import {preflight,referenceRoute,render,aiRoute,RESERVE_MICRO_USD,clarificationTopics,historyTopic,safeFallbackRoute} from './core.js';
 export {BudgetGuard} from './guard.js';
 const encoder=new TextEncoder();
@@ -79,7 +80,7 @@ export function createWorker(fetcher=fetch){return {
     const tenant=availableTenant(url.searchParams.get('tenant')||locked||'anete',env);if(!tenant)return reply({error:'unknown_tenant'},404);
     const error=configError(env);
     if(!locked&&env.DEMO_PASSWORD&&tenant.id!=='anete'&&!await authenticated(request,env))return reply({tenant:tenant.id,name:'Private demo',sources:[],contact:null,mode:'reference',locked:true,authenticated:false,ready:!error,error});
-    return reply({perCallMicroUSD:RESERVE_MICRO_USD,dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:tenant.id,name:tenant.name,sources:Object.values(tenant.sources),contact:tenant.contact,checked:tenant.checked,mode:env.AI_ENABLED==='true'?'ai':'reference',conversationEnabled:env.AI_CONVERSATIONAL==='true',conversationRevision:env.AI_CONVERSATIONAL==='true'?'context-v2':null,auditRevision:AUDIT_REVISION,fastFaqRevision:FAST_FAQ_REVISION,catalogEnabled:env.CATALOG_ENABLED==='true',catalogRevision:env.CATALOG_ENABLED==='true'?'buyer-v8':null,catalogPrecisionRevision:env.CATALOG_ENABLED==='true'?'terms-v1':null,authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
+    return reply({...(tenant.release==='preview'?{pilotBuyerRevision:PILOT_BUYER_REVISION}:{}),perCallMicroUSD:RESERVE_MICRO_USD,dailyReservationMicroUSD:dailyReservationLimit(env,new Date().toISOString().slice(0,10)),tenant:tenant.id,name:tenant.name,sources:Object.values(tenant.sources),contact:tenant.contact,checked:tenant.checked,mode:env.AI_ENABLED==='true'?'ai':'reference',conversationEnabled:env.AI_CONVERSATIONAL==='true',conversationRevision:env.AI_CONVERSATIONAL==='true'?'context-v2':null,auditRevision:AUDIT_REVISION,fastFaqRevision:FAST_FAQ_REVISION,catalogEnabled:env.CATALOG_ENABLED==='true',catalogRevision:env.CATALOG_ENABLED==='true'?'buyer-v8':null,catalogPrecisionRevision:env.CATALOG_ENABLED==='true'?'terms-v1':null,authenticated:!error&&await authenticated(request,env),locked:!!env.DEMO_PASSWORD,ready:!error,error});
    }
    if(url.pathname==='/api/usage'&&request.method==='GET'){
     const error=configError(env);if(error||!env.DEMO_PASSWORD)return reply({error:'server_not_configured'},503);
@@ -154,6 +155,10 @@ export function createWorker(fetcher=fetch){return {
     }
     if(env.CATALOG_ENABLED==='true'&&!blocked&&(!productLink||env.AI_ENABLED==='true'&&env.AI_CONVERSATIONAL==='true')&&(!!linkedPair||productLink&&productQuery&&productRouteAllowed||catalogueQuery(linked.clean,ref,tenant)||choiceContext.length&&productRouteAllowed)){
      let plan;try{plan=linkedPair||(productLink?{explicitContext:true,index:{tenant:tenant.id,importedAt:null},candidates:[{u:productLink,t:''}]}:await retrievalPlan(env,tenant,linked.clean,ref,data.catalogURLs));}catch{}
+     // A generic preview clarification is useful even when its small initial
+     // product index has no match. Keep it on context-v2 rather than replacing
+     // it with an empty catalogue-search message.
+     if(plan&&!plan.candidates.length&&!productLink&&!linkedPair&&tenant.release==='preview'&&ref.ids.length&&ref.ids.every(id=>id.startsWith('pilot-')))plan=null;
      if(plan){
       const nonce=crypto.randomUUID().replaceAll('-','');
       const denied=await gate(request,env,'chat',false,nonce);if(denied)return denied;

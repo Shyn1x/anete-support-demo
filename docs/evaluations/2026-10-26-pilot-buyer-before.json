@@ -1,0 +1,1358 @@
+{
+  "scope": "Before-fix local Worker rehearsal, 75 original cases; HTTP transport and sources were not retained in this projection and are not independently rescored here. Semantic assessment only.",
+  "providerCalls": 0,
+  "total": 75,
+  "semanticPassed": 27,
+  "rows": [
+    {
+      "id": "dzijas-01",
+      "question": "Сколько стоит доставка мотков?",
+      "observed": {
+        "text": "Есть Omniva и Latvijas Pasts. На странице доставки указана бесплатная доставка по Латвии при сумме товаров больше 50 €.",
+        "cardIds": [
+          "delivery"
+        ],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-02",
+      "question": "Can I collect my yarn in Valmiera?",
+      "observed": {
+        "text": "Name the product or share its link and what you want to check. I will use only the description I read, not assumptions.",
+        "cardIds": [],
+        "locale": "en",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pickup"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-03",
+      "question": "Vai vienāds krāsas kods dažādās partijās būs vienāds?",
+      "observed": {
+        "text": "Lūdzu, precizējiet jautājumu par veikalu vai preci.",
+        "cardIds": [],
+        "locale": "lv",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:batch"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-04",
+      "question": "Сколько мотков заказать на большой кардиган?",
+      "observed": {
+        "text": "Уточните, пожалуйста, что хотите узнать о магазине или товаре.",
+        "cardIds": [],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-quantity"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-05",
+      "question": "Can I wash this mohair in the machine?",
+      "observed": {
+        "text": "Could you clarify your question about the shop or a product?",
+        "cardIds": [],
+        "locale": "en",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-care"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-06",
+      "question": "Ar ko aizstāt šo dziju, ja tā ir beigusies?",
+      "observed": {
+        "text": "Norādiet preci vai tās saiti un jautājumu. Atbildēšu tikai pēc nolasītā apraksta, nevis pieņēmuma.",
+        "cardIds": [],
+        "locale": "lv",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-substitute"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-07",
+      "question": "Пряжа для ребёнка точно не колется?",
+      "observed": {
+        "text": "Укажите товар или пришлите его ссылку и напишите, что хотите проверить. Отвечу только по прочитанному описанию, а не по предположению.",
+        "cardIds": [],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-sensitivity"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-08",
+      "question": "What needle size should I use for this yarn?",
+      "observed": {
+        "text": "Name the product or share its link and what you want to check. I will use only the description I read, not assumptions.",
+        "cardIds": [],
+        "locale": "en",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-needles"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-09",
+      "question": "Хочу забрать и узнать расход: сколько мотков? ",
+      "observed": {
+        "text": "В Валмиере можно договориться о получении заказа. Сначала согласуйте время с магазином.",
+        "cardIds": [
+          "pickup"
+        ],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-quantity"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-10",
+      "question": "Cik kamolu vajag un cik maksā piegāde?",
+      "observed": {
+        "text": "Šis punkts sagatavotajos avotos nav apstiprināts. Precizējiet nosacījumus veikalā.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu.",
+        "cardIds": [
+          "payment"
+        ],
+        "locale": "lv",
+        "handoff": true,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:delivery",
+          "missing-topic:pilot-quantity"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-11",
+      "question": "Посылка с пряжей повреждена, что делать?",
+      "observed": {
+        "text": "По повреждению или неисправности обратитесь в магазин. Случай требует проверки, демо не подтверждает компенсацию.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.",
+        "cardIds": [
+          "defect"
+        ],
+        "locale": "ru",
+        "handoff": true,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-12",
+      "question": "I want an employee to help with this order",
+      "observed": {
+        "text": "Could you clarify your question about the shop or a product?",
+        "cardIds": [],
+        "locale": "en",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-shop-review"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-13",
+      "question": "Kur ir mans pasūtījums ar dziju?",
+      "observed": {
+        "text": "Norādiet preci vai tās saiti un jautājumu. Atbildēšu tikai pēc nolasītā apraksta, nevis pieņēmuma.",
+        "cardIds": [],
+        "locale": "lv",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-shop-review"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-14",
+      "question": "Спасибо, хорошего дня!",
+      "observed": {
+        "text": "Пожалуйста, и вам хорошего дня! 🙂",
+        "cardIds": [],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "social"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "dzijas-15",
+      "question": "My email is buyer@example.test",
+      "observed": {
+        "text": "Do not enter real personal or payment details. Use a fictional example without names, addresses, phone numbers or order numbers.",
+        "cardIds": [],
+        "locale": "en",
+        "handoff": false,
+        "mode": "safety"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-01",
+      "question": "Как отправите длинный спиннинг через Omniva?",
+      "observed": {
+        "text": "Укажите товар или пришлите его ссылку и напишите, что хотите проверить. Отвечу только по прочитанному описанию, а не по предположению.",
+        "cardIds": [],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:delivery"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-02",
+      "question": "Should I pay the first automatic invoice email?",
+      "observed": {
+        "text": "Do not pay based on the first automatic email. The terms ask you to wait for the second confirmation or invoice.",
+        "cardIds": [
+          "payment"
+        ],
+        "locale": "en",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-03",
+      "question": "Kur varu saņemt pasūtījumu veikalā?",
+      "observed": {
+        "text": "Lūdzu, precizējiet jautājumu par veikalu vai preci.",
+        "cardIds": [],
+        "locale": "lv",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pickup"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-04",
+      "question": "Какое удилище взять под тяжёлую оснастку?",
+      "observed": {
+        "text": "Укажите товар или пришлите его ссылку и напишите, что хотите проверить. Отвечу только по прочитанному описанию, а не по предположению.",
+        "cardIds": [],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-rod"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-05",
+      "question": "Does braid diameter tell me its breaking strain?",
+      "observed": {
+        "text": "Name the product or share its link and what you want to check. I will use only the description I read, not assumptions.",
+        "cardIds": [],
+        "locale": "en",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-line"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-06",
+      "question": "Vai šī spole der manam kātam?",
+      "observed": {
+        "text": "Norādiet preci vai tās saiti un jautājumu. Atbildēšu tikai pēc nolasītā apraksta, nevis pieņēmuma.",
+        "cardIds": [],
+        "locale": "lv",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-reel"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-07",
+      "question": "Какую приманку подобрать для глубокой воды?",
+      "observed": {
+        "text": "Укажите товар или пришлите его ссылку и напишите, что хотите проверить. Отвечу только по прочитанному описанию, а не по предположению.",
+        "cardIds": [],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-lure"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-08",
+      "question": "Will waders fit if I use my normal shoe size?",
+      "observed": {
+        "text": "Could you clarify your question about the shop or a product?",
+        "cardIds": [],
+        "locale": "en",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-waders"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-09",
+      "question": "Какую катушку взять и сколько доставка?",
+      "observed": {
+        "text": "Omniva стоит 4 € независимо от суммы. Предметы с транспортной длиной больше 60 см в пакомат не отправляют.\n\nУкажите товар или пришлите его ссылку и напишите, что хотите проверить. Отвечу только по прочитанному описанию, а не по предположению.",
+        "cardIds": [
+          "delivery"
+        ],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-reel"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-10",
+      "question": "Kāda aukla derēs un kur ir veikala adrese?",
+      "observed": {
+        "text": "Norādiet preci vai tās saiti un jautājumu. Atbildēšu tikai pēc nolasītā apraksta, nevis pieņēmuma.",
+        "cardIds": [],
+        "locale": "lv",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pickup",
+          "missing-topic:pilot-line"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-11",
+      "question": "Спиннинг сломан при доставке",
+      "observed": {
+        "text": "По повреждению или неисправности обратитесь в магазин. Случай требует проверки, демо не подтверждает компенсацию.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.",
+        "cardIds": [
+          "defect"
+        ],
+        "locale": "ru",
+        "handoff": true,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-12",
+      "question": "I need a human to discuss my fishing order",
+      "observed": {
+        "text": "JIG.lv: info@jig.lv. The demo cannot see or change orders or issue refunds. Contact the shop without sending personal details in this chat.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself.",
+        "cardIds": [
+          "contact"
+        ],
+        "locale": "en",
+        "handoff": true,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-13",
+      "question": "Kur ir mans pasūtījums ar mānekļiem?",
+      "observed": {
+        "text": "Demonstrācija neredz pasūtījumus, tos nemaina un naudu neatmaksā. Sazinieties ar veikalu, nesūtot personas datus šajā čatā.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu.",
+        "cardIds": [
+          "status"
+        ],
+        "locale": "lv",
+        "handoff": true,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-14",
+      "question": "Paldies, uz redzēšanos!",
+      "observed": {
+        "text": "Lūdzu, arī jums jauku dienu! 🙂",
+        "cardIds": [],
+        "locale": "lv",
+        "handoff": false,
+        "mode": "social"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-15",
+      "question": "Call my number +371 20000000",
+      "observed": {
+        "text": "Do not enter real personal or payment details. Use a fictional example without names, addresses, phone numbers or order numbers.",
+        "cardIds": [],
+        "locale": "en",
+        "handoff": false,
+        "mode": "safety"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-01",
+      "question": "Как доставят заказ с микрофоном?",
+      "observed": {
+        "text": "Есть Omniva, DPD-пакоматы и DPD-курьер. Указан срок 1–3 рабочих дня после подтверждения при наличии товара.",
+        "cardIds": [
+          "delivery"
+        ],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-02",
+      "question": "Where is the collection address?",
+      "observed": {
+        "text": "Could you clarify your question about the shop or a product?",
+        "cardIds": [],
+        "locale": "en",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pickup"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-03",
+      "question": "Kāds ir darba laiks sestdienā?",
+      "observed": {
+        "text": "Kontaktos norādīts: P–Pk 11–18, S 11–15, Sv slēgts. Svētku darba laiku precizējiet atsevišķi.",
+        "cardIds": [
+          "hours"
+        ],
+        "locale": "lv",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-04",
+      "question": "Аудиоинтерфейс будет работать с моим ноутбуком?",
+      "observed": {
+        "text": "Укажите товар или пришлите его ссылку и напишите, что хотите проверить. Отвечу только по прочитанному описанию, а не по предположению.",
+        "cardIds": [],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-interface"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-05",
+      "question": "Can I turn on phantom power for this microphone?",
+      "observed": {
+        "text": "Name the product or share its link and what you want to check. I will use only the description I read, not assumptions.",
+        "cardIds": [],
+        "locale": "en",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-phantom"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-06",
+      "question": "Vai MIDI kontrolieris darbosies ar šo sintezatoru?",
+      "observed": {
+        "text": "Norādiet preci vai tās saiti un jautājumu. Atbildēšu tikai pēc nolasītā apraksta, nevis pieņēmuma.",
+        "cardIds": [],
+        "locale": "lv",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-midi"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-07",
+      "question": "Эти мониторы активные или нужен усилитель?",
+      "observed": {
+        "text": "Укажите товар или пришлите его ссылку и напишите, что хотите проверить. Отвечу только по прочитанному описанию, а не по предположению.",
+        "cardIds": [],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-monitor"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-08",
+      "question": "What do I need for recording vocals at home?",
+      "observed": {
+        "text": "Could you clarify your question about the shop or a product?",
+        "cardIds": [],
+        "locale": "en",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-recording"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-09",
+      "question": "Какой интерфейс взять и сколько доставка?",
+      "observed": {
+        "text": "Есть Omniva, DPD-пакоматы и DPD-курьер. Указан срок 1–3 рабочих дня после подтверждения при наличии товара.\n\nУкажите товар или пришлите его ссылку и напишите, что хотите проверить. Отвечу только по прочитанному описанию, а не по предположению.",
+        "cardIds": [
+          "delivery"
+        ],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-interface"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-10",
+      "question": "Kurus monitorus izvēlēties un kur tos saņemt veikalā?",
+      "observed": {
+        "text": "Norādiet preci vai tās saiti un jautājumu. Atbildēšu tikai pēc nolasītā apraksta, nevis pieņēmuma.",
+        "cardIds": [],
+        "locale": "lv",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pickup",
+          "missing-topic:pilot-monitor"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-11",
+      "question": "Микрофон не работает после распаковки",
+      "observed": {
+        "text": "По повреждению или неисправности обратитесь в магазин. Случай требует проверки, демо не подтверждает компенсацию.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.",
+        "cardIds": [
+          "defect"
+        ],
+        "locale": "ru",
+        "handoff": true,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-12",
+      "question": "Please find an employee for my studio question",
+      "observed": {
+        "text": "Could you clarify your question about the shop or a product?",
+        "cardIds": [],
+        "locale": "en",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-shop-review"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-13",
+      "question": "Kur ir mans pasūtījums ar mikrofonu?",
+      "observed": {
+        "text": "Norādiet preci vai tās saiti un jautājumu. Atbildēšu tikai pēc nolasītā apraksta, nevis pieņēmuma.",
+        "cardIds": [],
+        "locale": "lv",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-shop-review"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-14",
+      "question": "Спасибо за помощь, до свидания!",
+      "observed": {
+        "text": "Пожалуйста, и вам хорошего дня! 🙂",
+        "cardIds": [],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "social"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-15",
+      "question": "password=not-a-real-password",
+      "observed": {
+        "text": "Could you clarify your question about the shop or a product?",
+        "cardIds": [],
+        "locale": "en",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "privacy"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-01",
+      "question": "Сколько стоит курьерская доставка фурнитуры?",
+      "observed": {
+        "text": "В правилах указан курьер за 5–10 € и обычный срок 2–5 рабочих дней после оплаты.",
+        "cardIds": [
+          "delivery"
+        ],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-02",
+      "question": "Is shop collection free?",
+      "observed": {
+        "text": "Could you clarify your question about the shop or a product?",
+        "cardIds": [],
+        "locale": "en",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pickup"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-03",
+      "question": "Vai varu atgriezt pēc izmēra nogrieztu lenti?",
+      "observed": {
+        "text": "Noteikumi atsevišķi izdala pēc individuālas metrāžas sagatavotus materiālus. Konkrētā griezuma atgriešanu jāpārbauda veikalam.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu.",
+        "cardIds": [
+          "return"
+        ],
+        "locale": "lv",
+        "handoff": true,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-04",
+      "question": "Какой бегунок подойдёт к этой молнии?",
+      "observed": {
+        "text": "Укажите товар или пришлите его ссылку и напишите, что хотите проверить. Отвечу только по прочитанному описанию, а не по предположению.",
+        "cardIds": [],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-slider"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-05",
+      "question": "Will this snap die set fit my hand press?",
+      "observed": {
+        "text": "Name the product or share its link and what you want to check. I will use only the description I read, not assumptions.",
+        "cardIds": [],
+        "locale": "en",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-die"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-06",
+      "question": "Kura āda derēs izturīgai somai?",
+      "observed": {
+        "text": "Norādiet preci vai tās saiti un jautājumu. Atbildēšu tikai pēc nolasītā apraksta, nevis pieņēmuma.",
+        "cardIds": [],
+        "locale": "lv",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-leather"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-07",
+      "question": "Можно этим клеем склеить ткань и металл?",
+      "observed": {
+        "text": "Уточните, пожалуйста, что хотите узнать о магазине или товаре.",
+        "cardIds": [],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-adhesive"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-08",
+      "question": "Which thread works with my industrial machine?",
+      "observed": {
+        "text": "Name the product or share its link and what you want to check. I will use only the description I read, not assumptions.",
+        "cardIds": [],
+        "locale": "en",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-thread"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-09",
+      "question": "Какая кожа и сколько стоит доставка?",
+      "observed": {
+        "text": "В правилах указан курьер за 5–10 € и обычный срок 2–5 рабочих дней после оплаты.\n\nУкажите товар или пришлите его ссылку и напишите, что хотите проверить. Отвечу только по прочитанному описанию, а не по предположению.",
+        "cardIds": [
+          "delivery"
+        ],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-leather"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-10",
+      "question": "Kuru līmi izvēlēties un kā veikt apmaksu?",
+      "observed": {
+        "text": "Šis punkts sagatavotajos avotos nav apstiprināts. Precizējiet nosacījumus veikalā.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu.",
+        "cardIds": [
+          "payment"
+        ],
+        "locale": "lv",
+        "handoff": true,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-adhesive"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-11",
+      "question": "Получила сломанный пресс вместо исправного",
+      "observed": {
+        "text": "По повреждению или неисправности обратитесь в магазин. Случай требует проверки, демо не подтверждает компенсацию.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.",
+        "cardIds": [
+          "defect"
+        ],
+        "locale": "ru",
+        "handoff": true,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-12",
+      "question": "Please get an employee for the cut material question",
+      "observed": {
+        "text": "Could you clarify your question about the shop or a product?",
+        "cardIds": [],
+        "locale": "en",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-shop-review"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-13",
+      "question": "Kur ir mans pasūtījums ar furnitūru?",
+      "observed": {
+        "text": "Demonstrācija neredz pasūtījumus, tos nemaina un naudu neatmaksā. Sazinieties ar veikalu, nesūtot personas datus šajā čatā.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu.",
+        "cardIds": [
+          "status"
+        ],
+        "locale": "lv",
+        "handoff": true,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-14",
+      "question": "Liels paldies, jauku dienu!",
+      "observed": {
+        "text": "Lūdzu, arī jums jauku dienu! 🙂",
+        "cardIds": [],
+        "locale": "lv",
+        "handoff": false,
+        "mode": "social"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "etextile-15",
+      "question": "Номер карты 4111 1111 1111 1111",
+      "observed": {
+        "text": "Не вводите реальные персональные или платёжные данные. Используйте вымышленный пример без имён, адресов, телефонов и номеров заказов.",
+        "cardIds": [],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "safety"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-01",
+      "question": "Где посмотреть цену доставки синтезатора?",
+      "observed": {
+        "text": "Срок и стоимость доставки показываются при оформлении и зависят от выбранного способа.",
+        "cardIds": [
+          "delivery"
+        ],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-02",
+      "question": "How can I pay for the electronics?",
+      "observed": {
+        "text": "The terms list cards, bank transfer and online payments. Processing starts after full payment.",
+        "cardIds": [
+          "payment"
+        ],
+        "locale": "en",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-03",
+      "question": "Kāda ir veikala adrese Liepājā?",
+      "observed": {
+        "text": "Lūdzu, precizējiet jautājumu par veikalu vai preci.",
+        "cardIds": [],
+        "locale": "lv",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pickup"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-04",
+      "question": "Какую гитару выбрать новичку без опыта?",
+      "observed": {
+        "text": "Укажите товар или пришлите его ссылку и напишите, что хотите проверить. Отвечу только по прочитанному описанию, а не по предположению.",
+        "cardIds": [],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-guitar"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-05",
+      "question": "Which cable connects this keyboard to my equipment?",
+      "observed": {
+        "text": "Name the product or share its link and what you want to check. I will use only the description I read, not assumptions.",
+        "cardIds": [],
+        "locale": "en",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-cable"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-06",
+      "question": "Vai šis barošanas adapters derēs ierīcei?",
+      "observed": {
+        "text": "Lūdzu, precizējiet jautājumu par veikalu vai preci.",
+        "cardIds": [],
+        "locale": "lv",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-power"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-07",
+      "question": "Колонки совместимы с этим усилителем?",
+      "observed": {
+        "text": "Укажите товар или пришлите его ссылку и напишите, что хотите проверить. Отвечу только по прочитанному описанию, а не по предположению.",
+        "cardIds": [],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-sound"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-08",
+      "question": "What are the installation dimensions of this appliance?",
+      "observed": {
+        "text": "Could you clarify your question about the shop or a product?",
+        "cardIds": [],
+        "locale": "en",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-appliance"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-09",
+      "question": "Какая гитара подойдёт и сколько доставка?",
+      "observed": {
+        "text": "Срок и стоимость доставки показываются при оформлении и зависят от выбранного способа.\n\nУкажите товар или пришлите его ссылку и напишите, что хотите проверить. Отвечу только по прочитанному описанию, а не по предположению.",
+        "cardIds": [
+          "delivery"
+        ],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pilot-guitar"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-10",
+      "question": "Kuru kabeli izvēlēties un kur to saņemt veikalā?",
+      "observed": {
+        "text": "Norādiet preci vai tās saiti un jautājumu. Atbildēšu tikai pēc nolasītā apraksta, nevis pieņēmuma.",
+        "cardIds": [],
+        "locale": "lv",
+        "handoff": false,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": false,
+        "issues": [
+          "missing-topic:pickup",
+          "missing-topic:pilot-cable"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-11",
+      "question": "Электроника пришла разбита в коробке",
+      "observed": {
+        "text": "По повреждению или неисправности обратитесь в магазин. Случай требует проверки, демо не подтверждает компенсацию.\n\nНужна проверка сотрудника. В этом демо живой оператор не подключён, заявка не создана. Можно скопировать краткое описание и самостоятельно обратиться в магазин.",
+        "cardIds": [
+          "defect"
+        ],
+        "locale": "ru",
+        "handoff": true,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-12",
+      "question": "Can I talk to a human about the instrument?",
+      "observed": {
+        "text": "Zummers Plus: zummersplus@inbox.lv. The demo cannot see or change orders or issue refunds. Contact the shop without sending personal details in this chat.\n\nAn employee needs to review this. No live agent is connected to this demo and no ticket has been created. You can copy a brief description and contact the shop yourself.",
+        "cardIds": [
+          "contact"
+        ],
+        "locale": "en",
+        "handoff": true,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-13",
+      "question": "Kur ir mans pasūtījums?",
+      "observed": {
+        "text": "Demonstrācija neredz pasūtījumus, tos nemaina un naudu neatmaksā. Sazinieties ar veikalu, nesūtot personas datus šajā čatā.\n\nNepieciešama darbinieka pārbaude. Šajā demonstrācijā dzīvs operators nav pieslēgts, pieteikums nav izveidots. Varat nokopēt īsu aprakstu un patstāvīgi sazināties ar veikalu.",
+        "cardIds": [
+          "status"
+        ],
+        "locale": "lv",
+        "handoff": true,
+        "mode": "reference"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-14",
+      "question": "Good thank u, bye!",
+      "observed": {
+        "text": "You’re welcome, and have a lovely day too! 🙂",
+        "cardIds": [],
+        "locale": "en",
+        "handoff": false,
+        "mode": "social"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "zummers-15",
+      "question": "Мой телефон +371 20000000",
+      "observed": {
+        "text": "Не вводите реальные персональные или платёжные данные. Используйте вымышленный пример без имён, адресов, телефонов и номеров заказов.",
+        "cardIds": [],
+        "locale": "ru",
+        "handoff": false,
+        "mode": "safety"
+      },
+      "semanticAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    }
+  ]
+}

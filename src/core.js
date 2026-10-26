@@ -6,6 +6,7 @@ import {socialRoute,socialText,dialogueIntents} from './social.js';
 import {getTenant} from './kb.js';
 import {correctTypos} from './typos.js';
 import {policyNextStep} from './policy-next-step.js';
+import {pilotPriorityRoute,pilotReferenceRoute} from './pilot-routing.js';
 export const clarificationTopics=['product-sizing','product-help','product-clarify'];
 export const MODEL='gpt-4.1-mini';
 export const RESERVE_MICRO_USD=10000; // $0.01 retained per attempted AI call, no refunds/retries.
@@ -28,6 +29,7 @@ export function preflight(text,tenantId='anete'){
  const links=shopLinks(text,getTenant(tenantId));
  if(/ignore.{0,35}(instruction|previous)|system prompt|api.?key|sk-[a-z0-9]|игнориру|системн.{0,10}(промпт|инструкц)|забудь.{0,20}правил|игнорь|ignorē.{0,20}(instrukc|noteikum)|api.?atslēg/iu.test(text))return 'blocked';
  if(links.rejected)return 'link-unsupported';
+ if(/(?:пароль|password|parole)\s*[:=]\s*\S+/iu.test(links.clean))return 'pii';
  if(/[\w.+-]+@[\w.-]+\.[a-z]{2,}|(?:\d[\s-]*){7,}|(?:мой|моя|mans|mana)\s+(?:адрес|телефон|паспорт|personas kods|adrese)|(?:cvv|cvc|iban)\s*[:=]?\s*\S+/iu.test(links.clean))return 'pii';
  return null;
 }
@@ -59,6 +61,7 @@ export function historyTopic(history,tenantId='anete'){
 // Bounded support signals, not an eligibility or refund decision.
 export function prioritySupportRoute(text,tenantId='anete'){
  const s=normalize(text),tenant=getTenant(tenantId);if(!tenant)return null;
+ const pilot=pilotPriorityRoute(s,tenant);if(pilot)return pilot;
  const wantsHuman=/(?:мне |дай(?:те)? |нужен |позови(?:те)? |соедини(?:те)?|хочу).{0,22}(?:оператор|сотрудник|человек|менеджер|консультант)|^(?:оператор|сотрудник|человек)[!.? ]*$|(?:need|want|speak to|talk to|connect me|contact).{0,22}(?:human|agent|person|staff)|(?:vajag|vēlos|gribu|savieno).{0,22}(?:darbiniek|cilvēk|operator|konsultant)/iu.test(s);
  const humanNegated=/(?<!\p{L})(?:не нужен|не хочу|no (?:human|agent)|don.t (?:need|want)|nevajag|nevēlos)(?!\p{L})/iu.test(s);
  const damage=/поврежд|порван|разбит|слом|не работает|дефект|broken|faulty|damaged|doesn.t work|bojā|salūz|nestrād|saplēst/iu.test(s)||/(?:посылк|товар|упаковк|обув).{0,35}(?:мокр|порв|тресну)|(?:parcel|item|package|shoe).{0,35}(?:torn|wet|cracked)/iu.test(s);
@@ -104,6 +107,7 @@ export function referenceRoute(text, previous=null, tenantId='anete'){
   const useful=pieces.filter(r=>r.ids.length||r.kind.startsWith('product-'));
   if(useful.length>1){const ids=[...new Set(useful.flatMap(r=>r.ids))].slice(0,3);return {ids,kind:ids.length?'answer':useful[0].kind,clarificationKind:useful.find(r=>!r.ids.length)?.kind,handoff:useful.some(r=>r.handoff)};}
  }
+ const pilot=pilotReferenceRoute(s,getTenant(tenantId));if(pilot)return pilot;
  const selection=productSelectionRoute(s,tenantId);if(selection)return selection;
  const niche=nicheRoute(s,tenantId);if(niche&&niche.kind!=='product-clarify')return niche;
  const product=buyerProduct(s,tenantId,previous);if(product)return product;
