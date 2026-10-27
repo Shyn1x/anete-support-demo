@@ -34,7 +34,7 @@ export function pilotCliEnvironment(capture,extraEnv={}){
  // Keep machine-readable output in a private pipe, never the terminal/disk.
  return {...process.env,...extraEnv,WRANGLER_SEND_METRICS:'false',WRANGLER_WRITE_LOGS:'false',WRANGLER_LOG:capture?'log':'error'};
 }
-function cli(args,{input,capture=false,extraEnv={}}={}){
+export function cli(args,{input,capture=false,extraEnv={}}={}){
  return new Promise((ok,fail)=>{let output='';const child=spawn(process.execPath,[resolve('node_modules/wrangler/bin/wrangler.js'),...args],{stdio:[input?'pipe':'inherit',capture?'pipe':'inherit',capture?'pipe':'inherit'],env:pilotCliEnvironment(capture,extraEnv)});
   if(capture){child.stdout.setEncoding('utf8');child.stdout.on('data',s=>{output+=s;if(output.length>1048576)child.kill();});child.stderr.resume();}
   child.once('error',()=>fail(Error('Wrangler could not start')));child.once('exit',code=>code===0?ok(output):fail(Error('Wrangler '+args[0]+' failed; no automatic retry')));if(input){child.stdin.on('error',()=>{});child.stdin.end(input);}

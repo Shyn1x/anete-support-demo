@@ -1,7 +1,7 @@
 // Preview-only routing of reviewed policy and clarification cards. Product
 // specifications still require catalogue evidence; these rules invent none.
 import {pilotProfiles} from './pilot-profiles.js';
-export const PILOT_BUYER_REVISION='pilot-buyer-v1';
+export const PILOT_BUYER_REVISION='pilot-buyer-v2';
 const policy={
  delivery:/достав|пересыл|отправ.{0,25}(?:omniva|пакомат)|shipping|delivery|deliver\b|piegād|piegad|pakomāt|pakomat|omniva/iu,
  pickup:/самовывоз|забрат|получ.{0,20}магазин|адрес|pick.?up|collect(?:ion)?|address|saņemt.{0,25}veikal|saņemšan|izņemt|adrese/iu,

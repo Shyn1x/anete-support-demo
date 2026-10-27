@@ -1,3 +1,4 @@
+import {canonicalDecimal} from './decimal-evidence.js';
 // Bounded guard for the newly integrated catalogues. No unit conversions or
 // inference of width from unordered dimensions, or rod mass from casting test.
 const unitPattern='(?:millimet(?:res?|ers?)|centimet(?:res?|ers?)|kilograms?|grams?|met(?:res?|ers?)|миллиметр[а-я]*|сантиметр[а-я]*|килограмм[а-я]*|грамм[а-я]*|метр[а-я]*|mm|cm|kg|мл|см|мм|кг|ml|hz|khz|mhz|volts?|watts?|v|w|g|m|г|м)';
@@ -12,7 +13,7 @@ function measures(text){
   const previous=matches[i-1],next=matches[i+1];
   const before=text.slice(previous?previous.index+previous[0].length:0,m.index).split(/[,;]|\band\b|\bun\b|(?<!\p{L})и(?!\p{L})/iu).at(-1);
   const after=text.slice(m.index+m[0].length,next?.index??text.length).split(/[,;]|\band\b|\bun\b|(?<!\p{L})и(?!\p{L})/iu)[0];
-  return {value:m[1].replace(',','.'),unit:canonical(m[2]),role:role(before)||role(after)};
+  return {value:canonicalDecimal(m[1]),unit:canonical(m[2]),role:role(before)||role(after)};
  });
 }
 const normalize=s=>s.normalize('NFKC').toLowerCase();
@@ -52,7 +53,7 @@ function fibrePercentages(text){
   const before=line.slice(0,m.index).split(/[,;%]|\band\b|\bun\b|\bи\b/iu).at(-1);
   const after=line.slice(m.index+m[0].length).split(/[\d%;,]/u)[0];
   const id=(fibres.find(([,re])=>re.test(before))||fibres.find(([,re])=>re.test(after)))?.[0];
-  if(id)out.push({id,value:m[1].replace(',','.')});
+  if(id)out.push({id,value:canonicalDecimal(m[1])});
  }
  return out;
 }

@@ -1,3 +1,4 @@
+import {canonicalDecimal} from './decimal-evidence.js';
 // Bounded, deterministic product facts. Unknown prose is never auto-translated.
 const fold=s=>String(s).normalize('NFKD').replace(/\p{M}/gu,'').toLowerCase().replace(/ё/g,'е');
 const fields=[
@@ -66,13 +67,24 @@ function knownComposition(product,locale){
  if(found.length)found.push({ru:'Это часть состава; полный список смотрите на странице товара.',lv:'Tā ir daļa no sastāva; pilnu sarakstu skatiet preces lapā.',en:'These are some ingredients; see the product page for the full list.'}[locale]);
  return found;
 }
-export function knownCatalogDetails(product,message,locale){
+export function knownCatalogDetails(product,message,locale,{includeWeight=false}={}){
  const wanted=requestedCatalogFields(message),out=[];
  if(wanted.includes('age')){
   // Only an explicit technical label, never a model/title numeral or the
   // buyer's age. Conflicting labels remain unconfirmed.
   const ages=[...new Set(product.lines.flatMap(line=>{const m=line.match(/^(?:Vecums|Age|Возраст)\s*:\s*(\d{1,2})\+\s*(?:gadi|years?|лет)\s*[.!]?$/iu);return m?[m[1]]:[];}))];
   if(ages.length===1){const age=ages[0]+'+';out.push({field:'age',text:{ru:`На странице указан возраст: ${age}.`,lv:`Lapā norādītais vecums: ${age}.`,en:`The page lists an age rating of ${age}.`}[locale]});}
+ }
+ // Only an explicit unqualified weight label. Never derive mass from a
+ // product title, casting range, dimensions, user input or unit conversion.
+ if(includeWeight&&wanted.includes('weight')){
+  const weights=[...new Set(product.lines.flatMap(line=>{
+   const m=line.match(/^(?:Svars|Weight|Вес)\s*:\s*(\d+(?:[.,]\d+)?)\s*(kg|g|кг|г)\s*[.]?$/iu);
+   return m?[canonicalDecimal(m[1])+' '+(/kg|кг/iu.test(m[2])?'kg':'g')]:[];
+  }))];
+  if(weights.length===1){const [value,unit]=weights[0].split(' '),u=locale==='ru'?(unit==='kg'?'кг':'г'):unit;
+   out.push({field:'weight',text:{ru:`Указанный вес: ${value} ${u}.`,lv:`Norādītais svars: ${value} ${u}.`,en:`Listed weight: ${value} ${u}.`}[locale]});
+  }
  }
  if(wanted.includes('composition'))for(const text of knownComposition(product,locale))out.push({field:'composition',text});
  if(wanted.includes('material'))for(const [key,value]of Object.entries(productMaterialFields(product,locale)))if(value)out.push({field:'material',text:labels[locale][key]+': '+value+'.'});
@@ -81,10 +93,10 @@ export function knownCatalogDetails(product,message,locale){
   if(m)out.push({field:'colours',text:{ru:`В наборе ${m[1]} цветов.`,lv:`Komplektā ir ${m[1]} krāsas.`,en:`The set contains ${m[1]} colours.`}[locale]});
  }return out;
 }
-export function confirmedCatalogComparison(products,message,locale){
+export function confirmedCatalogComparison(products,message,locale,options={}){
  if(products.length!==2||products.some(p=>p.reviewedSnapshot))return null;
  const wanted=requestedCatalogFields(message),query=wanted.length?message:'material ingredients age colours';
- const details=products.map(p=>knownCatalogDetails(p,query,locale));if(!details.some(ds=>ds.length))return null;
+ const details=products.map(p=>knownCatalogDetails(p,query,locale,options));if(!details.some(ds=>ds.length))return null;
  const copy={ru:{intro:'По прочитанным описаниям:',missing:'Эти характеристики в прочитанных данных не подтверждены.',partial:'Не все запрошенные характеристики удалось подтвердить.',end:'Сравнение включает только перечисленные подтверждённые сведения.'},lv:{intro:'Pēc nolasītajiem aprakstiem:',missing:'Šīs īpašības nolasītajos datos nav apstiprinātas.',partial:'Ne visas pieprasītās īpašības varēju apstiprināt.',end:'Salīdzinājumā ietverta tikai norādītā apstiprinātā informācija.'},en:{intro:'From the descriptions read:',missing:'These specifications are not confirmed in the read data.',partial:'Not all requested specifications could be confirmed.',end:'This compares only the listed confirmed details.'}}[locale];
  return copy.intro+'\n\n'+products.map((p,i)=>p.title+'\n'+(details[i].length?details[i].map(d=>d.text).join(' '):copy.missing)+(details[i].length&&wanted.some(k=>!details[i].some(d=>d.field===k))?' '+copy.partial:'')).join('\n\n')+'\n\n'+copy.end;
 }

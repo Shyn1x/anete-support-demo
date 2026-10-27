@@ -33,6 +33,13 @@ export function preflight(text,tenantId='anete'){
  if(/[\w.+-]+@[\w.-]+\.[a-z]{2,}|(?:\d[\s-]*){7,}|(?:мой|моя|mans|mana)\s+(?:адрес|телефон|паспорт|personas kods|adrese)|(?:cvv|cvc|iban)\s*[:=]?\s*\S+/iu.test(links.clean))return 'pii';
  return null;
 }
+// Production policy rules stay intact. Pilot shipping fees are reviewed facts,
+// unlike the original tenants' individual shipping-quote cards.
+export function cardRequiresReview(tenant,id){
+ if(!tenant)return false;
+ if(id==='shipping-cost'&&tenant.release==='preview')return !!tenant.cards.find(c=>c.id===id)?.requiresReview;
+ return ['contact','status','business-warranty','payment-problem','unclaimed','defect','opened','shipping-cost'].includes(id)||!!tenant.cards.find(c=>c.id===id)?.requiresReview;
+}
 // Whole-message continuations: a style/language request must not become a new product query.
 export function followupRoute(text,previous,tenantId='anete'){
  const s=normalize(text).replace(/[?.!,;:]+$/gu,'').trim();
@@ -41,7 +48,7 @@ export function followupRoute(text,previous,tenantId='anete'){
   ||/^(?:можно )?(?:попроще|проще|простыми словами|короче)$/iu.test(s)
   ||/^(?:(?:vai )?(?:vari|varat) )?(?:lūdzu )?(?:paskaidro(?:t|jiet)?|izskaidro(?:t|jiet)?|pasaki(?:et)?|atkārto(?:t|jiet)?)(?: (?:to|atbildi))?(?: (?:vienkāršāk|īsāk|vēlreiz|vienkāršiem vārdiem|lūdzu)){1,3}$/iu.test(s);
  const tenant=getTenant(tenantId);if(!tenant)return null;const has=id=>tenant.cards.some(c=>c.id===id);
- const review=id=>['contact','status','business-warranty','payment-problem','unclaimed','defect','opened','shipping-cost'].includes(id)||!!tenant.cards.find(c=>c.id===id)?.requiresReview;
+ const review=id=>cardRequiresReview(tenant,id);
  if(rephrase){if(previous&&has(previous))return {ids:[previous],kind:'answer',handoff:review(previous),continuation:true};return {ids:[],kind:'notHelpful',social:true,handoff:false,continuation:true};}
  if(!['delivery','timing','pickup','order','shipping-cost'].includes(previous))return null;
  // A delivery guarantee is about a deadline, not a product warranty.
@@ -74,7 +81,7 @@ export function prioritySupportRoute(text,tenantId='anete'){
 export function safeFallbackRoute(tenant,reference,candidate=null){
  if(reference.handoff)return {...reference,handoff:true};
  const ids=Array.isArray(candidate?.ids)?candidate.ids.filter(id=>tenant.cards.some(c=>c.id===id)):[];
- const requiresReview=ids.some(id=>['contact','status','business-warranty','payment-problem','unclaimed','defect','opened','shipping-cost'].includes(id)||tenant.cards.find(c=>c.id===id)?.requiresReview);
+ const requiresReview=ids.some(id=>cardRequiresReview(tenant,id));
  if(candidate?.handoff||requiresReview){
   const safeIds=ids.length?ids:tenant.cards.some(c=>c.id==='contact')?['contact']:[];
   return {ids:safeIds,kind:safeIds.length?'answer':'unknown',handoff:true};
@@ -162,7 +169,7 @@ export function referenceRoute(text, previous=null, tenantId='anete'){
  let id=englishRoutes.find(([key,re])=>canUse(key)&&re.test(s))?.[0]||routes.find(([key,re])=>canUse(key)&&!(key==='timing'&&/(atmaks|naudu)/.test(s))&&re.test(s))?.[0];
  if(!id&&/^(а сколько|а как|а для него|а если|un cik|un kā|bet ja|and how|and what|what about)/.test(s)&&previous)id=previous;
  const tenant=getTenant(tenantId);if(id!=='greeting'&&!tenant?.cards.some(c=>c.id===id))id=null;
- return {ids:id&&id!=='greeting'?[id]:[],kind:id==='greeting'?'greeting':id?'answer':'unknown',handoff:['contact','status','business-warranty','payment-problem','unclaimed','defect','opened','shipping-cost'].includes(id)||!!tenant?.cards.find(c=>c.id===id)?.requiresReview};
+ return {ids:id&&id!=='greeting'?[id]:[],kind:id==='greeting'?'greeting':id?'answer':'unknown',handoff:cardRequiresReview(tenant,id)};
 }
 const genericClarify={ru:'Уточните, пожалуйста, что хотите узнать о магазине или товаре.',lv:'Lūdzu, precizējiet jautājumu par veikalu vai preci.',en:'Could you clarify your question about the shop or a product?'};
 export function render(tenantId,locale,result,mode){
@@ -217,7 +224,7 @@ export async function aiRoute(tenant,text,previous,fetcher=fetch){
   const sensitive=['status','contact','business-warranty','payment-problem','defect','unclaimed','opened','shipping-cost'];
   if(routineChangeOfMind&&!complications&&!sensitive.includes(previous)&&!referenceRoute(text,null,tenant.id).handoff&&out.ids.length&&out.ids.every(id=>['return','return-process','refund'].includes(id)))out.handoff=false;
   // Certain cards ALWAYS require human review regardless of model flag.
-  out.handoff ||= out.ids.some(id=>['status','contact','business-warranty','payment-problem','defect','unclaimed','opened','shipping-cost'].includes(id));
+  out.handoff ||= out.ids.some(id=>cardRequiresReview(tenant,id));
   out.handoff ||= tenant.cards.some(c=>out.ids.includes(c.id)&&c.requiresReview);
   return {ids:out.ids,handoff:out.handoff,kind:out.ids.length?'answer':'unknown'};
  }};
