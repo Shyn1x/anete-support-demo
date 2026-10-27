@@ -1,0 +1,197 @@
+[
+  {
+    "id": "dzijas-control-01",
+    "tenant": "dzijas",
+    "message": "Сколько стоит доставка мотков?",
+    "locale": "ru",
+    "kind": "fact",
+    "cards": [
+      "delivery"
+    ],
+    "group": "policy",
+    "priorCaseId": "dzijas-live-01",
+    "generated": true
+  },
+  {
+    "message": "Compare the material and weight: https://dzijas.lv/products/drops-saga and https://dzijas.lv/products/grundl-hot-socks-xmas-4",
+    "locale": "en",
+    "kind": "comparison",
+    "cards": [],
+    "generated": true,
+    "products": [
+      "https://dzijas.lv/products/drops-saga",
+      "https://dzijas.lv/products/grundl-hot-socks-xmas-4"
+    ],
+    "id": "dzijas-control-05",
+    "tenant": "dzijas",
+    "priorCaseId": "dzijas-live-05"
+  },
+  {
+    "message": "Compare the material and weight: https://www.jig.lv/products/lv/465/6104/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-3-18g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html and https://www.jig.lv/products/lv/465/6105/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-10-30g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html",
+    "locale": "en",
+    "kind": "comparison",
+    "cards": [],
+    "generated": true,
+    "products": [
+      "https://www.jig.lv/products/lv/465/6104/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-3-18g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html",
+      "https://www.jig.lv/products/lv/465/6105/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-10-30g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html"
+    ],
+    "id": "jig-control-05",
+    "tenant": "jig",
+    "priorCaseId": "jig-live-05"
+  },
+  {
+    "id": "musiclab-control-01",
+    "tenant": "musiclab",
+    "message": "Как доставят заказ с микрофоном?",
+    "locale": "ru",
+    "kind": "fact",
+    "cards": [
+      "delivery"
+    ],
+    "group": "policy",
+    "priorCaseId": "musiclab-live-01",
+    "generated": true
+  },
+  {
+    "message": "Какой вес указан? https://musiclab.lv/produkts/lone-pine-6-5-inch-powered-studio-monitor-gray-limited/",
+    "locale": "ru",
+    "kind": "product",
+    "cards": [],
+    "generated": true,
+    "product": "https://musiclab.lv/produkts/lone-pine-6-5-inch-powered-studio-monitor-gray-limited/",
+    "id": "musiclab-control-03",
+    "tenant": "musiclab",
+    "priorCaseId": "musiclab-live-03"
+  },
+  {
+    "message": "Compare the material and weight: https://musiclab.lv/produkts/lone-pine-6-5-inch-powered-studio-monitor-gray-limited/ and https://musiclab.lv/produkts/lone-pine-v2-6-5-inch-powered-studio-monitor/",
+    "locale": "en",
+    "kind": "comparison",
+    "cards": [],
+    "generated": true,
+    "products": [
+      "https://musiclab.lv/produkts/lone-pine-6-5-inch-powered-studio-monitor-gray-limited/",
+      "https://musiclab.lv/produkts/lone-pine-v2-6-5-inch-powered-studio-monitor/"
+    ],
+    "id": "musiclab-control-05",
+    "tenant": "musiclab",
+    "priorCaseId": "musiclab-live-05"
+  },
+  {
+    "id": "etextile-control-01",
+    "tenant": "etextile",
+    "message": "Сколько стоит курьерская доставка фурнитуры?",
+    "locale": "ru",
+    "kind": "fact",
+    "cards": [
+      "delivery"
+    ],
+    "group": "policy",
+    "priorCaseId": "etextile-live-01",
+    "generated": true
+  },
+  {
+    "message": "What about the material?",
+    "locale": "en",
+    "kind": "product",
+    "cards": [],
+    "generated": true,
+    "product": "https://www.etextile.lv/product/20817932/prese-furniturai",
+    "id": "etextile-control-04",
+    "tenant": "etextile",
+    "priorCaseId": "etextile-live-04",
+    "seed": {
+      "caseId": "etextile-live-03",
+      "history": [
+        {
+          "role": "user",
+          "text": "Для чего предназначен этот пресс? https://www.etextile.lv/product/20817932/prese-furniturai"
+        },
+        {
+          "role": "assistant",
+          "text": "Этот пресс предназначен для установки пуговиц, заклепок, петелек, а также используется для пробивки отверстий и шитья одежды, сумок и обуви."
+        }
+      ],
+      "previousTopic": "product-clarify",
+      "productURL": "https://www.etextile.lv/product/20817932/prese-furniturai"
+    }
+  },
+  {
+    "message": "Compare the material and weight: https://www.etextile.lv/product/20817932/prese-furniturai and https://www.etextile.lv/product/20818182/preses-uzgali-luversiem",
+    "locale": "en",
+    "kind": "comparison",
+    "cards": [],
+    "generated": true,
+    "products": [
+      "https://www.etextile.lv/product/20817932/prese-furniturai",
+      "https://www.etextile.lv/product/20818182/preses-uzgali-luversiem"
+    ],
+    "id": "etextile-control-05",
+    "tenant": "etextile",
+    "priorCaseId": "etextile-live-05"
+  },
+  {
+    "id": "zummers-control-01",
+    "tenant": "zummers",
+    "message": "Где посмотреть цену доставки синтезатора?",
+    "locale": "ru",
+    "kind": "fact",
+    "cards": [
+      "delivery"
+    ],
+    "group": "policy",
+    "priorCaseId": "zummers-live-01",
+    "generated": true
+  },
+  {
+    "id": "dzijas-control-lv",
+    "tenant": "dzijas",
+    "message": "Kāds ir norādītais kamola svars? https://dzijas.lv/products/drops-saga",
+    "locale": "lv",
+    "kind": "product",
+    "cards": [],
+    "generated": true,
+    "product": "https://dzijas.lv/products/drops-saga"
+  },
+  {
+    "id": "jig-control-lv",
+    "tenant": "jig",
+    "message": "Kāds materiāls norādīts šai makšķerei? https://www.jig.lv/products/lv/465/6104/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-3-18g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html",
+    "locale": "lv",
+    "kind": "product",
+    "cards": [],
+    "generated": true,
+    "product": "https://www.jig.lv/products/lv/465/6104/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-3-18g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html"
+  },
+  {
+    "id": "musiclab-control-lv",
+    "tenant": "musiclab",
+    "message": "Kāds ir norādītais svars? https://musiclab.lv/produkts/lone-pine-6-5-inch-powered-studio-monitor-gray-limited/",
+    "locale": "lv",
+    "kind": "product",
+    "cards": [],
+    "generated": true,
+    "product": "https://musiclab.lv/produkts/lone-pine-6-5-inch-powered-studio-monitor-gray-limited/"
+  },
+  {
+    "id": "etextile-control-lv",
+    "tenant": "etextile",
+    "message": "Kam paredzēta šī prese? https://www.etextile.lv/product/20817932/prese-furniturai",
+    "locale": "lv",
+    "kind": "product",
+    "cards": [],
+    "generated": true,
+    "product": "https://www.etextile.lv/product/20817932/prese-furniturai"
+  },
+  {
+    "id": "zummers-control-lv",
+    "tenant": "zummers",
+    "message": "Kāds ir augšējā slieksnīša platums? https://www.zummers.lv/product-page/sx-sd104-rds-akustisk%C4%81-%C4%A3it%C4%81ra",
+    "locale": "lv",
+    "kind": "product",
+    "cards": [],
+    "generated": true,
+    "product": "https://www.zummers.lv/product-page/sx-sd104-rds-akustisk%C4%81-%C4%A3it%C4%81ra"
+  }
+]
