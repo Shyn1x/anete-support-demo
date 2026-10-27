@@ -1,0 +1,122 @@
+{
+  "schema": "pilot-control-human-review-v1",
+  "sourceFile": "pilot-control-15-2026-10-27T20-19-23-090Z.json",
+  "sourceSha256": "81f8676271f4210e1599633542f2251b728167a1ba0b6541f0a1118e62919ed2",
+  "historicalSummary": {
+    "attempted": 15,
+    "completed": 15,
+    "autoAccepted": 12,
+    "providerReported": 15,
+    "ambiguous": 0
+  },
+  "newPaidCalls": 0,
+  "deployedPatch": false,
+  "method": "All 15 returned texts reviewed against existing reviewed profiles and product snapshots. Rejected model prose is not present; the exact cause of each live rejection remains unproven. Original scores are not changed.",
+  "rows": [
+    {
+      "id": "dzijas-control-01",
+      "priorCaseId": "dzijas-live-01",
+      "originalAutoPass": true,
+      "review": "no-additional-issue-observed",
+      "note": "Способы и порог более 50 € сохранены, лишнего handoff нет."
+    },
+    {
+      "id": "dzijas-control-05",
+      "priorCaseId": "dzijas-live-05",
+      "originalAutoPass": false,
+      "review": "comparison-still-needs-live-confirmation",
+      "note": "Оба источника прочитаны, безопасный ответ вернул вес 50/100 г. Генерация отклонена: catalog_material_qualification. Материал не показан, хотя есть в сохранённых описаниях. Отклонённого текста нет; точная причинность не доказана."
+    },
+    {
+      "id": "jig-control-05",
+      "priorCaseId": "jig-live-05",
+      "originalAutoPass": false,
+      "review": "comparison-still-needs-live-confirmation",
+      "note": "Оба источника прочитаны, генерация отклонена: catalog_quantity_binding. Масса удилищ остаётся неподтверждённой; нельзя выводить её из тестов приманок. Отклонённого текста нет."
+    },
+    {
+      "id": "musiclab-control-01",
+      "priorCaseId": "musiclab-live-01",
+      "originalAutoPass": true,
+      "review": "no-additional-issue-observed",
+      "note": "Способы доставки, условный срок после подтверждения при наличии товара и отсутствие лишнего handoff соответствуют профилю."
+    },
+    {
+      "id": "musiclab-control-03",
+      "priorCaseId": "musiclab-live-03",
+      "originalAutoPass": true,
+      "review": "no-additional-issue-observed",
+      "note": "Верный вес 8.5 кг принят после исправления десятичной записи."
+    },
+    {
+      "id": "musiclab-control-05",
+      "priorCaseId": "musiclab-live-05",
+      "originalAutoPass": false,
+      "review": "comparison-still-needs-live-confirmation",
+      "note": "Оба источника прочитаны, генерация отклонена: catalog_quantity_binding. Безопасный ответ правильно сохранил по 8.5 кг для каждого. Отклонённого текста нет."
+    },
+    {
+      "id": "etextile-control-01",
+      "priorCaseId": "etextile-live-01",
+      "originalAutoPass": true,
+      "review": "no-additional-issue-observed",
+      "note": "Цена 5–10 € и обычный срок после оплаты соответствуют профилю; лишнего handoff нет."
+    },
+    {
+      "id": "etextile-control-04",
+      "priorCaseId": "etextile-live-04",
+      "originalAutoPass": true,
+      "review": "no-additional-issue-observed",
+      "note": "Неверный furniture press исчез; материал корректно не подтверждён. Название осталось в оригинале, это допустимо для ссылки на модель."
+    },
+    {
+      "id": "etextile-control-05",
+      "priorCaseId": "etextile-live-05",
+      "originalAutoPass": true,
+      "review": "no-additional-issue-observed",
+      "note": "Назначение пресса отделено от стальных насадок, материал не перенесён на пресс, неизвестный вес обоих явно оговорён."
+    },
+    {
+      "id": "zummers-control-01",
+      "priorCaseId": "zummers-live-01",
+      "originalAutoPass": true,
+      "review": "no-additional-issue-observed",
+      "note": "Место проверки цены и сроков указано правильно: оформление заказа. Лишнего handoff нет."
+    },
+    {
+      "id": "dzijas-control-lv",
+      "priorCaseId": null,
+      "originalAutoPass": true,
+      "review": "no-additional-issue-observed",
+      "note": "Содержательный латышский ответ: верный вес мотка 50 г."
+    },
+    {
+      "id": "jig-control-lv",
+      "priorCaseId": null,
+      "originalAutoPass": true,
+      "review": "no-additional-issue-observed",
+      "note": "Содержательный латышский ответ: графит IM9 TORAY подтверждён сохранённым описанием."
+    },
+    {
+      "id": "musiclab-control-lv",
+      "priorCaseId": null,
+      "originalAutoPass": true,
+      "review": "no-additional-issue-observed",
+      "note": "Содержательный латышский ответ: верный вес 8,5 кг."
+    },
+    {
+      "id": "etextile-control-lv",
+      "priorCaseId": null,
+      "originalAutoPass": true,
+      "review": "accepted-with-minor-wording-note",
+      "note": "Назначение пресса соответствует описанию. Незначительная языковая опечатка kniedžu вместо kniežu не меняет предметный смысл."
+    },
+    {
+      "id": "zummers-control-lv",
+      "priorCaseId": null,
+      "originalAutoPass": true,
+      "review": "no-additional-issue-observed",
+      "note": "Содержательный латышский ответ: ширина верхнего порожка 43 мм подтверждена описанием."
+    }
+  ]
+}

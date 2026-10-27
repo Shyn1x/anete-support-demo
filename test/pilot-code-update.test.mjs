@@ -44,3 +44,9 @@ test('update entrypoints keep receipts, use a pinned clean folder and do not lau
  assert(!/\/api\/chat|secret.{0,4}bulk|unlink\(|rm\(/iu.test(js));assert(js.includes("open(receipt,'wx'"));
  const env=pilotCliEnvironment(true);assert.equal(env.WRANGLER_WRITE_LOGS,'false');assert.equal(env.WRANGLER_SEND_METRICS,'false');assert.equal(env.WRANGLER_LOG,'log');
 });
+
+test('v3 update preserves the v2 receipt and uses a separate nonfinancial audit receipt',async()=>{
+ const js=await readFile(new URL('../scripts/update-pilot-code.mjs',import.meta.url),'utf8'),ps=await readFile(new URL('../scripts/start-pilot-code-update.ps1',import.meta.url),'utf8');
+ assert(js.includes("UPDATE_RECEIPT='pilot-code-update-comparison-v3.json'"));assert(js.includes('priorUpdate.revision!==PREVIOUS_REVISION'));assert(js.includes("[PREVIOUS_REVISION,PILOT_BUYER_REVISION]"));
+ assert(ps.includes('pilot-code-update-comparison-v3.json'));assert(ps.includes('Previous v2 update receipt missing'));
+});

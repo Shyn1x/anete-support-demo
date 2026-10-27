@@ -1,3 +1,4 @@
+import {confirmedFibreComposition} from './catalog-measurements.js';
 import {canonicalDecimal} from './decimal-evidence.js';
 // Bounded, deterministic product facts. Unknown prose is never auto-translated.
 const fold=s=>String(s).normalize('NFKD').replace(/\p{M}/gu,'').toLowerCase().replace(/ё/g,'е');
@@ -6,7 +7,7 @@ const fields=[
  ['material',/материал|подклад|верх|material|leather|lining|upper|materi[aā]l|odere|virsm/iu,/материал|подклад|верх|material|leather|lining|upper|materi[aā]l|odere|virsm|āda/iu],
  ['colours',/цвет|красок|краски|colou?r|kr[aā]su/iu,/цвет|красок|краски|colou?r|kr[aā]s/iu],
  ['batteries',/батар|battery|batteries|bater/iu,/батар|battery|batteries|bater/iu],
- ['weight',/вес|weight|svars/iu,/вес|weight|svars/iu],
+ ['weight',/вес|weight|svar(?:s|u|a|am|ā)(?!\p{L})/iu,/вес|weight|svar(?:s|u|a|am|ā)(?!\p{L})/iu],
  ['capacity',/вместим|человек|people|persons|capacity|cilv[eē]k|person[aā]m/iu,/вместим|человек|people|persons|capacity|cilv[eē]k|person[aā]m/iu],
  ['age',/возраст|\bage\b|vecum/iu,/возраст|\bage\b|vecum|mēneš|month/iu]
 ];
@@ -67,7 +68,7 @@ function knownComposition(product,locale){
  if(found.length)found.push({ru:'Это часть состава; полный список смотрите на странице товара.',lv:'Tā ir daļa no sastāva; pilnu sarakstu skatiet preces lapā.',en:'These are some ingredients; see the product page for the full list.'}[locale]);
  return found;
 }
-export function knownCatalogDetails(product,message,locale,{includeWeight=false}={}){
+export function knownCatalogDetails(product,message,locale,{includeWeight=false,includeFibres=false}={}){
  const wanted=requestedCatalogFields(message),out=[];
  if(wanted.includes('age')){
   // Only an explicit technical label, never a model/title numeral or the
@@ -86,6 +87,7 @@ export function knownCatalogDetails(product,message,locale,{includeWeight=false}
    out.push({field:'weight',text:{ru:`Указанный вес: ${value} ${u}.`,lv:`Norādītais svars: ${value} ${u}.`,en:`Listed weight: ${value} ${u}.`}[locale]});
   }
  }
+ if(includeFibres&&(wanted.includes('material')||wanted.includes('composition'))){const composition=confirmedFibreComposition(product,locale);if(composition)out.push({field:wanted.includes('material')?'material':'composition',text:composition});}
  if(wanted.includes('composition'))for(const text of knownComposition(product,locale))out.push({field:'composition',text});
  if(wanted.includes('material'))for(const [key,value]of Object.entries(productMaterialFields(product,locale)))if(value)out.push({field:'material',text:labels[locale][key]+': '+value+'.'});
  if(wanted.includes('colours')){
