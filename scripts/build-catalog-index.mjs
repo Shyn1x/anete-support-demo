@@ -1,4 +1,5 @@
-import {readFile,writeFile,mkdir,copyFile} from 'node:fs/promises';
+import {readFile,mkdir,copyFile} from 'node:fs/promises';
+import {writeBuildFile as writeFile} from './atomic-build-file.mjs';
 import {getTenant} from '../src/kb.js';import {validateIndex} from '../src/catalog-index.js';
 export async function catalogueAsset(id){
  const root='public/catalog-index/'+id,manifest=JSON.parse(await readFile(root+'/manifest.json','utf8'));

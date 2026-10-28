@@ -18,7 +18,7 @@ function runtime(id,budget,provider){
 test('workerd/SQLite: four owned yarn refs cover weight and composition in RU/LV/EN, retaining the existing budget',async()=>{
  let calls=0;
  const {mf,post,products}=runtime('dzijas',30000,body=>{
-  calls++;assert.equal(body.max_output_tokens,450);assert.equal(body.store,false);assert.equal(body.text.format.schema.properties.evidence.maxItems,6);
+  calls++;assert.equal(body.max_output_tokens,450);assert.equal(body.store,false);assert.equal(body.text.format.schema.properties.answers.items.properties.evidence.maxItems,3);
   const locale=body.instructions.match(/^Reply in (ru|lv|en),/u)[1];return response(replies[locale],['evidence_0_0','evidence_0_1','evidence_1_0','evidence_1_1']);
  });
  try{

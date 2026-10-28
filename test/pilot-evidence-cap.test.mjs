@@ -23,8 +23,8 @@ const wire=(reply,evidence=four,selected=ids)=>model({ids:selected,reply,evidenc
 for(const locale of ['ru','lv','en'])test(locale+': two yarns can cite separate composition and weight excerpts without changing a fact',()=>{
  const r=catalogReplyRequest(getTenant('dzijas'),yarn,query[locale],locale,{requireAll:true});
  assert.equal(r.parse(wire(replies[locale])).text,replies[locale]);
- const schema=r.body.text.format.schema.properties.evidence;
- assert.equal(schema.minItems,2);assert.equal(schema.maxItems,6);
+ const schema=r.body.text.format.schema.properties.answers.items.properties.evidence;
+ assert.equal(schema.minItems,1);assert.equal(schema.maxItems,3);
  assert.equal(r.body.store,false);assert.equal(r.body.max_output_tokens,450);assert.equal(r.body.text.format.strict,true);
  for(const ref of four)assert(schema.items.enum.includes(ref));
  assert.match(r.body.instructions,/up to 3 distinct supporting refs per selected product/u);
@@ -33,7 +33,8 @@ test('preview schema and parser bound reference counts by product count and avai
  for(const n of [1,2,3]){
   const products=Array.from({length:n},(_,i)=>({...yarn[i%2],title:'Yarn '+i}));
   const r=catalogReplyRequest(getTenant('dzijas'),products,'Compare weight','en',{requireAll:true});
-  assert.equal(r.body.text.format.schema.properties.evidence.maxItems,n*3);
+  const properties=r.body.text.format.schema.properties;
+  assert.equal(properties.answers?properties.answers.items.properties.evidence.maxItems:properties.evidence.maxItems,n>1?3:n*3);
   const all=facts(r).flatMap(f=>f.evidenceChoices.slice(0,3).map(c=>c.ref));
   assert.equal(r.parse(model({ids:products.map((_,i)=>'catalog:'+i),reply:'The requested detail is unconfirmed.',evidence:all})).ids.length,n);
  }
@@ -110,7 +111,7 @@ for(const locale of ['ru','lv'])test(locale+': conjunction and ordinal fixes nev
 for(const locale of ['ru','lv','en'])test(locale+': full Worker accepts four refs once and the existing budget stops the next attempt',async()=>{
  const {env,storage}=environment({TENANT_ID:'dzijas',NEXT_BATCH_ENABLED:'true',AI_ENABLED:'true',AI_CONVERSATIONAL:'true',CATALOG_ENABLED:'true',OPENAI_API_KEY:'synthetic-test-key',DEMO_PASSWORD:'synthetic-evidence-password',TOTAL_BUDGET_MICRO_USD:'10000'});let paid=0;
  const worker=createWorker(async(url,options)=>{
-  if(url==='https://api.openai.com/v1/responses'){paid++;const body=JSON.parse(options.body);assert.equal(body.text.format.schema.properties.evidence.maxItems,6);return Response.json(wire(replies[locale]));}
+  if(url==='https://api.openai.com/v1/responses'){paid++;const body=JSON.parse(options.body);assert.equal(body.text.format.schema.properties.answers.items.properties.evidence.maxItems,3);return Response.json(wire(replies[locale]));}
   const p=yarn.find(p=>p.url===url);assert(p,'only the two requested shop pages may be read');
   return new Response('<script type="application/ld+json">'+JSON.stringify({'@type':'Product',url:p.url,name:p.title,description:p.lines.join('\n')})+'</script>',{headers:{'Content-Type':'text/html'}});
  });

@@ -67,7 +67,7 @@ test('two product comparison still cannot copy the other product weight or inter
 });
 test('catalog source references remain strict and excessive reference counts have a distinct safe diagnostic',()=>{
  const pair=samples.filter(p=>p.tenant==='dzijas').slice(0,2).map(product),route=catalogReplyRequest(getTenant('dzijas'),pair,'Compare material and weight','en',{requireAll:true});
- assert.equal(route.body.text.format.schema.properties.evidence.items.type,'string');
+ assert.equal(route.body.text.format.schema.properties.answers.items.properties.evidence.items.type,'string');
  const out={ids:['catalog:0','catalog:1'],reply:'The requested details are unconfirmed.',evidence:['evidence_999_0','evidence_1_0']};
  assert.throws(()=>route.parse(model(out)),e=>catalogEvidenceReason(e)==='unknown_reference');
  out.evidence=['evidence_0_0','evidence_0_1','evidence_0_2','evidence_0_3','evidence_1_0'];

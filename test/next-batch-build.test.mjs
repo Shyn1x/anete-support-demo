@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFile,readdir} from 'node:fs/promises';
+import {readFile,readdir,mkdtemp,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
 import vm from 'node:vm';
 import {buildNextBatch} from '../scripts/build-next-batch.mjs';
 import {profiles} from '../staging/next-batch/profiles.mjs';
@@ -8,7 +10,9 @@ import {reply} from '../staging/next-batch/dialogue.mjs';
 import {starters} from '../staging/next-batch/starters.mjs';
 
 test('ten standalone previews compile without provider access or sibling shop data',async()=>{
- const path=await buildNextBatch();
+ const temporary=await mkdtemp(join(tmpdir(),'offline-previews-test-'));
+ try{
+ const path=await buildNextBatch({destination:join(temporary,'previews')});
  assert.equal((await readdir(path)).length,11);
  for(const profile of profiles){
   const html=await readFile(`${path}/${profile.id}.html`,'utf8');
@@ -47,4 +51,5 @@ test('ten standalone previews compile without provider access or sibling shop da
    const answer=reply(profile,starters[profile.id][locale],locale);assert.ok(answer.cardId,`${profile.id}/${locale} starter reaches its topic`);
   }
  }
+ }finally{await rm(temporary,{recursive:true,force:true});}
 });

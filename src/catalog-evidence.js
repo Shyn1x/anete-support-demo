@@ -68,7 +68,16 @@ function knownComposition(product,locale){
  if(found.length)found.push({ru:'Это часть состава; полный список смотрите на странице товара.',lv:'Tā ir daļa no sastāva; pilnu sarakstu skatiet preces lapā.',en:'These are some ingredients; see the product page for the full list.'}[locale]);
  return found;
 }
-export function knownCatalogDetails(product,message,locale,{includeWeight=false,includeFibres=false}={}){
+function confirmedRodBlank(product,locale){
+ // Exact observed LV construction label only, not a material guessed from a
+ // model title or a brand. Additional/negated/conflicting labels fail closed.
+ const segments=product.lines.flatMap(l=>l.split(/(?<=[.!?])\s+/u)).map(s=>s.trim());
+ if(segments.some(s=>/^(?:Materiāls|Material|Материал)\s*:/iu.test(s)))return null;
+ const definitions=[...new Set(segments.filter(s=>/\bBlanka\b/iu.test(s)))];
+ if(definitions.length!==1||!/^Blanka no IM9 japāņu ražotāja TORAY grafīta(?:\s*[,.;]|$)/u.test(definitions[0]))return null;
+ return {ru:'Материал бланка: графит IM9 (TORAY).',lv:'Blankas materiāls: IM9 grafīts (TORAY).',en:'Blank material: IM9 graphite (TORAY).'}[locale];
+}
+export function knownCatalogDetails(product,message,locale,{includeWeight=false,includeFibres=false,includeRodBlank=false}={}){
  const wanted=requestedCatalogFields(message),out=[];
  if(wanted.includes('age')){
   // Only an explicit technical label, never a model/title numeral or the
@@ -90,6 +99,7 @@ export function knownCatalogDetails(product,message,locale,{includeWeight=false,
  if(includeFibres&&(wanted.includes('material')||wanted.includes('composition'))){const composition=confirmedFibreComposition(product,locale);if(composition)out.push({field:wanted.includes('material')?'material':'composition',text:composition});}
  if(wanted.includes('composition'))for(const text of knownComposition(product,locale))out.push({field:'composition',text});
  if(wanted.includes('material'))for(const [key,value]of Object.entries(productMaterialFields(product,locale)))if(value)out.push({field:'material',text:labels[locale][key]+': '+value+'.'});
+ if(includeRodBlank&&wanted.includes('material')){const text=confirmedRodBlank(product,locale);if(text)out.push({field:'material',text});}
  if(wanted.includes('colours')){
   const m=product.title.match(/(?:^|[^\d])([1-9]\d{0,2})\s*(?:krāsas|krāsu|colou?rs|цветов|цвета)(?!\p{L})/iu);
   if(m)out.push({field:'colours',text:{ru:`В наборе ${m[1]} цветов.`,lv:`Komplektā ir ${m[1]} krāsas.`,en:`The set contains ${m[1]} colours.`}[locale]});
@@ -100,7 +110,11 @@ export function confirmedCatalogComparison(products,message,locale,options={}){
  const wanted=requestedCatalogFields(message),query=wanted.length?message:'material ingredients age colours';
  const details=products.map(p=>knownCatalogDetails(p,query,locale,options));if(!details.some(ds=>ds.length))return null;
  const copy={ru:{intro:'По прочитанным описаниям:',missing:'Эти характеристики в прочитанных данных не подтверждены.',partial:'Не все запрошенные характеристики удалось подтвердить.',end:'Сравнение включает только перечисленные подтверждённые сведения.'},lv:{intro:'Pēc nolasītajiem aprakstiem:',missing:'Šīs īpašības nolasītajos datos nav apstiprinātas.',partial:'Ne visas pieprasītās īpašības varēju apstiprināt.',end:'Salīdzinājumā ietverta tikai norādītā apstiprinātā informācija.'},en:{intro:'From the descriptions read:',missing:'These specifications are not confirmed in the read data.',partial:'Not all requested specifications could be confirmed.',end:'This compares only the listed confirmed details.'}}[locale];
- return copy.intro+'\n\n'+products.map((p,i)=>p.title+'\n'+(details[i].length?details[i].map(d=>d.text).join(' '):copy.missing)+(details[i].length&&wanted.some(k=>!details[i].some(d=>d.field===k))?' '+copy.partial:'')).join('\n\n')+'\n\n'+copy.end;
+ return copy.intro+'\n\n'+products.map((p,i)=>{
+  const missing=wanted.filter(k=>!details[i].some(d=>d.field===k));
+  const partial=options.includeRodBlank&&missing.length===1&&missing[0]==='weight'?{ru:'Масса самого удилища в прочитанных данных не подтверждена.',lv:'Paša kāta svars nolasītajos datos nav apstiprināts.',en:'The rod itself has no confirmed weight in the read data.'}[locale]:copy.partial;
+  return p.title+'\n'+(details[i].length?details[i].map(d=>d.text).join(' '):copy.missing)+(details[i].length&&missing.length?' '+partial:'');
+ }).join('\n\n')+'\n\n'+copy.end;
 }
 const bounds=[['min',/(?:at least|minimum|min\.?|no less than|vismaz|ne maz[aā]k k[aā]|не менее|минимум|не меньше)\s*$/iu],['max',/(?:at most|maximum|max\.?|up to|no more than|ne vair[aā]k k[aā]|l[iī]dz|не более|максимум|до)\s*$/iu],['approx',/(?:about|around|approximately|approx\.?|apm[eē]ram|aptuveni|около|примерно|приблизительно)\s*$/iu]];
 const percentageSubjects=[['poultry',/птиц\p{L}*|poultry|putnu/giu],['chicken',/курин\p{L}*|куриц\p{L}*|chicken|vist\p{L}*/giu],['protein',/белк\p{L}*|protein\p{L}*|olbaltum\p{L}*/giu],['fat',/жир\p{L}*|\bfats?\b|tauki\p{L}*/giu],['fibre',/клетчат\p{L}*|\bfib(?:re|er)\b|šķiedr\p{L}*/giu],['moisture',/влажност\p{L}*|moisture|mitrums/giu]];

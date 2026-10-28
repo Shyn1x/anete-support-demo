@@ -6,10 +6,10 @@ import {build} from 'esbuild';
 import {profiles} from '../staging/next-batch/profiles.mjs';
 import {starters} from '../staging/next-batch/starters.mjs';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
-const destination=resolve(root,'dist/next-batch');
+const defaultDestination=resolve(root,'dist/next-batch');
 const {sources}=JSON.parse(await readFile(resolve(root,'staging/next-batch/sources.json'),'utf8'));
 const escape=s=>s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
-export async function buildNextBatch(){
+export async function buildNextBatch({destination=defaultDestination}={}){
  await rm(destination,{recursive:true,force:true});await mkdir(destination,{recursive:true});
  for(const profile of profiles){
   const selected=sources.filter(s=>s.id.startsWith(profile.id+'-'));
