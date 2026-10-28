@@ -1,0 +1,32 @@
+[
+  {
+    "message": "Compare the material and weight: https://dzijas.lv/products/drops-saga and https://dzijas.lv/products/grundl-hot-socks-xmas-4",
+    "locale": "en",
+    "kind": "comparison",
+    "cards": [],
+    "generated": true,
+    "products": [
+      "https://dzijas.lv/products/drops-saga",
+      "https://dzijas.lv/products/grundl-hot-socks-xmas-4"
+    ],
+    "id": "dzijas-comparison-v4",
+    "tenant": "dzijas",
+    "priorCaseId": "dzijas-comparison-v3",
+    "originalCaseId": "dzijas-live-05"
+  },
+  {
+    "message": "Compare the material and weight: https://www.jig.lv/products/lv/465/6104/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-3-18g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html and https://www.jig.lv/products/lv/465/6105/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-10-30g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html",
+    "locale": "en",
+    "kind": "comparison",
+    "cards": [],
+    "generated": true,
+    "products": [
+      "https://www.jig.lv/products/lv/465/6104/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-3-18g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html",
+      "https://www.jig.lv/products/lv/465/6105/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-10-30g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html"
+    ],
+    "id": "jig-comparison-v4",
+    "tenant": "jig",
+    "priorCaseId": "jig-comparison-v3",
+    "originalCaseId": "jig-live-05"
+  }
+]

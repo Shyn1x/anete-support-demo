@@ -1,0 +1,229 @@
+{
+  "schema": "pilot-comparison-3-v1",
+  "createdAt": "2026-10-28T07:39:20.179Z",
+  "revision": "pilot-buyer-v3",
+  "maximumRequests": 3,
+  "maximumReservationMicroUSD": 30000,
+  "priorReport": {
+    "file": "pilot-control-15-2026-10-27T20-19-23-090Z.json",
+    "sha256": "81f8676271f4210e1599633542f2251b728167a1ba0b6541f0a1118e62919ed2"
+  },
+  "protectedHashes": {
+    "pilot-control-15-2026-10-27T20-19-23-090Z.json": "81f8676271f4210e1599633542f2251b728167a1ba0b6541f0a1118e62919ed2",
+    "pilot-live-50-2026-10-27T17-22-29-407Z.json": "f0a6e31245f48153a537ce1ac1cd245a0af6c7772d275c0314153daaf3af7d02",
+    ".pilot-live-50-20261026.json": "eaaec5fd8b5823e9d678fa0073c09c9de52585113b5b0f9578d0d9a1fb530355",
+    ".pilot-zero-request-resume-20261026.json": "8e67f1a4637d08ea90c7cf587ee95bdda4d5923f515c3c2234cd3f0e6bd0049a",
+    ".pilot-control-15-v2.json": "4351c1054b34709e4b9011fc441f2b56c4c89d2af423578e0afee05e78dcc165"
+  },
+  "plan": [
+    {
+      "message": "Compare the material and weight: https://dzijas.lv/products/drops-saga and https://dzijas.lv/products/grundl-hot-socks-xmas-4",
+      "locale": "en",
+      "kind": "comparison",
+      "cards": [],
+      "generated": true,
+      "products": [
+        "https://dzijas.lv/products/drops-saga",
+        "https://dzijas.lv/products/grundl-hot-socks-xmas-4"
+      ],
+      "id": "dzijas-comparison-v3",
+      "tenant": "dzijas",
+      "priorCaseId": "dzijas-control-05",
+      "originalCaseId": "dzijas-live-05"
+    },
+    {
+      "message": "Compare the material and weight: https://www.jig.lv/products/lv/465/6104/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-3-18g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html and https://www.jig.lv/products/lv/465/6105/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-10-30g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html",
+      "locale": "en",
+      "kind": "comparison",
+      "cards": [],
+      "generated": true,
+      "products": [
+        "https://www.jig.lv/products/lv/465/6104/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-3-18g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html",
+        "https://www.jig.lv/products/lv/465/6105/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-10-30g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html"
+      ],
+      "id": "jig-comparison-v3",
+      "tenant": "jig",
+      "priorCaseId": "jig-control-05",
+      "originalCaseId": "jig-live-05"
+    },
+    {
+      "message": "Compare the material and weight: https://musiclab.lv/produkts/lone-pine-6-5-inch-powered-studio-monitor-gray-limited/ and https://musiclab.lv/produkts/lone-pine-v2-6-5-inch-powered-studio-monitor/",
+      "locale": "en",
+      "kind": "comparison",
+      "cards": [],
+      "generated": true,
+      "products": [
+        "https://musiclab.lv/produkts/lone-pine-6-5-inch-powered-studio-monitor-gray-limited/",
+        "https://musiclab.lv/produkts/lone-pine-v2-6-5-inch-powered-studio-monitor/"
+      ],
+      "id": "musiclab-comparison-v3",
+      "tenant": "musiclab",
+      "priorCaseId": "musiclab-control-05",
+      "originalCaseId": "musiclab-live-05"
+    }
+  ],
+  "rows": [
+    {
+      "id": "dzijas-comparison-v3",
+      "priorCaseId": "dzijas-control-05",
+      "tenant": "dzijas",
+      "question": "Compare the material and weight: https://dzijas.lv/products/drops-saga and https://dzijas.lv/products/grundl-hot-socks-xmas-4",
+      "expectedLocale": "en",
+      "requestSha256": "1db4d7aa97521ae6dc68fe081bf811490603f5fb3091644dc669d151cd155b8d",
+      "state": "complete",
+      "startedAt": "2026-10-28T07:39:28.029Z",
+      "httpStatus": 200,
+      "answer": {
+        "locale": "en",
+        "text": "From the descriptions read:\n\nDROPS SAGA\nListed weight: 50 g. Composition: 100% wool.\n\nGrundl Hot socks Xmas 4\nListed weight: 100 g. Composition: 75% wool, 25% polyamide.\n\nThis compares only the listed confirmed details.",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "DROPS SAGA",
+            "url": "https://dzijas.lv/products/drops-saga",
+            "kind": "product"
+          },
+          {
+            "title": "Grundl Hot socks Xmas 4",
+            "url": "https://dzijas.lv/products/grundl-hot-socks-xmas-4",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": true,
+        "fallbackReason": "answer_validation",
+        "validationReason": "catalog_evidence_quote",
+        "validationDetail": "too_many_references",
+        "productRead": true,
+        "catalogURLs": [
+          "https://dzijas.lv/products/drops-saga",
+          "https://dzijas.lv/products/grundl-hot-socks-xmas-4"
+        ],
+        "readFailures": 0
+      },
+      "assessment": {
+        "pass": false,
+        "issues": [
+          "generated-answer-required"
+        ],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "jig-comparison-v3",
+      "priorCaseId": "jig-control-05",
+      "tenant": "jig",
+      "question": "Compare the material and weight: https://www.jig.lv/products/lv/465/6104/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-3-18g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html and https://www.jig.lv/products/lv/465/6105/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-10-30g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html",
+      "expectedLocale": "en",
+      "requestSha256": "f9e9c3d6962a79a115b6391f888f838489b528e8b3e2e04f166c9a692bd565de",
+      "state": "complete",
+      "startedAt": "2026-10-28T07:39:38.082Z",
+      "httpStatus": 200,
+      "answer": {
+        "locale": "en",
+        "text": "Both fishing rods are made from IM9 graphite produced by Japan's TORAY, ensuring a high-quality blank material. However, the exact weight of each rod is not specified in the available information, so a weight comparison cannot be provided.",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "RYOBI EXCIA 2.70m 3-18g, IM9 (Japan TORAY graphite), fast, K-type SiC rings, split EVA handle, open nano reel seat, spinings",
+            "url": "https://www.jig.lv/products/lv/465/6104/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-3-18g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html",
+            "kind": "product"
+          },
+          {
+            "title": "RYOBI EXCIA 2.70m 10-30g, IM9 (Japan TORAY graphite), fast, K-type SiC rings, split EVA handle, open nano reel seat, spinings",
+            "url": "https://www.jig.lv/products/lv/465/6105/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-10-30g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": true,
+        "conversational": true,
+        "productRead": true,
+        "catalogURLs": [
+          "https://www.jig.lv/products/lv/465/6104/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-3-18g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html",
+          "https://www.jig.lv/products/lv/465/6105/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-10-30g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html"
+        ],
+        "readFailures": 0
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    },
+    {
+      "id": "musiclab-comparison-v3",
+      "priorCaseId": "musiclab-control-05",
+      "tenant": "musiclab",
+      "question": "Compare the material and weight: https://musiclab.lv/produkts/lone-pine-6-5-inch-powered-studio-monitor-gray-limited/ and https://musiclab.lv/produkts/lone-pine-v2-6-5-inch-powered-studio-monitor/",
+      "expectedLocale": "en",
+      "requestSha256": "835d74b1bf6a64eebbd150a5aadffc9844c904e666f57538d4ee3edf7f417fca",
+      "state": "complete",
+      "startedAt": "2026-10-28T07:39:47.443Z",
+      "httpStatus": 200,
+      "answer": {
+        "locale": "en",
+        "text": "Both the \"Lone Pine\" 6.5 Inch Powered Studio Monitor (Gray) limited and the \"Lone Pine\" v2 6.5 Inch Powered Studio Monitor weigh 8.5 kg each. Material details for both products are unconfirmed as this information is not provided in the available data.",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "\"Lone Pine\" 6.5 Inch Powered Studio Monitor (Gray) limited",
+            "url": "https://musiclab.lv/produkts/lone-pine-6-5-inch-powered-studio-monitor-gray-limited/",
+            "kind": "product"
+          },
+          {
+            "title": "\"Lone Pine\" v2 6.5 Inch Powered Studio Monitor",
+            "url": "https://musiclab.lv/produkts/lone-pine-v2-6-5-inch-powered-studio-monitor/",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": true,
+        "conversational": true,
+        "productRead": true,
+        "catalogURLs": [
+          "https://musiclab.lv/produkts/lone-pine-6-5-inch-powered-studio-monitor-gray-limited/",
+          "https://musiclab.lv/produkts/lone-pine-v2-6-5-inch-powered-studio-monitor/"
+        ],
+        "readFailures": 0
+      },
+      "assessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      }
+    }
+  ],
+  "summary": {
+    "attempted": 3,
+    "completed": 3,
+    "autoAccepted": 2,
+    "providerReported": 3,
+    "ambiguous": 0
+  },
+  "requiresHumanReview": true,
+  "preflight": [
+    {
+      "id": "dzijas",
+      "revision": "pilot-buyer-v3",
+      "perCallMicroUSD": 10000
+    },
+    {
+      "id": "jig",
+      "revision": "pilot-buyer-v3",
+      "perCallMicroUSD": 10000
+    },
+    {
+      "id": "musiclab",
+      "revision": "pilot-buyer-v3",
+      "perCallMicroUSD": 10000
+    }
+  ],
+  "updatedAt": "2026-10-28T07:39:49.720Z"
+}
