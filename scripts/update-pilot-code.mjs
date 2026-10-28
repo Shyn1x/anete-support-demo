@@ -8,8 +8,8 @@ import {buildPilotClients} from './build-pilot-clients.mjs';
 import {PILOT_IDS} from './audit-pilot-buyers.mjs';
 import {PILOT_STATE_DIRECTORY} from './run-pilot-live.mjs';
 import {PILOT_BUYER_REVISION} from '../src/pilot-routing.js';
-export const UPDATE_RECEIPT='pilot-code-update-comparison-v3.json';
-const PREVIOUS_REVISION='pilot-buyer-v2';
+export const UPDATE_RECEIPT='pilot-code-update-evidence-v4.json';
+const PREVIOUS_REVISION='pilot-buyer-v3';
 export async function checkExistingPilots(account,credentials,fetcher=fetch){
  if(!/^[a-f0-9]{32}$/i.test(account))throw Error('Invalid account');
  const auth=credentials.type==='api_key'&&credentials.key&&credentials.email?{'X-Auth-Key':credentials.key,'X-Auth-Email':credentials.email}:['oauth','api_token'].includes(credentials.type)&&credentials.token?{Authorization:'Bearer '+credentials.token}:null;
@@ -47,8 +47,8 @@ async function main(){
  if(process.argv.slice(2).join(' ')!=='--update-code-only')throw Error('Explicit code-only update required');
  const publication=JSON.parse(await readFile(resolve(PILOT_STATE_DIRECTORY,'publication.json'),'utf8'));
  for(const id of PILOT_IDS)if(!publication.events?.some(e=>e.id===id&&e.step==='ai-enabled'))throw Error('Original publication receipt missing');
- const priorUpdate=JSON.parse(await readFile(resolve(PILOT_STATE_DIRECTORY,'pilot-code-update-20261027.json'),'utf8'));
- if(priorUpdate.schema!=='pilot-code-update-v1'||priorUpdate.revision!==PREVIOUS_REVISION||PILOT_IDS.some(id=>!priorUpdate.events?.some(e=>e.id===id&&e.step==='public-config-verified')))throw Error('Previous v2 update not confirmed');
+ const priorUpdate=JSON.parse(await readFile(resolve(PILOT_STATE_DIRECTORY,'pilot-code-update-comparison-v3.json'),'utf8'));
+ if(priorUpdate.schema!=='pilot-code-update-v1'||priorUpdate.revision!==PREVIOUS_REVISION||PILOT_IDS.some(id=>!priorUpdate.events?.some(e=>e.id===id&&e.step==='public-config-verified')))throw Error('Previous v3 update not confirmed');
  const receipt=resolve(PILOT_STATE_DIRECTORY,UPDATE_RECEIPT);
  try{await readFile(receipt);throw Error('Update already started. Keep receipt and inspect; do not retry');}catch(e){if(e.code!=='ENOENT')throw e;}
  let who;try{who=JSON.parse(await cli(['whoami','--json'],{capture:true}));checkedAccount(who,process.env.CLOUDFLARE_ACCOUNT_ID);}catch{await cli(['login']);who=JSON.parse(await cli(['whoami','--json'],{capture:true}));}

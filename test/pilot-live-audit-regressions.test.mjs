@@ -70,7 +70,7 @@ test('catalog source references remain strict and excessive reference counts hav
  assert.equal(route.body.text.format.schema.properties.evidence.items.type,'string');
  const out={ids:['catalog:0','catalog:1'],reply:'The requested details are unconfirmed.',evidence:['evidence_999_0','evidence_1_0']};
  assert.throws(()=>route.parse(model(out)),e=>catalogEvidenceReason(e)==='unknown_reference');
- out.evidence=['evidence_0_0','evidence_0_1','evidence_1_0','evidence_1_1'];
+ out.evidence=['evidence_0_0','evidence_0_1','evidence_0_2','evidence_0_3','evidence_1_0'];
  assert.throws(()=>route.parse(model(out)),e=>catalogEvidenceReason(e)==='too_many_references');
  out.evidence=['evidence_0_0','evidence_0_1'];
  assert.throws(()=>route.parse(model(out)),e=>catalogEvidenceReason(e)==='missing_for_product');

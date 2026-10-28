@@ -36,10 +36,10 @@ function activeSentences(reply,products){
  }
  // Do not split decimal numbers at their decimal point.
  // A new explicit subject after a conjunction begins a different clause.
- const split=/(?<!\d)[.!?]+|[.!?]+(?!\d)|[\n;]|\s+(?:while|whereas|but|а|bet|savukārt)\s+(?=(?:the\s+)?(?:first\b|second\b|перв|втор|pirma|otra|\uE000))/giu;
+ const split=/(?<!\d)[.!?]+|[.!?]+(?!\d)|[\n;]|\s+(?:while|whereas|but|а|bet|savukārt)\s+(?=(?:the\s+)?(?:first\b|second\b|перв|втор|pirm[aā]|otr[aā]|\uE000))/giu;
  for(const sentence of masked.split(split)){
   const text=normalize(sentence),named=tokens.flatMap((token,i)=>sentence.includes(token)||names[i]?.test(sentence)?[i]:[]);
-  const ordinal=[/\bfirst\b|перв\p{L}*|\bpirma\p{L}*/iu,/\bsecond\b|втор\p{L}*|\botra\p{L}*/iu].flatMap((re,i)=>i<products.length&&re.test(text)?[i]:[]);
+  const ordinal=[/\bfirst\b|перв\p{L}*|\bpirm[aā]\p{L}*/iu,/\bsecond\b|втор\p{L}*|\botr[aā]\p{L}*/iu].flatMap((re,i)=>i<products.length&&re.test(text)?[i]:[]);
   const collective=/(?<!\p{L})(?:both|each|оба|обе|обоих|каждый|каждая|abi|abas|abiem|abām|abos|abās)(?!\p{L})/iu.test(text);
   // A collective claim is valid only if independently supported by EVERY
   // product below. Never pool different values/fibres from different sources.
@@ -76,7 +76,7 @@ const fibres=[
 function fibrePercentages(text){
  const out=[];
  for(const line of text.split('\n'))for(const m of line.matchAll(/(\d+(?:[.,]\d+)?)\s*%/gu)){
-  const before=line.slice(0,m.index).split(/[,;%]|\band\b|\bun\b|\bи\b/iu).at(-1);
+  const before=line.slice(0,m.index).split(/[,;%]|\band\b|\bun\b|(?<!\p{L})и(?!\p{L})/iu).at(-1);
   const after=line.slice(m.index+m[0].length).split(/[\d%;,]/u)[0];
   const id=(fibres.find(([,re])=>re.test(before))||fibres.find(([,re])=>re.test(after)))?.[0];
   if(id)out.push({id,value:canonicalDecimal(m[1])});

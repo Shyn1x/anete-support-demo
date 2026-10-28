@@ -1,0 +1,148 @@
+{
+  "schema": "pilot-comparison-human-review-v1",
+  "reviewedAt": "2026-10-28",
+  "inputFile": "pilot-comparison-3-2026-10-28T07-39-20-177Z.json",
+  "inputSha256": "1118354df640d084ad9f04dddeacfcef4a1d246745c7abbb7230a45c560275b8",
+  "revision": "pilot-buyer-v3",
+  "originalSummary": {
+    "attempted": 3,
+    "completed": 3,
+    "autoAccepted": 2,
+    "providerReported": 3,
+    "ambiguous": 0
+  },
+  "sourceFixture": "test/fixtures/pilot-products-20261025.json",
+  "sourceLimit": "Manual factual comparison against retained source extracts dated 2026-10-25, not a new merchant crawl or a guarantee of current specifications. Rejected model prose is unavailable. No new paid requests.",
+  "rows": [
+    {
+      "id": "dzijas-comparison-v3",
+      "tenant": "dzijas",
+      "originalCaseId": "dzijas-live-05",
+      "originalAssessment": {
+        "pass": false,
+        "issues": [
+          "generated-answer-required"
+        ],
+        "requiresHumanReview": true
+      },
+      "observedAnswer": {
+        "locale": "en",
+        "text": "From the descriptions read:\n\nDROPS SAGA\nListed weight: 50 g. Composition: 100% wool.\n\nGrundl Hot socks Xmas 4\nListed weight: 100 g. Composition: 75% wool, 25% polyamide.\n\nThis compares only the listed confirmed details.",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "DROPS SAGA",
+            "url": "https://dzijas.lv/products/drops-saga",
+            "kind": "product"
+          },
+          {
+            "title": "Grundl Hot socks Xmas 4",
+            "url": "https://dzijas.lv/products/grundl-hot-socks-xmas-4",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": true,
+        "fallbackReason": "answer_validation",
+        "validationReason": "catalog_evidence_quote",
+        "validationDetail": "too_many_references",
+        "productRead": true,
+        "catalogURLs": [
+          "https://dzijas.lv/products/drops-saga",
+          "https://dzijas.lv/products/grundl-hot-socks-xmas-4"
+        ],
+        "readFailures": 0
+      },
+      "manualReview": {
+        "status": "review-generation-fallback-facts-correct",
+        "reason": "The generated answer was rejected with catalog_evidence_quote / too_many_references. The returned deterministic fallback correctly preserves 50 g / 100% wool and 100 g / 75% wool + 25% polyamide. The rejected answer and exact reference count were not recorded; do not claim its prose was correct or exactly four refs were selected. The preview schema had no maxItems and the parser rejected every reference array longer than three. A four-reference supported synthetic comparison reproduces that structural mismatch."
+      }
+    },
+    {
+      "id": "jig-comparison-v3",
+      "tenant": "jig",
+      "originalCaseId": "jig-live-05",
+      "originalAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      },
+      "observedAnswer": {
+        "locale": "en",
+        "text": "Both fishing rods are made from IM9 graphite produced by Japan's TORAY, ensuring a high-quality blank material. However, the exact weight of each rod is not specified in the available information, so a weight comparison cannot be provided.",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "RYOBI EXCIA 2.70m 3-18g, IM9 (Japan TORAY graphite), fast, K-type SiC rings, split EVA handle, open nano reel seat, spinings",
+            "url": "https://www.jig.lv/products/lv/465/6104/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-3-18g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html",
+            "kind": "product"
+          },
+          {
+            "title": "RYOBI EXCIA 2.70m 10-30g, IM9 (Japan TORAY graphite), fast, K-type SiC rings, split EVA handle, open nano reel seat, spinings",
+            "url": "https://www.jig.lv/products/lv/465/6105/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-10-30g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": true,
+        "conversational": true,
+        "productRead": true,
+        "catalogURLs": [
+          "https://www.jig.lv/products/lv/465/6104/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-3-18g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html",
+          "https://www.jig.lv/products/lv/465/6105/sort/1/filter/0_0_0_0/RYOBI-EXCIA-2.70m-10-30g-IM9-Japan-TORAY-graphite-fast-K-type-SiC-rings-split-EVA-handle-open-nano-reel-seat-spinings.html"
+        ],
+        "readFailures": 0
+      },
+      "manualReview": {
+        "status": "review-unverified-quality-assurance",
+        "reason": "The material claim IM9 graphite from TORAY and the unknown rod masses agree with the retained source extracts. The phrase ensuring a high-quality blank material is an unsupported promotional inference. Automated acceptance remains recorded as true, but manual review does not accept the complete wording."
+      }
+    },
+    {
+      "id": "musiclab-comparison-v3",
+      "tenant": "musiclab",
+      "originalCaseId": "musiclab-live-05",
+      "originalAssessment": {
+        "pass": true,
+        "issues": [],
+        "requiresHumanReview": true
+      },
+      "observedAnswer": {
+        "locale": "en",
+        "text": "Both the \"Lone Pine\" 6.5 Inch Powered Studio Monitor (Gray) limited and the \"Lone Pine\" v2 6.5 Inch Powered Studio Monitor weigh 8.5 kg each. Material details for both products are unconfirmed as this information is not provided in the available data.",
+        "cardIds": [],
+        "sources": [
+          {
+            "title": "\"Lone Pine\" 6.5 Inch Powered Studio Monitor (Gray) limited",
+            "url": "https://musiclab.lv/produkts/lone-pine-6-5-inch-powered-studio-monitor-gray-limited/",
+            "kind": "product"
+          },
+          {
+            "title": "\"Lone Pine\" v2 6.5 Inch Powered Studio Monitor",
+            "url": "https://musiclab.lv/produkts/lone-pine-v2-6-5-inch-powered-studio-monitor/",
+            "kind": "product"
+          }
+        ],
+        "handoff": false,
+        "mode": "catalog",
+        "topic": "product-clarify",
+        "providerUsed": true,
+        "conversational": true,
+        "productRead": true,
+        "catalogURLs": [
+          "https://musiclab.lv/produkts/lone-pine-6-5-inch-powered-studio-monitor-gray-limited/",
+          "https://musiclab.lv/produkts/lone-pine-v2-6-5-inch-powered-studio-monitor/"
+        ],
+        "readFailures": 0
+      },
+      "manualReview": {
+        "status": "accepted-against-retained-source-extracts",
+        "reason": "Both retained product pages list Svars: 8.500000 kg. The answer correctly states 8.5 kg per monitor and explicitly leaves material unconfirmed; it invents no stock or delivery promise."
+      }
+    }
+  ]
+}

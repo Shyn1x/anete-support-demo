@@ -5,8 +5,8 @@ $nodeMajor = [int]((& node -p 'parseInt(process.versions.node)') | Select-Object
 if ($LASTEXITCODE -ne 0 -or $nodeMajor -lt 22) { throw 'Node.js 22 or newer is required.' }
 $state = Join-Path $env:USERPROFILE 'Lomenti-private\pilot-batch-20261026'
 if (-not (Test-Path (Join-Path $state 'publication.json'))) { throw 'Original publication receipt missing.' }
-if (-not (Test-Path (Join-Path $state 'pilot-code-update-20261027.json'))) { throw 'Previous v2 update receipt missing.' }
-if (Test-Path (Join-Path $state 'pilot-code-update-comparison-v3.json')) { throw 'An update already started. Keep the receipt and inspect it.' }
+if (-not (Test-Path (Join-Path $state 'pilot-code-update-comparison-v3.json'))) { throw 'Previous v3 update receipt missing.' }
+if (Test-Path (Join-Path $state 'pilot-code-update-evidence-v4.json')) { throw 'An update already started. Keep the receipt and inspect it.' }
 $work = Join-Path $env:USERPROFILE ('Lomenti-pilot-update-' + $Release.Substring(0,12))
 if (Test-Path -LiteralPath $work) { throw 'This release folder already exists. Inspect it before retrying.' }
 New-Item -ItemType Directory -Path $work | Out-Null

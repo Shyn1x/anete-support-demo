@@ -13,6 +13,21 @@ const noWinter=/(?:no|without|lacks?)\s+(?:any\s+)?(?:special\s+)?winter\s+(?:fe
 const decorativeZip=/decorative\s+(?:zipper|zip\b)|декоративн\p{L}*\s+молни|dekorativ\p{L}*\s+ravejsledz/iu;
 const ordinals=[/\bfirst\b|перв\p{L}*|\bpirma\p{L}*/iu,/\bsecond\b|втор\p{L}*|\botra\p{L}*/iu];
 
+// Preview-only caller: a material name does not establish a quality assurance.
+// Deliberately bounded to observed RU/LV/EN affirmative phrasing, not a general
+// semantic quality scorer. Missing/negated quality statements remain possible.
+export function catalogQualityInferenceReason(reply){
+ const quality=/(?:\b(?:high|top|superior|premium)[ -]quality\b|высок\p{L}*\s+качеств\p{L}*|augst\p{L}*\s+kvalitat\p{L}*)/iu;
+ const assertion=/(?:\b(?:ensur\p{L}*|guarantee\p{L}*|provid\p{L}*|deliver\p{L}*|means?|is|are|has|have)\b|обеспеч\p{L}*|гарантир\p{L}*|nodrosin\p{L}*|garante\p{L}*|\bir\b)/iu;
+ for(const raw of String(reply).split(/[.!?\n;]+|\bbut\b|\bhowever\b|(?<!\p{L})но(?!\p{L})|\bbet\b/iu)){
+  const sentence=fold(raw),q=quality.exec(sentence);if(!q)continue;
+  const before=sentence.slice(0,q.index),near=before.slice(-55);
+  if(/(?:\b(?:not|no|without|cannot|can't|doesn't|don't|isn't|aren't)\b|(?<!\p{L})не(?!\p{L})|\bnav\b|\bnevar\p{L}*)[^,]{0,45}$/iu.test(near))continue;
+  if(assertion.test(near))return 'catalog_unsupported_detail';
+ }
+ return null;
+}
+
 export function catalogPrecisionReason(reply,products){
  const sources=products.map(p=>fold(p.lines.join('\n')));
  const codes=products.map(p=>[...p.title.matchAll(/(?<![\p{L}\p{N}])[A-Za-z]{0,5}\d{3,}(?![\p{L}\p{N}])/gu)].map(m=>fold(m[0])));
